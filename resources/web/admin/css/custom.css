@@ -1,0 +1,26 @@
+body{
+	background: #fff;
+}
+
+.modal.bottom-sheet {
+    max-height: 70%;
+}
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+	-webkit-box-shadow: unset;
+	box-shadow: unset;
+}
+
+.brand-sidebar {
+	-webkit-box-shadow: unset;
+	box-shadow: unset;
+}
+
+footer{
+	display: none;
+}
+
+.card .card-content {
+	 padding: 4px;
+	border-radius: 0 0 2px 2px;
+}
