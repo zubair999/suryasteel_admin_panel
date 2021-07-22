@@ -56,6 +56,10 @@ $route['v1/createbrand'] = 'api/backend/brand/createbrand';
 $route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
 $route['v1/delete-image'] = 'backend/media/deleteimage';
 $route['v1/addstaff'] = 'api/app/admin/staff/add';
+$route['v1/getstaff'] = 'api/app/admin/staff/getStaff';
+$route['v1/getcustomer'] = 'api/app/admin/customer/getCustomer';
+
+
 
 
 
