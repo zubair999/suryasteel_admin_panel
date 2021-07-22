@@ -1,34 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Order extends Backend_Controller {
+
+class Purchase extends Backend_Controller {
     public function __construct() {
         parent::__construct();
     }
 
     public function index(){
-        $this->data['drawTable'] 	= $this->orderTableHead();
-		$this->data['tableId']	    =	'orderlist';
-		$this->data['pl']			=	false;
-        $this->data['page_title'] = 'order list';
-        $this->admin_view('backend/order/index', $this->data);
+        $this->data['page_title'] = 'rating';
+        $this->admin_view('backend/rating/index', $this->data);
     }
-    public function orderTableHead(){
-        $tableHead = array(
-                  0 => 'sr. no.',
-                  1 => 'customer',
-                  2 => 'total',
-                  3 => 'status',
-                  4 => 'action',
-
-        );
-        return $tableHead;
-    }
-
-    public function getOrder(){
-        $data = $this->order_m->getOrder();
-        echo json_encode($data);
-    }
-
 
     public function add(){        
         if($this->input->server('REQUEST_METHOD') === 'POST'){
@@ -51,10 +32,5 @@ class Order extends Backend_Controller {
 
 
 
-
-
 // CLASS ENDS
 }
-
-
- 

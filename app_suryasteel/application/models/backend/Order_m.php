@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('no dierct script access allowed');
 class Order_m extends MY_Model {
 
 	protected $tbl_name = 'orders';
-    protected $primary_col = 'id';
+    protected $primary_col = 'order_id';
     protected $order_by = 'created_on';
 
     public function __construct()
@@ -37,7 +37,7 @@ class Order_m extends MY_Model {
 
         $query = $this->db->query($sql);
         $totalFiltered = $query->num_rows();
-        $sql.= " order by order_id asc limit " . $start . " ," . $requestData['length'] . "   ";
+        $sql.= " order by orders.order_id asc limit " . $start . " ," . $requestData['length'] . "   ";
         $query = $this->db->query($sql);
 
         $SearchResults = $query->result();
@@ -52,7 +52,7 @@ class Order_m extends MY_Model {
             // $crypted_id = $this->outh_m->Encryptor('encrypt', $id);
             $action = $this->data_table_factory_model->orderButtonFactory($id);
             $columnFactory = $this->data_table_factory_model->orderColumnFactory($row);
-            $tableCol = $this->data_table_factory_model->drawTableData($counter, $id, $columnFactory,$row);
+            $tableCol = $this->data_table_factory_model->drawTableData($counter, $id, $columnFactory, $row);
             $j = 0;
             foreach ($tableCol as $key => $value) {
                 $nestedData[] = $tableCol[$j];

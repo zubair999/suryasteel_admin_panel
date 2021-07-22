@@ -1,11 +1,40 @@
 <?php 
 defined('BASEPATH') or exit('no dierct script access allowed');
 
-class Product_m extends MY_Model {
+class Staff_m extends MY_Model {
 
-	protected $tbl_name = 'products';
-    protected $primary_col = 'product_id';
+	protected $tbl_name = 'users';
+    protected $primary_col = 'user_id';
     protected $order_by = 'created_on';
+
+    public $staffAddRules = array(
+        0 => array(
+            'field' => 'username',
+            'label' => 'Username/Email',
+            'rules' => 'trim|required|valid_email|is_unique[users.email]',
+            'errors' => array(
+                'is_unique' => "The Username/Email is already added."
+            ),
+        ),
+        1 => array(
+            'field' => 'role',
+            'label' => 'Role',
+            'rules' => 'trim|required'
+        ),
+        2 => array(
+            'field' => 'password',
+            'label' => 'Password',
+            'rules' => 'trim|required|min_length[5]|max_length[10]'
+        ),
+        3 => array(
+            'field' => 'mobileno',
+            'label' => 'Mobile no',
+            'rules' => 'trim|required|exact_length[10]|is_natural|is_unique[users.mobile_no]',
+            'errors' => array(
+                'is_unique' => "This mobile no is already added."
+            ),
+        )
+    );
 
     public function __construct()
 	{
@@ -13,11 +42,14 @@ class Product_m extends MY_Model {
 	}
 
 
-	public function getProduct(){
+	public function getStaff(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
 
-        $sql = "select * from products";
+        $sql = "select * from users
+            join roles on users.role_id = roles.role_id
+            where users.role_id != 8
+        ";
 
         //echo $sql;
         $query = $this->db->query($sql);
@@ -35,7 +67,7 @@ class Product_m extends MY_Model {
 
         $query = $this->db->query($sql);
         $totalFiltered = $query->num_rows();
-        $sql.= " order by product_id asc limit " . $start . " ," . $requestData['length'] . "   ";
+        $sql.= " order by users.user_id asc limit " . $start . " ," . $requestData['length'] . "   ";
         $query = $this->db->query($sql);
 
         $SearchResults = $query->result();
@@ -46,10 +78,10 @@ class Product_m extends MY_Model {
         foreach ($SearchResults as $row) {
             $counter++;
             $nestedData = array();
-            $id = $row->product_id;
+            $id = $row->user_id;
             // $crypted_id = $this->outh_m->Encryptor('encrypt', $id);
-            $action = $this->data_table_factory_model->productsButtonFactory($id);
-            $columnFactory = $this->data_table_factory_model->productsColumnFactory($row);
+            $action = $this->data_table_factory_model->staffButtonFactory($id);
+            $columnFactory = $this->data_table_factory_model->staffColumnFactory($row);
             $tableCol = $this->data_table_factory_model->drawTableData($counter, $id, $columnFactory,$row);
             $j = 0;
             foreach ($tableCol as $key => $value) {
@@ -79,9 +111,8 @@ class Product_m extends MY_Model {
                              p.type, 
                              p.product_name,
                              p.mrp,
-                             p.sell_price,
+                             p.total,
                              p.status,
-                             p.thumbnail as image_id,
                              i.thumbnail
                              '
                         );
@@ -94,7 +125,7 @@ class Product_m extends MY_Model {
         // FUNCTION ENDS
     }
 
-
+    
 
 
 //end class

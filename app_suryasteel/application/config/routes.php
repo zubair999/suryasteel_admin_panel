@@ -47,11 +47,16 @@ $route['v1/edituserprofile'] = 'api/app/auth/update_user_profile';
 
 
 
+
+
+
 /************************************************************/
 //admin api
 $route['v1/createbrand'] = 'api/backend/brand/createbrand';
 $route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
 $route['v1/delete-image'] = 'backend/media/deleteimage';
+$route['v1/addstaff'] = 'api/app/admin/staff/add';
+
 
 
 
@@ -65,9 +70,6 @@ $route['v1/delete-image'] = 'backend/media/deleteimage';
 //admin panel
 $route['dashboard'] = 'backend/dashboard/index';
 
-$route['brand'] = 'backend/brand/index';
-$route['add-brand'] = 'backend/brand/add';
-$route['edit-brand-(:any)'] = 'backend/brand/edit/$1';
 $route['media'] = 'backend/media/index';
 $route['get-media'] = 'backend/media/getMedia';
 $route['media-upload'] = 'backend/media/fileUpload';
@@ -78,25 +80,8 @@ $route['add-category'] = 'backend/category/add';
 $route['edit-category-(:any)'] = 'backend/category/edit/$1';
 
 
-$route['subcategory'] = 'backend/subcategory/index';
-$route['add-subcategory'] = 'backend/subcategory/add';
-$route['edit-subcategory-(:any)'] = 'backend/subcategory/edit/$1';
-
-
-$route['subcategorytype'] = 'backend/subcategorytype/index';
-$route['add-subcategorytype'] = 'backend/subcategorytype/add';
-$route['edit-subcategorytype-(:any)'] = 'backend/subcategorytype/edit/$1';
-
-
 $route['orders'] = 'backend/order/index';
 $route['get-order'] = 'backend/order/getOrder';
-
-
-
-
-
-
-
 
 
 
@@ -110,25 +95,34 @@ $route['v1/getallimages'] = 'backend/media/getAllImage';
 $route['products'] = 'backend/product/index';
 $route['get-product'] = 'backend/product/getProduct';
 $route['add-product'] = 'backend/product/add';
-
 $route['edit-product-(:any)'] = 'backend/product/edit/$1';
 
-$route['getsubcategory'] = 'backend/category/getSubCategory';
-$route['getsubcategorytype'] = 'backend/subcategory/getSubCategoryType';
+
+
+$route['add-staff'] = 'backend/staff/add';
+$route['edit-staff-(:any)'] = 'backend/staff/edit/$1';
+$route['delete-staff-(:any)'] = 'backend/staff/delete/$1';
+$route['update-password-(:any)'] = 'backend/auth/update_password/$1';
+$route['view-staff'] = 'backend/staff/index';
+$route['get-staff'] = 'backend/staff/getStaff';
 
 
 
 
+$route['add-roles'] = 'backend/roles/add';
+$route['view-roles'] = 'backend/roles/index';
+$route['get-roles'] = 'backend/roles/getRoles';
 
 
 
+$route['add-customer'] = 'backend/customer/add';
+$route['edit-customer-(:any)'] = 'backend/customer/edit/$1';
+$route['view-customer'] = 'backend/customer/index';
+$route['get-customer'] = 'backend/customer/getCustomer';
 
-$route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
-
-$route['v1/dashboard'] = 'backend/dashboard/index';
 
 
-
+$route['login'] = 'backend/auth/index';
 
 
 

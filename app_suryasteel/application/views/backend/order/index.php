@@ -5,10 +5,10 @@
    <ol class="breadcrumb p-0 m-0">
       <li class="breadcrumb-item"><a >Home</a></li>
       <li class="breadcrumb-item">
-         <a href="">Components</a>
+         <a href="">Order</a>
       </li>
       <li class="breadcrumb-item active">
-         Brand      </li>
+         Order List      </li>
    </ol>
 </div>
 

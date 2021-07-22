@@ -69,7 +69,9 @@
 
 
         <script>
-            document.getElementById('selectImg').addEventListener('click', () => {
+      document.getElementById('selectImg').addEventListener('click', () => {
+      
+      
       fetch('v1/getallimages', {
          method:'GET'
       }).then(response => response.json())

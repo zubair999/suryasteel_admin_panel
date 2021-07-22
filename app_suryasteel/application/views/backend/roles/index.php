@@ -34,7 +34,7 @@ $component = '';
     $.noConflict();
     jQuery(document).ready(function($) {
 
-        $('#customerlist').DataTable({
+        $('#roleslist').DataTable({
               dom: 
                     "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
@@ -53,7 +53,7 @@ $component = '';
               pagingType: "full_numbers",
               deferRender: true,
               ajax:{
-                  url :"<?= base_url('get-customer')?>",
+                  url :"<?= base_url('get-roles')?>",
                   type: "get",
                   error: function(response){
                       console.log("table error")

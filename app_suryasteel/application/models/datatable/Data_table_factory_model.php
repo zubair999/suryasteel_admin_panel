@@ -5,7 +5,7 @@ class Data_table_factory_model extends MY_Model
         parent::__construct();
     }
 
-    public function drawTableData($counter, $id, $columnFactory,$row){
+    public function drawTableData($counter, $id, $columnFactory, $row){
       $colArr = $columnFactory[1];
       $nestedData[0] = '<div class="nameID_'.$id.'">'.$counter.'</div>';
       
@@ -19,7 +19,7 @@ class Data_table_factory_model extends MY_Model
       }
       return $nestedData;
     }
-    
+
     public function drawCustomTableData($counter, $id, $columnFactory,$row){
       $colArr = $columnFactory[1];
       $nestedData[0] = '<div class="nameID_'.$id.'">'.$counter.'</div>';
@@ -119,52 +119,112 @@ class Data_table_factory_model extends MY_Model
 
       
     }
-
-    public function productsColumnFactory($row){
+    
+    public function staffColumnFactory($row){
       return array(
                     1 => array(
-                      0 => $row->product_name,
-                      // 1 => $row->mrp
-                    ),
-                );
+                      0 => ucwords($row->firstname. ' ' . $row->lastname),
+                      1 => $row->email,
+                      2 => $row->mobile_no,
+                      3 => $row->roles_name,
+                      4 => $row->is_active
+
+                )
+                    );
     }
 
-    public function productsButtonFactory($id){
-      $edit =  '<a href="'.base_url('edit-product-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
-      $delete =  '<a href="'.base_url('edit-product-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
-
-
+    public function staffButtonFactory($id){
+      $edit =  '<a title="Edit Staff" href="'.base_url('edit-staff-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a title="Delete Staff" href="'.base_url('delete-staff-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+      $change_password =  '<a title="Change Password" href="'.base_url('update-password-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">lock</span></a>';
 
       $action =  '<div class="action-buttons">
+                                '.$change_password.'
                                 '.$edit.'
                                 '.$delete.'
                               </div>';
-
-      
-      
-                
-      
-
       return $action;
     }
 
 
 
+    public function roleColumnFactory($row){
+      return array(
+                    1 => array(
+                      0 => ucwords($row->roles_name),
+                )
+                    );
+    }
+
+    public function roleButtonFactory($id){
+      $edit =  '<a href="'.base_url('edit-role-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a href="'.base_url('delete-role-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+
+      $action =  '<div class="action-buttons">
+                                '.$edit.'
+                                '.$delete.'
+                              </div>';
+      return $action;
+    }
+
+
     public function orderColumnFactory($row){
       return array(
                     1 => array(
-                      0 => '#'.$row->order_id,
-                      1 => $row->name,
-                      2 => $row->total_mrp,
-                      3 => $row->total_sell_price,
-                      4 => $row->discount,
-                      5 => $row->paid,
-                      6 => $row->status
-                    ),
-                );
+                      0 => $row->order_amount,
+                )
+                    );
     }
 
     public function orderButtonFactory($id){
+      $edit =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+
+      $action =  '<div class="action-buttons">
+                                '.$edit.'
+                                '.$delete.'
+                              </div>';
+      return $action;
+    }
+
+
+
+    public function customerColumnFactory($row){
+      return array(
+                    1 => array(
+                      0 => ucwords($row->firstname. ' ' . $row->lastname),
+                      1 => $row->email,
+                      2 => $row->mobile_no,
+                      3 => $row->customer_company,
+                      4 => $row->gst_reg_type,
+                      5 => $row->is_active,
+                )
+                    );
+    }
+
+    public function customerButtonFactory($id){
+      $change_password =  '<a title="Change Password" href="'.base_url('update-password-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">lock</span></a>';
+      $edit =  '<a title="Edit Customer" href="'.base_url('edit-customer-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a title="Delete Customer" href="'.base_url('delete-customer-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+
+      $action =  '<div class="action-buttons">
+                                '.$change_password.'
+                                '.$edit.'
+                                '.$delete.'
+                              </div>';
+      return $action;
+    }
+
+
+    public function productsColumnFactory($row){
+      return array(
+                    1 => array(
+                      0 => ucwords($row->product_name)
+                )
+                    );
+    }
+
+    public function productsButtonFactory($id){
       $edit =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
       $delete =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
 

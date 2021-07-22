@@ -51,6 +51,12 @@ class Auth_m extends MY_Model {
         return true;
     }
 
+    public function getUserCountByMobile($mobile_no){
+        $this->db->select('user_id');
+        $this->db->from('users');
+        $this->db->where('mobile_no', $mobile_no);
+        return $this->db->get()->num_rows();
+    }
   
 
 

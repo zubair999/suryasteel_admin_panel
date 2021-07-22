@@ -1,35 +1,152 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Customer extends Backend_Controller {
     public function __construct() {
         parent::__construct();
     }
 
     public function index(){
-        $this->data['page_title'] = 'customer';
+        $this->data['drawTable'] 	= $this->customerTableHead();
+		$this->data['tableId']	    =	'customerlist';
+		$this->data['pl']			=	'add-customer';
+        $this->data['page_title'] = 'customer list';
         $this->admin_view('backend/customer/index', $this->data);
     }
-
-    public function add(){        
-        if($this->input->server('REQUEST_METHOD') === 'POST'){
-            $this->form_validation->set_rules('name', 'Category Name', 'required|alpha_numeric');
-            $this->form_validation->set_rules('parent', 'Parent', 'required|numeric');
-            if($this->form_validation->run() === FALSE){
-                echo "form error";
-                die;
-            }
-            else{
-                echo "form ok";
-                die;
-            }
-        }
-        else{
-            $this->data['page_title'] = 'add categories';
-            $this->admin_view('backend/categories/add', $this->data);
-        }
+    public function customerTableHead(){
+        $tableHead = array(
+                  0 => 'sr. no.',
+                  1 => 'customer name',
+                  2 => 'username/email',
+                  3 => 'contact no',
+                  4 => 'company name',
+                  5 => 'gst_reg_type',
+                  6 => 'status',
+                  7 => 'action'
+        );
+        return $tableHead;
+    }
+    public function getCustomer(){
+        $data = $this->customer_m->getCustomer();
+        echo json_encode($data);
     }
 
+    public function add(){
+		if($this->input->post()){
+			$this->form_validation->set_rules($this->customer_m->customerAddRules);
+			if($this->form_validation->run() == FALSE){
+                $this->data['state'] = $this->state_m->getAllState();
+                $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+				$this->data['page_title'] = 'add customer';
+                $this->session->set_flashdata('error', "Please fill the form carefully!");
+				$this->admin_view('backend/customer/add', $this->data);
+			}
+			else{
+				$customerData = array(
+                    'firstname' => $this->input->post('firstname'),
+                    'lastname' => $this->input->post('lastname'),
+                    'email' => $this->input->post('username'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                    'mobile_no' => $this->input->post('mobileno'),
+                    'customer_company' => $this->input->post('companyName'),
+                    'gst_reg_type' => $this->input->post('gstRegType'),
+                    'gstn' => $this->input->post('gst_no'),
+                    'plot_factory_no' => $this->input->post('plotFactoryNo'),
+                    'complete_address' => $this->input->post('fullAddress'),
+                    'state_id' => $this->input->post('state'),
+                    'landmark' => $this->input->post('landmark'),
+                    'is_active' => 'active',
+                    'created_by' => $this->uid,
+                    'created_on' => $this->today
+                );
+                $this->db->insert('users', $customerData);
 
+                $logData = array(
+                    'user_id' => $this->uid,
+                    'title' => 'Customer',
+                    'description' => 'A customer is added succesfully',
+                    'created_on' => $this->today
+                );
+                $this->db->insert('logs', $logData);
+                $this->data['state'] = $this->state_m->getAllState();
+                $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+				$this->session->set_flashdata('success', "Customer added successfully.");
+				redirect('add-customer','refresh');
+			}
+		}
+		else{
+            $this->data['state'] = $this->state_m->getAllState();
+            $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+			$this->data['page_title'] = 'add customer';;
+			$this->admin_view('backend/customer/add', $this->data);
+		}
+	}
+
+
+    public function edit($id){
+        $this->data['user'] = $this->auth_m->getUserById($id);
+		if($this->input->post()){
+            if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
+                $is_unique =  '|is_unique[users.mobile_no]';
+            } else {
+                $is_unique =  '';
+            }
+
+            $this->form_validation->set_rules('mobileno', 'Mobile no', 'trim|required|exact_length[10]|is_natural'.$is_unique);
+
+			if($this->form_validation->run() == FALSE){
+                $this->data['state'] = $this->state_m->getAllState();
+                $this->data['status'] = $this->status();
+                $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+				$this->data['page_title'] = 'edit customer';
+                $this->session->set_flashdata('error', "Please fill the form carefully!");
+				$this->admin_view('backend/customer/edit', $this->data);
+			}
+			else{
+				$customerData = array(
+                    'firstname' => $this->input->post('firstname'),
+                    'lastname' => $this->input->post('lastname'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                    'mobile_no' => $this->input->post('mobileno'),
+                    'customer_company' => $this->input->post('companyName'),
+                    'gst_reg_type' => $this->input->post('gstRegType'),
+                    'gstn' => $this->input->post('gst_no'),
+                    'plot_factory_no' => $this->input->post('plotFactoryNo'),
+                    'complete_address' => $this->input->post('fullAddress'),
+                    'state_id' => $this->input->post('state'),
+                    'landmark' => $this->input->post('landmark'),
+                    'is_active' => $this->input->post('status'),
+                    'created_on' => $this->today
+                );
+
+                $this->db->where('user_id',$id);
+                $this->db->update('users', $customerData);
+
+                $logData = array(
+                    'user_id' => $this->uid,
+                    'title' => 'Customer',
+                    'description' => 'A customer is updated succesfully',
+                    'created_on' => $this->today
+                );
+                $this->db->insert('logs', $logData);
+
+                $this->data['status'] = $this->status();
+                $this->data['state'] = $this->state_m->getAllState();
+                $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+				$this->session->set_flashdata('success', "Customer updated successfully.");
+				redirect('edit-customer-'.$id,'refresh');
+			}
+		}
+		else{
+            $this->data['status'] = $this->status();
+            $this->data['state'] = $this->state_m->getAllState();
+            $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
+			$this->data['page_title'] = 'edit customer';;
+			$this->admin_view('backend/customer/edit', $this->data);
+		}
+	}
+
+    
 
 
 

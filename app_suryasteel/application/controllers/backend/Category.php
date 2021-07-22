@@ -7,7 +7,7 @@ class Category extends Backend_Controller {
 
     public function index(){
 
-        $this->db->select('c.category_id, c.category_name, c.sub_category_count, i.actual, i.thumbnail');
+        $this->db->select('c.category_id, c.category_name, i.actual, i.thumbnail');
 		$this->db->from('category as c');
 		$this->db->join('images as i', 'c.thumbnail = i.image_id');
         $this->db->order_by('c.category_name', 'asc');

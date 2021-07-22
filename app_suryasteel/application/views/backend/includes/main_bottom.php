@@ -165,21 +165,7 @@
                </a>
             </li>
 
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('subcategory'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Sub Category</span>
-               </a>
-            </li>
-
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('subcategorytype'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Sub Category Type</span>
-               </a>
-            </li>
+            
 
             <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
@@ -189,13 +175,7 @@
                </a>
             </li>
 
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('brand'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Brands</span>
-               </a>
-            </li>
+            
             
             <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
@@ -206,45 +186,52 @@
             </li>
 
             <!-- <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('enquiry'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Coupons</span>
+               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
+                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                  Staff
+                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
                </a>
+               <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('add-staff'); ?>">
+                           <span class="sidebar-menu-text">Add</span>
+                        </a>
+                  </li>
+
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('view-staff'); ?>">
+                           <span class="sidebar-menu-text">View</span>
+                        </a>
+                  </li>
+               </ul>
             </li> -->
 
-            <!-- <li class="sidebar-menu-item">
+            <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
-                  href="<?php echo base_url('gst'); ?>">
+                  href="<?php echo base_url('view-staff'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Inventory</span>
+               <span class="sidebar-menu-text">Staff</span>
                </a>
-            </li> -->
-
-            <!-- <li class="sidebar-menu-item">
+            </li>
+            
+            <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
-                  href="<?php echo base_url('size'); ?>">
+                  href="<?php echo base_url('view-customer'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Units</span>
-               </a>
-            </li> -->
-
-            <!-- <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('quality'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Product Attributes</span>
+               <span class="sidebar-menu-text">Customer</span>
                </a>
             </li>
 
 
             <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
-                  href="<?php echo base_url('player'); ?>">
+                  href="<?php echo base_url('view-roles'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Reports</span>
+               <span class="sidebar-menu-text">Roles</span>
                </a>
-            </li> -->
+            </li>
+
+            
 
             <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"

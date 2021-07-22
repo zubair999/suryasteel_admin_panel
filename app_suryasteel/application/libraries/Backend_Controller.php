@@ -39,7 +39,7 @@ class Backend_Controller extends MY_Controller {
             'status_value'=>'active'
          ),
          1 => array(
-            'status_id'=> 1,
+            'status_id'=> 2,
             'status_value'=>'inactive'
          )
       );

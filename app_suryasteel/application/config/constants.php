@@ -97,4 +97,7 @@ define('UPLOAD', $root.'upload/');
 define('RAZOR_KEY','rzp_test_73OrCsW3Z1K5A4'); // test
 define('RAZOR_KEY_SECRET','u2sUChF4qekM9t1Qkcn12BUk'); // test
 
+
+define('API_BASEPATH', BASEURL.'v1');
+
 // EMAIL

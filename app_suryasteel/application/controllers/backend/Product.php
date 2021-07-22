@@ -15,7 +15,7 @@ class Product extends Backend_Controller {
     public function productTableHead(){
         $tableHead = array(
                   0 => 'sr. no.',
-                  1 => 'product detail',
+                  1 => 'product name',
                   2 => 'Action'
         );
         return $tableHead;

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Razorpay\Api\Api;
+require_once FCPATH . '/vendor/autoload.php'; // change path as needed
 
 class MY_Controller extends CI_Controller {
     public function __construct() {
@@ -23,7 +24,13 @@ class MY_Controller extends CI_Controller {
             7=>'type_m',
             8=>'brand_m',
             9=>'media_m',
-            10=>'order_m'
+            10=>'order_m',
+            11=>'roles_m',
+            12=>'staff_m',
+            13=>'customer_m',
+            14=>'state_m',
+            15=>'gst_reg_type_m',
+            16=>'auth_m',
         );
         
         foreach ($this->models as $key => $model_name) {
@@ -32,11 +39,23 @@ class MY_Controller extends CI_Controller {
 
         // API MODELS
         $this->models = array(
-            0=>'auth_m', 
+            0=>'auth_m',
+
         );
         
         foreach ($this->models as $key => $model_name) {
             $this->load->model('api/'.$model_name);
+        }
+
+
+
+        // API ADMIN MODELS
+        $this->models = array(
+            1=>'staff_api_m'
+        );
+        
+        foreach ($this->models as $key => $model_name) {
+            $this->load->model('api/Admin/'.$model_name);
         }
 
 
@@ -54,6 +73,7 @@ class MY_Controller extends CI_Controller {
         require(APPPATH.'third_party/paytm/encdec_paytm.php');
         require(APPPATH.'third_party/razorpay/Razorpay.php');
         require(APPPATH.'third_party/sms_helper/smsalert.php');
+        // require('vendor/autoload.php');
 
 
         $this->uid = 1;
@@ -74,6 +94,8 @@ class MY_Controller extends CI_Controller {
         $this->senderid = 'BBLONT'; // write your senderid in between ''
         $this->route = 'transactional'; // write your route in between ''
         $this->smsalert = new Smsalert($this->apikey, $this->senderid, $this->route);
+
+        $this->client = new \GuzzleHttp\Client();
 
     }
 

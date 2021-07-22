@@ -1,10 +1,10 @@
 <?php 
 defined('BASEPATH') or exit('no dierct script access allowed');
 
-class Product_m extends MY_Model {
+class Roles_m extends MY_Model {
 
-	protected $tbl_name = 'products';
-    protected $primary_col = 'product_id';
+	protected $tbl_name = 'roles';
+    protected $primary_col = 'role_id';
     protected $order_by = 'created_on';
 
     public function __construct()
@@ -12,14 +12,12 @@ class Product_m extends MY_Model {
 		parent::__construct();   
 	}
 
-
-	public function getProduct(){
+    public function getRoles(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
 
-        $sql = "select * from products";
+        $sql = "select * from roles";
 
-        //echo $sql;
         $query = $this->db->query($sql);
         $queryqResults = $query->result();
         $totalData = $query->num_rows(); // rules datatable
@@ -35,7 +33,7 @@ class Product_m extends MY_Model {
 
         $query = $this->db->query($sql);
         $totalFiltered = $query->num_rows();
-        $sql.= " order by product_id asc limit " . $start . " ," . $requestData['length'] . "   ";
+        $sql.= " order by role_id asc limit " . $start . " ," . $requestData['length'] . "   ";
         $query = $this->db->query($sql);
 
         $SearchResults = $query->result();
@@ -46,10 +44,10 @@ class Product_m extends MY_Model {
         foreach ($SearchResults as $row) {
             $counter++;
             $nestedData = array();
-            $id = $row->product_id;
+            $id = $row->role_id;
             // $crypted_id = $this->outh_m->Encryptor('encrypt', $id);
-            $action = $this->data_table_factory_model->productsButtonFactory($id);
-            $columnFactory = $this->data_table_factory_model->productsColumnFactory($row);
+            $action = $this->data_table_factory_model->roleButtonFactory($id);
+            $columnFactory = $this->data_table_factory_model->roleColumnFactory($row);
             $tableCol = $this->data_table_factory_model->drawTableData($counter, $id, $columnFactory,$row);
             $j = 0;
             foreach ($tableCol as $key => $value) {
@@ -67,31 +65,10 @@ class Product_m extends MY_Model {
         // FUNCTION ENDS
     }
 
-    public function getProductById($id){
-        $this->db->select(
-                            'p.product_id,
-                             p.brand_id,
-                             p.category_id,
-                             p.sub_category,
-                             p.sub_category_type,
-                             p.gst_id,
-                             p.type, 
-                             p.type, 
-                             p.product_name,
-                             p.mrp,
-                             p.sell_price,
-                             p.status,
-                             p.thumbnail as image_id,
-                             i.thumbnail
-                             '
-                        );
-        $this->db->from('products as p');
-        $this->db->join('images as i', 'p.thumbnail = i.image_id');
-        $this->db->where('p.product_id', $id);
-        $data = $this->db->get()->row();
-        $data->thumbnail = BASEURL.'upload/'.$data->thumbnail;
-        return $data;
-        // FUNCTION ENDS
+    public function getAllRoles() {
+        $this->db->select('role_id, roles_name');
+        $this->db->from('roles');
+        return $this->db->get()->result_array();
     }
 
 
