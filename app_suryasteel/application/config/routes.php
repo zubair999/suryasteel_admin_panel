@@ -9,7 +9,6 @@ $route['default_controller'] = 'backend/dashboard/';
 /************************************************************/
 //app api
 $route['v1/getbrand'] = 'api/app/brand/getbrand';
-$route['v1/getcategory'] = 'api/app/category/getcategory';
 $route['v1/getnewlylaunchedproduct'] = 'api/app/product/getnewlylaunchedproduct';
 $route['v1/topproduct'] = 'api/app/product/topproduct';
 $route['v1/topdeal'] = 'api/app/product/top_deals';
@@ -59,6 +58,7 @@ $route['v1/addstaff'] = 'api/app/admin/staff/add';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
+$route['v1/getcategory'] = 'api/app/Admin/category/getcategory';
 
 
 
