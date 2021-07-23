@@ -21,7 +21,7 @@ $route['v1/product/(:any)'] = 'api/app/product/productdetail/$1';
 $route['v1/product/category/(:any)'] = 'api/app/product/productbycategory/$1';
 $route['v1/product/brand/(:any)'] = 'api/app/product/productbybrand/$1';
 $route['v1/product/search/(:any)'] = 'api/app/product/searchProduct/$1';
-$route['v1/getallproduct'] = 'api/app/product/getAllProducts';
+// $route['v1/getallproduct'] = 'api/app/product/getAllProducts';
 $route['v1/getbrandfilter'] = 'api/app/filter/brandFilter';
 $route['v1/getcategoryfilter'] = 'api/app/filter/categoryFilter';
 $route['v1/getsubcategoryfilter/(:any)'] = 'api/app/filter/subCategoryFilter/$1';
@@ -58,6 +58,8 @@ $route['v1/delete-image'] = 'backend/media/deleteimage';
 $route['v1/addstaff'] = 'api/app/admin/staff/add';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
+$route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
+
 
 
 
