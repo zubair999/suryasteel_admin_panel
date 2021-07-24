@@ -220,6 +220,24 @@
                                                    <input type="checkbox" id="permission"   disabled>
                                                 </td>
                                              </tr>
+
+
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">System Settings</td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"  disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="system-setting" <?php if($user_permission) {
+                                                      if(in_array('system-setting', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                             </tr>
                                              
                                           </tbody>
                                        </table>

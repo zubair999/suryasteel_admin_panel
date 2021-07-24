@@ -8,6 +8,9 @@ class Setting extends Backend_Controller {
 
 
     public function edit(){
+        if(!in_array('system-setting', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         if($this->input->post()){
             $this->form_validation->set_rules('app_name', 'app name', 'trim|required');
             $this->form_validation->set_rules('app_description', 'app description', 'trim|required');

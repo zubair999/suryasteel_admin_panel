@@ -58,15 +58,6 @@
    <div class="mdk-drawer__content">
       <div class="sidebar sidebar-dark sidebar-left"
          data-perfect-scrollbar>
-         <!-- Navbar toggler -->
-         <!-- <a href="compact-ui-tables.html"
-            class="navbar-toggler navbar-toggler-right navbar-toggler-custom d-flex align-items-center justify-content-center position-absolute right-0 top-0"
-            data-toggle="tooltip"
-            data-title="Switch to Compact Vertical Layout"
-            data-placement="right"
-            data-boundary="window">
-         <span class="material-icons">sync_alt</span>
-         </a> -->
          <a href="<?php echo base_url('secure/admin/dashboard'); ?>"
             class="sidebar-brand ">
          <img class="sidebar-brand-icon"
@@ -75,70 +66,6 @@
          </a>
          
          
-         <!-- <div class="sidebar-account mx-16pt mb-16pt dropdown">
-            <a href="<?php echo base_url('admin/profile'); ?>"
-               class="nav-link d-flex align-items-center dropdown-toggle"
-               data-toggle="dropdown"
-               data-caret="false">
-            <img width="32"
-               height="32"
-               class="rounded-circle mr-8pt"
-               src="<?php echo ADMIN ?>assets/images/people/50/guy-3.jpg"
-               alt="account" />
-            <span class="flex d-flex flex-column mr-8pt">
-            <span class="text-black-100">Laza Bogdan</span>
-            <small class="text-black-50">Administrator</small>
-            </span>
-            <i class="material-icons text-black-20 icon-16pt">keyboard_arrow_down</i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-full dropdown-menu-caret-center">
-               <div class="dropdown-header"><strong>Account</strong></div>
-               <a class="dropdown-item"
-                  href="edit-account.html">Edit Account</a>
-               <a class="dropdown-item"
-                  href="billing.html">Billing</a>
-               <a class="dropdown-item"
-                  href="billing-history.html">Payments</a>
-               <a class="dropdown-item"
-                  href="login.html">Logout</a>
-               <div class="dropdown-divider"></div>
-               <div class="dropdown-header"><strong>Select company</strong></div>
-               <a href=""
-                  class="dropdown-item active d-flex align-items-center">
-                  <div class="avatar avatar-sm mr-8pt">
-                     <span class="avatar-title rounded bg-primary">FM</span>
-                  </div>
-                  <small class="ml-4pt flex">
-                  <span class="d-flex flex-column">
-                  <strong class="text-black-100">FrontendMatter Inc.</strong>
-                  <span class="text-black-50">Administrator</span>
-                  </span>
-                  </small>
-               </a>
-               <a href=""
-                  class="dropdown-item d-flex align-items-center">
-                  <div class="avatar avatar-sm mr-8pt">
-                     <span class="avatar-title rounded bg-accent">HH</span>
-                  </div>
-                  <small class="ml-4pt flex">
-                  <span class="d-flex flex-column">
-                  <strong class="text-black-100">LandmarkLandmark Inc.</strong>
-                  <span class="text-black-50">Publisher</span>
-                  </span>
-                  </small>
-               </a>
-            </div>
-         </div> -->
-
-
-         <!-- <form action="index.html"
-            class="search-form flex-shrink-0 search-form--black sidebar-m-b sidebar-p-l mx-16pt pr-0">
-            <input type="text"
-               class="form-control pl-0"
-               placeholder="Search">
-            <button class="btn"
-               type="submit"><i class="material-icons">search</i></button>
-         </form> -->
          <div class="sidebar-heading">Overview</div>
          <ul class="sidebar-menu">
             <li class="sidebar-menu-item">
@@ -159,13 +86,6 @@
                </li>
             <?php endif; ?>
             
-            <!-- <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('category'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Category</span>
-               </a>
-            </li> -->
 
             <?php if(in_array('add-category', $this->permission) || in_array('edit-category', $this->permission) || in_array('category', $this->permission) || in_array('delete-category', $this->permission)): ?>
                <li class="sidebar-menu-item">
@@ -245,23 +165,30 @@
                </li>
             <?php endif; ?>
 
+
+
+            
+               
             
 
+            
 
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
-                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-                  Settings
-                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
-               </a>
-               <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
-                  <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="<?php echo base_url('system-setting'); ?>">
-                           <span class="sidebar-menu-text">System Setting</span>
-                        </a>
-                  </li>
-               </ul>
-            </li>
+            <?php if(in_array('system-setting', $this->permission)): ?>
+               <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
+                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                     Settings
+                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                  </a>
+                  <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                     <li class="sidebar-menu-item">
+                           <a class="sidebar-menu-button" href="<?php echo base_url('system-setting'); ?>">
+                              <span class="sidebar-menu-text">System Setting</span>
+                           </a>
+                     </li>
+                  </ul>
+               </li>
+            <?php endif; ?>
 
 
 
