@@ -51,11 +51,6 @@
             <div class="sk-chase-dot"></div>
             <div class="sk-chase-dot"></div>
          </div>
-         <!-- <div class="sk-bounce">
-            <div class="sk-bounce-dot"></div>
-            <div class="sk-bounce-dot"></div>
-            </div> -->
-         <!-- More spinner examples at https://github.com/tobiasahlin/SpinKit/blob/master/examples.html -->
       </div>
       <div class="mdk-drawer-layout js-mdk-drawer-layout"
          data-push
@@ -77,8 +72,8 @@
                <img class="navbar-brand-icon mr-0 mr-lg-8pt"
                   src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png"
                   width="32"
-                  alt="B Blont">
-               <span class="d-none d-lg-block">B Blont</span>
+                  alt="<?php echo get_settings('app_name') ?>">
+               <span class="d-none d-lg-block"><?php echo get_settings('app_name') ?></span>
                </a>
                <!-- <button class="btn navbar-btn mr-16pt" data-toggle="modal" data-target="#apps">Apps <i class="material-icons">arrow_drop_down</i></button> -->
                <form class="search-form navbar-search d-none d-md-flex mr-16pt"
@@ -117,17 +112,7 @@
                      <small class="navbar-text-50">Administrator</small>
                      </span>
                      </a>
-                     <!-- <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header"><strong>Account</strong></div>
-                        <a class="dropdown-item"
-                           href="edit-account.html">Edit Account</a>
-                        <a class="dropdown-item"
-                           href="billing.html">Billing</a>
-                        <a class="dropdown-item"
-                           href="billing-history.html">Payments</a>
-                        <a class="dropdown-item"
-                           href="login.html">Logout</a>
-                     </div> -->
+                     
                   </div>
                   <!-- Notifications dropdown -->
                   <div class="nav-item ml-16pt dropdown dropdown-notifications">
@@ -143,58 +128,6 @@
                         <div data-perfect-scrollbar
                            class="position-relative">
                            <div class="dropdown-header"><strong>System notifications</strong></div>
-                           <!-- <div class="list-group list-group-flush mb-0">
-                              <a href="javascript:void(0);"
-                                 class="list-group-item list-group-item-action unread">
-                              <span class="d-flex align-items-center mb-1">
-                              <small class="text-black-50">3 minutes ago</small>
-                              <span class="ml-auto unread-indicator bg-accent"></span>
-                              </span>
-                              <span class="d-flex">
-                              <span class="avatar avatar-xs mr-2">
-                              <span class="avatar-title rounded-circle bg-light">
-                              <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                              </span>
-                              </span>
-                              <span class="flex d-flex flex-column">
-                              <span class="text-black-70">Your profile information has not been synced correctly.</span>
-                              </span>
-                              </span>
-                              </a>
-                              <a href="javascript:void(0);"
-                                 class="list-group-item list-group-item-action">
-                              <span class="d-flex align-items-center mb-1">
-                              <small class="text-black-50">5 hours ago</small>
-                              </span>
-                              <span class="d-flex">
-                              <span class="avatar avatar-xs mr-2">
-                              <span class="avatar-title rounded-circle bg-light">
-                              <i class="material-icons font-size-16pt text-primary">group_add</i>
-                              </span>
-                              </span>
-                              <span class="flex d-flex flex-column">
-                              <strong class="text-black-100">Adrian. D</strong>
-                              <span class="text-black-70">Wants to join your private group.</span>
-                              </span>
-                              </span>
-                              </a>
-                              <a href="javascript:void(0);"
-                                 class="list-group-item list-group-item-action">
-                              <span class="d-flex align-items-center mb-1">
-                              <small class="text-black-50">1 day ago</small>
-                              </span>
-                              <span class="d-flex">
-                              <span class="avatar avatar-xs mr-2">
-                              <span class="avatar-title rounded-circle bg-light">
-                              <i class="material-icons font-size-16pt text-warning">storage</i>
-                              </span>
-                              </span>
-                              <span class="flex d-flex flex-column">
-                              <span class="text-black-70">Your deploy was successful.</span>
-                              </span>
-                              </span>
-                              </a>
-                           </div> -->
                         </div>
                      </div>
                   </div>
@@ -212,43 +145,7 @@
                         <div data-perfect-scrollbar
                            class="position-relative">
                            <div class="dropdown-header"><strong>Messages</strong></div>
-                           <!-- <div class="list-group list-group-flush mb-0">
-                              <a href="javascript:void(0);"
-                                 class="list-group-item list-group-item-action unread">
-                              <span class="d-flex align-items-center mb-1">
-                              <small class="text-black-50">5 minutes ago</small>
-                              <span class="ml-auto unread-indicator bg-accent"></span>
-                              </span>
-                              <span class="d-flex">
-                              <span class="avatar avatar-xs mr-2">
-                              <img src="<?php echo ADMIN ?>assets/images/people/110/woman-5.jpg"
-                                 alt="people"
-                                 class="avatar-img rounded-circle">
-                              </span>
-                              <span class="flex d-flex flex-column">
-                              <strong class="text-black-100">Michelle</strong>
-                              <span class="text-black-70">Clients loved the new design.</span>
-                              </span>
-                              </span>
-                              </a>
-                              <a href="javascript:void(0);"
-                                 class="list-group-item list-group-item-action">
-                              <span class="d-flex align-items-center mb-1">
-                              <small class="text-black-50">5 minutes ago</small>
-                              </span>
-                              <span class="d-flex">
-                              <span class="avatar avatar-xs mr-2">
-                              <img src="<?php echo ADMIN ?>assets/images/people/110/woman-5.jpg"
-                                 alt="people"
-                                 class="avatar-img rounded-circle">
-                              </span>
-                              <span class="flex d-flex flex-column">
-                              <strong class="text-black-100">Michelle</strong>
-                              <span class="text-black-70">🔥 Superb job..</span>
-                              </span>
-                              </span>
-                              </a>
-                           </div> -->
+                           
                         </div>
                      </div>
                   </div>
@@ -271,22 +168,61 @@
                         <small class="ml-4pt flex">
                         <span class="d-flex flex-column">
                         <strong class="text-black-100">View Website</strong>
-                        <span class="text-black-50">B Blont Salon</span>
+                        <span class="text-black-50"><?php echo get_settings('app_name') ?></span>
                         </span>
                         </small>
                      </a>
                   </div>
                </div>
             </div>
+
+            <?php
+                     if($this->session->flashdata('error')){
+                        ?>
+                           <div class="alert bg-danger text-white border-0" role="alert">
+                              <div class="d-flex flex-wrap align-items-start">
+                                    <div class="mr-8pt">
+                                       <i class="material-icons">access_time</i>
+                                    </div>
+                                    <div class="flex" style="min-width: 180px">
+                                       <small>
+                                          <strong>Oops!</strong> <?php echo $this->session->flashdata('error') ?>
+                                       </small>
+                                    </div>
+                              </div>
+                           </div>
+                        <?php
+                     }
+                     if($this->session->flashdata('success')){
+                        ?>
+                           <div class="alert bg-success text-white border-0" role="alert">
+                              <div class="d-flex flex-wrap align-items-start">
+                                    <div class="mr-8pt">
+                                       <i class="material-icons">access_time</i>
+                                    </div>
+                                    <div class="flex" style="min-width: 180px">
+                                       <small>
+                                          <strong>Well done!</strong> <?php echo $this->session->flashdata('success') ?>
+                                       </small>
+                                    </div>
+                              </div>
+                           </div>
+                        <?php
+                     }
+                  ?>
+
+
             <!-- // END Header -->
             <div class=" pt-32pt pt-sm-64pt pb-32pt">
                <div class="container-fluid page__container">
-                  <form action="<?php echo base_url('secure/admin/dashboard'); ?>"
-                     class="col-md-5 p-0 mx-auto">
+                  <form action="<?php echo base_url('login');  ?>"
+                     class="col-md-5 p-0 mx-auto" method="post">
                      <div class="form-group">
                         <label class="form-label"
                            for="email">Email:</label>
-                        <input id="email"
+                        <input 
+                           id="email"
+                           name="user_name"
                            type="text"
                            class="form-control"
                            placeholder="Your email address ...">
@@ -294,7 +230,9 @@
                      <div class="form-group">
                         <label class="form-label"
                            for="password">Password:</label>
-                        <input id="password"
+                        <input 
+                           id="password"
+                           name="password"
                            type="password"
                            class="form-control"
                            placeholder="Your first and last name ...">
@@ -302,7 +240,7 @@
                            class="small"></a></p>
                      </div>
                      <div class="text-center">
-                        <button class="btn btn-accent">Login</button>
+                        <button class="btn btn-accent" type="submit">Login</button>
                      </div>
                   </form>
                </div>
@@ -321,9 +259,9 @@
                      <img class="brand-icon"
                         src="<?php echo ADMIN ?>assets/images/logo/black-70@2x.png"
                         width="30"
-                        alt="B Blont"> B Blont
+                        alt="<?php echo get_settings('app_name') ?>"> <?php echo get_settings('app_name') ?>
                   </p>
-                  <p class="measure-lead-max text-muted mb-0 small">B Blont is a beautifully crafted user interface for modern Business Admin Web Applications, with examples for many pages needed for Customer Relationship Management, Enterprise Resource Planning, B Blontn Resources, Content Management System, Project Management, Tasks, eCommerce, Messaging and Account Management.</p>
+                  <p class="measure-lead-max text-muted mb-0 small"><?php echo get_settings('about_content') ?></p>
                </div>
                <div class="pb-16pt pb-lg-24pt">
                   <div class="container-fluid page__container">
@@ -376,21 +314,12 @@
             <div class="mdk-drawer__content">
                <div class="sidebar sidebar-dark sidebar-left"
                   data-perfect-scrollbar>
-                  <!-- Navbar toggler -->
-                  <!-- <a href="compact-login.html"
-                     class="navbar-toggler navbar-toggler-right navbar-toggler-custom d-flex align-items-center justify-content-center position-absolute right-0 top-0"
-                     data-toggle="tooltip"
-                     data-title="Switch to Compact Vertical Layout"
-                     data-placement="right"
-                     data-boundary="window">
-                  <span class="material-icons">sync_alt</span>
-                  </a> -->
                   <a href="<?php echo base_url('secure/admin/login') ?>"
                      class="sidebar-brand ">
                   <img class="sidebar-brand-icon"
                      src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png"
-                     alt="B Blont">
-                  <span>B Blont</span>
+                     alt="<?php echo get_settings('app_name') ?>">
+                  <span><?php echo get_settings('app_name') ?></span>
                   </a>
                   <div class="sidebar-account mx-16pt mb-16pt dropdown">
                      <a href="#"

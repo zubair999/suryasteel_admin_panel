@@ -185,26 +185,7 @@
                </a>
             </li>
 
-            <!-- <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
-                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-                  Staff
-                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
-               </a>
-               <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
-                  <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="<?php echo base_url('add-staff'); ?>">
-                           <span class="sidebar-menu-text">Add</span>
-                        </a>
-                  </li>
-
-                  <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="<?php echo base_url('view-staff'); ?>">
-                           <span class="sidebar-menu-text">View</span>
-                        </a>
-                  </li>
-               </ul>
-            </li> -->
+            
 
             <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
@@ -231,23 +212,30 @@
                </a>
             </li>
 
-            
 
-            <!-- <li class="sidebar-menu-item">
+            <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
-                  href="<?php echo base_url('app-download-report'); ?>">
+                  href="<?php echo base_url('view-logs'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">App Download Report</span>
+               <span class="sidebar-menu-text">Logs</span>
                </a>
-            </li> -->
+            </li>
 
-            <!-- <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('admin-settting'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Admin Settings</span>
+
+            <li class="sidebar-menu-item">
+               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
+                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                  Settings
+                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
                </a>
-            </li> -->
+               <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('system-setting'); ?>">
+                           <span class="sidebar-menu-text">System Setting</span>
+                        </a>
+                  </li>
+               </ul>
+            </li>
 
 
 

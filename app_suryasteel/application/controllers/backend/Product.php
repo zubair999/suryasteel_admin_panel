@@ -29,9 +29,7 @@ class Product extends Backend_Controller {
 		if($this->input->post()){
 			$this->form_validation->set_rules('product_name', 'Product', 'trim|required');
 			if($this->form_validation->run() == FALSE){
-                $this->data['brand'] = $this->brand_m->getAllBrand();
                 $this->data['status'] = $this->status();
-                $this->data['type'] = $this->type_m->getAllType();
                 $this->data['gst'] = $this->gst_m->getAllGst();
                 $this->data['category'] = $this->category_m->getAllCategory();
 				$this->data['page_title'] = 'add product';
@@ -57,9 +55,7 @@ class Product extends Backend_Controller {
 				);
                 $isDataSave = $this->db->insert('products', $product);
                 $this->category_m->increaseProductCountInCategory($this->input->post('category'),$this->input->post('subcategory'),$this->input->post('subcategorytype'));
-                $this->data['brand'] = $this->brand_m->getAllBrand();
                 $this->data['status'] = $this->status();
-                $this->data['type'] = $this->type_m->getAllType();
                 $this->data['gst'] = $this->gst_m->getAllGst();
                 $this->data['category'] = $this->category_m->getAllCategory();
 				$this->session->set_flashdata('notification', "Product added successfully");
@@ -68,11 +64,7 @@ class Product extends Backend_Controller {
 			}
 		}
 		else{
-            $this->data['brand'] = $this->brand_m->getAllBrand();
             $this->data['status'] = $this->status();
-            $this->data['type'] = $this->type_m->getAllType();
-            $this->data['size'] = $this->size_m->getAllSize();
-            $this->data['quality'] = $this->quality_m->getAllQuality();
             $this->data['gst'] = $this->gst_m->getAllGst();
             $this->data['category'] = $this->category_m->getAllCategory();
 			$this->data['page_title'] = 'add product';;

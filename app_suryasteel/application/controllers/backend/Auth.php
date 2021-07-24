@@ -7,38 +7,61 @@ class Auth extends Backend_Controller{
 	}
 
 
-	public function login(){
-		echo "hi";
-		die;
-		
-		// if($this->input->post()){
-		// 	$this->form_validation->set_rules('brand_name', 'Brand', 'trim|required');
-		// 	$this->form_validation->set_rules('status', 'Status', 'trim|required');
-		// 	$this->form_validation->set_rules('thumbnail_id', 'Thumbnail', 'trim|required');
-		// 	if($this->form_validation->run() == FALSE){
-		// 		$this->data['page_title'] = 'add brand';
-		// 		$this->admin_view('backend/auth/index', $this->data);
-		// 	}
-		// 	else{
-		// 		$data = array(
-		// 			'brand_name' => strtoupper($this->input->post('brand_name')),
-		// 			'thumbnail' => $this->input->post('thumbnail_id'),
-		// 			'status' => $this->input->post('status'),
-		// 			'created_by' => $this->uid,
-		// 			'created_on' => $this->current_time,
-		// 		);			
-		// 		$this->session->set_flashdata('notification', "You successfully read this important alert message.");
-		// 		$isDataSave = $this->db->insert('brand', $data);
-		// 		$this->data['page_title'] = 'add brand';
-		// 		$this->admin_view('backend/auth/index', $this->data);
-		// 	}
-		// }
-		// else{
-		// 	$this->data['page_title'] = 'add brand';;
-		// 	$this->admin_view('backend/auth/index', $this->data);
-		// }
+	public function login(){		
+		if($this->input->post()){	
+			$this->form_validation->set_rules('user_name', 'username', 'trim|required|valid_email');
+			$this->form_validation->set_rules('password', 'password', 'trim|required');
+			if($this->form_validation->run() == FALSE){
+				$this->data['page_title'] = 'login';
+				$this->load->view('backend/auth/login', $this->data);
+			}
+			else{
+				$userCount = $this->auth_m->userCountByEmail($this->input->post('user_name'));
+				if($userCount > 0){
+					$isActive = $this->auth_m->getActiveUserByEmail($this->input->post('user_name'));
+					if($isActive > 0){
+						$user = $this->auth_m->getUserByEmail($this->input->post('user_name'));						
+						if(password_verify($this->input->post('password'), $user->password)){
+							$userData = array(
+								'uid' => $user->user_id,
+								'role_id' => $user->role_id,
+								'role_name' => $user->roles_name,
+								'mobile_no' => $user->mobile_no,
+								'firstname' => $user->firstname,
+								'lastname' => $user->lastname,
+								'username ' => $user->email,
+								'is_logged_in' => true,
+							);
+							$this->session->set_userdata($userData);
+							$this->session->set_flashdata('success', "You are successfully logged in.");
+							redirect('dashboard');
+						}
+						else{
+							$this->session->set_flashdata('error', "Wrong password.");
+							redirect('login');
+						}
+					}
+					else{
+						$this->session->set_flashdata('error', "Your account is disabled.");
+						redirect('login');
+					}
+				}
+				else{
+					$this->session->set_flashdata('error', "You are not registered.");
+					redirect('login');
+				}
+			}
+		}
+		else{
+			$this->data['page_title'] = 'login';;
+			$this->load->view('backend/auth/login', $this->data);
+		}
 	}
 
+	public function userLogout(){
+		$this->session->sess_destroy();
+		redirect('login');
+	}
 
 	public function update_password($id){
 		if($this->input->post()){
@@ -75,7 +98,7 @@ class Auth extends Backend_Controller{
 		}
 	}
 	
-
+	
 
 
 //CLASS ENDS

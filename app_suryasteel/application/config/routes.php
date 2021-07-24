@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // WEBSITE
-$route['default_controller'] = 'backend/dashboard/';
+$route['default_controller'] = 'backend/Auth/login';
 
 
 
@@ -128,7 +128,8 @@ $route['get-customer'] = 'backend/customer/getCustomer';
 
 
 
-$route['login'] = 'backend/auth/index';
+$route['login'] = 'backend/auth/login';
+$route['logout'] = 'backend/auth/userLogout';
 
 
 
@@ -136,7 +137,13 @@ $route['login'] = 'backend/auth/index';
 
 
 
+// SETTINGS
+$route['system-setting'] = 'backend/setting/edit';
 
+
+// LOGS
+$route['view-logs'] = 'backend/log/index';
+$route['get-logs'] = 'backend/log/getLog';
 
 
 

@@ -6,6 +6,7 @@ class Backend_Controller extends MY_Controller {
    }
     
    public function admin_header($data){
+      $this->is_logged_in();
       $this->data['page_title'] = 'header';
       $this->load->view('backend/includes/header', $this->data);
    }

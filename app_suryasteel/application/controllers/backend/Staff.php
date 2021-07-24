@@ -75,7 +75,7 @@ class Staff extends Backend_Controller {
 	}
 
     public function edit($id){
-		$this->data['user'] = $this->staff_m->getStaffById($id);
+		$this->data['user'] = $this->auth_m->getUserById($id);
         if($this->input->post()){
             if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
                 $is_unique =  '|is_unique[users.mobile_no]';

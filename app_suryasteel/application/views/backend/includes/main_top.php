@@ -59,24 +59,22 @@
             <img width="32"
                height="32"
                class="rounded-circle mr-8pt"
-               src="<?php echo ADMIN ?>assets/images/people/50/guy-3.jpg"
+               src="<?php echo ADMIN ?>assets/images/people/50/1.png"
                alt="account" />
             <span class="flex d-flex flex-column mr-8pt">
-            <span class="navbar-text-100">Admin</span>
-            <small class="navbar-text-50">Administrator</small>
+            <span class="navbar-text-100"><?= ucwords($this->firstname) ?></span>
+            <small class="navbar-text-50"><?= ucwords($this->role_name) ?></small>
             </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                <div class="dropdown-header"><strong>Account</strong></div>
-               <a class="dropdown-item">Edit Account</a>
-               <a class="dropdown-item">Billing</a>
-               <a class="dropdown-item">Payments</a>
+
                <a class="dropdown-item"
-                  href="<?php echo base_url('secure/admin/login'); ?>">Logout</a>
+                  href="<?php echo base_url('logout'); ?>">Logout</a>
             </div>
          </div>
          <!-- Notifications dropdown -->
-         <div class="nav-item ml-16pt dropdown dropdown-notifications">
+         <!-- <div class="nav-item ml-16pt dropdown dropdown-notifications">
             <button class="nav-link btn-flush dropdown-toggle"
                type="button"
                data-toggle="dropdown"
@@ -143,10 +141,10 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
          <!-- // END Notifications dropdown -->
          <!-- Notifications dropdown -->
-         <div class="nav-item ml-16pt dropdown dropdown-notifications">
+         <!-- <div class="nav-item ml-16pt dropdown dropdown-notifications">
             <button class="nav-link btn-flush dropdown-toggle"
                type="button"
                data-toggle="dropdown"
@@ -197,7 +195,7 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
          <!-- // END Notifications dropdown -->
       </div>
       <div class="dropdown border-left-2 navbar-border">
@@ -209,7 +207,7 @@
          </button>
          <div class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-header"><strong>Select Website</strong></div>
-            <a target="_blank" href="https://www.landmarkmeerut.com/"
+            <a target="_blank" 
                class="dropdown-item d-flex align-items-center">
                <div class="avatar avatar-sm mr-8pt">
                   <span class="avatar-title rounded bg-accent">BB</span>
@@ -217,7 +215,7 @@
                <small class="ml-4pt flex">
                <span class="d-flex flex-column">
                <strong class="text-black-100">View Website</strong>
-               <span class="text-black-50"> Landmark Electronics</span>
+               <span class="text-black-50"> <?php echo get_settings('app_name') ?></span>
                </span>
                </small>
             </a>

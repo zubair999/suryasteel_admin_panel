@@ -31,6 +31,9 @@ class MY_Controller extends CI_Controller {
             14=>'state_m',
             15=>'gst_reg_type_m',
             16=>'auth_m',
+            17=>'setting_m',
+            18=>'log_m',
+
         );
         
         foreach ($this->models as $key => $model_name) {
@@ -73,28 +76,23 @@ class MY_Controller extends CI_Controller {
         require(APPPATH.'third_party/paytm/encdec_paytm.php');
         require(APPPATH.'third_party/razorpay/Razorpay.php');
         require(APPPATH.'third_party/sms_helper/smsalert.php');
-        // require('vendor/autoload.php');
 
 
-        $this->uid = 1;
-        $this->stu_id = $this->session->userdata('stu_id');
-        $this->name = $this->session->userdata('name');
+        $this->uid = $this->session->userdata('uid');
         $this->role_id = $this->session->userdata('role_id');
-        // $this->active = $this->session->userdata('active');
-        $this->phone = $this->session->userdata('phone');
-        $this->email = $this->session->userdata('email');
-        // $this->verified = $this->session->userdata('verified');
+        $this->role_name = $this->session->userdata('role_name');
+        $this->firstname = $this->session->userdata('firstname');
+        $this->lastname = $this->session->userdata('lastname');
+        $this->phone = $this->session->userdata('mobile_no');
+        $this->username = $this->session->userdata('email');
+        $this->is_logged_in = $this->session->userdata('is_logged_in');
 
-
-        $this->active = 1;
 
         $this->razorpay = new Api(RAZOR_KEY, RAZOR_KEY_SECRET);
-
         $this->apikey = '5caca2914e6dc'; // write your apikey in between ''
         $this->senderid = 'BBLONT'; // write your senderid in between ''
         $this->route = 'transactional'; // write your route in between ''
         $this->smsalert = new Smsalert($this->apikey, $this->senderid, $this->route);
-
         $this->client = new \GuzzleHttp\Client();
 
     }
@@ -154,7 +152,7 @@ class MY_Controller extends CI_Controller {
     }
 
     public function is_logged_in() {
-        if (!$this->active) {
+        if (!$this->is_logged_in) {
             redirect();
         } else {
             return;

@@ -39,7 +39,7 @@ class Media extends Backend_Controller{
 			// Set preference
 			$config['upload_path'] = 'upload/';	
 			$config['allowed_types'] = 'jpg|jpeg|png|gif';
-			$config['max_size']    = '1024'; // max_size in kb
+			$config['max_size']    = '10024'; // max_size in kb
 			$config['file_name'] = $_FILES['file']['name'];
 
 

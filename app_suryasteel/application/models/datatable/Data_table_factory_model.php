@@ -235,7 +235,16 @@ class Data_table_factory_model extends MY_Model
       return $action;
     }
 
-
+    public function logColumnFactory($row){
+      return array(
+                    1 => array(
+                      0 => ucwords($row->firstname. ' ' . $row->lastname),
+                      1 => $row->title,
+                      2 => $row->description,
+                      3 => $row->created_on
+                )
+            );
+    }
 
 
 
