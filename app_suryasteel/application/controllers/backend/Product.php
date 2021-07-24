@@ -8,7 +8,7 @@ class Product extends Backend_Controller {
     public function index(){
         $this->data['drawTable'] 	= $this->productTableHead();
 		$this->data['tableId']	    =	'productlist';
-		$this->data['pl']			=	'add-product';
+		$this->data['pl']			=	null;
         $this->data['page_title'] = 'product list';
         $this->admin_view('backend/product/index', $this->data);
     }

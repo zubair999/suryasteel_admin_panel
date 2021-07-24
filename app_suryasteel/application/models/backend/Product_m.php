@@ -56,7 +56,7 @@ class Product_m extends MY_Model {
                 $nestedData[] = $tableCol[$j];
                 $j++;
             }
-            $nestedData[] = $action;
+            // $nestedData[] = $action;
             $data[] = $nestedData;
         }
         return $json_data = array("draw" => intval($requestData['draw']), "recordsTotal" => intval($totalData), // total number of records
