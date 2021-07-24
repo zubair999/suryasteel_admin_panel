@@ -34,12 +34,7 @@ class Roles extends Backend_Controller {
         		'roles_name' => $this->input->post('role_name'),
         		'permission' => $permission
         	);
-
-
-
             $this->db->insert('roles', $data);
-
-
             $this->session->set_flashdata('notification', "Roles added successfully.");
             $this->data['page_title'] = 'add roles';
 			$this->admin_view('backend/roles/add', $this->data);
@@ -49,6 +44,27 @@ class Roles extends Backend_Controller {
             $this->data['role'] = $this->roles_m->getAllRoles();
 			$this->data['page_title'] = 'add roles';;
 			$this->admin_view('backend/roles/add', $this->data);
+		}
+	}
+
+    public function edit($id){
+        $this->data['role'] = $this->roles_m->getRoleByRoleId($id);
+        if($this->input->post()){
+            $permission = serialize($this->input->post('permission'));
+            $data = array(
+        		'roles_name' => $this->input->post('role_name'),
+        		'permission' => $permission
+        	);
+
+            $this->db->where('role_id',$id);
+            $this->db->update('roles', $data);
+            $this->session->set_flashdata('success', "Roles updated successfully.");
+            redirect('edit-role-'.$id);
+		}
+		else{
+            $this->data['user_permission'] = unserialize($this->data['role']->permission);
+			$this->data['page_title'] = 'edit roles';
+			$this->admin_view('backend/roles/edit', $this->data);
 		}
 	}
 

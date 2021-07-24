@@ -88,6 +88,14 @@
                                     
                                        <table class="table mb-0 thead-border-top-0 table-nowrap dataTable no-footer" id="stafflist" style="width: 100%;">
                                           <tbody class="list">
+                                             
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Roles</td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-roles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="edit-roles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-roles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-roles" ></td>
+                                             </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Staff</td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" ></td>
@@ -96,35 +104,12 @@
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" ></td>
                                              </tr>
                                              <tr class="odd">
-                                                <td style="width: 135.266px;">Product</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="update-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" disabled></td>
-                                             </tr>
-                                             <tr class="odd">
-                                                <td style="width: 135.266px;">Orders</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="update-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" disabled></td>
-                                             </tr>
-                                             <tr class="odd">
                                                 <td style="width: 135.266px;">Customer</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="update-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" disabled></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-customer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="edit-custimer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-customer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-customer"></td>
                                              </tr>
-                                             <tr class="odd">
-                                                <td style="width: 135.266px;">Category</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="update-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-staff" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" disabled></td>
-                                             </tr>
-
-                                             
                                              
                                           </tbody>
                                        </table>

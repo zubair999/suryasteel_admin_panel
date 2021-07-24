@@ -7,6 +7,9 @@ class Staff extends Backend_Controller {
     }
 
     public function index(){
+        if(!in_array('view-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['drawTable'] 	= $this->staffTableHead();
 		$this->data['tableId']	    =	'stafflist';
 		$this->data['pl']			=	'add-staff';
@@ -31,6 +34,9 @@ class Staff extends Backend_Controller {
     }
 
     public function add(){
+        if(!in_array('add-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
 		if($this->input->post()){
 			$this->form_validation->set_rules($this->staff_m->staffAddRules);
 			if($this->form_validation->run() == FALSE){
@@ -75,6 +81,9 @@ class Staff extends Backend_Controller {
 	}
 
     public function edit($id){
+        if(!in_array('edit-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
 		$this->data['user'] = $this->auth_m->getUserById($id);
         if($this->input->post()){
             if($this->input->post('mobileno') != $this->data['user']->mobile_no) {

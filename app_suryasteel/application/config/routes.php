@@ -116,6 +116,7 @@ $route['get-staff'] = 'backend/staff/getStaff';
 
 
 $route['add-roles'] = 'backend/roles/add';
+$route['edit-role-(:any)'] = 'backend/roles/edit/$1';
 $route['view-roles'] = 'backend/roles/index';
 $route['get-roles'] = 'backend/roles/getRoles';
 

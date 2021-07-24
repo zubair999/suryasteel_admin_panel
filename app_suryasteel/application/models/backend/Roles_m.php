@@ -71,7 +71,19 @@ class Roles_m extends MY_Model {
         return $this->db->get()->result_array();
     }
 
+    public function getUserPermission($role_id){
+        $this->db->select('permission');
+        $this->db->from('roles');
+        $this->db->where('role_id', $role_id);
+        return $this->db->get()->row()->permission;
+    }
 
+    public function getRoleByRoleId($role_id) {
+        $this->db->select('role_id, roles_name, permission');
+        $this->db->from('roles');
+        $this->db->where('role_id',$role_id);
+        return $this->db->get()->row();
+    }
 
 
 //end class

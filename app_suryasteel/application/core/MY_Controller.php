@@ -86,6 +86,12 @@ class MY_Controller extends CI_Controller {
         $this->phone = $this->session->userdata('mobile_no');
         $this->username = $this->session->userdata('email');
         $this->is_logged_in = $this->session->userdata('is_logged_in');
+        if(isset($this->role_id)){
+            $user_permission = $this->roles_m->getUserPermission($this->role_id);
+            $this->permission = unserialize($user_permission);
+        }
+
+        
 
 
         $this->razorpay = new Api(RAZOR_KEY, RAZOR_KEY_SECRET);
