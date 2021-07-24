@@ -212,6 +212,7 @@
             <?php endif; ?>
 
 
+
             <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
                   href="<?php echo base_url('view-roles'); ?>">
@@ -221,13 +222,17 @@
             </li>
 
 
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('view-logs'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Logs</span>
-               </a>
-            </li>
+            <?php if(in_array('view-logs', $this->permission)): ?>
+               <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                     href="<?php echo base_url('view-logs'); ?>">
+                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                     <span class="sidebar-menu-text">Logs</span>
+                  </a>
+               </li>
+            <?php endif; ?>
+
+            
 
 
             <li class="sidebar-menu-item">

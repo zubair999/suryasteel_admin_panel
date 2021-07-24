@@ -7,6 +7,9 @@ class Log extends Backend_Controller {
     }
 
     public function index(){
+        if(!in_array('view-logs', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['drawTable'] 	= $this->logTableHead();
 		$this->data['tableId']	    =	'logList';
 		$this->data['pl']			=	null;
