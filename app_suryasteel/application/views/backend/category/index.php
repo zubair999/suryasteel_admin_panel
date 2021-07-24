@@ -40,7 +40,7 @@
                            <button type="button" class="btn btn-outline-primary">
                               <i class="material-icons icon--left">build</i> Edit
                            </button>
-                        <a href="<?php echo base_url('edit-cateogory-'.$c['category_id']); ?>">
+                        <a href="<?php echo base_url('delete-category-'.$c['category_id']); ?>">
                      </div>
                      <div>
                         <button type="button" class="btn btn-outline-danger">

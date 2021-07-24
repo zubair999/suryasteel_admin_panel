@@ -82,6 +82,13 @@ class Category extends Backend_Controller {
 		}
 	}
 
+	public function delete($id) {
+        $this->db->where('category_id', $id);
+        $this->db->delete('category');
+        $this->session->set_flashdata('success', "Delete successfully.");
+		redirect('category','refresh');
+    }
+
     public function getSubCategory(){
         $response = $this->category_m->getSubcategoryByParent($this->input->post('category'));
         echo json_encode($response);
