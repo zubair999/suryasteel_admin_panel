@@ -105,25 +105,25 @@
                                        <table class="table mb-0 thead-border-top-0 table-nowrap dataTable no-footer" id="stafflist" style="width: 100%;">
                                           <tbody class="list">
                                              
-                                             <!-- <tr class="odd">
+                                             <tr class="odd">
                                                 <td style="width: 135.266px;">Roles</td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="add-roles" <?php if($user_permission) {
-                                                      if(in_array('add-staff', $user_permission)) { echo "checked"; } } ?> >
+                                                      if(in_array('add-roles', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="edit-roles" <?php if($user_permission) {
-                                                      if(in_array('edit-staff', $user_permission)) { echo "checked"; } } ?> >
+                                                      if(in_array('edit-roles', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="view-roles" <?php if($user_permission) {
-                                                      if(in_array('view-staff', $user_permission)) { echo "checked"; } } ?> >
+                                                      if(in_array('view-roles', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="delete-roles" <?php if($user_permission) {
-                                                      if(in_array('delete-staff', $user_permission)) { echo "checked"; } } ?> >
+                                                      if(in_array('delete-roles', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
-                                             </tr> -->
+                                             </tr>
 
                                              
                                              <tr class="odd">
@@ -163,6 +163,43 @@
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="delete-customer" <?php if($user_permission) {
                                                       if(in_array('delete-customer', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                             </tr>
+
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Category</td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="add-category" <?php if($user_permission) {
+                                                      if(in_array('add-category', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="edit-category" <?php if($user_permission) {
+                                                      if(in_array('edit-category', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="category" <?php if($user_permission) {
+                                                      if(in_array('category', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="delete-category" <?php if($user_permission) {
+                                                      if(in_array('delete-category', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                             </tr>
+
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Media</td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"  disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="media" <?php if($user_permission) {
+                                                      if(in_array('media', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
                                                 </td>
                                              </tr>
 

@@ -84,6 +84,8 @@ $route['media-upload'] = 'backend/media/fileUpload';
 $route['category'] = 'backend/category/index';
 $route['add-category'] = 'backend/category/add';
 $route['edit-category-(:any)'] = 'backend/category/edit/$1';
+$route['delete-category-(:any)'] = 'backend/category/delete/$1';
+
 
 
 $route['orders'] = 'backend/order/index';

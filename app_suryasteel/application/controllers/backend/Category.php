@@ -6,7 +6,9 @@ class Category extends Backend_Controller {
     }
 
     public function index(){
-
+		if(!in_array('view-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->db->select('c.category_id, c.category_name, i.actual, i.thumbnail');
 		$this->db->from('category as c');
 		$this->db->join('images as i', 'c.thumbnail = i.image_id');

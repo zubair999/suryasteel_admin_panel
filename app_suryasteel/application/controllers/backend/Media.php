@@ -7,6 +7,9 @@ class Media extends Backend_Controller{
 	}
 
 	public function index(){
+		if(!in_array('media', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['drawTable'] 	= $this->mediaTableHead();
 		$this->data['tableId']	    =	'medialist';
 		$this->data['pl']			=	false;

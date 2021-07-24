@@ -149,21 +149,33 @@
                </a>
             </li>
 
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('media'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Media</span>
-               </a>
-            </li>
+            <?php if(in_array('media', $this->permission)): ?>
+               <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                     href="<?php echo base_url('media'); ?>">
+                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                     <span class="sidebar-menu-text">Media</span>
+                  </a>
+               </li>
+            <?php endif; ?>
             
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
                   href="<?php echo base_url('category'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                <span class="sidebar-menu-text">Category</span>
                </a>
-            </li>
+            </li> -->
+
+            <?php if(in_array('add-category', $this->permission) || in_array('edit-category', $this->permission) || in_array('category', $this->permission) || in_array('delete-category', $this->permission)): ?>
+               <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                     href="<?php echo base_url('category'); ?>">
+                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                     <span class="sidebar-menu-text">Category</span>
+                  </a>
+               </li>
+            <?php endif; ?>
 
             
 
@@ -212,14 +224,15 @@
             <?php endif; ?>
 
 
-
-            <li class="sidebar-menu-item">
-               <a class="sidebar-menu-button"
-                  href="<?php echo base_url('view-roles'); ?>">
-               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-               <span class="sidebar-menu-text">Roles</span>
-               </a>
-            </li>
+            <?php if(in_array('add-roles', $this->permission) || in_array('edit-roles', $this->permission) || in_array('view-roles', $this->permission) || in_array('delete-roles', $this->permission)): ?>
+               <li class="sidebar-menu-item">
+                  <a class="sidebar-menu-button"
+                     href="<?php echo base_url('view-roles'); ?>">
+                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                     <span class="sidebar-menu-text">Roles</span>
+                  </a>
+               </li>
+            <?php endif; ?>
 
 
             <?php if(in_array('view-logs', $this->permission)): ?>

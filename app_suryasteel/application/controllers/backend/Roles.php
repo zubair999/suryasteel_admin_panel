@@ -7,6 +7,9 @@ class Roles extends Backend_Controller {
     }
 
     public function index(){
+        if(!in_array('view-roles', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['drawTable'] 	= $this->rolesTableHead();
 		$this->data['tableId']	    =	'roleslist';
 		$this->data['pl']			=	'add-roles';
@@ -27,6 +30,9 @@ class Roles extends Backend_Controller {
     }
 
     public function add(){
+        if(!in_array('add-roles', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
 		if($this->input->post()){
 
             $permission = serialize($this->input->post('permission'));
@@ -48,6 +54,9 @@ class Roles extends Backend_Controller {
 	}
 
     public function edit($id){
+        if(!in_array('edit-roles', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['role'] = $this->roles_m->getRoleByRoleId($id);
         if($this->input->post()){
             $permission = serialize($this->input->post('permission'));
