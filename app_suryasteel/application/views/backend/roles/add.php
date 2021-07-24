@@ -110,6 +110,34 @@
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="view-customer"></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="delete-customer"></td>
                                              </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Category</td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-category"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="edit-category"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-category"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-category"></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Media</td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="media"></td>
+                                                <td><input type="checkbox" disabled></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Logs</td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-logs"></td>
+                                                <td><input type="checkbox" disabled></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Systems</td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="system-setting"></td>
+                                                <td><input type="checkbox" disabled></td>
+                                             </tr>
                                              
                                           </tbody>
                                        </table>

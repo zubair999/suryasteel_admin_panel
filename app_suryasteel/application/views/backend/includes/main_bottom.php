@@ -149,7 +149,7 @@
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('view-roles'); ?>">
                      <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
-                     <span class="sidebar-menu-text">Roles</span>
+                     <span class="sidebar-menu-text">Roles & Permissions</span>
                   </a>
                </li>
             <?php endif; ?>
