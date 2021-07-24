@@ -98,6 +98,39 @@ class Auth extends Backend_Controller{
 		}
 	}
 	
+
+	public function update_profile(){
+        if(!in_array('manage-profile', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
+        if($this->input->post()){
+            $this->form_validation->set_rules('app_name', 'app name', 'trim|required');
+            $this->form_validation->set_rules('app_description', 'app description', 'trim|required');
+            $this->form_validation->set_rules('address', 'address', 'trim|required');
+            $this->form_validation->set_rules('author_name', 'author', 'trim|required');
+			if($this->form_validation->run() == FALSE){
+				$this->data['page_title'] = 'update profile';
+                $this->session->set_flashdata('error', "Please fill the form carefully!");
+				$this->admin_view('backend/setting/edit', $this->data);
+			}
+			else{
+				$this->setting_m->update_system_settings();
+                $logData = array(
+                    'user_id' => $this->uid,
+                    'title' => 'Update Profile',
+                    'description' => 'User updated profile successfully.',
+                    'created_on' => $this->today
+                );
+                $this->db->insert('logs', $logData);
+				$this->session->set_flashdata('success', "Your profile updated successfully.");
+				redirect('system-setting', 'refresh');
+			}
+		}
+		else{
+			$this->data['page_title'] = 'update profile';
+			$this->admin_view('backend/setting/edit', $this->data);
+		}
+	}
 	
 
 

@@ -142,6 +142,9 @@ $route['logout'] = 'backend/auth/userLogout';
 
 // SETTINGS
 $route['system-setting'] = 'backend/setting/edit';
+$route['manage-profile'] = 'backend/auth/update_profile';
+
+
 
 
 // LOGS

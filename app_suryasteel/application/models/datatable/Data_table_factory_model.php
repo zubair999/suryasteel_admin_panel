@@ -225,8 +225,8 @@ class Data_table_factory_model extends MY_Model
     }
 
     public function productsButtonFactory($id){
-      $edit =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
-      $delete =  '<a href="'.base_url('edit-order-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+      $edit =  '<a href="'.base_url('edit-product-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a href="'.base_url('delete-product-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
 
       $action =  '<div class="action-buttons">
                                 '.$edit.'

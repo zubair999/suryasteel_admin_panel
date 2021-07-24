@@ -9,7 +9,7 @@
    <ol class="breadcrumb p-0 m-0">
       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
       <li class="breadcrumb-item">
-         <a href="">Password</a>
+         <a href=""><?= ucwords($page_title) ?></a>
       </li>
       <li class="breadcrumb-item active">
          <?= ucwords($page_title) ?>
@@ -19,7 +19,7 @@
 
 
 <div class="container-fluid page__container page-section">
-    <?php echo form_open('update-password-'.$user_id, ['method' => 'post']) ?>
+    <?php echo form_open('system-setting', ['method' => 'post']) ?>
    <div class="row mb-32pt">
       <div class="col-lg-8 d-flex align-items-center">
         
@@ -63,20 +63,56 @@
                   ?>
                </div>
 
+
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Password</label>
-                        <input type="password" name="password" value="<?php echo ( $this->input->post('password') ? $this->input->post('password') : null )?>" class="form-control" id="validationSample01" placeholder="Enter new password" >
-                        <div class="invalid-feedback">Please provide Total.</div>
+                        <label class="form-label" for="validationSample01">Company Name</label>
+                        <input type="text" name="app_name" value="<?php echo get_settings('app_name');  ?>" class="form-control" id="validationSample01" placeholder="Enter app name" >
+                        <div class="invalid-feedback">Please provide a app name.</div>
                         <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('password');?><span>
+                        <span class="text-danger"><?php echo form_error('app_name');?><span>
+                  </div>
+               </div>
 
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">Company Description</label>
+                        <textarea 
+                           class="form-control" 
+                           style="height:200px; width:700px"
+                           name="app_description"   
+                        ><?php echo get_settings('app_description');  ?>
+                        </textarea>
+                        <div class="invalid-feedback">Please provide a lastname.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('lastname');?><span>
+                  </div>
+               </div>
+
+               
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">Company Address</label>
+                        <input type="text" name="address" value="<?php echo get_settings('address');  ?>" class="form-control" id="validationSample01" placeholder="Enter company address" >
+                        <div class="invalid-feedback">Please provide a app name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('address');?><span>
                   </div>
                </div>
 
 
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">Author Name</label>
+                        <input type="text" name="author_name" value="<?php echo get_settings('author_name');  ?>" class="form-control" id="validationSample01" placeholder="Enter an author name" >
+                        <div class="invalid-feedback">Please provide a app name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('author_name');?><span>
+                  </div>
+               </div>
+
             
-            <a class="btn btn-primary-dodger-blue" href="javascript:history.back()">Back</a>
+            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('dashboard'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>
             
             

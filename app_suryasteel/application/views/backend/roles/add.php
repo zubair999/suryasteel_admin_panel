@@ -132,10 +132,17 @@
                                                 <td><input type="checkbox" disabled></td>
                                              </tr>
                                              <tr class="odd">
-                                                <td style="width: 135.266px;">Systems</td>
+                                                <td style="width: 135.266px;">Systems Settings</td>
                                                 <td><input type="checkbox" disabled></td>
                                                 <td><input type="checkbox" disabled></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="system-setting"></td>
+                                                <td><input type="checkbox" disabled></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Manage Profile</td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" disabled></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="manage-profile"></td>
                                                 <td><input type="checkbox" disabled></td>
                                              </tr>
                                              
@@ -154,7 +161,7 @@
                   </div>
                </div>
             </div>
-            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('products'); ?>">Back</a>
+            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('view-roles'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>
          </div>
       </div>

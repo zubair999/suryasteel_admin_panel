@@ -173,7 +173,7 @@
 
             
 
-            <?php if(in_array('system-setting', $this->permission)): ?>
+            <?php if(in_array('system-setting', $this->permission) || in_array('manage-profile', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
                      <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
@@ -181,11 +181,23 @@
                      <span class="ml-auto sidebar-menu-toggle-icon"></span>
                   </a>
                   <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                     
+                  <?php if(in_array('system-setting', $this->permission)): ?>
                      <li class="sidebar-menu-item">
                            <a class="sidebar-menu-button" href="<?php echo base_url('system-setting'); ?>">
                               <span class="sidebar-menu-text">System Setting</span>
                            </a>
                      </li>
+                  <?php endif; ?>
+
+                  <?php if(in_array('manage-profile', $this->permission)): ?>
+                     <li class="sidebar-menu-item">
+                           <a class="sidebar-menu-button" href="<?php echo base_url('manage-profile'); ?>">
+                              <span class="sidebar-menu-text">Manage Profile</span>
+                           </a>
+                     </li>
+                  <?php endif; ?>
+
                   </ul>
                </li>
             <?php endif; ?>

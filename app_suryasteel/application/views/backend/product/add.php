@@ -69,110 +69,6 @@
                   <input hidden type="text"  id="thumbId" name="thumbnail_id" class="form-control" value="<?php echo json_decode(get_settings('default_image'))[0]->image_id ?>">
                </div>
 
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Product Name</label>
-                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
-                        <div class="invalid-feedback">Please provide a product name.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('product_name');?>
-                  </div>
-               </div>
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">MRP</label>
-                        <input type="text" name="mrp" value="<?php $this->input->post('mrp')?>" class="form-control" id="validationSample01" placeholder="Enter mrp" required>
-                        <div class="invalid-feedback">Please provide MRP.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('mrp');?>
-                  </div>
-               </div>
-
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Sell Price</label>
-                        <input type="text" name="sell_price" value="<?php $this->input->post('sell_price') ?>" class="form-control" id="validationSample01" placeholder="Enter Sell Price" required>
-                        <div class="invalid-feedback">Please provide Total.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('sell_price');?>
-                  </div>
-               </div>
-
-               
-
-               
-
-               
-
-               
-
-               
-
-               
-
-
-               
-
-               
-
-               
-
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample01">Status</label>
-                     <select id="select01"
-                        name="status"
-                        data-toggle="select"
-                        class="form-control">
-                        <?php
-                           foreach ($status as $s) { 
-                              ?>
-                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
-                              <?php 
-                           }
-
-                        ?>
-
-
-
-                        
-
-
-                    </select>
-                     <div class="invalid-feedback">Please select status.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <?php echo form_error('status');?>
-                  </div>
-               </div>
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample02">Brand</label>
-                     <select id="select02"
-                        name="brand"
-                        data-toggle="select"
-                        class="form-control">
-                        <option value="">Select Brand</option>
-                           <?php
-                              foreach($brand as $b){
-                                 ?>
-                                    <option value="<?php echo $b['brand_id']; ?>"><?php echo ucwords($b['brand_name']) ?></option>';
-                                 <?php
-
-
-                              }
-                           ?>
-                        
-
-                    </select>
-                     <div class="invalid-feedback">Please select status.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <?php echo form_error('status');?>
-                  </div>
-               </div>
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
@@ -202,18 +98,29 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample04">Sub Category</label>
-                     <select id="select04"
-                        name="subcategory"
+                        <label class="form-label" for="validationSample01">Product Name</label>
+                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                           <?php echo form_error('product_name');?>
+                  </div>
+               </div>
+
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample01">Status</label>
+                     <select id="select01"
+                        name="status"
                         data-toggle="select"
                         class="form-control">
-                           <option value="">Select Category First</option>
                         <?php
-                           foreach($subcategory as $sc){
+                           foreach ($status as $s) { 
                               ?>
-                                 <option value="<?php echo $sc['sub_category_id']; ?>"><?php echo ucwords($sc['sub_category_name']) ?></option>';
-                              <?php
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
                            }
+
                         ?>
                     </select>
                      <div class="invalid-feedback">Please select status.</div>
@@ -224,74 +131,39 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample05">Sub Category Type</label>
-                     <select id="select05"
-                        name="subcategorytype"
-                        data-toggle="select"
-                        class="form-control">
-                        <option value="">Select Sub Category First</option>
-                        <?php
-                           foreach($subcategorytype as $sct){
-                              ?>
-                                 <option value="<?php echo $sct['sub_category_type_id']; ?>"><?php echo ucwords($sct['sub_category_type_name']) ?></option>';
-                              <?php
-                           }
-                        ?>
-                    </select>
-                     <div class="invalid-feedback">Please select status.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <?php echo form_error('status');?>
+                        <label class="form-label" for="validationSample01">Length</label>
+                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                           <?php echo form_error('product_name');?>
                   </div>
                </div>
-
                
-
                
-
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample07">GST</label>
-                     <select id="select07"
-                        name="gst"
-                        data-toggle="select"
-                        class="form-control">
-                        <option value="">Select GST</option>
-                        <?php
-                           foreach($gst as $g){
-                             
-
-
-
-                              ?>
-                                 <option value="<?php echo $g['gst_id']; ?>"><?php echo ucwords($g['gst_value']) ?></option>';
-                              <?php
-                           }
-                        ?>
-                    </select>
-                     <div class="invalid-feedback">Please select GST.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <?php echo form_error('status');?>
+                        <label class="form-label" for="validationSample01">Weight Per Piece</label>
+                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                           <?php echo form_error('product_name');?>
                   </div>
                </div>
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample08">Deals Type</label>
-                     <select id="select08"
-                        name="type"
+                     <label class="form-label" for="validationSample01">Unit</label>
+                     <select id="select01"
+                        name="status"
                         data-toggle="select"
                         class="form-control">
-                        <option value="">Select Deal Type</option>
                         <?php
-                           foreach($type as $t){
-                              
-
-
-
+                           foreach ($status as $s) { 
                               ?>
-                                 <option value="<?php echo $t['type_id']; ?>"><?php echo ucwords($t['type_value']) ?></option>';
-                              <?php
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
                            }
+
                         ?>
                     </select>
                      <div class="invalid-feedback">Please select status.</div>
@@ -299,6 +171,106 @@
                      <?php echo form_error('status');?>
                   </div>
                </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">Size</label>
+                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                           <?php echo form_error('product_name');?>
+                  </div>
+               </div>
+
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample01">Capacity</label>
+                     <select id="select01"
+                        name="status"
+                        data-toggle="select"
+                        class="form-control">
+                        <?php
+                           foreach ($status as $s) { 
+                              ?>
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
+                           }
+
+                        ?>
+                    </select>
+                     <div class="invalid-feedback">Please select status.</div>
+                     <div class="valid-feedback">Looks good!</div>
+                     <?php echo form_error('status');?>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample01">Zinc or Without Zinc</label>
+                     <select id="select01"
+                        name="status"
+                        data-toggle="select"
+                        class="form-control">
+                        <?php
+                           foreach ($status as $s) { 
+                              ?>
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
+                           }
+
+                        ?>
+                    </select>
+                     <div class="invalid-feedback">Please select status.</div>
+                     <div class="valid-feedback">Looks good!</div>
+                     <?php echo form_error('status');?>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample01">Kunda or Without Kunda</label>
+                     <select id="select01"
+                        name="status"
+                        data-toggle="select"
+                        class="form-control">
+                        <?php
+                           foreach ($status as $s) { 
+                              ?>
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
+                           }
+
+                        ?>
+                    </select>
+                     <div class="invalid-feedback">Please select status.</div>
+                     <div class="valid-feedback">Looks good!</div>
+                     <?php echo form_error('status');?>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample01">Nut or Without Nut</label>
+                     <select id="select01"
+                        name="status"
+                        data-toggle="select"
+                        class="form-control">
+                        <?php
+                           foreach ($status as $s) { 
+                              ?>
+                                 <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
+                              <?php 
+                           }
+
+                        ?>
+                    </select>
+                     <div class="invalid-feedback">Please select status.</div>
+                     <div class="valid-feedback">Looks good!</div>
+                     <?php echo form_error('status');?>
+                  </div>
+               </div>
+               
 
                
 

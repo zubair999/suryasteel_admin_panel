@@ -238,6 +238,23 @@
                                                    <input type="checkbox" id="permission"   disabled>
                                                 </td>
                                              </tr>
+
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Manage Profile</td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"  disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="manage-profile" <?php if($user_permission) {
+                                                      if(in_array('manage-profile', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                             </tr>
                                              
                                           </tbody>
                                        </table>
@@ -254,7 +271,7 @@
                   </div>
                </div>
             </div>
-            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('products'); ?>">Back</a>
+            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('view-roles'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>
          </div>
       </div>
