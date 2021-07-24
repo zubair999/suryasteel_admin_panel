@@ -31,7 +31,6 @@
                      <a href="" class="text-muted"><i class="material-icons">more_vert</i></a>   
                      <div class="flex">
                         <h5 class="card-title m-0"><a href=""><?php echo $c['category_name'] ?></a></h5>
-                        <small class="text-muted"><a href="<?php echo base_url('subcategory-'.$c['category_id']) ?>"><?php echo $c['sub_category_count'] ?> Sub Categories</a></small>
                      </div>
                   </div>
                   

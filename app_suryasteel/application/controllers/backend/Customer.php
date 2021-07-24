@@ -7,6 +7,9 @@ class Customer extends Backend_Controller {
     }
 
     public function index(){
+        if(!in_array('view-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['drawTable'] 	= $this->customerTableHead();
 		$this->data['tableId']	    =	'customerlist';
 		$this->data['pl']			=	'add-customer';
@@ -32,6 +35,9 @@ class Customer extends Backend_Controller {
     }
 
     public function add(){
+        if(!in_array('add-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
 		if($this->input->post()){
 			$this->form_validation->set_rules($this->customer_m->customerAddRules);
 			if($this->form_validation->run() == FALSE){
@@ -84,6 +90,9 @@ class Customer extends Backend_Controller {
 
 
     public function edit($id){
+        if(!in_array('edit-staff', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
         $this->data['user'] = $this->auth_m->getUserById($id);
 		if($this->input->post()){
             if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
