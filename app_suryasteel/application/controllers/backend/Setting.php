@@ -16,6 +16,7 @@ class Setting extends Backend_Controller {
             $this->form_validation->set_rules('app_description', 'app description', 'trim|required');
             $this->form_validation->set_rules('address', 'address', 'trim|required');
             $this->form_validation->set_rules('author_name', 'author', 'trim|required');
+            $this->form_validation->set_rules('whatsappno', 'whatsapp no', 'trim|required|exact_length[10]');
 			if($this->form_validation->run() == FALSE){
 				$this->data['page_title'] = 'system settings';
                 $this->session->set_flashdata('error', "Please fill the form carefully!");

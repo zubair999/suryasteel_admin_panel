@@ -111,6 +111,17 @@
                   </div>
                </div>
 
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">Mobile App Whatsapp No</label>
+                        <input type="text" name="whatsappno" value="<?php echo get_settings('APP_WHATSAPP_NO');  ?>" class="form-control" id="validationSample01" placeholder="Enter a whatsapp no" >
+                        <div class="invalid-feedback">Please provide a whatsapp no.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('whatsappno');?><span>
+                  </div>
+               </div>
+
             
             <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('dashboard'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>

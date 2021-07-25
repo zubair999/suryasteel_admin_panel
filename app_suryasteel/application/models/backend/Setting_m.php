@@ -16,7 +16,7 @@ class Setting_m extends MY_Model {
 	public function update_system_settings() {
 
         $data['value'] = html_escape($this->input->post('app_name'));
-        $this->db->where('name', 'system_name');
+        $this->db->where('name', 'app_name');
         $this->db->update('settings', $data);
 
         $data['value'] = html_escape($this->input->post('app_description'));
@@ -29,6 +29,10 @@ class Setting_m extends MY_Model {
 
         $data['value'] = html_escape($this->input->post('author_name'));
         $this->db->where('name', 'author_name');
+        $this->db->update('settings', $data);
+
+        $data['value'] = html_escape($this->input->post('whatsappno'));
+        $this->db->where('name', 'APP_WHATSAPP_NO');
         $this->db->update('settings', $data);
 
     }

@@ -67,7 +67,7 @@
                <span class="material-icons">menu</span>
                </button>
                <!-- Navbar Brand -->
-               <a href="index.html"
+               <a
                   class="navbar-brand mr-16pt d-lg-none">
                <img class="navbar-brand-icon mr-0 mr-lg-8pt"
                   src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png"
@@ -77,18 +77,20 @@
                </a>
                <!-- <button class="btn navbar-btn mr-16pt" data-toggle="modal" data-target="#apps">Apps <i class="material-icons">arrow_drop_down</i></button> -->
                <form class="search-form navbar-search d-none d-md-flex mr-16pt"
-                  action="index.html">
+                  >
                   <button class="btn"
-                     type="submit"><i class="material-icons">search</i></button>
+                     disabled><i class="material-icons">search</i></button>
                   <input type="text"
                      class="form-control"
-                     placeholder="Search ...">
+                     placeholder="Search ..."
+                     disabled
+                     >
                </form>
                <div class="flex"></div>
                <div class="nav navbar-nav flex-nowrap d-none d-lg-flex mr-16pt"
                   style="white-space: nowrap;">
                   <div class="nav-item dropdown d-none d-sm-flex">
-                     <a href="#"
+                     <a
                         class="nav-link dropdown-toggle"
                         data-toggle="dropdown">EN</a>
                      <div class="dropdown-menu dropdown-menu-right">
@@ -99,7 +101,7 @@
                </div>
                <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
                   <div class="nav-item dropdown d-none d-sm-flex">
-                     <a href="#"
+                     <a
                         class="nav-link d-flex align-items-center dropdown-toggle"
                         data-toggle="dropdown">
                      <img width="32"
@@ -274,26 +276,25 @@
                            <div class="col-md-2 col-sm-4 mb-24pt mb-md-0">
                               <p class="text-white-70 mb-8pt"><strong>Follow us</strong></p>
                               <nav class="nav nav-links nav--flush">
-                                 <a href="#"
+                                 <a
                                     class="nav-link mr-8pt"><img src="<?php echo ADMIN ?>assets/images/icon/footer/facebook-square@2x.png"
                                     width="24"
                                     height="24"
                                     alt="Facebook"></a>
-                                 <a href="#"
+                                 <a 
                                     class="nav-link mr-8pt"><img src="<?php echo ADMIN ?>assets/images/icon/footer/twitter-square@2x.png"
                                     width="24"
                                     height="24"
                                     alt="Twitter"></a>
-                                 <a href="#"
+                                 <a
                                     class="nav-link mr-8pt"><img src="<?php echo ADMIN ?>assets/images/icon/footer/vimeo-square@2x.png"
                                     width="24"
                                     height="24"
                                     alt="Vimeo"></a>
-                                 <!-- <a href="#" class="nav-link"><img src="<?php echo ADMIN ?>assets/images/icon/footer/youtube-square@2x.png" width="24" height="24" alt="YouTube"></a> -->
                               </nav>
                            </div>
                            <div class="col-md-6 col-sm-4 mb-24pt mb-md-0 d-flex align-items-center">
-                              <a href=""
+                              <a 
                                  class="btn btn-outline-white">English <span class="icon--right material-icons">arrow_drop_down</span></a>
                            </div>
                            <div class="col-md-4 text-md-right">
@@ -303,7 +304,7 @@
                                  <a href="javascript:void(0)"
                                     class="text-white-70 text-underline">Privacy policy</a>
                               </p>
-                              <p class="text-white-50 small mb-0">Copyright 2021 &copy; All rights reserved.</p>
+                              <p class="text-white-50 small mb-0">Copyright <?php echo date('Y') ?> &copy; All rights reserved.</p>
                            </div>
                         </div>
                      </div>
@@ -318,7 +319,7 @@
             <div class="mdk-drawer__content">
                <div class="sidebar sidebar-dark sidebar-left"
                   data-perfect-scrollbar>
-                  <a href="<?php echo base_url('secure/admin/login') ?>"
+                  <a href="<?php echo base_url('login') ?>"
                      class="sidebar-brand ">
                   <img class="sidebar-brand-icon"
                      src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png"
@@ -326,7 +327,7 @@
                   <span><?php echo get_settings('app_name') ?></span>
                   </a>
                   <div class="sidebar-account mx-16pt mb-16pt dropdown">
-                     <a href="#"
+                     <a
                         class="nav-link d-flex align-items-center dropdown-toggle"
                         data-toggle="dropdown"
                         data-caret="false">
@@ -343,19 +344,19 @@
                      </a>
                      
                   </div>
-                  <form action="index.html"
+                  <form
                      class="search-form flex-shrink-0 search-form--black sidebar-m-b sidebar-p-l mx-16pt pr-0">
-                     <input type="text"
+                     <input
                         class="form-control pl-0"
-                        placeholder="Search">
+                        placeholder="Search" disabled>
                      <button class="btn"
-                        type="submit"><i class="material-icons">search</i></button>
+                        ><i class="material-icons">search</i></button>
                   </form>
                   <div class="sidebar-heading">Overview</div>
                   <ul class="sidebar-menu">
                      <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button"
-                           href="javascript:void(0)">
+                           >
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart_outlined</span>
                         <span class="sidebar-menu-text">Dashboard</span>
                         </a>
