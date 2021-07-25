@@ -46,6 +46,19 @@ class Backend_Controller extends MY_Controller {
       );
    }
 
+   public function yesOrNo(){
+      return array(
+         0 => array(
+            'c_id'=> 1,
+            'c_value'=>'yes'
+         ),
+         1 => array(
+            'c_id'=> 2,
+            'c_value'=>'no'
+         )
+      );
+   }
+
 
 // CLASS ENDS
 }

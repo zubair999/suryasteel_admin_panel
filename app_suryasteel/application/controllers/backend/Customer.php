@@ -42,6 +42,7 @@ class Customer extends Backend_Controller {
 			$this->form_validation->set_rules($this->customer_m->customerAddRules);
 			if($this->form_validation->run() == FALSE){
                 $this->data['state'] = $this->state_m->getAllState();
+                $this->data['yesOrNo'] = $this->yesOrNo();
                 $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 				$this->data['page_title'] = 'add customer';
                 $this->session->set_flashdata('error', "Please fill the form carefully!");
@@ -62,6 +63,7 @@ class Customer extends Backend_Controller {
                     'state_id' => $this->input->post('state'),
                     'landmark' => $this->input->post('landmark'),
                     'is_active' => 'active',
+                    'is_allowed_to_view_product' => $this->input->post('yesno'),
                     'created_by' => $this->uid,
                     'created_on' => $this->today
                 );
@@ -75,6 +77,7 @@ class Customer extends Backend_Controller {
                 );
                 $this->db->insert('logs', $logData);
                 $this->data['state'] = $this->state_m->getAllState();
+                $this->data['yesOrNo'] = $this->yesOrNo();
                 $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 				$this->session->set_flashdata('success', "Customer added successfully.");
 				redirect('add-customer','refresh');
@@ -82,6 +85,7 @@ class Customer extends Backend_Controller {
 		}
 		else{
             $this->data['state'] = $this->state_m->getAllState();
+            $this->data['yesOrNo'] = $this->yesOrNo();
             $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 			$this->data['page_title'] = 'add customer';;
 			$this->admin_view('backend/customer/add', $this->data);
@@ -106,6 +110,7 @@ class Customer extends Backend_Controller {
 			if($this->form_validation->run() == FALSE){
                 $this->data['state'] = $this->state_m->getAllState();
                 $this->data['status'] = $this->status();
+                $this->data['yesOrNo'] = $this->yesOrNo();
                 $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 				$this->data['page_title'] = 'edit customer';
                 $this->session->set_flashdata('error', "Please fill the form carefully!");
@@ -125,6 +130,7 @@ class Customer extends Backend_Controller {
                     'state_id' => $this->input->post('state'),
                     'landmark' => $this->input->post('landmark'),
                     'is_active' => $this->input->post('status'),
+                    'is_allowed_to_view_product' => $this->input->post('yesno'),
                     'created_on' => $this->today
                 );
 
@@ -140,6 +146,7 @@ class Customer extends Backend_Controller {
                 $this->db->insert('logs', $logData);
 
                 $this->data['status'] = $this->status();
+                $this->data['yesOrNo'] = $this->yesOrNo();
                 $this->data['state'] = $this->state_m->getAllState();
                 $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 				$this->session->set_flashdata('success', "Customer updated successfully.");
@@ -148,6 +155,7 @@ class Customer extends Backend_Controller {
 		}
 		else{
             $this->data['status'] = $this->status();
+            $this->data['yesOrNo'] = $this->yesOrNo();
             $this->data['state'] = $this->state_m->getAllState();
             $this->data['gst_reg_type'] = $this->gst_reg_type_m->getAllGstRegType();
 			$this->data['page_title'] = 'edit customer';;

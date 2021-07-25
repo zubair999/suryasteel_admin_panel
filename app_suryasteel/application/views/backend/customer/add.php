@@ -210,6 +210,28 @@
                </div>
 
 
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                     <label class="form-label" for="validationSample12">Is Allowed To View Product</label>
+                     <select id="select01"
+                        name="yesno"
+                        data-toggle="select"
+                        class="form-control">
+                        <option value="">Select Yes or No</option>
+                        <?php
+                           foreach ($yesOrNo as $yn) {
+                              $selected = ($yn['c_id'] == $this->input->post('yesno')) ? ' selected="selected"' : "";
+                              echo '<option value="'.$yn['c_id'].'" '.$selected.'>'.ucwords($yn['c_value']).'</option>';
+                           }
+                        ?>
+                    </select>
+                     <div class="invalid-feedback">Please select yes or no.</div>
+                     <div class="valid-feedback">Looks good!</div>
+                     <span class="text-danger"><?php echo form_error('yesno');?><span>
+                  </div>
+               </div>
+
+
                
 
                
