@@ -86,11 +86,21 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample05">Mobile No.</label>
+                        <label class="form-label" for="validationSample05">Mobile No</label>
                         <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : $user->mobile_no) ?>" class="form-control" id="validationSample05" placeholder="Enter mobile no" >
                         <div class="invalid-feedback">Please provide Total.</div>
                         <div class="valid-feedback">Looks good!</div>
                         <span class="text-danger"><?php echo form_error('mobileno');?><span>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample05">New Password</label>
+                        <input type="text" name="newpassword" value="<?php echo ($this->input->post('newpassword') ? $this->input->post('newpassword') : null) ?>" class="form-control" id="validationSample05" placeholder="Enter a password" >
+                        <div class="invalid-feedback">Please provide a password.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('newpassword');?><span>
                   </div>
                </div>
 

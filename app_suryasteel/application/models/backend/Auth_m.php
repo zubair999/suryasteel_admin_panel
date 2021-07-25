@@ -46,6 +46,19 @@ class Auth_m extends MY_Model {
         $this->db->update('users', $data);
     }
 
+    public function update_user_password(){
+        if(empty($this->input->post('newpassword'))){
+            return;
+        }
+        else{
+            $data = array(
+                'password' => password_hash($this->input->post('newpassword'), PASSWORD_DEFAULT)
+            );
+            $this->db->where('user_id', $this->uid);
+            $this->db->update('users', $data);
+        }
+    }
+
 
 
 //end class

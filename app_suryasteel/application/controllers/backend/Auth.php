@@ -128,6 +128,8 @@ class Auth extends Backend_Controller{
 			}
 			else{
 				$this->auth_m->update_user_profile();
+				$this->auth_m->update_user_password();
+
                 $logData = array(
                     'user_id' => $this->uid,
                     'title' => 'Update Profile',
