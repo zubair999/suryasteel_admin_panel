@@ -19,7 +19,7 @@
 
 
 <div class="container-fluid page__container page-section">
-    <?php echo form_open('system-setting', ['method' => 'post']) ?>
+    <?php echo form_open('manage-profile', ['method' => 'post']) ?>
    <div class="row mb-32pt">
       <div class="col-lg-8 d-flex align-items-center">
         
@@ -66,50 +66,35 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Company Name</label>
-                        <input type="text" name="app_name" value="<?php echo get_settings('app_name');  ?>" class="form-control" id="validationSample01" placeholder="Enter app name" >
-                        <div class="invalid-feedback">Please provide a app name.</div>
+                        <label class="form-label" for="validationSample03">First Name</label>
+                        <input type="text" name="firstname" value="<?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : $user->firstname ) ?>" class="form-control" id="validationSample03" placeholder="Enter first name" >
+                        <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('app_name');?><span>
+                        <span class="text-danger"><?php echo form_error('firstname');?><span>
                   </div>
                </div>
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Company Description</label>
-                        <textarea 
-                           class="form-control" 
-                           style="height:200px; width:700px"
-                           name="app_description"   
-                        ><?php echo get_settings('app_description');  ?>
-                        </textarea>
-                        <div class="invalid-feedback">Please provide a lastname.</div>
+                        <label class="form-label" for="validationSample04">Last Name</label>
+                        <input type="text" name="lastname" value="<?php echo ($this->input->post('lastname') ? $this->input->post('lastname') : $user->lastname )?>" class="form-control" id="validationSample04" placeholder="Enter last name" >
+                        <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
                         <span class="text-danger"><?php echo form_error('lastname');?><span>
                   </div>
                </div>
 
-               
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Company Address</label>
-                        <input type="text" name="address" value="<?php echo get_settings('address');  ?>" class="form-control" id="validationSample01" placeholder="Enter company address" >
-                        <div class="invalid-feedback">Please provide a app name.</div>
+                        <label class="form-label" for="validationSample05">Mobile No.</label>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : $user->mobile_no) ?>" class="form-control" id="validationSample05" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide Total.</div>
                         <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('address');?><span>
+                        <span class="text-danger"><?php echo form_error('mobileno');?><span>
                   </div>
                </div>
 
 
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Author Name</label>
-                        <input type="text" name="author_name" value="<?php echo get_settings('author_name');  ?>" class="form-control" id="validationSample01" placeholder="Enter an author name" >
-                        <div class="invalid-feedback">Please provide a app name.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('author_name');?><span>
-                  </div>
-               </div>
 
             
             <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('dashboard'); ?>">Back</a>

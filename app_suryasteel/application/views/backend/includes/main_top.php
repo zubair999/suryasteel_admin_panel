@@ -34,8 +34,8 @@
       <img class="navbar-brand-icon mr-0 mr-lg-8pt"
          src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png"
          width="32"
-         alt="Vishwa">
-      <span class="d-none d-lg-block">Vishwa</span>
+         alt="<?php echo get_settings('app_name') ?>">
+      <span class="d-none d-lg-block"><?php echo get_settings('app_name') ?></span>
       </a>
       <!-- <button class="btn navbar-btn mr-16pt" data-toggle="modal" data-target="#apps">Apps <i class="material-icons">arrow_drop_down</i></button> -->
       <form class="search-form navbar-search d-none d-md-flex mr-16pt"

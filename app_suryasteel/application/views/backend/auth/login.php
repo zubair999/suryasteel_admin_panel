@@ -225,7 +225,9 @@
                            name="user_name"
                            type="text"
                            class="form-control"
-                           placeholder="Your email address ...">
+                           placeholder="Your email address ..."
+                        >
+                        <span class="text-danger"><?php echo form_error('user_name');?><span>
                      </div>
                      <div class="form-group">
                         <label class="form-label"
@@ -235,7 +237,9 @@
                            name="password"
                            type="password"
                            class="form-control"
-                           placeholder="Your first and last name ...">
+                           placeholder="Your first and last name ..."
+                        >
+                        <span class="text-danger"><?php echo form_error('password');?><span>
                         <p class="text-right"><a href="javascript:void(0)"
                            class="small"></a></p>
                      </div>

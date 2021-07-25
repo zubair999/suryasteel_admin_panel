@@ -43,7 +43,7 @@
                      <a href=""
                         class="text-white-70 text-underline">Privacy policy</a>
                   </p>
-                  <p class="text-white-50 small mb-0">Copyright 2019 &copy; All rights reserved.</p>
+                  <p class="text-white-50 small mb-0">Copyright <?php echo date("Y"); ?> &copy; All rights reserved.</p>
                </div>
             </div>
          </div>
@@ -58,7 +58,7 @@
    <div class="mdk-drawer__content">
       <div class="sidebar sidebar-dark sidebar-left"
          data-perfect-scrollbar>
-         <a href="<?php echo base_url('secure/admin/dashboard'); ?>"
+         <a href="<?php echo base_url('dashboard'); ?>"
             class="sidebar-brand ">
          <img class="sidebar-brand-icon"
             src="<?php echo ADMIN ?>assets/images/logo/accent-teal-100@2x.png">

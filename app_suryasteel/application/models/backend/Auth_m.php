@@ -32,8 +32,19 @@ class Auth_m extends MY_Model {
         return $this->db->get_where('users', array('email'=> $email,'is_active'=>'active'))->num_rows();
     }
 
+    public function checkUserRole($email){
+        return $this->db->get_where('users', array('email'=> $email,'is_active'=>'active'))->row()->role_id;
+    }
 
-
+    public function update_user_profile(){
+        $data = array(
+            'firstname' => $this->input->post('firstname'),
+            'lastname' => $this->input->post('lastname'),
+            'mobile_no' => $this->input->post('mobileno')
+        );
+        $this->db->where('user_id', $this->uid);
+        $this->db->update('users', $data);
+    }
 
 
 
