@@ -6,7 +6,7 @@ class Category extends Backend_Controller {
     }
 
     public function index(){
-		if(!in_array('view-staff', $this->permission)) {
+		if(!in_array('category', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->db->select('c.category_id, c.category_name, i.actual, i.thumbnail');
