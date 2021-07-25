@@ -57,7 +57,7 @@ class Data_table_factory_model extends MY_Model
       $data = '<div class="card card-sm card-group-row__card">
                      <div class="position-relative">
                         <div class="card-img-top">
-                           <img src="'.base_url().'upload/'.$row->thumbnail.'" class="card-img-top card-img-cover" alt="" data-imgId='.$row->image_id.'>
+                           <img src="'.base_url().'upload/'.$row->thumbnail.'" class="card-img-top card-img-cover mediaImg" data-imgId='.$row->image_id.'>
                         </div>
                      </div>
                      

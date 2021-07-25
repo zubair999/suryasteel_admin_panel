@@ -93,5 +93,11 @@ div#productlist_paginate {
 .table-responsive {
    padding:10px;
 }
+@media(max-width:767px){
+   .card-img-top img{
+      width:125px ;
+   }
+}
+
          </style>
    </head>
