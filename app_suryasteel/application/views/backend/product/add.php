@@ -28,8 +28,24 @@
         <div class="flex" style="max-width: 100%">
             <div class="was-validated">
 
-            <?php
-                     if($this->session->flashdata('notification')){
+                  <?php
+                     if($this->session->flashdata('error')){
+                        ?>
+                           <div class="alert bg-danger text-white border-0" role="alert">
+                              <div class="d-flex flex-wrap align-items-start">
+                                    <div class="mr-8pt">
+                                       <i class="material-icons">access_time</i>
+                                    </div>
+                                    <div class="flex" style="min-width: 180px">
+                                       <small>
+                                          <strong>Oops!</strong> <?php echo $this->session->flashdata('error') ?>
+                                       </small>
+                                    </div>
+                              </div>
+                           </div>
+                        <?php
+                     }
+                     if($this->session->flashdata('success')){
                         ?>
                            <div class="alert bg-success text-white border-0" role="alert">
                               <div class="d-flex flex-wrap align-items-start">
@@ -38,7 +54,7 @@
                                     </div>
                                     <div class="flex" style="min-width: 180px">
                                        <small>
-                                          <strong>Well done!</strong> <?php echo $this->session->flashdata('notification') ?>
+                                          <strong>Well done!</strong> <?php echo $this->session->flashdata('success') ?>
                                        </small>
                                     </div>
                               </div>
@@ -80,13 +96,9 @@
                      >
                      <option value="">Select Category</option>
                         <?php
-                           foreach($category as $c){
-                              
-
-                              ?>
-                                 <option value="<?php echo $c['category_id']; ?>"><?php echo ucwords($c['category_name']) ?></option>';
-                              <?php
-
+                           foreach($category as $value => $c){
+                              $selected = ($c['category_id'] == $this->input->post('category')) ? ' selected="selected"' : "";
+                              echo '<option value="'.$c['category_id'].'" '.$selected.'>'.ucwords($c['category_name']).'</option>';
                            }
                         ?>
                     </select>
@@ -132,10 +144,10 @@
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">Length</label>
-                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
-                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <input type="text" name="product_length" value="<?php $this->input->post('product_length') ?>" class="form-control" id="validationSample01" placeholder="Enter product length" required>
+                        <div class="invalid-feedback">Please provide a product length.</div>
                         <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('product_name');?>
+                           <?php echo form_error('product_length');?>
                   </div>
                </div>
                
@@ -143,10 +155,10 @@
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">Weight Per Piece</label>
-                        <input type="text" name="product_name" value="<?php $this->input->post('product_name') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <input type="text" name="perpieceweight" value="<?php $this->input->post('perpieceweight') ?>" class="form-control" id="validationSample01" placeholder="Enter weight per piece" required>
                         <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('product_name');?>
+                           <?php echo form_error('perpieceweight');?>
                   </div>
                </div>
 
@@ -163,7 +175,6 @@
                                  <option value="<?php echo $s['status_value']; ?>"><?php echo ucwords($s['status_value']) ?></option>';
                               <?php 
                            }
-
                         ?>
                     </select>
                      <div class="invalid-feedback">Please select status.</div>

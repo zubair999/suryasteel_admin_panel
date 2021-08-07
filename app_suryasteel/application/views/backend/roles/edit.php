@@ -187,6 +187,26 @@
                                              </tr>
 
                                              <tr class="odd">
+                                                <td style="width: 135.266px;">Purchase</td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="add-purchase" <?php if($user_permission) {
+                                                      if(in_array('add-purchase', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="edit-purchase" <?php if($user_permission) {
+                                                      if(in_array('edit-purchase', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="view-purchase" <?php if($user_permission) {
+                                                      if(in_array('view-purchase', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="delete-purchase" <?php if($user_permission) {
+                                                      if(in_array('delete-purchase', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                             </tr>
+
+                                             <tr class="odd">
                                                 <td style="width: 135.266px;">Media</td>
                                                 <td>
                                                    <input type="checkbox" id="permission"  disabled>

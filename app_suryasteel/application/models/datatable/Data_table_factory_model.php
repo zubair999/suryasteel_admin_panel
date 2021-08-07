@@ -246,7 +246,34 @@ class Data_table_factory_model extends MY_Model
             );
     }
 
+    public function purchaseColumnFactory($row){
+      return array(
+                    1 => array(
+                      0 => $row->purchase_no,
+                      1 => $row->purchase_date,
+                      2 => $row->total_weight,
+                      3 => $row->rate_per_kg,
+                      4 => $row->freight_charge,
+                      5 => $row->unloading_charge,
+                      6 => $row->invoice_weight,
+                      7 => $row->actual_weight,
+                      8 => $row->vendor
+                )
+                    );
+    }
 
+    public function purchaseButtonFactory($id){
+      $edit =  '<a title="Edit Staff" href="'.base_url('edit-staff-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">edit</span></a>';
+      $delete =  '<a title="Delete Staff" href="'.base_url('delete-staff-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">delete</span></a>';
+      $change_password =  '<a title="Change Password" href="'.base_url('update-password-'.$id).'"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">lock</span></a>';
+
+      $action =  '<div class="action-buttons">
+                                '.$change_password.'
+                                '.$edit.'
+                                '.$delete.'
+                              </div>';
+      return $action;
+    }
 
 
 

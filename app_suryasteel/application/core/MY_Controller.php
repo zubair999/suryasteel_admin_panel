@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 use Razorpay\Api\Api;
 require_once FCPATH . '/vendor/autoload.php'; // change path as needed
 
+
 class MY_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
@@ -13,7 +14,7 @@ class MY_Controller extends CI_Controller {
 
 
         // ADMIN MODELS
-        $this->models = array(
+        $this->backend_models = array(
             0=>'product_m', 
             1=>'category_m',
             2=>'gst_m',
@@ -33,17 +34,17 @@ class MY_Controller extends CI_Controller {
             16=>'auth_m',
             17=>'setting_m',
             18=>'log_m',
+            19=>'purchase_m',
 
         );
         
-        foreach ($this->models as $key => $model_name) {
+        foreach ($this->backend_models as $key => $model_name) {
             $this->load->model('backend/'.$model_name);
         }
 
         // API MODELS
         $this->models = array(
             0=>'auth_m',
-
         );
         
         foreach ($this->models as $key => $model_name) {
@@ -53,11 +54,11 @@ class MY_Controller extends CI_Controller {
 
 
         // API ADMIN MODELS
-        $this->models = array(
+        $this->api_admin_models = array(
             1=>'staff_api_m'
         );
         
-        foreach ($this->models as $key => $model_name) {
+        foreach ($this->api_admin_models as $key => $model_name) {
             $this->load->model('api/Admin/'.$model_name);
         }
 

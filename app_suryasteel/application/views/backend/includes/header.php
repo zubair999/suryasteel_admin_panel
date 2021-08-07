@@ -36,7 +36,16 @@
       <link type="text/css"
          href="<?php echo ADMIN ?>assets/css/app.css"
          rel="stylesheet">
-      <!-- Dark Mode CSS (optional) -->
+      <!-- Flatpickr -->
+      <link type="text/css"
+         href="<?php echo ADMIN ?>assets/css/flatpickr.css"
+         rel="stylesheet">
+
+      <link type="text/css"
+         href="<?php echo ADMIN ?>assets/css/flatpickr-airbnb.css"
+         rel="stylesheet">
+   
+         <!-- Dark Mode CSS (optional) -->
       <link type="text/css"
          href="<?php echo ADMIN ?>assets/css/dark-mode.css"
          rel="stylesheet">

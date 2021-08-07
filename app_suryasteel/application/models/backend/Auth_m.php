@@ -28,6 +28,10 @@ class Auth_m extends MY_Model {
         return $this->db->get_where('users', array('email'=> $email))->num_rows();
     }
 
+    public function getUserCountByMobile($mobileno) {
+        return $this->db->get_where('users', array('mobile_no'=> $mobileno))->num_rows();
+    }
+
     public function getActiveUserByEmail($email) {
         return $this->db->get_where('users', array('email'=> $email,'is_active'=>'active'))->num_rows();
     }

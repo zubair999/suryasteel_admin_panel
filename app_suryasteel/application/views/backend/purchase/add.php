@@ -9,7 +9,7 @@
    <ol class="breadcrumb p-0 m-0">
       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
       <li class="breadcrumb-item">
-         <a href="">Staff</a>
+         <a href=""><?= ucwords($page_title) ?></a>
       </li>
       <li class="breadcrumb-item active">
          <?= ucwords($page_title) ?>
@@ -66,50 +66,28 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample03">Role</label>
-                     <select
-                        name="role"
-                        data-toggle="select"
-                        class="form-control"
-                     >
-                     <option value="">Select Role</option>
-                        <?php
-                           foreach($role as $value => $r){
-                              $selected = ($r['role_id'] == $this->input->post('role')) ? ' selected="selected"' : "";
-                              echo '<option value="'.$r['role_id'].'" '.$selected.'>'.ucwords($r['roles_name']).'</option>';
-                           }
-                        ?>
-                    </select>
-                     <div class="invalid-feedback">Please select status.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <span class="text-danger"><?php echo form_error('role');?><span>
+                        <label class="form-label" for="validationSample01">Purchase No</label>
+                        <input type="text" name="purchaseno" value="<?php echo ( $this->input->post('purchaseno') ? $this->input->post('username') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter purchase no" >
+                        <div class="invalid-feedback">Please provide purchase no.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('purchaseno');?><span>
                   </div>
                </div>
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Username(Email)</label>
-                        <input type="text" name="username" value="<?php echo ( $this->input->post('username') ? $this->input->post('username') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter username" >
+                        <label class="form-label" for="validationSample01">Purchase Date</label>
+                        <input class="form-control flatpickr-input active" id="dateDatePic" placeholder="" tabindex="0" type="text" readonly="readonly">
                         <div class="invalid-feedback">Please provide Total.</div>
                         <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('username');?><span>
-                  </div>
-               </div>
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Password</label>
-                        <input type="password" name="password" value="<?php echo ( $this->input->post('password') ? $this->input->post('password') : null )?>" class="form-control" id="validationSample01" placeholder="Enter password" >
-                        <div class="invalid-feedback">Please provide Total.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('password');?><span>
+                        <span class="text-danger"><?php echo form_error('purchasedate');?><span>
 
                   </div>
                </div>
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">First Name</label>
+                        <label class="form-label" for="validationSample01">total weight</label>
                         <input type="text" name="firstname" value="<?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : null ) ?>" class="form-control" id="validationSample01" placeholder="Enter first name" >
                         <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
@@ -119,7 +97,7 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Last Name</label>
+                        <label class="form-label" for="validationSample01">rate per kg</label>
                         <input type="text" name="lastname" value="<?php echo ($this->input->post('lastname') ? $this->input->post('lastname') : null )?>" class="form-control" id="validationSample01" placeholder="Enter last name" >
                         <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
@@ -130,7 +108,7 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Mobile No.</label>
+                        <label class="form-label" for="validationSample01">freight charge</label>
                         <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
                         <div class="invalid-feedback">Please provide Total.</div>
                         <div class="valid-feedback">Looks good!</div>
@@ -138,30 +116,48 @@
                   </div>
                </div>
 
-               <!-- <div class="form-row">
+               <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                     <label class="form-label" for="validationSample01">Status</label>
-                     <select id="select01"
-                        name="status"
-                        data-toggle="select"
-                        class="form-control">
-                        <option>Select Status</option>
-                        <?php
-                           foreach ($status as $s) { 
-                              $selected = ($s['status_id'] == $this->input->post('status')) ? ' selected="selected"' : "";
-                              echo '<option value="'.$s['status_id'].'" '.$selected.'>'.ucwords($s['status_value']).'</option>';
-                           }
-
-                        ?>
-                    </select>
-                     <div class="invalid-feedback">Please select status.</div>
-                     <div class="valid-feedback">Looks good!</div>
-                     <span class="text-danger"><?php echo form_error('status');?><span>
+                        <label class="form-label" for="validationSample01">unloading charge</label>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide Total.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('mobileno');?><span>
                   </div>
-               </div> -->
+               </div>
 
-            
-            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('products'); ?>">Back</a>
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">invoice weight</label>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide Total.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('mobileno');?><span>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">actual weight</label>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide Total.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('mobileno');?><span>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="validationSample01">vendor</label>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide Total.</div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <span class="text-danger"><?php echo form_error('mobileno');?><span>
+                  </div>
+               </div>
+
+
+            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('view-purchase'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>
             
             

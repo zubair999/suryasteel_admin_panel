@@ -119,6 +119,71 @@
 
             
 
+
+            <li class="sidebar-menu-item">
+               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
+                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                  Purchase
+                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
+               </a>
+               <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                  
+               <?php if(in_array('add-purchase', $this->permission)): ?>
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
+                           <span class="sidebar-menu-text">Add</span>
+                        </a>
+                  </li>
+               <?php endif; ?>
+
+               <?php if(in_array('view-purchase', $this->permission)): ?>
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('view-purchase'); ?>">
+                           <span class="sidebar-menu-text">View</span>
+                        </a>
+                  </li>
+               <?php endif; ?>
+
+               </ul>
+            </li>
+
+
+            <li class="sidebar-menu-item">
+               <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#process_menu" aria-expanded="true">
+                  <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
+                  Process
+                  <span class="ml-auto sidebar-menu-toggle-icon"></span>
+               </a>
+               <ul class="sidebar-submenu sm-indent collapse show" id="process_menu" style="">
+                  
+               <?php if(in_array('add-purchase', $this->permission)): ?>
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
+                           <span class="sidebar-menu-text">Raw Material</span>
+                        </a>
+                  </li>
+               <?php endif; ?>
+               
+               
+               <?php if(in_array('add-purchase', $this->permission)): ?>
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
+                           <span class="sidebar-menu-text">Acid Treatment</span>
+                        </a>
+                  </li>
+               <?php endif; ?>
+
+               <?php if(in_array('view-purchase', $this->permission)): ?>
+                  <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="<?php echo base_url('view-purchase'); ?>">
+                           <span class="sidebar-menu-text">Draw Process</span>
+                        </a>
+                  </li>
+               <?php endif; ?>
+
+               </ul>
+            </li>
+
             
 
 

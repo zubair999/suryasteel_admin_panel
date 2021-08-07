@@ -19,7 +19,7 @@
 
 
 <div class="container-fluid page__container page-section">
-    <?php echo form_open('add-staff', ['method' => 'post']) ?>
+    <?php echo form_open('edit-staff-'.$user->user_id, ['method' => 'post']) ?>
    <div class="row mb-32pt">
       <div class="col-lg-8 d-flex align-items-center">
         
@@ -75,8 +75,9 @@
                      <option value="">Select Role</option>
                         <?php
                            foreach($role as $value => $r){
-                              $selected = ($r['role_id'] == $this->input->post('role')) ? ' selected="selected"' : "";
+                              $selected = ($r['role_id'] == $user->role_id) ? ' selected="selected"' : "";
                               echo '<option value="'.$r['role_id'].'" '.$selected.'>'.ucwords($r['roles_name']).'</option>';
+
                            }
                         ?>
                     </select>
@@ -88,30 +89,9 @@
 
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Username(Email)</label>
-                        <input type="text" name="username" value="<?php echo ( $this->input->post('username') ? $this->input->post('username') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter username" >
-                        <div class="invalid-feedback">Please provide Total.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('username');?><span>
-                  </div>
-               </div>
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
-                        <label class="form-label" for="validationSample01">Password</label>
-                        <input type="password" name="password" value="<?php echo ( $this->input->post('password') ? $this->input->post('password') : null )?>" class="form-control" id="validationSample01" placeholder="Enter password" >
-                        <div class="invalid-feedback">Please provide Total.</div>
-                        <div class="valid-feedback">Looks good!</div>
-                        <span class="text-danger"><?php echo form_error('password');?><span>
-
-                  </div>
-               </div>
-
-               <div class="form-row">
-                  <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">First Name</label>
-                        <input type="text" name="firstname" value="<?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : null ) ?>" class="form-control" id="validationSample01" placeholder="Enter first name" >
-                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <input type="text" name="firstname" value="<?php echo ($this->input->post('firstname') ? $this->input->post('firstname') : $user->firstname ) ?>" class="form-control" id="validationSample01" placeholder="Enter first name" >
+                        <div class="invalid-feedback">Please provide a firstname.</div>
                         <div class="valid-feedback">Looks good!</div>
                         <span class="text-danger"><?php echo form_error('firstname');?><span>
                   </div>
@@ -120,8 +100,8 @@
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">Last Name</label>
-                        <input type="text" name="lastname" value="<?php echo ($this->input->post('lastname') ? $this->input->post('lastname') : null )?>" class="form-control" id="validationSample01" placeholder="Enter last name" >
-                        <div class="invalid-feedback">Please provide a product name.</div>
+                        <input type="text" name="lastname" value="<?php echo ($this->input->post('lastname') ? $this->input->post('lastname') : $user->lastname )?>" class="form-control" id="validationSample01" placeholder="Enter last name" >
+                        <div class="invalid-feedback">Please provide a lastname.</div>
                         <div class="valid-feedback">Looks good!</div>
                         <span class="text-danger"><?php echo form_error('lastname');?><span>
                   </div>
@@ -131,14 +111,14 @@
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">Mobile No.</label>
-                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : null) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
-                        <div class="invalid-feedback">Please provide Total.</div>
+                        <input type="text" name="mobileno" value="<?php echo ($this->input->post('mobileno') ? $this->input->post('mobileno') : $user->mobile_no) ?>" class="form-control" id="validationSample01" placeholder="Enter mobile no" >
+                        <div class="invalid-feedback">Please provide mobile no.</div>
                         <div class="valid-feedback">Looks good!</div>
                         <span class="text-danger"><?php echo form_error('mobileno');?><span>
                   </div>
                </div>
 
-               <!-- <div class="form-row">
+               <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                      <label class="form-label" for="validationSample01">Status</label>
                      <select id="select01"
@@ -148,7 +128,10 @@
                         <option>Select Status</option>
                         <?php
                            foreach ($status as $s) { 
-                              $selected = ($s['status_id'] == $this->input->post('status')) ? ' selected="selected"' : "";
+
+                              
+                              $selected = ($s['status_value'] == $user->is_active) ? ' selected="selected"' : "";
+                              
                               echo '<option value="'.$s['status_id'].'" '.$selected.'>'.ucwords($s['status_value']).'</option>';
                            }
 
@@ -158,10 +141,10 @@
                      <div class="valid-feedback">Looks good!</div>
                      <span class="text-danger"><?php echo form_error('status');?><span>
                   </div>
-               </div> -->
+               </div>
 
             
-            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('products'); ?>">Back</a>
+            <a class="btn btn-primary-dodger-blue" href="<?php echo base_url('view-staff'); ?>">Back</a>
             <button class="btn btn-primary-dodger-blue" type="submit">Submit</button>
             
             

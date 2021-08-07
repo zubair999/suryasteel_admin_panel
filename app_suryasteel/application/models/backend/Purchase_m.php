@@ -1,13 +1,13 @@
 <?php 
 defined('BASEPATH') or exit('no dierct script access allowed');
 
-class Staff_m extends MY_Model {
+class Purchase_m extends MY_Model {
 
-	protected $tbl_name = 'users';
-    protected $primary_col = 'user_id';
+	protected $tbl_name = 'purchase';
+    protected $primary_col = 'purchase_id';
     protected $order_by = 'created_on';
 
-    public $staffAddRules = array(
+    public $purchaseAddRules = array(
         0 => array(
             'field' => 'username',
             'label' => 'Username/Email',
@@ -36,49 +36,17 @@ class Staff_m extends MY_Model {
         )
     );
 
-    public $staffAddRulesApp = array(
-        0 => array(
-            'field' => 'username',
-            'label' => 'Username/Email',
-            'rules' => 'trim|required|valid_email|is_unique[users.email]',
-            'errors' => array(
-                'is_unique' => "The Username/Email is already added."
-            ),
-        ),
-        1 => array(
-            'field' => 'role',
-            'label' => 'Role',
-            'rules' => 'trim|required'
-        ),
-        2 => array(
-            'field' => 'password',
-            'label' => 'Password',
-            'rules' => 'trim|required|min_length[5]|max_length[10]'
-        ),
-        3 => array(
-            'field' => 'mobileno',
-            'label' => 'Mobile no',
-            'rules' => 'trim|required|exact_length[10]|is_natural',
-            'errors' => array(
-                'is_unique' => "This mobile no is already added."
-            ),
-        )
-    );
-
     public function __construct()
 	{
 		parent::__construct();   
 	}
 
 
-	public function getStaff(){
+	public function getPurchase(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
 
-        $sql = "select * from users
-            join roles on users.role_id = roles.role_id
-            where users.role_id != 8
-        ";
+        $sql = "select * from purchase";
 
         //echo $sql;
         $query = $this->db->query($sql);
@@ -96,7 +64,7 @@ class Staff_m extends MY_Model {
 
         $query = $this->db->query($sql);
         $totalFiltered = $query->num_rows();
-        $sql.= " order by users.user_id asc limit " . $start . " ," . $requestData['length'] . "   ";
+        $sql.= " order by purchase_date desc limit " . $start . " ," . $requestData['length'] . "   ";
         $query = $this->db->query($sql);
 
         $SearchResults = $query->result();
@@ -107,10 +75,10 @@ class Staff_m extends MY_Model {
         foreach ($SearchResults as $row) {
             $counter++;
             $nestedData = array();
-            $id = $row->user_id;
+            $id = $row->purchase_id;
             // $crypted_id = $this->outh_m->Encryptor('encrypt', $id);
-            $action = $this->data_table_factory_model->staffButtonFactory($id);
-            $columnFactory = $this->data_table_factory_model->staffColumnFactory($row);
+            $action = $this->data_table_factory_model->purchaseButtonFactory($id);
+            $columnFactory = $this->data_table_factory_model->purchaseColumnFactory($row);
             $tableCol = $this->data_table_factory_model->drawTableData($counter, $id, $columnFactory,$row);
             $j = 0;
             foreach ($tableCol as $key => $value) {

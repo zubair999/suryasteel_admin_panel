@@ -175,6 +175,14 @@
          });
    }
 
+
+         $("#dateDatePic").flatpickr({
+            enableTime: true,
+            minDate: "today",
+            time_24hr: true,
+            altInput: true,
+            defaultDate: "2018-04-24 16:57"
+         });
         </script>
 
     </body>
