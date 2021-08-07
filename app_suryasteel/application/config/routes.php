@@ -12,7 +12,7 @@ $route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
 $route['v1/delete-image'] = 'backend/media/deleteimage';
 
 // STAFF
-$route['v1/addstaff'] = 'api/app/admin/staff/addStaff';
+$route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 
 // CUSTOMER
