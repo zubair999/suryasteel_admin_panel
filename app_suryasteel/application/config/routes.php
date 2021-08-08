@@ -19,6 +19,10 @@ $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 
 
+// APP CONFIGURATIONS
+$route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
+
+
 
 // CUSTOMER
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
