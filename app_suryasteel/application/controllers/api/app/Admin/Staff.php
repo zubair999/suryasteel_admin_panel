@@ -45,7 +45,27 @@ class Staff extends REST_Controller
 						);
 						$isAdded =  $this->db->insert('users', $staffData);
 						if($isAdded){
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'Staff added successfully.'];
+                            $this->db->select(
+                                'u.user_id,
+                                u.role_id,
+                                u.is_active,
+                                u.mobile_no,
+                                u.firstname,
+                                u.lastname,
+                                u.email,
+                                r.roles_name
+                                '
+                            );
+                
+                            $this->db->from('users as u');
+                            $this->db->join('roles as r', 'u.role_id=r.role_id');
+                            $this->db->where('r.role_id != ', null);
+                            $this->db->limit(25);
+                            $this->db->order_by('u.firstname ASC');
+                            $staff = $this->db->get()->result_array();
+
+
+							$response = ['status' => 200, 'message' => 'success', 'description' => 'Staff added successfully.', 'data'=>$staff];
 						}
 						else{
 							$response = ['status' => 200, 'message' => 'success', 'description' => 'Something went wrong.'];
