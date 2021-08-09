@@ -65,10 +65,10 @@ class Staff extends REST_Controller
                             $staff = $this->db->get()->result_array();
 
 
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'Staff added successfully.', 'data'=>$staff];
+							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.', 'data'=>$staff];
 						}
 						else{
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'Something went wrong.'];
+							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
 						}
 					}
 				}   

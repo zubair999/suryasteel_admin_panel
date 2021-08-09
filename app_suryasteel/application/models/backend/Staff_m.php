@@ -40,7 +40,7 @@ class Staff_m extends MY_Model {
         0 => array(
             'field' => 'username',
             'label' => 'Username/Email',
-            'rules' => 'trim|required|valid_email|is_unique[users.email]',
+            'rules' => 'trim|required|valid_email',
             'errors' => array(
                 'is_unique' => "The Username/Email is already added."
             ),
