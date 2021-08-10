@@ -26,6 +26,27 @@ class Staff_api_m extends MY_Model {
         return $this->db->get()->num_rows();
     }
 
+    public function get_staff_list(){
+        $this->db->select(
+            'u.user_id,
+            u.role_id,
+            u.is_active,
+            u.mobile_no,
+            u.firstname,
+            u.lastname,
+            u.email,
+            r.roles_name
+            '
+        );
+
+        $this->db->from('users as u');
+        $this->db->join('roles as r', 'u.role_id=r.role_id');
+        $this->db->where('r.role_id != ', null);
+        $this->db->limit(25);
+        $this->db->order_by('u.firstname ASC');
+        return $this->db->get()->result_array();
+    }
+
 
 //end class
 

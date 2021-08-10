@@ -17,6 +17,10 @@ $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
+$route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
+$route['v1/updatepassword'] = 'api/app/Auth/auth/updatePassword';
+
+
 
 
 // APP CONFIGURATIONS

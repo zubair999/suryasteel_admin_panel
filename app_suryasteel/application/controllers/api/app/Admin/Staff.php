@@ -12,7 +12,7 @@ class Staff extends REST_Controller
 	public function addStaff_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {
-            $this->response(['status' => 400, 'message' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
             exit();
         }
         else{
@@ -81,7 +81,7 @@ class Staff extends REST_Controller
 	public function getStaff_get(){
         $method = $this->_detect_method();
         if (!$method == 'GET') {
-            $this->response(['status' => 400, 'message' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
             exit();
         }
         else{
@@ -92,24 +92,7 @@ class Staff extends REST_Controller
                 exit();
             }
             else{
-                $this->db->select(
-                    'u.user_id,
-                    u.role_id,
-                    u.is_active,
-                    u.mobile_no,
-                    u.firstname,
-                    u.lastname,
-                    u.email,
-                    r.roles_name
-                    '
-                );
-    
-                $this->db->from('users as u');
-                $this->db->join('roles as r', 'u.role_id=r.role_id');
-                $this->db->where('r.role_id != ', null);
-                $this->db->limit(25);
-                $this->db->order_by('u.firstname ASC');
-                $staff = $this->db->get()->result_array();
+                $staff = $this->staff_api_m->get_staff_list();
                 $res = ['status'=> 200, 'message'=> 'success', 'description'=>'Staff fetched successfully.', 'data'=>$staff];
                 $this->response($res, REST_Controller::HTTP_OK);
                 exit();
@@ -117,7 +100,21 @@ class Staff extends REST_Controller
         }
 	}
 
-
+    public function deleteStaff_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'GET') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->db->where('user_id', $this->input->post('user_id'));
+            $this->db->delete('users');
+            $staff = $this->staff_api_m->get_staff_list();
+            $res = ['status'=> 200, 'message'=> 'success', 'description'=>'User delete successfully.', 'data'=>$staff];
+            $this->response($res, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 	
 
 	
