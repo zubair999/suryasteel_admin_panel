@@ -34,6 +34,7 @@ class Auth extends REST_Controller
                     else{
                         $user = $this->auth_m->getUserByEmail($this->input->post('username'));
                         if(password_verify($this->input->post('password'), $user->password)){
+                            $userPermission = $this->roles_m->getUserPermission($user->role_id);
                             $userData = array(
                                 'uid' => $user->user_id,
                                 'role_id' => $user->role_id,
@@ -43,6 +44,7 @@ class Auth extends REST_Controller
                                 'lastname' => $user->lastname,
                                 'username ' => $user->email,
                                 'is_logged_in' => true,
+                                'permission' => unserialize($userPermission)
                             );
                             $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
                         }
