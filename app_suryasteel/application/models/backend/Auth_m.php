@@ -63,6 +63,10 @@ class Auth_m extends MY_Model {
         }
     }
 
+    public function deleteUser($id){
+        $this->db->where('user_id', $id);
+        $this->db->delete('users');
+    }
 
 
 //end class

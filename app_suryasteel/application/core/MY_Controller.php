@@ -35,32 +35,31 @@ class MY_Controller extends CI_Controller {
             17=>'setting_m',
             18=>'log_m',
             19=>'purchase_m',
-
         );
         
         foreach ($this->backend_models as $key => $model_name) {
             $this->load->model('backend/'.$model_name);
         }
 
-        // API MODELS
-        $this->models = array(
-            0=>'auth_m',
-        );
+        // // API MODELS
+        // $this->models = array(
+        //     0=>'auth_m',
+        // );
         
-        foreach ($this->models as $key => $model_name) {
-            $this->load->model('api/'.$model_name);
-        }
+        // foreach ($this->models as $key => $model_name) {
+        //     $this->load->model('api/'.$model_name);
+        // }
 
 
 
-        // API ADMIN MODELS
-        $this->api_admin_models = array(
-            1=>'staff_api_m'
-        );
+        // // API ADMIN MODELS
+        // $this->api_admin_models = array(
+        //     1=>'staff_api_m'
+        // );
         
-        foreach ($this->api_admin_models as $key => $model_name) {
-            $this->load->model('api/Admin/'.$model_name);
-        }
+        // foreach ($this->api_admin_models as $key => $model_name) {
+        //     $this->load->model('api/Admin/'.$model_name);
+        // }
 
 
        // WEB MODELS

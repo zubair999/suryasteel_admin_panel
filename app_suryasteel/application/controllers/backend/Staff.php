@@ -47,25 +47,8 @@ class Staff extends Backend_Controller {
 				$this->admin_view('backend/staff/add', $this->data);
 			}
 			else{
-				$staffData = array(
-                    'role_id' => $this->input->post('role'),
-                    'firstname' => $this->input->post('firstname'),
-                    'lastname' => $this->input->post('lastname'),
-                    'email' => $this->input->post('username'),
-                    'password' => $this->input->post('password'),
-                    'mobile_no' => $this->input->post('mobileno'),
-                    'is_active' => 'active',
-                    'created_by' => $this->uid
-                );
-                $this->db->insert('users', $staffData);
-
-                $logData = array(
-                    'user_id' => $this->uid,
-                    'title' => 'Staff',
-                    'description' => 'A staff is added succesfully',
-                    'created_on' => $this->today
-                );
-                $this->db->insert('logs', $logData);
+                $this->staff_m->addStaff($this->uid);
+                $this->staff_m->addLog($this->uid);
                 $this->data['status'] = $this->status();
                 $this->data['role'] = $this->roles_m->getAllRoles();
 				$this->session->set_flashdata('success', "Staff added successfully.");
@@ -102,24 +85,8 @@ class Staff extends Backend_Controller {
 				$this->admin_view('backend/staff/edit', $this->data);
 			}
 			else{
-				$staffData = array(
-                    'role_id' => $this->input->post('role'),
-                    'firstname' => $this->input->post('firstname'),
-                    'lastname' => $this->input->post('lastname'),
-                    'mobile_no' => $this->input->post('mobileno'),
-                    'is_active' => $this->input->post('status')
-                );
-
-                $this->db->where('user_id', $id);
-                $this->db->update('users', $staffData);
-
-                $logData = array(
-                    'user_id' => $this->uid,
-                    'title' => 'Staff',
-                    'description' => 'A staff is updated succesfully',
-                    'created_on' => $this->today
-                );
-                $this->db->insert('logs', $logData);
+                $this->staff_m->editStaff($id);
+                $this->staff_m->editLog($this->uid);
                 $this->data['status'] = $this->status();
                 $this->data['role'] = $this->roles_m->getAllRoles();
 				$this->session->set_flashdata('success', "Updated successfully.");
@@ -136,8 +103,7 @@ class Staff extends Backend_Controller {
 	}
 
     public function delete($id) {
-        $this->db->where('user_id', $id);
-        $this->db->delete('users');
+        $this->auth_m->deleteUser($id);
         $this->session->set_flashdata('success', "Delete successfully.");
 		redirect('view-staff','refresh');
     }

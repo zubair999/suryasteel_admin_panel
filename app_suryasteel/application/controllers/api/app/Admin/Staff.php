@@ -31,40 +31,11 @@ class Staff extends REST_Controller
 						$response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
 					}
 					else{
-						$hashedPwd = password_hash($data['password'], PASSWORD_DEFAULT);
-						$staffData = array(
-							'role_id'=> $data['role'],
-							'is_active' => 'active',
-							'firstname'  => $data['firstname'],
-							'lastname'  => $data['lastname'],
-							'email'  => $data['username'],
-							'password'  => $hashedPwd,
-							'mobile_no' => $data['mobileno'],
-							'created_on' => $this->today,
-                            'created_by' => $data['uid']
-						);
-						$isAdded =  $this->db->insert('users', $staffData);
+                        $isAdded = $this->staff_m->addStaff($data['uid']);
+                        $this->staff_m->addLog($data['uid']);
 						if($isAdded){
-                            $this->db->select(
-                                'u.user_id,
-                                u.role_id,
-                                u.is_active,
-                                u.mobile_no,
-                                u.firstname,
-                                u.lastname,
-                                u.email,
-                                r.roles_name
-                                '
-                            );
-                
-                            $this->db->from('users as u');
-                            $this->db->join('roles as r', 'u.role_id=r.role_id');
-                            $this->db->where('r.role_id != ', null);
-                            $this->db->limit(25);
-                            $this->db->order_by('u.firstname ASC');
+                            $staff = $this->staff_m->get_staff_list();
                             $staff = $this->db->get()->result_array();
-
-
 							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.', 'data'=>$staff];
 						}
 						else{
@@ -78,6 +49,40 @@ class Staff extends REST_Controller
         }
 	}
 
+    public function editStaff_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->data['user'] = $this->auth_m->getUserById($this->input->post('user_id'));
+            if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
+                $is_unique =  '|is_unique[users.mobile_no]';
+            } else {
+                $is_unique =  '';
+            }
+            $this->form_validation->set_rules('role', 'Role', 'trim|required');
+            $this->form_validation->set_rules('mobileno', 'Mobile no', 'trim|required|exact_length[10]|is_natural'.$is_unique);
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' =>'ok', 'description' =>validation_errors()];
+            }
+            else{
+                $userCount = $this->auth_m->userCountByEmail($this->input->post('username'));
+				if($userCount > 0){
+					$response = ['status' => 200, 'message' => 'error', 'description' => 'User already exits.'];
+                }
+                else{
+                    $this->staff_m->editStaff($this->input->post('user_id'));
+                    $this->staff_m->editLog($this->input->post('edited_by'));
+                    $response = ['status' => 200, 'message' =>'ok', 'description' =>'Staff updated successfully.'];
+                }   
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+	}
+
 	public function getStaff_get(){
         $method = $this->_detect_method();
         if (!$method == 'GET') {
@@ -85,14 +90,14 @@ class Staff extends REST_Controller
             exit();
         }
         else{
-            $staffCount = $this->staff_api_m->staff_count();
+            $staffCount = $this->staff_m->staff_count();
             if($staffCount < 1){
                 $res = ['status'=> 200, 'message'=> 'error', 'description'=>'No staff available.'];
                 $this->response($res, REST_Controller::HTTP_OK);
                 exit();
             }
             else{
-                $staff = $this->staff_api_m->get_staff_list();
+                $staff = $this->staff_m->get_staff_list();
                 $res = ['status'=> 200, 'message'=> 'success', 'description'=>'Staff fetched successfully.', 'data'=>$staff];
                 $this->response($res, REST_Controller::HTTP_OK);
                 exit();
@@ -107,9 +112,8 @@ class Staff extends REST_Controller
             exit();
         }
         else{
-            $this->db->where('user_id', $this->input->post('user_id'));
-            $this->db->delete('users');
-            $staff = $this->staff_api_m->get_staff_list();
+            $this->auth_m->deleteUser($this->input->post('user_id'));
+            $staff = $this->staff_m->get_staff_list();
             $res = ['status'=> 200, 'message'=> 'success', 'description'=>'User delete successfully.', 'data'=>$staff];
             $this->response($res, REST_Controller::HTTP_OK);
             exit();

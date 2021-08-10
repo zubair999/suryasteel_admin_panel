@@ -11,11 +11,16 @@ $route['v1/createbrand'] = 'api/backend/brand/createbrand';
 $route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
 $route['v1/delete-image'] = 'backend/media/deleteimage';
 
+
+// LOGIN
+$route['v1/userlogin'] = 'api/app/Auth/auth/userLogin';
+
 // ROLE
 $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
+$route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 $route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
 $route['v1/updatepassword'] = 'api/app/Auth/auth/updatePassword';
