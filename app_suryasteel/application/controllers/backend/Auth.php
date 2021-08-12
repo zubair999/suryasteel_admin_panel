@@ -108,7 +108,7 @@ class Auth extends Backend_Controller{
 	
 
 	public function update_profile(){
-        if(!in_array('manage-profile', $this->permission)) {
+        if(!in_array('manageProfile', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		$this->data['user'] = $this->auth_m->getUserById($this->uid);

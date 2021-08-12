@@ -87,7 +87,7 @@
             <?php endif; ?>
             
 
-            <?php if(in_array('add-category', $this->permission) || in_array('edit-category', $this->permission) || in_array('category', $this->permission) || in_array('delete-category', $this->permission)): ?>
+            <?php if(in_array('addCategory', $this->permission) || in_array('editCategory', $this->permission) || in_array('category', $this->permission) || in_array('deleteCategory', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('category'); ?>">
@@ -128,7 +128,7 @@
                </a>
                <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
                   
-               <?php if(in_array('add-purchase', $this->permission)): ?>
+               <?php if(in_array('addPurchase', $this->permission)): ?>
                   <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
                            <span class="sidebar-menu-text">Add</span>
@@ -136,7 +136,7 @@
                   </li>
                <?php endif; ?>
 
-               <?php if(in_array('view-purchase', $this->permission)): ?>
+               <?php if(in_array('viewPurchase', $this->permission)): ?>
                   <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="<?php echo base_url('view-purchase'); ?>">
                            <span class="sidebar-menu-text">View</span>
@@ -156,7 +156,7 @@
                </a>
                <ul class="sidebar-submenu sm-indent collapse show" id="process_menu" style="">
                   
-               <?php if(in_array('add-purchase', $this->permission)): ?>
+               <?php if(in_array('addPurchase', $this->permission)): ?>
                   <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
                            <span class="sidebar-menu-text">Raw Material</span>
@@ -165,7 +165,7 @@
                <?php endif; ?>
                
                
-               <?php if(in_array('add-purchase', $this->permission)): ?>
+               <?php if(in_array('addPurchase', $this->permission)): ?>
                   <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="<?php echo base_url('add-purchase'); ?>">
                            <span class="sidebar-menu-text">Acid Treatment</span>
@@ -173,7 +173,7 @@
                   </li>
                <?php endif; ?>
 
-               <?php if(in_array('view-purchase', $this->permission)): ?>
+               <?php if(in_array('viewPrchase', $this->permission)): ?>
                   <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="<?php echo base_url('view-purchase'); ?>">
                            <span class="sidebar-menu-text">Draw Process</span>
@@ -187,7 +187,7 @@
             
 
 
-            <?php if(in_array('add-staff', $this->permission) || in_array('edit-staff', $this->permission) || in_array('view-staff', $this->permission) || in_array('delete-staff', $this->permission)): ?>
+            <?php if(in_array('addStaff', $this->permission) || in_array('editStaff', $this->permission) || in_array('viewStaff', $this->permission) || in_array('deleteStaff', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('view-staff'); ?>">
@@ -198,7 +198,7 @@
             <?php endif; ?>
             
 
-            <?php if(in_array('add-customer', $this->permission) || in_array('edit-customer', $this->permission) || in_array('view-customer', $this->permission) || in_array('delete-customer', $this->permission)): ?>
+            <?php if(in_array('addCustomer', $this->permission) || in_array('editCustomer', $this->permission) || in_array('viewCustomer', $this->permission) || in_array('deleteCustomer', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('view-customer'); ?>">
@@ -209,7 +209,7 @@
             <?php endif; ?>
 
 
-            <?php if(in_array('add-roles', $this->permission) || in_array('edit-roles', $this->permission) || in_array('view-roles', $this->permission) || in_array('delete-roles', $this->permission)): ?>
+            <?php if(in_array('addRoles', $this->permission) || in_array('editRoles', $this->permission) || in_array('viewRoles', $this->permission) || in_array('deleteRoles', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('view-roles'); ?>">
@@ -220,7 +220,7 @@
             <?php endif; ?>
 
 
-            <?php if(in_array('view-logs', $this->permission)): ?>
+            <?php if(in_array('viewLogs', $this->permission)): ?>
                <li class="sidebar-menu-item">
                   <a class="sidebar-menu-button"
                      href="<?php echo base_url('view-logs'); ?>">
@@ -238,16 +238,16 @@
 
             
 
-            <?php if(in_array('system-setting', $this->permission) || in_array('manage-profile', $this->permission)): ?>
+            <?php if(in_array('systemSetting', $this->permission) || in_array('manageProfile', $this->permission)): ?>
                <li class="sidebar-menu-item">
-                  <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
+                  <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#setting_menu" aria-expanded="true">
                      <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                      Settings
                      <span class="ml-auto sidebar-menu-toggle-icon"></span>
                   </a>
-                  <ul class="sidebar-submenu sm-indent collapse show" id="staff_menu" style="">
+                  <ul class="sidebar-submenu sm-indent collapse show" id="setting_menu" style="">
                      
-                  <?php if(in_array('system-setting', $this->permission)): ?>
+                  <?php if(in_array('systemSetting', $this->permission)): ?>
                      <li class="sidebar-menu-item">
                            <a class="sidebar-menu-button" href="<?php echo base_url('system-setting'); ?>">
                               <span class="sidebar-menu-text">System Setting</span>
@@ -255,7 +255,7 @@
                      </li>
                   <?php endif; ?>
 
-                  <?php if(in_array('manage-profile', $this->permission)): ?>
+                  <?php if(in_array('manageProfile', $this->permission)): ?>
                      <li class="sidebar-menu-item">
                            <a class="sidebar-menu-button" href="<?php echo base_url('manage-profile'); ?>">
                               <span class="sidebar-menu-text">Manage Profile</span>
@@ -285,8 +285,8 @@
 
 <!-- // END drawer-layout -->
 <!-- App Settings FAB -->
-<div id="app-settings">
-   <app-settings layout-active="app"
+<div id="appSettings">
+   <appSettings layout-active="app"
       :layout-location="{
          'compact': 'compact-ui-tables.html',
          'mini': 'mini-ui-tables.html',
@@ -297,5 +297,5 @@
       }"
       sidebar-type="light"
       sidebar-variant="bg-body">
-   </app-settings>
+   </appSettings>
 </div>

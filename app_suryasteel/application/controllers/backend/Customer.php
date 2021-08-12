@@ -7,7 +7,7 @@ class Customer extends Backend_Controller {
     }
 
     public function index(){
-        if(!in_array('view-staff', $this->permission)) {
+        if(!in_array('viewCustomer', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['drawTable'] 	= $this->customerTableHead();
@@ -35,7 +35,7 @@ class Customer extends Backend_Controller {
     }
 
     public function add(){
-        if(!in_array('add-staff', $this->permission)) {
+        if(!in_array('addCustomer', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		if($this->input->post()){
@@ -94,7 +94,7 @@ class Customer extends Backend_Controller {
 
 
     public function edit($id){
-        if(!in_array('edit-staff', $this->permission)) {
+        if(!in_array('editCustomer', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['user'] = $this->auth_m->getUserById($id);

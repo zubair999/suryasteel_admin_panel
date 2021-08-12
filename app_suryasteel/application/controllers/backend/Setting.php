@@ -8,7 +8,7 @@ class Setting extends Backend_Controller {
 
 
     public function edit(){
-        if(!in_array('system-setting', $this->permission)) {
+        if(!in_array('systemSetting', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         if($this->input->post()){

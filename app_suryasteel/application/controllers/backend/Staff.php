@@ -7,7 +7,7 @@ class Staff extends Backend_Controller {
     }
 
     public function index(){
-        if(!in_array('view-staff', $this->permission)) {
+        if(!in_array('viewStaff', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['drawTable'] 	= $this->staffTableHead();
@@ -34,7 +34,7 @@ class Staff extends Backend_Controller {
     }
 
     public function add(){
-        if(!in_array('add-staff', $this->permission)) {
+        if(!in_array('addStaff', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		if($this->input->post()){
@@ -64,7 +64,7 @@ class Staff extends Backend_Controller {
 	}
 
     public function edit($id){
-        if(!in_array('edit-staff', $this->permission)) {
+        if(!in_array('editStaff', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		$this->data['user'] = $this->auth_m->getUserById($id);

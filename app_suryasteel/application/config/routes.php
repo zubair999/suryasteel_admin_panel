@@ -23,7 +23,7 @@ $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 $route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
-$route['v1/updatepassword'] = 'api/app/Auth/auth/updatePassword';
+$route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
 
 
 

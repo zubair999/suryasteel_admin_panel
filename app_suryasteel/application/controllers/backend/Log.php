@@ -7,7 +7,7 @@ class Log extends Backend_Controller {
     }
 
     public function index(){
-        if(!in_array('view-logs', $this->permission)) {
+        if(!in_array('viewLogs', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['drawTable'] 	= $this->logTableHead();

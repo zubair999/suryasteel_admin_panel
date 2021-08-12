@@ -91,31 +91,31 @@
                                              
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Roles</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-roles" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="edit-roles" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-roles" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-roles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addRoles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="editRoles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewRoles" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteRoles" ></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Staff</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-staff" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="update-staff" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-staff" ></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-staff" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addStaff" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="updateStaff" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewStaff" ></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteStaff" ></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Customer</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-customer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addCustomer"></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="edit-custimer"></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-customer"></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-customer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewCustomer"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteCustomer"></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Category</td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="add-category"></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="edit-category"></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-category"></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="delete-category"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addCategory"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="editCategory"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewCategory"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteCategory"></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Media</td>
@@ -128,21 +128,21 @@
                                                 <td style="width: 135.266px;">Logs</td>
                                                 <td><input type="checkbox" disabled></td>
                                                 <td><input type="checkbox" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="view-logs"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewLogs"></td>
                                                 <td><input type="checkbox" disabled></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Systems Settings</td>
                                                 <td><input type="checkbox" disabled></td>
                                                 <td><input type="checkbox" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="system-setting"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="systemSetting"></td>
                                                 <td><input type="checkbox" disabled></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Manage Profile</td>
                                                 <td><input type="checkbox" disabled></td>
                                                 <td><input type="checkbox" disabled></td>
-                                                <td><input type="checkbox" name="permission[]" id="permission" value="manage-profile"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="manageProfile"></td>
                                                 <td><input type="checkbox" disabled></td>
                                              </tr>
                                              

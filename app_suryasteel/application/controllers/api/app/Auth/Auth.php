@@ -61,11 +61,37 @@ class Auth extends REST_Controller
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
-
         }
     }
 	
-
+    public function update_password_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules('newpassword', 'newpassword', 'trim|required');
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+            }
+            else{
+                $userData = array(
+                    'password' => password_hash($this->input->post('newpassword'), PASSWORD_DEFAULT)
+                );
+                $this->db->where('user_id', $this->input->post('user_id'));
+                $isUpdated = $this->db->update('users', $userData);
+                if($isUpdated){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Password updated successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong. Try again.'];
+                }
+            }
+        }
+        $this->response($response, REST_Controller::HTTP_OK);
+        exit();
+    }
 	
 
 

@@ -7,7 +7,7 @@ class Roles extends Backend_Controller {
     }
 
     public function index(){
-        if(!in_array('view-roles', $this->permission)) {
+        if(!in_array('viewRoles', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['drawTable'] 	= $this->rolesTableHead();
@@ -30,7 +30,7 @@ class Roles extends Backend_Controller {
     }
 
     public function add(){
-        if(!in_array('add-roles', $this->permission)) {
+        if(!in_array('addRoles', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 		if($this->input->post()){
@@ -54,7 +54,7 @@ class Roles extends Backend_Controller {
 	}
 
     public function edit($id){
-        if(!in_array('edit-roles', $this->permission)) {
+        if(!in_array('editRoles', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
         $this->data['role'] = $this->roles_m->getRoleByRoleId($id);
