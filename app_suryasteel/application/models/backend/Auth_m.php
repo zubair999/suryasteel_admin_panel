@@ -68,6 +68,21 @@ class Auth_m extends MY_Model {
         $this->db->delete('users');
     }
 
+    public function is_user_active(){
+        $user = $this->getUserById($this->input->post('user_id'));
+        if(!empty($user)){
+            if($user->is_active == 'active'){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return "Either no user with this details or provided details is incorrect.";
+        }
+    }
+
 
 //end class
 

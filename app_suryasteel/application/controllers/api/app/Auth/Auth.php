@@ -92,6 +92,45 @@ class Auth extends REST_Controller
         $this->response($response, REST_Controller::HTTP_OK);
         exit();
     }
+
+    public function change_status_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules('user_id', 'User', 'trim|required');
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+            }
+            else{
+                $is_user_active = $this->auth_m->is_user_active();
+                if(!$is_user_active){
+                    $userData = array(
+                        'is_active' => 'active'
+                    );
+                    $description = 'Status is active now.';
+                }
+                else{
+                    $userData = array(
+                        'is_active' => 'inactive'
+                    );
+                    $description = 'Status is inactive now.';
+                }
+                $this->db->where('user_id', $this->input->post('user_id'));
+                $isUpdated = $this->db->update('users', $userData);
+                if($isUpdated){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => $description];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong. Try again.'];
+                }
+            }
+        }
+        $this->response($response, REST_Controller::HTTP_OK);
+        exit();
+    }
 	
 
 
