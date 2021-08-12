@@ -35,7 +35,6 @@ class Staff extends REST_Controller
                         $this->staff_m->addLog($data['uid']);
 						if($isAdded){
                             $staff = $this->staff_m->get_staff_list();
-                            $staff = $this->db->get()->result_array();
 							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.', 'data'=>$staff];
 						}
 						else{
