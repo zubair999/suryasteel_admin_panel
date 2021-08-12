@@ -29,33 +29,43 @@ class Auth extends REST_Controller
                 else{
                     $activeUserCount = $this->auth_m->getActiveUserByEmail($this->input->post('username'));
                     if($activeUserCount == 0){
-                        $response = ['status' => 200, 'message' => 'error', 'description' => 'You are not allowed to login. Contact Administrator.'];
+                        $response = ['status' => 200, 'message' => 'error', 'description' => 'You account is disabled. Contact Administrator.'];
                     }
                     else{
                         $user = $this->auth_m->getUserByEmail($this->input->post('username'));
-                        if(password_verify($this->input->post('password'), $user->password)){
-                            $userPermission = $this->roles_m->getUserPermission($user->role_id);
-                            $userPermission = unserialize($userPermission);
-                            foreach($userPermission as $key => $p){
-                                $userPermission[$p] = $p;
-                                unset($userPermission[$key]);
-                            };
-                            $userData = array(
-                                'uid' => $user->user_id,
-                                'role_id' => $user->role_id,
-                                'role_name' => $user->roles_name,
-                                'mobile_no' => $user->mobile_no,
-                                'firstname' => $user->firstname,
-                                'lastname' => $user->lastname,
-                                'username ' => $user->email,
-                                'is_logged_in' => true,
-                                'permission' => $userPermission
-                            );
-                            $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
-                        }
-                        else{
-                            $response = ['status' => 200, 'message' => 'error', 'description' => 'Incorrect password.'];
-                        }
+                        $userPermission = $this->roles_m->getUserPermission($user->role_id);
+                        $userPermission = unserialize($userPermission);
+
+                        foreach($userPermission as $up){
+                            if($up != 'addRoles'){
+                                $response = ['status' => 200, 'message' => 'error', 'description' => 'Not allowed to login here. Contact Administrator.'];
+                                $this->response($response, REST_Controller::HTTP_OK);
+                                exit();
+                            }
+                            else{
+                                if(password_verify($this->input->post('password'), $user->password)){
+                                    foreach($userPermission as $key => $p){
+                                        $userPermission[$p] = $p;
+                                        unset($userPermission[$key]);
+                                    };
+                                    $userData = array(
+                                        'uid' => $user->user_id,
+                                        'role_id' => $user->role_id,
+                                        'role_name' => $user->roles_name,
+                                        'mobile_no' => $user->mobile_no,
+                                        'firstname' => $user->firstname,
+                                        'lastname' => $user->lastname,
+                                        'username ' => $user->email,
+                                        'is_logged_in' => true,
+                                        'permission' => $userPermission
+                                    );
+                                    $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
+                                }
+                                else{
+                                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Incorrect password.'];
+                                }
+                            }
+                        };
                     }
                 }
             }
