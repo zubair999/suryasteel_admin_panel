@@ -37,12 +37,7 @@ class Auth extends REST_Controller
                         $userPermission = unserialize($userPermission);
 
                         foreach($userPermission as $up){
-                            if($up != 'addRoles'){
-                                $response = ['status' => 200, 'message' => 'error', 'description' => 'Not allowed to login here. Contact Administrator.'];
-                                $this->response($response, REST_Controller::HTTP_OK);
-                                exit();
-                            }
-                            else{
+                            if($up == 'addRoles'){
                                 if(password_verify($this->input->post('password'), $user->password)){
                                     foreach($userPermission as $key => $p){
                                         $userPermission[$p] = $p;
@@ -60,10 +55,18 @@ class Auth extends REST_Controller
                                         'permission' => $userPermission
                                     );
                                     $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
+                                
                                 }
                                 else{
                                     $response = ['status' => 200, 'message' => 'error', 'description' => 'Incorrect password.'];
                                 }
+                                $this->response($response, REST_Controller::HTTP_OK);
+                                exit();
+                            }
+                            else{
+                                $response = ['status' => 200, 'message' => 'error', 'description' => 'Not allowed to login here. Contact Administrator.'];
+                                $this->response($response, REST_Controller::HTTP_OK);
+                                exit();
                             }
                         };
                     }
