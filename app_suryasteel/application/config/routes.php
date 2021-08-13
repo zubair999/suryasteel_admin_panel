@@ -18,6 +18,12 @@ $route['v1/userlogin'] = 'api/app/Auth/auth/userLogin';
 // ROLE
 $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 
+// STATE
+$route['v1/getstate'] = 'api/app/Admin/state/getState';
+
+// GST REG. TYPE
+$route['v1/getgstregtype'] = 'api/app/Admin/gstregtype/getGstRegType';
+
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';

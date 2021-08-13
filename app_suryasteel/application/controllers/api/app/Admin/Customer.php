@@ -9,7 +9,7 @@ class Customer extends REST_Controller
 		parent::__construct();
 	}
 
-	public function addStaff_post(){
+	public function addCustomer_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {
             $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
@@ -31,11 +31,10 @@ class Customer extends REST_Controller
 						$response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
 					}
 					else{
-                        $isAdded = $this->staff_m->addStaff($data['uid']);
-                        $this->staff_m->addLog($data['uid']);
+                        $isAdded = $this->customer_m->addCustomer($data['uid']);
+                        $this->customer_m->addLog($data['uid']);
 						if($isAdded){
-                            $staff = $this->staff_m->get_staff_list();
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.', 'data'=>$staff];
+							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.'];
 						}
 						else{
 							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];

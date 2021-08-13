@@ -141,6 +141,29 @@ class Customer_m extends MY_Model {
         return $this->db->get()->result_array();
     }
 
+    public function addCustomer($created_by){
+        $hashedPwd = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        $customerData = array(
+            'firstname' => $this->input->post('firstname'),
+            'lastname' => $this->input->post('lastname'),
+            'email' => $this->input->post('username'),
+            'password' => $hashedPwd,
+            'mobile_no' => $this->input->post('mobileno'),
+            'state_id' => $this->input->post('state'),
+            'is_allowed_to_view_product' => $this->input->post('yesno'),
+            'customer_company' => $this->input->post('companyName'),
+            'gst_reg_type' => $this->input->post('gstRegType'),
+            'gstn' => $this->input->post('gst_no'),
+            'plot_factory_no' => $this->input->post('plotFactoryNo'),
+            'complete_address' => $this->input->post('fullAddress'),
+            'landmark' => $this->input->post('landmark'),
+            'is_active' => 'active',
+            'created_on' => $this->today,
+            'created_by' => $created_by
+        );
+        return $this->db->insert('users', $customerData);
+    }
+
 
 //end class
 
