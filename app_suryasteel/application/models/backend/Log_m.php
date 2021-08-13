@@ -93,7 +93,15 @@ class Log_m extends MY_Model {
         // FUNCTION ENDS
     }
 
-    
+    public function log($user_id,$title,$description){
+        $logData = array(
+            'user_id' => $user_id,
+            'title' => $title,
+            'description' => $description,
+            'created_on' => $this->today
+        );
+        $this->db->insert('logs', $logData);
+    }
 
 
 //end class

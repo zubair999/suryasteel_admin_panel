@@ -35,7 +35,7 @@ $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 
 // CUSTOMER
 $route['v1/addcustomer'] = 'api/app/Admin/customer/addCustomer';
-// $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
+$route['v1/editcustomer'] = 'api/app/Admin/customer/editCustomer';
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 // $route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
 // $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';

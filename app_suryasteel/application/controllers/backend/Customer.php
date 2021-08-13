@@ -120,7 +120,6 @@ class Customer extends Backend_Controller {
 				$customerData = array(
                     'firstname' => $this->input->post('firstname'),
                     'lastname' => $this->input->post('lastname'),
-                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                     'mobile_no' => $this->input->post('mobileno'),
                     'customer_company' => $this->input->post('companyName'),
                     'gst_reg_type' => $this->input->post('gstRegType'),
@@ -130,8 +129,7 @@ class Customer extends Backend_Controller {
                     'state_id' => $this->input->post('state'),
                     'landmark' => $this->input->post('landmark'),
                     'is_active' => $this->input->post('status'),
-                    'is_allowed_to_view_product' => $this->input->post('yesno'),
-                    'created_on' => $this->today
+                    'is_allowed_to_view_product' => $this->input->post('yesno')
                 );
 
                 $this->db->where('user_id',$id);

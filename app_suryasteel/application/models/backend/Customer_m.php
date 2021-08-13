@@ -213,7 +213,25 @@ class Customer_m extends MY_Model {
         $this->db->insert('logs', $logData);
     }
 
+    public function editCustomer($id){
+        $customerData = array(
+            'firstname' => $this->input->post('firstname'),
+            'lastname' => $this->input->post('lastname'),
+            'mobile_no' => $this->input->post('mobileno'),
+            'state_id' => $this->input->post('state'),
+            'is_allowed_to_view_product' => $this->input->post('yesno'),
+            'customer_company' => $this->input->post('companyName'),
+            'gst_reg_type' => $this->input->post('gstRegType'),
+            'gstn' => $this->input->post('gst_no'),
+            'plot_factory_no' => $this->input->post('plotFactoryNo'),
+            'complete_address' => $this->input->post('fullAddress'),
+            'landmark' => $this->input->post('landmark'),
+            'is_active' => $this->input->post('status')
+        );
 
+        $this->db->where('user_id', $id);
+        return $this->db->update('users', $customerData);
+    }
 //end class
 
 }
