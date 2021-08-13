@@ -112,8 +112,7 @@ class Staff extends REST_Controller
         }
         else{
             $this->auth_m->deleteUser($this->input->post('user_id'));
-            $staff = $this->staff_m->get_staff_list();
-            $res = ['status'=> 200, 'message'=> 'success', 'description'=>'User delete successfully.', 'data'=>$staff];
+            $res = ['status'=> 200, 'message'=> 'success', 'description'=>'User delete successfully.'];
             $this->response($res, REST_Controller::HTTP_OK);
             exit();
         }
