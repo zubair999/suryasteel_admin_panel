@@ -22,7 +22,7 @@ $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
 $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
-$route['v1/deleteuser'] = 'api/app/Admin/auth/deleteUser';
+$route['v1/deleteuser'] = 'api/app/Auth/auth/deleteUser';
 $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
 $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 
