@@ -36,6 +36,45 @@ class Customer_m extends MY_Model {
         )
     );
 
+    public $customerAddRulesApp = array(
+        0 => array(
+            'field' => 'username',
+            'label' => 'Username/Email',
+            'rules' => 'trim|required|valid_email|is_unique[users.email]',
+            'errors' => array(
+                'is_unique' => "The Username/Email is already added."
+            ),
+        ),
+        1 => array(
+            'field' => 'password',
+            'label' => 'Password',
+            'rules' => 'trim|required|min_length[5]|max_length[10]'
+        ),
+        2 => array(
+            'field' => 'mobileno',
+            'label' => 'Mobile no',
+            'rules' => 'trim|required|exact_length[10]|is_natural|is_unique[users.mobile_no]',
+            'errors' => array(
+                'is_unique' => "This mobile no is already added."
+            ),
+        ),
+        3 => array(
+            'field' => 'state',
+            'label' => 'State',
+            'rules' => 'trim|required'
+        ),
+        4 => array(
+            'field' => 'gstRegType',
+            'label' => 'Gst Reg Type',
+            'rules' => 'trim|required'
+        ),
+        5 => array(
+            'field' => 'yesno',
+            'label' => 'Is product allowed to view',
+            'rules' => 'trim|required'
+        )
+    );
+
     public function __construct()
 	{
 		parent::__construct();   
@@ -162,6 +201,16 @@ class Customer_m extends MY_Model {
             'created_by' => $created_by
         );
         return $this->db->insert('users', $customerData);
+    }
+
+    public function addLog($user_id){
+        $logData = array(
+            'user_id' => $user_id,
+            'title' => 'Customer',
+            'description' => 'A customer is added succesfully',
+            'created_on' => $this->today
+        );
+        $this->db->insert('logs', $logData);
     }
 
 

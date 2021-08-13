@@ -16,7 +16,7 @@ class Customer extends REST_Controller
             exit();
         }
         else{
-            $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
+            $this->form_validation->set_rules($this->customer_m->customerAddRulesApp);
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
@@ -34,7 +34,7 @@ class Customer extends REST_Controller
                         $isAdded = $this->customer_m->addCustomer($data['uid']);
                         $this->customer_m->addLog($data['uid']);
 						if($isAdded){
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.'];
+							$response = ['status' => 200, 'message' => 'success', 'description' => 'New customer added successfully.'];
 						}
 						else{
 							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
