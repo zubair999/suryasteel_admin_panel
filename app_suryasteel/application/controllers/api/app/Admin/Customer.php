@@ -34,7 +34,8 @@ class Customer extends REST_Controller
                         $isAdded = $this->customer_m->addCustomer($data['uid']);
                         $this->customer_m->addLog($data['uid']);
 						if($isAdded){
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'New customer added successfully.'];
+                            $customer = $this->customer_m->get_customer_list();
+							$response = ['status' => 200, 'message' => 'success', 'description' => 'New customer added successfully.', 'data'=>$customer];
 						}
 						else{
 							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
