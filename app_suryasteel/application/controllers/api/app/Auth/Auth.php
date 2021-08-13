@@ -50,7 +50,7 @@ class Auth extends REST_Controller
                                         'mobile_no' => $user->mobile_no,
                                         'firstname' => $user->firstname,
                                         'lastname' => $user->lastname,
-                                        'username ' => $user->email,
+                                        'username' => $user->email,
                                         'is_logged_in' => true,
                                         'permission' => $userPermission
                                     );
@@ -145,7 +145,33 @@ class Auth extends REST_Controller
         exit();
     }
 	
-
+    public function update_profile_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->data['user'] = $this->auth_m->getUserById($this->input->post('user_id'));
+            if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
+                $is_unique =  '|is_unique[users.mobile_no]';
+            } else {
+                $is_unique =  '';
+            }
+            $this->form_validation->set_rules('firstname', 'User', 'trim|required');
+            $this->form_validation->set_rules('lastname', 'User', 'trim|required');
+            $this->form_validation->set_rules('mobileno', 'User', 'trim|required|exact_length[10]|is_natural'.$is_unique);
+            $this->form_validation->set_rules('firstname', 'User', 'trim|required');
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+            }
+            else{
+                $response = ['status' => 200, 'message' => 'success', 'description' => 'Profile update successfully.', 'data'=>$this->input->post()];
+            }
+        }
+        $this->response($response, REST_Controller::HTTP_OK);
+        exit();
+    }
 
 
 

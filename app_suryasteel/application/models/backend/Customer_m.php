@@ -125,6 +125,21 @@ class Customer_m extends MY_Model {
     }
 
 
+    public function customer_count(){
+		$this->db->select('user_id');
+        $this->db->from('users');
+        $this->db->where('role_id = ', null);
+    	return $this->db->get()->num_rows();
+	}
+
+    public function get_customer_list(){
+        $this->db->select('*');
+        $this->db->from('users as u');
+        $this->db->where('role_id = ', null);
+        $this->db->limit(25);
+        $this->db->order_by('firstname ASC');
+        return $this->db->get()->result_array();
+    }
 
 
 //end class

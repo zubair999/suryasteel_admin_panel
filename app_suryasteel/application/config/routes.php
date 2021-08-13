@@ -27,6 +27,16 @@ $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
 $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 
 
+// CUSTOMER
+// $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
+// $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
+$route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
+// $route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
+// $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
+// $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
+
+// PROFILE
+$route['v1/updateprofile'] = 'api/app/Auth/auth/update_profile';
 
 
 // APP CONFIGURATIONS

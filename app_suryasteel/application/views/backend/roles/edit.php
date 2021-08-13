@@ -107,8 +107,8 @@
                                        <table class="table mb-0 thead-border-top-0 table-nowrap dataTable no-footer" id="stafflist" style="width: 100%;">
                                           <tbody class="list">
                                              
-                                             <tr class="odd">
-                                                <td style="width: 135.266px;">Roles</td>
+                                             <tr class="odd" style="background:pink" title="If you change role permission in administrator, you may not be able to access some function.">
+                                                <td style="width: 135.266px; color:red; text-decoration:underline">Roles</td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="addRoles" <?php if($user_permission) {
                                                       if(in_array('addRoles', $user_permission)) { echo "checked"; } } ?> >
