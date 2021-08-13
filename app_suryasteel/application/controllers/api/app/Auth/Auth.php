@@ -173,7 +173,19 @@ class Auth extends REST_Controller
         exit();
     }
 
-
+    public function deleteUser_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'GET') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->auth_m->deleteUser($this->input->post('user_id'));
+            $res = ['status'=> 200, 'message'=> 'success', 'description'=>'User delete successfully.'];
+            $this->response($res, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 
 
 
