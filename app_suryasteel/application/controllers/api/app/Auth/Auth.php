@@ -158,9 +158,9 @@ class Auth extends REST_Controller
             } else {
                 $is_unique =  '';
             }
-            $this->form_validation->set_rules('firstname', 'User', 'trim|required');
-            $this->form_validation->set_rules('lastname', 'User', 'trim|required');
-            $this->form_validation->set_rules('mobileno', 'User', 'trim|required|exact_length[10]|is_natural'.$is_unique);
+            $this->form_validation->set_rules('firstname', 'firstname', 'trim|required');
+            $this->form_validation->set_rules('lastname', 'lastname', 'trim|required');
+            $this->form_validation->set_rules('mobileno', 'mobile', 'trim|required|exact_length[10]|is_natural'.$is_unique);
             if($this->form_validation->run() == FALSE){
                 $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
             }
