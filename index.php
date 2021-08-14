@@ -58,7 +58,7 @@ define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'producti
 
 /*
  *---------------------------------------------------------------
- * ERROR REPORTING
+ * ERROR REPORTINGgg
  *---------------------------------------------------------------
  *
  * Different environments will require different levels of error reporting.
