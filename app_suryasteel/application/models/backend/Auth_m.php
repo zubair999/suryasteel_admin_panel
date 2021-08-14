@@ -83,6 +83,26 @@ class Auth_m extends MY_Model {
         }
     }
 
+    public function update_profile($id){
+        if(empty($this->input->post('password'))){
+            $userData = array(
+                'mobile_no' => $this->input->post('mobileno'),
+                'firstname' => $this->input->post('firstname'),
+                'lastname' => $this->input->post('lastname')
+            );
+        }
+        else{
+            $userData = array(
+                'mobile_no' => $this->input->post('mobileno'),
+                'firstname' => $this->input->post('firstname'),
+                'lastname' => $this->input->post('lastname'),
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+            );
+        }
+        $this->db->where('user_id', $id);
+        return $this->db->update('users', $userData);
+    }
+
 
 //end class
 

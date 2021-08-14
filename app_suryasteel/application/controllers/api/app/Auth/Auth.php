@@ -161,12 +161,17 @@ class Auth extends REST_Controller
             $this->form_validation->set_rules('firstname', 'User', 'trim|required');
             $this->form_validation->set_rules('lastname', 'User', 'trim|required');
             $this->form_validation->set_rules('mobileno', 'User', 'trim|required|exact_length[10]|is_natural'.$is_unique);
-            $this->form_validation->set_rules('firstname', 'User', 'trim|required');
             if($this->form_validation->run() == FALSE){
                 $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
             }
             else{
-                $response = ['status' => 200, 'message' => 'success', 'description' => 'Profile update successfully.', 'data'=>$this->input->post()];
+                $isUpdated = $this->auth_m->update_profile($this->input->post('user_id'));
+                if($isUpdated){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Profile update successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+                }
             }
         }
         $this->response($response, REST_Controller::HTTP_OK);
