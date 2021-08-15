@@ -59,7 +59,7 @@ $route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
 // CUSTOMER
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
-$route['v1/getcategory'] = 'api/app/Admin/Category/getcategory';
+$route['v1/getcategory'] = 'api/app/Admin/category/getcategory';
 
 
 

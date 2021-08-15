@@ -42,7 +42,7 @@ class Category extends REST_Controller {
         }
 	}
 
-	public function getcategory(){
+	public function getcategory_get(){
         $this->db->select('c.category_id, c.category_name, c.thumbnail, i.actual, i.thumbnail');
 		$this->db->from('category as c');
 		$this->db->where('c.product_count >', 0);
