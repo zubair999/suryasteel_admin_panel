@@ -29,6 +29,8 @@ $route['v1/getgstregtype'] = 'api/app/Admin/gstregtype/getGstRegType';
 
 // CATEGORY
 $route['v1/addcategory'] = 'api/app/Admin/category/addCategory';
+$route['v1/editcategory'] = 'api/app/Admin/category/editCategory';
+
 
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
