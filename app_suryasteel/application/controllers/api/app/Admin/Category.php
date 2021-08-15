@@ -43,9 +43,8 @@ class Category extends REST_Controller {
 	}
 
 	public function getcategory_get(){
-        $this->db->select('c.category_id, c.category_name, c.thumbnail, i.actual, i.thumbnail');
+        $this->db->select('c.category_id, c.category_name, c.product_count, c.thumbnail, i.actual, i.thumbnail');
 		$this->db->from('category as c');
-		$this->db->where('c.product_count >', 0);
 		$this->db->join('images as i', 'c.thumbnail = i.image_id');
 		$category = $this->db->get()->result_array();
 
