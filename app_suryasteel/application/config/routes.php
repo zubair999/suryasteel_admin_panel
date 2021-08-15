@@ -30,6 +30,7 @@ $route['v1/getgstregtype'] = 'api/app/Admin/gstregtype/getGstRegType';
 // CATEGORY
 $route['v1/addcategory'] = 'api/app/Admin/category/addCategory';
 $route['v1/editcategory'] = 'api/app/Admin/category/editCategory';
+$route['v1/getcategory'] = 'api/app/Admin/category/getcategory';
 
 
 // STAFF
@@ -61,7 +62,6 @@ $route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
 // CUSTOMER
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
-$route['v1/getcategory'] = 'api/app/Admin/category/getcategory';
 
 
 
