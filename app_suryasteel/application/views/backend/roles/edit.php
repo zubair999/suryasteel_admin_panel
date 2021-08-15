@@ -217,6 +217,32 @@
                                              </tr>
 
                                              <tr class="odd">
+                                                <td style="width: 135.266px;">Product</td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="addProduct" <?php if($user_permission) {
+                                                      if(in_array('addProduct', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="editProduct" <?php if($user_permission) {
+                                                      if(in_array('editProduct', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="viewProduct" <?php if($user_permission) {
+                                                      if(in_array('viewProduct', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="deleteProduct" <?php if($user_permission) {
+                                                      if(in_array('deleteProduct', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                             </tr>
+
+                                             <tr class="odd">
                                                 <td style="width: 135.266px;">Purchase</td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="addPurchase" <?php if($user_permission) {
