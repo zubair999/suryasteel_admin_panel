@@ -23,6 +23,7 @@ class Category extends REST_Controller {
 				$data = array(
 					'thumbnail' => $this->input->post('imageId'),
 					'category_name' => $this->input->post('category'),
+					'status' => 'active',
 					'created_by' => $this->input->post('uid'),
 					'created_on' => $this->today
 				);
