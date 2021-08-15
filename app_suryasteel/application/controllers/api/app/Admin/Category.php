@@ -31,7 +31,8 @@ class Category extends REST_Controller {
 				$isAdded = $this->db->insert('category', $data);
 				$this->log_m->Log($this->input->post('uid'), 'Category','A category is added successfully.');
 				if($isAdded){
-					$response = ['status' => 200, 'message' => 'success', 'description' => 'New category added successfully.'];
+					$category = $this->category_m->get_all_category_with_image();
+					$response = ['status' => 200, 'message' => 'success', 'description' => 'New category added successfully.', 'data'=>$category];
 				}
 				else{
 					$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
@@ -43,19 +44,8 @@ class Category extends REST_Controller {
 	}
 
 	public function getcategory_get(){
-        $this->db->select('c.category_id, c.category_name, c.product_count, c.thumbnail, i.actual, i.thumbnail');
-		$this->db->from('category as c');
-		$this->db->join('images as i', 'c.thumbnail = i.image_id');
-		$category = $this->db->get()->result_array();
-
-		foreach($category as $key => $c){
-            $category[$key]['actual'] = BASEURL.'upload/'.$c['actual'];
-			$category[$key]['thumbnail'] = BASEURL.'upload/'.$c['thumbnail'];			
-		}
-
-
+		$category = $this->category_m->get_all_category_with_image();
 		$res = ['status'=>200,'message'=>'success','description'=>'Category fetched successfully.', 'data'=>$category];
-
         echo json_encode($res);
         exit();
 	}

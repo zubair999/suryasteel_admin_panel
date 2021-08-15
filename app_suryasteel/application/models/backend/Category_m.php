@@ -91,6 +91,19 @@ class Category_m extends MY_Model {
     }
 
 
+    public function get_all_category_with_image(){
+        $this->db->select('c.category_id, c.category_name, c.product_count, c.thumbnail, i.actual, i.thumbnail');
+		$this->db->from('category as c');
+		$this->db->join('images as i', 'c.thumbnail = i.image_id');
+		$category = $this->db->get()->result_array();
+
+		foreach($category as $key => $c){
+            $category[$key]['actual'] = BASEURL.'upload/'.$c['actual'];
+			$category[$key]['thumbnail'] = BASEURL.'upload/'.$c['thumbnail'];			
+		}
+        return $category;
+    }
+
 //end class
 
 }
