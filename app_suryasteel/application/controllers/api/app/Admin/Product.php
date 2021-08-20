@@ -15,46 +15,60 @@ class Product extends REST_Controller {
             exit();
         }
         else{
-            $this->db->select(
-                'p.product_id,
-                p.category_id,
-                p.product_name,
-                p.is_active,
-                p.weight_per_piece,
-                p.size,
-                p.zinc_or_without_zinc,
-                p.having_kunda,
-                p.having_nut,
-                c.category_name,
-                i.thumbnail,
-                i.actual
-                '
-            );
-
-            $this->db->from('products as p');
-            $this->db->join('images as i', 'p.thumbnail = i.image_id');
-            $this->db->join('category as c', 'c.category_id = p.category_id');
-            
-            if($this->input->post('category_id')){
-                $this->db->where('category_id', $this->input->post('category_id'));
-            }
-
-            // $this->db->offset(0);
-            $this->db->limit(25);
-            $this->db->order_by('p.product_id DESC');
-
-            $products = $this->db->get()->result_array();
-
-            foreach($products as $key => $p){
-                $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
-                $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
-                $products[$key]['isAddedToCart'] = false;
-            }
-
+            $products = $this->productSectionList();
             $res = ['status'=>200,'message'=>'success','description'=>'Products fetched successfully.', 'data'=>$products];
             $this->response($res, REST_Controller::HTTP_OK);
             exit();
         }
+    }
+
+    private function productSectionList(){
+        $this->db->distinct();
+        $this->db->select('p.category_id, c.category_name');
+        $this->db->from('products as p');
+        $this->db->join('category as c', 'p.category_id = c.category_id');
+        $category = $this->db->get()->result_array();
+
+        foreach ($category as $key => $c){
+            $p = $this->getProductByCategory($c['category_id']);
+            $category[$key]['title'] = $c['category_name'];
+            $category[$key]['data'] = $p;
+            unset($category[$key]['category_id']);
+            unset($category[$key]['category_name']);
+        }
+        return $category;
+    }
+
+    private function getProductByCategory($id){
+        $this->db->select(
+            'p.product_id,
+            p.category_id,
+            p.product_name,
+            p.is_active,
+            p.weight_per_piece,
+            p.size,
+            p.zinc_or_without_zinc,
+            p.having_kunda,
+            p.having_nut,
+            c.category_name,
+            i.thumbnail,
+            i.actual
+            '
+        );
+
+        $this->db->from('products as p');
+        $this->db->join('images as i', 'p.thumbnail = i.image_id');
+        $this->db->join('category as c', 'c.category_id = p.category_id');
+        $this->db->where('p.category_id', $id);
+        $products = $this->db->get()->result_array();
+
+        foreach($products as $key => $p){
+            $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
+            $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
+            $products[$key]['isAddedToCart'] = false;
+        }
+
+        return $products;
     }
 
     public function deleteProduct_post(){
