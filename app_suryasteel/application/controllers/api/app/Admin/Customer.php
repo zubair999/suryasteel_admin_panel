@@ -26,21 +26,27 @@ class Customer extends REST_Controller
 					$response = ['status' => 200, 'message' => 'error', 'description' => 'User already exits.'];
                 }
 				else{
-					$mobileNoCount = $this->auth_m->getUserCountByMobile($data['mobileno']);
-					if($mobileNoCount > 0) {
-						$response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
-					}
-					else{
-                        $isAdded = $this->customer_m->addCustomer($data['uid']);
-                        $this->customer_m->addLog($data['uid']);
-						if($isAdded){
-                            $customer = $this->customer_m->get_customer_list();
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'New customer added successfully.', 'data'=>$customer];
-						}
-						else{
-							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
-						}
-					}
+                    $userCompanyMailCount = $this->auth_m->userCountByCompanyEmail($data['companyMail']);
+                    if($userCompanyMailCount){
+                        $response = ['status' => 200, 'message' => 'error', 'description' => 'Company email already exists.'];
+                    }
+                    else{
+                        $mobileNoCount = $this->auth_m->getUserCountByMobile($data['mobileno']);
+                        if($mobileNoCount > 0) {
+                            $response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
+                        }
+                        else{
+                            $isAdded = $this->customer_m->addCustomer($data['uid']);
+                            $this->customer_m->addLog($data['uid']);
+                            if($isAdded){
+                                $customer = $this->customer_m->get_customer_list();
+                                $response = ['status' => 200, 'message' => 'success', 'description' => 'New customer added successfully.', 'data'=>$customer];
+                            }
+                            else{
+                                $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+                            }
+                        }
+                    }
 				}   
 			}
             $this->response($response, REST_Controller::HTTP_OK);
