@@ -37,6 +37,9 @@ $route['v1/deletecategory'] = 'api/app/Admin/category/deleteCategory';
 $route['v1/getproduct'] = 'api/app/Admin/product/getProduct';
 
 
+// ORDER
+$route['v1/getorder'] = 'api/app/Admin/order/getOrder';
+
 
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
