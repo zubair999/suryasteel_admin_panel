@@ -27,7 +27,7 @@ class Customer extends REST_Controller
                 }
 				else{
                     $userCompanyMailCount = $this->auth_m->userCountByCompanyEmail($data['companyMail']);
-                    if($userCompanyMailCount){
+                    if($userCompanyMailCount > 0){
                         $response = ['status' => 200, 'message' => 'error', 'description' => 'Company email already exists.'];
                     }
                     else{
