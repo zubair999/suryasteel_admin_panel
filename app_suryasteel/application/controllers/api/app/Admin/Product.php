@@ -60,6 +60,7 @@ class Product extends REST_Controller {
         $this->db->join('images as i', 'p.thumbnail = i.image_id');
         $this->db->join('category as c', 'c.category_id = p.category_id');
         $this->db->where('p.category_id', $id);
+        $this->db->order_by('p.product_name','asc');
         $products = $this->db->get()->result_array();
 
         foreach($products as $key => $p){
