@@ -105,11 +105,13 @@ class Order_m extends MY_Model {
                              o.created_on,
                              o.updated_on,
                              u.firstname,
-                             u.lastname
+                             u.lastname,
+                             st.status_value
                              '
                         );
         $this->db->from('orders as o');
         $this->db->join('users as u', 'o.user_id = u.user_id');
+        $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
         $this->db->order_by('created_on', 'asc');
         $order = $this->db->get()->result_array();
         
