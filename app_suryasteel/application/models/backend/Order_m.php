@@ -101,12 +101,15 @@ class Order_m extends MY_Model {
                              o.bill_no,
                              o.order_amount,
                              o.remarks,
+                             o.delivery_date,
                              o.created_on,
                              o.updated_on,
+                             u.firstname,
+                             u.lastname
                              '
                         );
         $this->db->from('orders as o');
-
+        $this->db->join('users as u', 'o.user_id = u.user_id');
         $this->db->order_by('created_on', 'asc');
         $order = $this->db->get()->result_array();
         
