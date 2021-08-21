@@ -103,19 +103,29 @@ class Order_m extends MY_Model {
                              o.remarks,
                              o.created_on,
                              o.updated_on,
-                             u.firstname,
-                             u.lastname,
-                             st.status_value
                              '
                         );
         $this->db->from('orders as o');
-        $this->db->join('users as u', 'o.user_id = u.user_id');
-        $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
+
         $this->db->order_by('created_on', 'asc');
-        return $this->db->get()->result_array();
+        $order = $this->db->get()->result_array();
+        
+        foreach ($order as $key => $o){
+            $od = $this->get_order_item_by_order_id($o['order_id']);
+            $order[$key]['order_detail'] = $od;
+        }
+
+        return $order;
         // FUNCTION ENDS
     }
 
+    private function get_order_item_by_order_id($id){
+        $this->db->select('oi.order_item_id, oi.order_id, oi.product_id, oi.order_qty, oi.unit, p.product_name');
+        $this->db->from('order_item as oi');
+        $this->db->join('products as p', 'oi.product_id = p.product_id');
+        $this->db->where('oi.order_id', $id);
+        return $this->db->get()->result_array();
+    }
 
 //end class
 
