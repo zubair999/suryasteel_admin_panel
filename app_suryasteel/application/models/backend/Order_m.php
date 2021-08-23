@@ -101,9 +101,9 @@ class Order_m extends MY_Model {
                              o.bill_no,
                              o.order_amount,
                              o.remarks,
-                             o.delivery_date,
-                             o.created_on,
-                             o.updated_on,
+                             DATE_FORMAT(o.delivery_date, "%d-%M-%Y") as delivery_date,
+                             DATE_FORMAT(o.created_on, "%d-%M-%Y") as created_on,
+                             DATE_FORMAT(o.updated_on, "%d-%M-%Y") as updated_on,
                              u.firstname,
                              u.lastname,
                              st.status_value
@@ -125,7 +125,16 @@ class Order_m extends MY_Model {
     }
 
     private function get_order_item_by_order_id($id){
-        $this->db->select('oi.order_item_id, oi.order_id, oi.product_id, oi.order_qty, oi.unit, p.product_name');
+        $this->db->select(
+                            '
+                                oi.order_item_id, 
+                                oi.order_id, 
+                                oi.product_id, 
+                                oi.order_qty, 
+                                oi.unit, 
+                                p.product_name
+                            '
+                        );
         $this->db->from('order_item as oi');
         $this->db->join('products as p', 'oi.product_id = p.product_id');
         $this->db->where('oi.order_id', $id);
@@ -145,7 +154,7 @@ class Order_m extends MY_Model {
                                 oid.order_item_dispatch_id, 
                                 oid.order_item_id, 
                                 oid.dispatch_quantity, 
-                                oid.created_on, 
+                                DATE_FORMAT(oid.created_on, "%d-%M-%Y") as created_on, 
                                 u.firstname, 
                                 u.lastname,
                                 un.unit_value,
@@ -158,7 +167,8 @@ class Order_m extends MY_Model {
         $this->db->join('units as un', 'oid.dispatch_unit = un.unit_id');
         $this->db->join('roles as r', 'u.role_id = r.role_id');
         $this->db->where('oid.order_item_id', $oi);
-        return  $this->db->get()->result_array();
+
+        return $this->db->get()->result_array();
     }
 
 //end class
