@@ -130,13 +130,19 @@ class Order_m extends MY_Model {
                                 oi.order_item_id, 
                                 oi.order_id, 
                                 oi.product_id, 
-                                oi.order_qty, 
-                                oi.unit, 
-                                p.product_name
+                                oi.order_qty,
+                                oi.dispatched_qty,
+                                oi.unit,
+                                oi.item_added_by,
+                                p.product_name,
+                                CONCAT(u.firstname ," ",  u.lastname) as added_by,
+                                un.unit_value,
                             '
                         );
         $this->db->from('order_item as oi');
         $this->db->join('products as p', 'oi.product_id = p.product_id');
+        $this->db->join('users as u', 'oi.item_added_by = u.user_id');
+        $this->db->join('units as un', 'oi.unit = un.unit_id');
         $this->db->where('oi.order_id', $id);
         $order_item =  $this->db->get()->result_array();
     
