@@ -89,8 +89,8 @@
                                        <table class="table mb-0 thead-border-top-0 table-nowrap dataTable no-footer" id="stafflist" style="width: 100%;">
                                           <tbody class="list">
                                              
-                                             <tr class="odd">
-                                                <td style="width: 135.266px;">Roles</td>
+                                             <tr class="odd" style="background:pink" title="Don't check role permission in any role other than Administrator, otherwise that role would be able to access some Administrator privileages">
+                                                <td style="width: 135.266px; color:red; text-decoration:underline">Roles</td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="addRoles" ></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="editRoles" ></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="viewRoles" ></td>
@@ -116,6 +116,27 @@
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="editCategory"></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="viewCategory"></td>
                                                 <td><input type="checkbox" name="permission[]" id="permission" value="deleteCategory"></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Product</td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addProduct"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="editProduct"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewProduct"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteProduct"></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Purchase</td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addPurchase"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="editPurchase"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewPurchase"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deletePurchase"></td>
+                                             </tr>
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Order</td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="addOrder"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="editOrder"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="viewOrder"></td>
+                                                <td><input type="checkbox" name="permission[]" id="permission" value="deleteOrder"></td>
                                              </tr>
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Media</td>

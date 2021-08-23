@@ -241,6 +241,7 @@
                                                    <input type="checkbox" id="permission"   disabled>
                                                 </td>
                                              </tr>
+                                             
 
                                              <tr class="odd">
                                                 <td style="width: 135.266px;">Purchase</td>
@@ -259,6 +260,32 @@
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="deletePurchase" <?php if($user_permission) {
                                                       if(in_array('deletePurchase', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" id="permission"   disabled>
+                                                </td>
+                                             </tr>
+
+                                             <tr class="odd">
+                                                <td style="width: 135.266px;">Order</td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="addOrder" <?php if($user_permission) {
+                                                      if(in_array('addOrder', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="editOrder" <?php if($user_permission) {
+                                                      if(in_array('editOrder', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="viewOrder" <?php if($user_permission) {
+                                                      if(in_array('viewOrder', $user_permission)) { echo "checked"; } } ?> >
+                                                </td>
+                                                <td>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="deleteOrder" <?php if($user_permission) {
+                                                      if(in_array('deleteOrder', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
                                                    <input type="checkbox" id="permission"   disabled>

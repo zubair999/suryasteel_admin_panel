@@ -129,7 +129,36 @@ class Order_m extends MY_Model {
         $this->db->from('order_item as oi');
         $this->db->join('products as p', 'oi.product_id = p.product_id');
         $this->db->where('oi.order_id', $id);
-        return $this->db->get()->result_array();
+        $order_item =  $this->db->get()->result_array();
+    
+        foreach ($order_item as $key => $oi){
+            $od = $this->get_order_item_dispatch_detail($oi['order_item_id']);
+            $order_item[$key]['order_item_dispatch_detail'] = $od;
+        }
+
+        return $order_item;
+    }
+
+    private function get_order_item_dispatch_detail($oi){
+        $this->db->select(
+                            '
+                                oid.order_item_dispatch_id, 
+                                oid.order_item_id, 
+                                oid.dispatch_quantity, 
+                                oid.created_on, 
+                                u.firstname, 
+                                u.lastname,
+                                un.unit_value,
+                                r.role_id,
+                                r.roles_name
+                            '
+                        );
+        $this->db->from('order_item_dispatch as oid');
+        $this->db->join('users as u', 'oid.dispatch_by = u.user_id');
+        $this->db->join('units as un', 'oid.dispatch_unit = un.unit_id');
+        $this->db->join('roles as r', 'u.role_id = r.role_id');
+        $this->db->where('oid.order_item_id', $oi);
+        return  $this->db->get()->result_array();
     }
 
 //end class

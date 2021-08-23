@@ -93,9 +93,7 @@ class Order extends REST_Controller
             $response = ['status' => 200, 'message' => 'success', 'description' => 'Order fetched successfully.', 'data'=>$data];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
-        }
-
-        
+        }        
 	}
 	
 
