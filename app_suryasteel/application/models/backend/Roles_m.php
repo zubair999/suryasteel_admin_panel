@@ -85,6 +85,23 @@ class Roles_m extends MY_Model {
         return $this->db->get()->row();
     }
 
+    public function getOnlyRoleNameByUserId($userId) {
+        $user = $this->auth_m->getUserById($userId);
+        if($user->role_id == null){
+            return 'Customer';
+        }
+        else{
+            $this->db->select('role_id, roles_name');
+            $this->db->from('roles');
+            $this->db->where('role_id',$user->role_id);
+            return $this->db->get()->row()->roles_name;
+        }
+    }
+
+    public function getRoleByUserId(){
+        
+    }
+
 
 //end class
 

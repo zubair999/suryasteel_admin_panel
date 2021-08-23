@@ -107,6 +107,7 @@ class Auth_m extends MY_Model {
         return $this->db->update('users', $userData);
     }
 
+    
 
 //end class
 

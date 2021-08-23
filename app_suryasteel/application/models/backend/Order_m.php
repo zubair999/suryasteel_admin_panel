@@ -101,9 +101,9 @@ class Order_m extends MY_Model {
                              o.bill_no,
                              o.order_amount,
                              o.remarks,
-                             DATE_FORMAT(o.delivery_date, "%d-%M-%Y") as delivery_date,
-                             DATE_FORMAT(o.created_on, "%d-%M-%Y") as created_on,
-                             DATE_FORMAT(o.updated_on, "%d-%M-%Y") as updated_on,
+                             DATE_FORMAT(o.dispatching_date, "%d-%b-%Y") as dispatching_date,
+                             DATE_FORMAT(o.created_on, "%d-%b-%Y") as created_on,
+                             DATE_FORMAT(o.updated_on, "%d-%b-%Y") as updated_on,
                              u.firstname,
                              u.lastname,
                              st.status_value
@@ -134,7 +134,7 @@ class Order_m extends MY_Model {
                                 oi.dispatched_qty,
                                 oi.unit,
                                 oi.item_added_by,
-                                DATE_FORMAT(oi.created_on, "%d-%M-%Y") as created_on,
+                                DATE_FORMAT(oi.created_on, "%d-%b-%Y") as created_on,
                                 p.product_name,
                                 CONCAT(u.firstname ," ",  u.lastname) as added_by,
                                 un.unit_value,
@@ -149,7 +149,9 @@ class Order_m extends MY_Model {
     
         foreach ($order_item as $key => $oi){
             $od = $this->get_order_item_dispatch_detail($oi['order_item_id']);
+            $role = $this->roles_m->getOnlyRoleNameByUserId($oi['item_added_by']);
             $order_item[$key]['order_item_dispatch_detail'] = $od;
+            $order_item[$key]['roles_name'] = $role;
         }
 
         return $order_item;
@@ -161,7 +163,7 @@ class Order_m extends MY_Model {
                                 oid.order_item_dispatch_id, 
                                 oid.order_item_id, 
                                 oid.dispatch_quantity, 
-                                DATE_FORMAT(oid.created_on, "%d-%M-%Y") as created_on, 
+                                DATE_FORMAT(oid.created_on, "%d-%b-%Y") as created_on, 
                                 u.firstname, 
                                 u.lastname,
                                 un.unit_value,
