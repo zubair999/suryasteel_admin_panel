@@ -134,6 +134,7 @@ class Order_m extends MY_Model {
                                 oi.dispatched_qty,
                                 oi.unit,
                                 oi.item_added_by,
+                                DATE_FORMAT(oi.created_on, "%d-%M-%Y") as created_on,
                                 p.product_name,
                                 CONCAT(u.firstname ," ",  u.lastname) as added_by,
                                 un.unit_value,
