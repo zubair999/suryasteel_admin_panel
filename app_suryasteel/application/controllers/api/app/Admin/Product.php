@@ -44,12 +44,15 @@ class Product extends REST_Controller {
             'p.product_id,
             p.category_id,
             p.product_name,
+            p.stock,
             p.is_active,
             p.weight_per_piece,
             p.size,
+            p.length,
             p.zinc_or_without_zinc,
             p.having_kunda,
             p.having_nut,
+            u.unit_value,
             c.category_name,
             i.thumbnail,
             i.actual
@@ -59,14 +62,17 @@ class Product extends REST_Controller {
         $this->db->from('products as p');
         $this->db->join('images as i', 'p.thumbnail = i.image_id');
         $this->db->join('category as c', 'c.category_id = p.category_id');
+        $this->db->join('units as u', 'p.unit = u.unit_id');
         $this->db->where('p.category_id', $id);
         $this->db->order_by('p.product_name','asc');
         $products = $this->db->get()->result_array();
 
         foreach($products as $key => $p){
+            $product_wise_order_count = $this->order_m->productWiseOrderCount($p['product_id']);
             $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
             $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
             $products[$key]['isAddedToCart'] = false;
+            $products[$key]['productWiseOrderCount'] = $product_wise_order_count;
         }
 
         return $products;

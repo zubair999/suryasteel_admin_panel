@@ -180,6 +180,11 @@ class Order_m extends MY_Model {
         return $this->db->get()->result_array();
     }
 
+    public function productWiseOrderCount($product_id){
+        return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
+    }
+
+
 //end class
 
 }
