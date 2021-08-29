@@ -98,12 +98,13 @@ class Order_m extends MY_Model {
     public function get_order(){
         $this->db->select(
                             'o.order_id,
+                             o.created_by,
+                             o.user_id,
                              o.bill_no,
-                             o.order_amount,
-                             o.remarks,
-                             DATE_FORMAT(o.dispatching_date, "%d-%b-%Y") as dispatching_date,
+                             DATE_FORMAT(o.expected_delivery_date, "%d-%b-%Y") as expected_delivery_date,
                              DATE_FORMAT(o.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(o.updated_on, "%d-%b-%Y") as updated_on,
+                             o.remarks,
                              u.firstname,
                              u.lastname,
                              st.status_value,
@@ -214,6 +215,69 @@ class Order_m extends MY_Model {
         return $order;
         // FUNCTION ENDS
     }
+
+    public function addOrder($created_by){
+        $orderData = array(
+            'created_by' => $this->input->post('createdBy'),
+            'user_id' => $this->input->post('userId'),
+            'order_status_catalog_id' => 1,
+            'bill_no' => null,
+            'expected_delivery_date' => $this->today,
+            'remarks' => $this->input->post('remarks'),
+            'created_on' => $this->today,
+            'created_by' => $created_by
+        );
+        $response = $this->db->insert('orders', $orderData);
+        if($response){
+            return ['response'=>true, 'last_order_id'=>$this->db->insert_id()];
+        }
+        else{
+            return ['response'=>false];
+        }
+    }
+
+    public function addOrderItem($lastOrderId){
+        $product = $this->input->post('product');
+        $quantity = $this->input->post('quantity');
+        $unit = $this->input->post('unit');
+        $sold_at = $this->input->post('soldAt');
+        $user_id = $this->input->post('userId');
+        $created_by = $this->input->post('createdBy');
+        $payment_mode = $this->input->post('paymentMode');
+
+        $i = 0;
+        foreach (array_combine($product, $quantity) as $p => $q){
+            $unit_id = $unit[$i];
+            $sold_price = $sold_at[$i];
+            $this->insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $unit_id, $sold_price, $payment_mode);
+            $i++;
+        }
+    }
+
+    public function insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $u, $sold_price, $payment_mode){
+        $orderItemData = array(
+            'order_id' => $lastOrderId,
+            'user_id' => $user_id,
+            'item_added_by' => $created_by,
+            'product_id' => $p,
+            'order_qty' => $q,
+            'dispatched_qty' => 0,
+            'unit' => $u,
+            'sold_at' => $sold_price,
+            'payment_mode' => $payment_mode,
+            'created_on' => $this->today
+        );
+        $response = $this->db->insert('order_item', $orderItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
 //end class
 
 }

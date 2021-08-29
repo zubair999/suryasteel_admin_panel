@@ -16,12 +16,23 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
-            if ($this->form_validation->run() == FALSE) {
-				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
-			} else {
-				$data = $this->input->post();  
-			}
+            // $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
+            // if ($this->form_validation->run() == FALSE) {
+			// 	$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+			// } else {
+				$data = $this->input->post();
+
+
+                $isOrderAdded = $this->order_m->addOrder($this->input->post('createdBy'));
+                if($isOrderAdded['response']){
+                    $this->order_m->addOrderItem($isOrderAdded['last_order_id']);
+                    $response = ['status' => 200, 'message' =>'ok', 'description' =>"Product item added successfully."];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                }
+
+			// }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
