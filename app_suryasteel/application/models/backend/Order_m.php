@@ -106,7 +106,8 @@ class Order_m extends MY_Model {
                              DATE_FORMAT(o.updated_on, "%d-%b-%Y") as updated_on,
                              u.firstname,
                              u.lastname,
-                             st.status_value
+                             st.status_value,
+                             st.status_color
                              '
                         );
         $this->db->from('orders as o');
@@ -185,6 +186,34 @@ class Order_m extends MY_Model {
     }
 
 
+    public function get_order_by_product_id(){
+        $this->db->select(
+                            'o.order_id,
+                             o.bill_no,
+                             o.order_amount,
+                             o.remarks,
+                             DATE_FORMAT(o.dispatching_date, "%d-%b-%Y") as dispatching_date,
+                             DATE_FORMAT(o.created_on, "%d-%b-%Y") as created_on,
+                             DATE_FORMAT(o.updated_on, "%d-%b-%Y") as updated_on,
+                             u.firstname,
+                             u.lastname,
+                             st.status_value
+                             '
+                        );
+        $this->db->from('orders as o');
+        $this->db->join('users as u', 'o.user_id = u.user_id');
+        $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
+        $this->db->order_by('created_on', 'asc');
+        $order = $this->db->get()->result_array();
+        
+        foreach ($order as $key => $o){
+            $od = $this->get_order_item_by_order_id($o['order_id']);
+            $order[$key]['order_detail'] = $od;
+        }
+
+        return $order;
+        // FUNCTION ENDS
+    }
 //end class
 
 }

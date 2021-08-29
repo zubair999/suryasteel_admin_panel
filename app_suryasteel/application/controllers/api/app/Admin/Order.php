@@ -20,28 +20,7 @@ class Order extends REST_Controller
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-				$data = $this->input->post();
-				$userCount = $this->auth_m->userCountByEmail($data['username']);
-				if($userCount > 0){
-					$response = ['status' => 200, 'message' => 'error', 'description' => 'User already exits.'];
-                }
-				else{
-					$mobileNoCount = $this->auth_m->getUserCountByMobile($data['mobileno']);
-					if($mobileNoCount > 0) {
-						$response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
-					}
-					else{
-                        $isAdded = $this->staff_m->addStaff($data['uid']);
-                        $this->staff_m->addLog($data['uid']);
-						if($isAdded){
-                            $staff = $this->staff_m->get_staff_list();
-							$response = ['status' => 200, 'message' => 'success', 'description' => 'New Staff added successfully.', 'data'=>$staff];
-						}
-						else{
-							$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
-						}
-					}
-				}   
+				$data = $this->input->post();  
 			}
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
@@ -96,7 +75,18 @@ class Order extends REST_Controller
         }        
 	}
 	
-
+    public function getOrdersByProduct_get(){
+        $method = $this->_detect_method();
+        if (!$method == 'GET') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $response = ['status' => 200, 'message' =>'ok', 'description' =>'ok'];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 	
 
 
