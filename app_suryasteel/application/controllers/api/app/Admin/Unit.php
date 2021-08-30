@@ -9,9 +9,9 @@ class Unit extends REST_Controller {
 	}
 
 	public function getUnit_get(){
-		$category = $this->unit_m->getUnit();
-		$res = ['status'=>200,'message'=>'success','description'=>'Unit fetched successfully.', 'data'=>$category];
-        echo json_encode($res);
+		$unit = $this->unit_m->getUnit();
+		$response = ['status'=>200,'message'=>'success','description'=>'Unit fetched successfully.', 'data'=>$unit];
+        echo json_encode($response);
         exit();
 	}
 	

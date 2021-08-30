@@ -15,7 +15,17 @@ class Unit_m extends MY_Model {
     public function getUnit() {
         $this->db->select('unit_id, unit_value');
         $this->db->from('units');
-        return $this->db->get()->result_array();
+        $unit = $this->db->get()->result_array();
+
+
+        foreach ($unit as $key => $value) {
+            $unit[$key]['value'] = $value['unit_id'];
+            $unit[$key]['label'] = ucwords($value['unit_value']);
+            unset($unit[$key]['unit_id']);
+            unset($unit[$key]['unit_value']);
+        }
+
+        return $unit;
     }
 
     
