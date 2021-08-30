@@ -111,16 +111,16 @@ class Product extends REST_Controller {
             exit();
         }
         else{
-            $this->form_validation->set_rules("category_id", 'category ', 'trim|required');
+            $this->form_validation->set_rules("productId", 'product ', 'trim|required');
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-				$this->db->where('category_id', $this->input->post('category_id'));
-				$isDeleted = $this->db->delete('category');
-				$this->log_m->Log($this->input->post('uid'), 'Category','A category is deleted successfully.');
+				$this->db->where('product_id', $this->input->post('productId'));
+				$isDeleted = $this->db->delete('products');
+				$this->log_m->Log($this->input->post('deletedBy'), 'Product','A product is deleted successfully.');
 				if($isDeleted){
-					$category = $this->category_m->get_all_category_with_image();
-					$response = ['status' => 200, 'message' => 'success', 'description' => 'Category deleted successfully.', 'data'=>$category];
+					$products = $this->productSectionList();
+					$response = ['status' => 200, 'message' => 'success', 'description' => 'Product deleted successfully.', 'data'=>$products];
 				}
 				else{
 					$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
