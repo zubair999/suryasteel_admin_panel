@@ -27,6 +27,9 @@ $route['v1/getstate'] = 'api/app/Admin/state/getState';
 // GST REG. TYPE
 $route['v1/getgstregtype'] = 'api/app/Admin/gstregtype/getGstRegType';
 
+// UNIT
+$route['v1/getunit'] = 'api/app/Admin/unit/getUnit';
+
 // CATEGORY
 $route['v1/addcategory'] = 'api/app/Admin/category/addCategory';
 $route['v1/editcategory'] = 'api/app/Admin/category/editCategory';
