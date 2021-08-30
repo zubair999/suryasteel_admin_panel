@@ -22,7 +22,8 @@ class Product extends REST_Controller {
                 $isAdded = $this->product_m->addProduct($this->input->post('createdBy'));
 				$this->log_m->Log($this->input->post('createdBy'), 'Product','A product is added successfully.');
 				if($isAdded){
-					$response = ['status' => 200, 'message' => 'success', 'description' => 'New product added successfully.'];
+                    $products = $this->productSectionList();
+					$response = ['status' => 200, 'message' => 'success', 'description' => 'New product added successfully.', 'data'=>$products];
 				}
 				else{
 					$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
