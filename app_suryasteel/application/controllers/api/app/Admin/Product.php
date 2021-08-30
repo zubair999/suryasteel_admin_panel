@@ -8,6 +8,31 @@ class Product extends REST_Controller {
 		parent::__construct();
 	}
 
+    public function addProduct_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules($this->product_m->productAddRulesApp);            
+            if ($this->form_validation->run() == FALSE) {
+				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+			} else {
+                $isAdded = $this->product_m->addProduct($this->input->post('createdBy'));
+				$this->log_m->Log($this->input->post('createdBy'), 'Product','A product is added successfully.');
+				if($isAdded){
+					$response = ['status' => 200, 'message' => 'success', 'description' => 'New product added successfully.'];
+				}
+				else{
+					$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+				}
+			}
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+	}
+
 	public function getProduct_get() {
         $method = $this->_detect_method();
         if (!$method == 'GET') {

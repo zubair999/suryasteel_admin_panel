@@ -12,6 +12,44 @@ class Product_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public $productAddRulesApp = array(
+        0 => array(
+            'field' => 'categoryId',
+            'label' => 'category',
+            'rules' => 'trim|required'
+        ),
+        1 => array(
+            'field' => 'imageId',
+            'label' => 'Image',
+            'rules' => 'trim|required'
+        ),
+        2 => array(
+            'field' => 'productName',
+            'label' => 'product name',
+            'rules' => 'trim|required'
+        ),
+        3 => array(
+            'field' => 'weightPerPiece',
+            'label' => 'Weight per piece',
+            'rules' => 'trim|required'
+        ),
+        4 => array(
+            'field' => 'unit',
+            'label' => 'Unit',
+            'rules' => 'trim|required'
+        ),
+        5 => array(
+            'field' => 'size',
+            'label' => 'Size',
+            'rules' => 'trim|required'
+        ),
+        6 => array(
+            'field' => 'length',
+            'label' => 'Length',
+            'rules' => 'trim|required'
+        )
+    );
+
 
 	public function getProduct(){
 		$requestData = $_REQUEST;
@@ -94,6 +132,34 @@ class Product_m extends MY_Model {
         // FUNCTION ENDS
     }
 
+    public function addProduct($created_by) {
+
+
+        $data = array(
+            'category_id' => $this->input->post('categoryId'),
+            'thumbnail' => $this->input->post('imageId'),
+            'product_name' => $this->input->post('productName'),
+            'unit' => $this->input->post('unit'),
+            'size' => $this->input->post('size'),
+            'length' => $this->input->post('length'),
+            'weight_per_piece' => $this->input->post('weightPerPiece'),
+            'capacity' => $this->input->post('capacity'),
+            'zinc_or_without_zinc' => $this->input->post('zincOrWithoutZinc'),
+            'having_kunda' => $this->input->post('havingkunda'),
+            'having_nut' => $this->input->post('havingNut'),
+            'is_active' => 'active',
+            'created_by' => $created_by,
+            'created_on' => $this->today
+        );
+
+        $response = $this->db->insert('products', $data);
+        if($response){
+            return true;
+        }
+        else{
+            false;
+        }
+    }
 
 
 
