@@ -74,6 +74,7 @@ class Product extends REST_Controller {
             p.is_active,
             p.weight_per_piece,
             p.size,
+            p.unit,
             p.length,
             p.zinc_or_without_zinc,
             p.having_kunda,
