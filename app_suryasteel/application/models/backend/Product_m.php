@@ -161,6 +161,25 @@ class Product_m extends MY_Model {
         }
     }
 
+    public function editProduct($id){
+        $productData = array(
+            'category_id' => $this->input->post('categoryId'),
+            'thumbnail' => $this->input->post('imageId'),
+            'product_name' => $this->input->post('productName'),
+            'unit' => $this->input->post('unit'),
+            'size' => $this->input->post('size'),
+            'length' => $this->input->post('length'),
+            'weight_per_piece' => $this->input->post('weightPerPiece'),
+            'capacity' => $this->input->post('capacity'),
+            'zinc_or_without_zinc' => $this->input->post('zincOrWithoutZinc'),
+            'having_kunda' => $this->input->post('havingkunda'),
+            'having_nut' => $this->input->post('havingNut'),
+            'updated_on' => $this->today
+        );
+
+        $this->db->where('product_id', $id);
+        return $this->db->update('products', $productData);
+    }
 
 
 //end class
