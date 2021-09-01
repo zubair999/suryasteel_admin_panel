@@ -96,6 +96,7 @@ class Product extends REST_Controller {
             'p.product_id,
             p.category_id,
             p.product_name,
+            p.thumbnail as image_id,
             p.stock,
             p.is_active,
             p.weight_per_piece,
