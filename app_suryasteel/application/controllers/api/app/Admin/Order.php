@@ -26,7 +26,7 @@ class Order extends REST_Controller
                 $isOrderAdded = $this->order_m->addOrder($this->input->post('createdBy'));
                 if($isOrderAdded['response']){
                     $this->order_m->addOrderItem($isOrderAdded['last_order_id']);
-                    $response = ['status' => 200, 'message' =>'ok', 'description' =>"Product item added successfully."];
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Order created successfully."];
                 }
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];

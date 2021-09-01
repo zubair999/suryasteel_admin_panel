@@ -109,9 +109,6 @@ class Category extends REST_Controller {
             exit();
         }
 	}
-	
-
-
 
 //CLASS ENDS
 }
