@@ -108,18 +108,21 @@ class Order_m extends MY_Model {
                              u.firstname,
                              u.lastname,
                              st.status_value,
-                             st.status_color
+                             st.status_color,
                              '
                         );
         $this->db->from('orders as o');
-        $this->db->join('users as u', 'o.user_id = u.user_id');
+        $this->db->join('users as u', 'o.user_id = u.user_id', 'left');
         $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
         $this->db->order_by('created_on', 'asc');
         $order = $this->db->get()->result_array();
         
         foreach ($order as $key => $o){
             $od = $this->get_order_item_by_order_id($o['order_id']);
+            $createdBy = $this->auth_m->getUserById($o['created_by']);
             $order[$key]['order_detail'] = $od;
+            $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
+
         }
 
         return $order;
