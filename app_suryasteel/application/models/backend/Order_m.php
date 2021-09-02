@@ -100,6 +100,7 @@ class Order_m extends MY_Model {
                             'o.order_id,
                              o.created_by,
                              o.user_id,
+                             o.payment_mode,
                              o.bill_no,
                              DATE_FORMAT(o.expected_delivery_date, "%d-%b-%Y") as expected_delivery_date,
                              DATE_FORMAT(o.created_on, "%d-%b-%Y") as created_on,
