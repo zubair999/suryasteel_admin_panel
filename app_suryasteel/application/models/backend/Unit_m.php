@@ -13,7 +13,7 @@ class Unit_m extends MY_Model {
 	}
 
     public function getUnit() {
-        $this->db->select('unit_id, unit_value');
+        $this->db->select('unit_id, unit_value, default_unit');
         $this->db->from('units');
         $unit = $this->db->get()->result_array();
 

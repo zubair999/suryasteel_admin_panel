@@ -6,11 +6,11 @@ $route['default_controller'] = 'backend/Auth/login';
 
 
 /************************************************************/
+
 //admin api
 $route['v1/createbrand'] = 'api/backend/brand/createbrand';
 $route['v1/updatebrand/(:any)'] = 'api/backend/brand/updatebrand/$1';
 $route['v1/delete-image'] = 'backend/media/deleteimage';
-
 
 // LOGIN
 $route['v1/userlogin'] = 'api/app/Auth/auth/userLogin';
@@ -42,13 +42,13 @@ $route['v1/editproduct'] = 'api/app/Admin/product/editProduct';
 $route['v1/getproduct'] = 'api/app/Admin/product/getProduct';
 $route['v1/deleteproduct'] = 'api/app/Admin/product/deleteProduct';
 
-
-
 // ORDER
 $route['v1/addorder'] = 'api/app/Admin/order/addOrder';
 $route['v1/getorder'] = 'api/app/Admin/order/getOrder';
 $route['v1/getorderbyproduct'] = 'api/app/Admin/order/getOrdersByProduct';
 
+// DISPATCH
+$route['v1/dispatchitem'] = 'api/app/Admin/order/dispatchItem';
 
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
@@ -58,23 +58,16 @@ $route['v1/deleteuser'] = 'api/app/Auth/auth/deleteUser';
 $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
 $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 
-
 // CUSTOMER
 $route['v1/addcustomer'] = 'api/app/Admin/customer/addCustomer';
 $route['v1/editcustomer'] = 'api/app/Admin/customer/editCustomer';
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
-// $route['v1/deletestaff'] = 'api/app/Admin/staff/deleteStaff';
-// $route['v1/updatepassword'] = 'api/app/Auth/auth/update_password';
-// $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 
 // PROFILE
 $route['v1/updateprofile'] = 'api/app/Auth/auth/update_profile';
 
-
 // APP CONFIGURATIONS
 $route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
-
-
 
 // CUSTOMER
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';

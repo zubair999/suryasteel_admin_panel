@@ -99,7 +99,21 @@ class Order extends REST_Controller
         }
     }
 	
+    public function dispatchItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'GET') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            
 
+
+            $response = ['status' => 200, 'message' =>'ok', 'description' =>'disaptch item', 'data'=>$this->input->post()];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 
 
 

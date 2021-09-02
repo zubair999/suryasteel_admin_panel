@@ -222,7 +222,7 @@ class Order_m extends MY_Model {
             'user_id' => $this->input->post('userId'),
             'order_status_catalog_id' => 1,
             'bill_no' => null,
-            'expected_delivery_date' => $this->today,
+            'expected_delivery_date' => $this->input->post('expectedDeliveryData'),
             'remarks' => $this->input->post('remarks'),
             'created_on' => $this->today,
             'created_by' => $created_by
