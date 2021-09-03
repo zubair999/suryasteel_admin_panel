@@ -226,6 +226,7 @@ class Order_m extends MY_Model {
             'user_id' => $this->input->post('userId'),
             'order_status_catalog_id' => 1,
             'bill_no' => null,
+            'payment_mode' => $this->input->post('paymentMode'),
             'expected_delivery_date' => $this->input->post('expectedDeliveryData'),
             'remarks' => $this->input->post('remarks'),
             'created_on' => $this->today,
