@@ -253,12 +253,12 @@ class Order_m extends MY_Model {
         foreach (array_combine($product, $quantity) as $p => $q){
             $unit_id = $unit[$i];
             $sold_price = $sold_at[$i];
-            $this->insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $unit_id, $sold_price, $payment_mode);
+            $this->insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $unit_id, $sold_price);
             $i++;
         }
     }
 
-    public function insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $u, $sold_price, $payment_mode){
+    public function insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $u, $sold_price){
         $orderItemData = array(
             'order_id' => $lastOrderId,
             'user_id' => $user_id,
@@ -268,7 +268,6 @@ class Order_m extends MY_Model {
             'dispatched_qty' => 0,
             'unit' => $u,
             'sold_at' => $sold_price,
-            'payment_mode' => $payment_mode,
             'created_on' => $this->today
         );
         $response = $this->db->insert('order_item', $orderItemData);
