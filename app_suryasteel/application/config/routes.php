@@ -18,6 +18,9 @@ $route['v1/userlogin'] = 'api/app/Auth/auth/userLogin';
 // ROLE
 $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 
+// PAYMENT MODE
+$route['v1/getpaymentmode'] = 'api/app/Admin/paymentmode/getPaymentMode';
+
 // MEDIA
 $route['v1/getmedia'] = 'api/app/Admin/media/getAllImage';
 
