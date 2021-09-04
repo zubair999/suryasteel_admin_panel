@@ -139,6 +139,7 @@ class Order_m extends MY_Model {
                                 oi.order_qty,
                                 oi.dispatched_qty,
                                 oi.unit,
+                                oi.sold_at,
                                 oi.item_added_by,
                                 DATE_FORMAT(oi.created_on, "%d-%b-%Y") as created_on,
                                 p.product_name,
@@ -280,7 +281,73 @@ class Order_m extends MY_Model {
         }
     }
 
+    public function editOrder($orderId){
+        $orderData = array(
+            'payment_mode' => $this->input->post('paymentMode'),
+            'expected_delivery_date' => $this->input->post('expectedDeliveryData'),
+            'remarks' => $this->input->post('remarks'),
+            'updated_on' => $this->today
+        );
+        $this->db->where('order_id', $orderId);
+        $response = $this->db->update('orders', $orderData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
+    public function editOrderItem(){
+        $product = $this->input->post('product');
+        $quantity = $this->input->post('quantity');
+        $unit = $this->input->post('unit');
+        $sold_at = $this->input->post('soldAt');
+        $orderId = $this->input->post('orderId');
+        $payment_mode = $this->input->post('paymentMode');
+
+        $i = 0;
+        foreach (array_combine($product, $quantity) as $p => $q){
+            $unit_id = $unit[$i];
+            $sold_price = $sold_at[$i];
+            $this->updateOrderItem($orderId, $p, $q, $unit_id, $sold_price);
+            $i++;
+        }
+    }
+
+    public function updateOrderItem($orderId, $p, $q, $u, $sold_price){
+        $orderItemData = array(
+            'order_qty' => $q,
+            'unit' => $u,
+            'sold_at' => $sold_price,
+            'updated_on' => $this->today
+        );
+        
+        $this->db->where('order_id', $orderId);
+        $this->db->where('product_id', $p);
+        $response = $this->db->update('order_item', $orderItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function isOrderItemDispatched($orderItemId){
+        $orderItemCount =  $this->db->get_where('order_item_dispatch', array('order_item_id'=> $orderItemId))->num_rows();
+        if($orderItemCount > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function deleteOrderItem($orderItemId){
+        $this->db->where('order_item_id', $orderItemId);
+        return $this->db->delete('order_item');
+    }
 
 //end class
 

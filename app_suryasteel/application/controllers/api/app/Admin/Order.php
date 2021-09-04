@@ -45,28 +45,23 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            $this->data['user'] = $this->auth_m->getUserById($this->input->post('user_id'));
-            if($this->input->post('mobileno') != $this->data['user']->mobile_no) {
-                $is_unique =  '|is_unique[users.mobile_no]';
-            } else {
-                $is_unique =  '';
-            }
-            $this->form_validation->set_rules('role', 'Role', 'trim|required');
-            $this->form_validation->set_rules('mobileno', 'Mobile no', 'trim|required|exact_length[10]|is_natural'.$is_unique);
-            if($this->form_validation->run() == FALSE){
-                $response = ['status' => 200, 'message' =>'ok', 'description' =>validation_errors()];
-            }
-            else{
-                $userCount = $this->auth_m->userCountByEmail($this->input->post('username'));
-				if($userCount > 0){
-					$response = ['status' => 200, 'message' => 'error', 'description' => 'User already exits.'];
+            // $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
+            // if ($this->form_validation->run() == FALSE) {
+			// 	$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
+			// } else {
+				$data = $this->input->post();
+
+
+                $isUpdatedAdded = $this->order_m->editOrder($this->input->post('orderId'));
+                if($isUpdatedAdded){
+                    $this->order_m->editOrderItem();
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Order updated successfully."];
                 }
                 else{
-                    $this->staff_m->editStaff($this->input->post('user_id'));
-                    $this->staff_m->editLog($this->input->post('edited_by'));
-                    $response = ['status' => 200, 'message' =>'ok', 'description' =>'Staff updated successfully.'];
-                }   
-            }
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                }
+
+			// }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
@@ -106,16 +101,36 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            
-
-
             $response = ['status' => 200, 'message' =>'ok', 'description' =>'disaptch item', 'data'=>$this->input->post()];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
     }
 
-
+    public function deleteOrderItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $isItemDispatched = $this->order_m->isOrderItemDispatched($this->input->post('order_item_id'));
+            if($isItemDispatched){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Order item already dispatch, it cannot be deleted.'];
+            }
+            else{
+                $isItemDeleted = $this->order_m->deleteOrderItem($this->input->post('order_item_id'));
+                if($isItemDeleted){
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Order item deleted successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 
 
 
