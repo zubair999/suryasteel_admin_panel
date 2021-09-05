@@ -349,6 +349,45 @@ class Order_m extends MY_Model {
         return $this->db->delete('order_item');
     }
 
+    public function dispatchOrderItem(){
+        $dispatchData = array(
+            'dispatch_by' => $this->input->post('dispatchBy'),
+            'order_item_id' => $this->input->post('orderItemId'),
+            'dispatch_quantity' => $this->input->post('dispatchQty'),
+            'dispatch_unit' => $this->input->post('dispatchUnit'),
+            'created_on' => $this->today
+        );
+
+        $response = $this->db->insert('order_item_dispatch', $dispatchData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function addispatchQtyInOrderItem(){
+        $orderItemId = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+        $orderItemData = array(
+            'dispatched_qty' => (float)$orderItemId->dispatched_qty + (float)$this->input->post('dispatchQty'),
+        );
+        $this->db->where('order_item_id', $this->input->post('orderItemId'));
+        return $this->db->update('order_item', $orderItemData);
+    }
+
+    public function changeOrderStatus(){
+        $orderData = array(
+            'order_status_catalog_id' => 3,
+        );
+        $this->db->where('order_id', $this->input->post('orderId'));
+        return $this->db->update('orders', $orderData);
+    }
+
+    public function getOrderItemByOrderItemId($orderItemId) {
+        return $this->db->get_where('order_item', array('order_item_id'=> $orderItemId))->row();
+    }
+        
 //end class
 
 }

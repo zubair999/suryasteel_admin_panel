@@ -96,12 +96,20 @@ class Order extends REST_Controller
 	
     public function dispatchItem_post(){
         $method = $this->_detect_method();
-        if (!$method == 'GET') {
+        if (!$method == 'POST') {
             $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
             exit();
         }
         else{
-            $response = ['status' => 200, 'message' =>'ok', 'description' =>'disaptch item', 'data'=>$this->input->post()];
+            $response = $this->order_m->dispatchOrderItem();
+            if($response){
+                $this->order_m->addispatchQtyInOrderItem();
+                $this->order_m->changeOrderStatus();
+                $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.'];
+            }
+            else{
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+            }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
