@@ -12,6 +12,9 @@ class Order_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function getOrderItemByOrderItemId($orderItemId) {
+        return $this->db->get_where('order_item', array('order_item_id'=> $orderItemId))->row();
+    }
 
 	public function getOrder(){
 		$requestData = $_REQUEST;
@@ -367,7 +370,7 @@ class Order_m extends MY_Model {
         }
     }
 
-    public function addispatchQtyInOrderItem(){
+    public function addDispatchQtyInOrderItem(){
         $orderItemId = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
         $orderItemData = array(
             'dispatched_qty' => (float)$orderItemId->dispatched_qty + (float)$this->input->post('dispatchQty'),
@@ -376,16 +379,33 @@ class Order_m extends MY_Model {
         return $this->db->update('order_item', $orderItemData);
     }
 
-    public function changeOrderStatus(){
+    public function changeOrderStatus($status){
         $orderData = array(
-            'order_status_catalog_id' => 3,
+            'order_status_catalog_id' => $status,
         );
         $this->db->where('order_id', $this->input->post('orderId'));
-        return $this->db->update('orders', $orderData);
+        $this->db->update('orders', $orderData);
     }
 
-    public function getOrderItemByOrderItemId($orderItemId) {
-        return $this->db->get_where('order_item', array('order_item_id'=> $orderItemId))->row();
+    public function checkIfOrderIsFullyDispatched(){
+        $this->db->select('order_item_id, order_qty, dispatched_qty');
+        $this->db->from('order_item');
+        $this->db->where('order_id', $this->input->post('orderId'));
+        $order_item = $this->db->get()->result_array();
+        foreach ($order_item as $key => $oi){
+            if($oi['dispatched_qty'] >=  $oi['order_qty']){
+                unset($order_item[$key]);
+            }
+        }
+
+        if(count($order_item) > 0){
+            // ORDER IS NOT FULLY DISPATCHED.
+            $this->changeOrderStatus(3);
+        }
+        else{
+            // ORDER IS FULLY DISPATCHED.
+            $this->changeOrderStatus(4);
+        }
     }
         
 //end class

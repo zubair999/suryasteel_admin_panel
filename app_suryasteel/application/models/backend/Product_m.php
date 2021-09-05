@@ -181,6 +181,16 @@ class Product_m extends MY_Model {
         return $this->db->update('products', $productData);
     }
 
+    public function decreaseStock(){
+        $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+
+        print_r($orderItem);
+
+        die;
+    }
+
+    
+
 
 //end class
 

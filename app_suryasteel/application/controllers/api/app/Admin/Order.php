@@ -103,9 +103,15 @@ class Order extends REST_Controller
         else{
             $response = $this->order_m->dispatchOrderItem();
             if($response){
-                $this->order_m->addispatchQtyInOrderItem();
-                $this->order_m->changeOrderStatus();
-                $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.'];
+                $isQtyUpdated = $this->order_m->addDispatchQtyInOrderItem();
+                $this->order_m->checkIfOrderIsFullyDispatched();
+                // $this->product_m->decreaseStock();
+                if($isQtyUpdated){
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+                }
             }
             else{
                 $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
