@@ -107,7 +107,8 @@ class Order extends REST_Controller
                 $this->order_m->checkIfOrderIsFullyDispatched();
                 // $this->product_m->decreaseStock();
                 if($isQtyUpdated){
-                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.'];
+                    $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.', 'data'=>$order_item];
                 }
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];

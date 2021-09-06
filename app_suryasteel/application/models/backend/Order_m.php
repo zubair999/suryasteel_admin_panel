@@ -133,7 +133,7 @@ class Order_m extends MY_Model {
         // FUNCTION ENDS
     }
 
-    private function get_order_item_by_order_id($id){
+    public function get_order_item_by_order_id($id){
         $this->db->select(
                             '
                                 oi.order_item_id, 
