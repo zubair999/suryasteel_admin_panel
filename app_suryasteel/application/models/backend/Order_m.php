@@ -412,7 +412,7 @@ class Order_m extends MY_Model {
         }
     }
         
-    public function decreaseDispatchedQtyInOrderItem($orderItemId, $dispatchedQty){
+    public function decreaseDispatchedQtyInOrderItem($orderItemId, $dispatchedQty, $dispatchedId){
         $order_item = $this->getOrderItemByOrderItemId($orderItemId);
         $itemDispatchQty = $order_item->dispatched_qty;
         $newQty = (float)$itemDispatchQty - (float)$dispatchedQty;
@@ -423,6 +423,7 @@ class Order_m extends MY_Model {
 
         $this->db->where('order_item_id', $orderItemId);
         $this->db->update('order_item', $itemData);
+        $this->deleteDispatchedItem($dispatchedId);
     }
 
     public function deleteDispatchedItem($dispatchedId){
