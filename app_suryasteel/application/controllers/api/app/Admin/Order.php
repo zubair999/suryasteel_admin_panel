@@ -122,6 +122,23 @@ class Order extends REST_Controller
         }
     }
 
+    public function deleteDispatchItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $dispatchedItem = $this->order_m->getDispatchedItem($this->input->post('dispatchId'));
+            $this->order_m->decreaseDispatchedQtyInOrderItem($this->input->post('orderItemId'), $dispatchedItem->dispatch_quantity);
+            $this->order_m->deleteDispatchedItem($this->input->post('dispatchId'));
+            $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+            $response = ['status' => 200, 'message' => 'success', 'description' =>'ok', 'data'=>$order_item];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
+
     public function deleteOrderItem_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {

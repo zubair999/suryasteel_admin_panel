@@ -57,6 +57,7 @@ $route['v1/deleteorderitem'] = 'api/app/Admin/order/deleteOrderItem';
 
 // DISPATCH
 $route['v1/dispatchitem'] = 'api/app/Admin/order/dispatchItem';
+$route['v1/deletedispatchitem'] = 'api/app/Admin/order/deleteDispatchItem';
 
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
