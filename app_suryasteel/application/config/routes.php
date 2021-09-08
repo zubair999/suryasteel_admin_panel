@@ -54,7 +54,6 @@ $route['v1/getorderbyproduct'] = 'api/app/Admin/order/getOrdersByProduct';
 // ORDER ITEM
 $route['v1/deleteorderitem'] = 'api/app/Admin/order/deleteOrderItem';
 
-
 // DISPATCH
 $route['v1/dispatchitem'] = 'api/app/Admin/order/dispatchItem';
 $route['v1/deletedispatchitem'] = 'api/app/Admin/order/deleteDispatchItem';
@@ -71,6 +70,7 @@ $route['v1/changestatus'] = 'api/app/Auth/auth/change_status';
 $route['v1/addcustomer'] = 'api/app/Admin/customer/addCustomer';
 $route['v1/editcustomer'] = 'api/app/Admin/customer/editCustomer';
 $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
+$route['v1/searchcustomer'] = 'api/app/Admin/customer/searchCustomer';
 
 // PROFILE
 $route['v1/updateprofile'] = 'api/app/Auth/auth/update_profile';
@@ -79,7 +79,7 @@ $route['v1/updateprofile'] = 'api/app/Auth/auth/update_profile';
 $route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
 
 // CUSTOMER
-$route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
+// $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
 
 

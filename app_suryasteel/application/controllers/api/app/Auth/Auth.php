@@ -193,6 +193,5 @@ class Auth extends REST_Controller
     }
 
 
-
 	//CLASS ENDS
 }

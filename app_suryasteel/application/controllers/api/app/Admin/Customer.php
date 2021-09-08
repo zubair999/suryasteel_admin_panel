@@ -123,7 +123,19 @@ class Customer extends REST_Controller
         }
     }
 	
-
+    public function searchCustomer_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $data = $this->customer_m->searchCustomer();
+            $res = ['status'=> 200, 'message'=> 'success', 'description'=>'Customer fetched successfully.', 'data'=>$data];
+            $this->response($res, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 	
 
 

@@ -234,6 +234,19 @@ class Customer_m extends MY_Model {
         $this->db->where('user_id', $id);
         return $this->db->update('users', $customerData);
     }
+
+    public function searchCustomer(){
+        $this->db->select('user_id, firstname, lastname,mobile_no,is_active');
+        $this->db->where('is_active', 'active');
+        $this->db->like('firstname', $this->input->post('firstname'), 'after'); 
+        return $this->db->get('users')->result_array();
+    }
+
+
+
+
+
+
 //end class
 
 }
