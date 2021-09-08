@@ -171,13 +171,26 @@ class Customer_m extends MY_Model {
     	return $this->db->get()->num_rows();
 	}
 
-    public function get_customer_list(){
+    public function get_customer_list_old(){
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('role_id = ', null);
         $this->db->limit(25);
         $this->db->order_by('firstname ASC');
         return $this->db->get()->result_array();
+    }
+
+    public function get_customer_list(){
+        $this->db->select('*');
+        $this->db->where('role_id = ', null);
+
+        if($this->input->post('firstname')){
+            $this->db->like('firstname', $this->input->post('firstname'), 'after');
+        }
+
+        // $this->db->limit(25);
+        $this->db->order_by('firstname ASC');
+        return $this->db->get('users')->result_array();
     }
 
     public function addCustomer($created_by){
@@ -235,12 +248,7 @@ class Customer_m extends MY_Model {
         return $this->db->update('users', $customerData);
     }
 
-    public function searchCustomer(){
-        $this->db->select('user_id, firstname, lastname,mobile_no,is_active');
-        $this->db->where('is_active', 'active');
-        $this->db->like('firstname', $this->input->post('firstname'), 'after'); 
-        return $this->db->get('users')->result_array();
-    }
+    
 
 
 

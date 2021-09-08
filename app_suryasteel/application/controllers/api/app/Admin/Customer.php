@@ -86,9 +86,9 @@ class Customer extends REST_Controller
         }
 	}
 
-	public function getCustomer_get(){
+	public function getCustomer_post(){
         $method = $this->_detect_method();
-        if (!$method == 'GET') {
+        if (!$method == 'POST') {
             $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
             exit();
         }
