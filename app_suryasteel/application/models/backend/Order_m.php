@@ -122,7 +122,25 @@ class Order_m extends MY_Model {
         $this->db->from('orders as o');
         $this->db->join('users as u', 'o.user_id = u.user_id', 'left');
         $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
-        $this->db->order_by('created_on', 'asc');
+        
+        if($this->input->get('orderStatus')){
+            $this->db->where('o.order_status_catalog_id', $this->input->get('orderStatus'));
+        }
+        if($this->input->get('since')){
+            $this->db->where('o.created_on >=', $this->input->get('since'));
+        }
+        if($this->input->get('until')){
+            $this->db->where('o.created_on <=', $this->input->get('until'));
+        }
+        if($this->input->get('userId')){
+            $this->db->where('o.user_id', $this->input->get('userId'));
+        }
+        if($this->input->get('createdBy')){
+            $this->db->where('o.created_by', $this->input->get('createdBy'));
+        }
+        
+        // $this->db->limit(1);
+        $this->db->order_by('o.order_status_catalog_id', 'asc');
         $order = $this->db->get()->result_array();
         
         foreach ($order as $key => $o){
