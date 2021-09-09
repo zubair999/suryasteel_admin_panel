@@ -165,10 +165,17 @@ class Order extends REST_Controller
     }
 
     public function getOrderStatusCatalog_get(){
-		$orderStatusCatalog = $this->order_m->getOrderStatusCatalog();
-		$res = ['status'=>200,'message'=>'success','description'=>'Order Status catalog successfully.', 'data'=>$orderStatusCatalog];
-        echo json_encode($res);
-        exit();
+        $method = $this->_detect_method();
+        if (!$method == 'GET') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $orderStatusCatalog = $this->order_m->getOrderStatusCatalog();
+		    $response = ['status'=>200,'message'=>'success','description'=>'Order Status catalog successfully.', 'data'=>$orderStatusCatalog];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
 	}
 
 
