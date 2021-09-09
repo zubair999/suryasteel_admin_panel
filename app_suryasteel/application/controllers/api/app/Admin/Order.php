@@ -164,6 +164,12 @@ class Order extends REST_Controller
         }
     }
 
+    public function getOrderStatusCatalog_get(){
+		$orderStatusCatalog = $this->order_m->getOrderStatusCatalog();
+		$res = ['status'=>200,'message'=>'success','description'=>'Order Status catalog successfully.', 'data'=>$orderStatusCatalog];
+        echo json_encode($res);
+        exit();
+	}
 
 
 	//CLASS ENDS

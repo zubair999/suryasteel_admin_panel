@@ -50,6 +50,7 @@ $route['v1/addorder'] = 'api/app/Admin/order/addOrder';
 $route['v1/editorder'] = 'api/app/Admin/order/editOrder';
 $route['v1/getorder'] = 'api/app/Admin/order/getOrder';
 $route['v1/getorderbyproduct'] = 'api/app/Admin/order/getOrdersByProduct';
+$route['v1/getorderstatuscataglog'] = 'api/app/Admin/order/getOrderStatusCatalog';
 
 // ORDER ITEM
 $route['v1/deleteorderitem'] = 'api/app/Admin/order/deleteOrderItem';

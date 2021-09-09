@@ -450,6 +450,21 @@ class Order_m extends MY_Model {
     }
 
 
+    public function getOrderStatusCatalog(){
+        $this->db->select('order_status_catalog_id,status_value');
+        $this->db->from('order_status_catalog');
+        $this->db->order_by('order_status_catalog_id','asc');
+        $orderStatus = $this->db->get()->result_array();
+        foreach ($orderStatus as $key => $value) {
+            $orderStatus[$key]['value'] = $value['order_status_catalog_id'];
+            $orderStatus[$key]['label'] = ucwords($value['status_value']);
+            unset($orderStatus[$key]['order_status_catalog_id']);
+            unset($orderStatus[$key]['status_value']);
+        }
+            
+        return $orderStatus;
+    }
+
 //end class
 
 }
