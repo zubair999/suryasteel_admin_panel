@@ -183,8 +183,10 @@ class Order_m extends MY_Model {
         foreach ($order_item as $key => $oi){
             $od = $this->get_order_item_dispatch_detail($oi['order_item_id']);
             $role = $this->roles_m->getOnlyRoleNameByUserId($oi['item_added_by']);
+            $product = $this->product_m->get_product($oi['product_id']);
             $order_item[$key]['order_item_dispatch_detail'] = $od;
             $order_item[$key]['roles_name'] = $role;
+            $order_item[$key]['product_unit'] = $product->unit;
         }
 
         return $order_item;
