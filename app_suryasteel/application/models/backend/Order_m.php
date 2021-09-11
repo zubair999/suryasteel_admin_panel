@@ -199,19 +199,23 @@ class Order_m extends MY_Model {
                             '
                                 oid.order_item_dispatch_id, 
                                 oid.order_item_id, 
-                                oid.dispatch_quantity, 
-                                DATE_FORMAT(oid.created_on, "%d-%b-%Y") as created_on, 
+                                oid.dispatch_quantity,
+                                oid.delivery_status,
+                                DATE_FORMAT(oid.created_on, "%d-%b-%Y") as created_on,
+                                DATE_FORMAT(oid.delivery_date, "%d-%b-%Y") as delivery_date,
                                 u.firstname, 
                                 u.lastname,
                                 un.unit_value,
                                 r.role_id,
-                                r.roles_name
+                                r.roles_name,
+                                do.delivery_option_name
                             '
                         );
         $this->db->from('order_item_dispatch as oid');
         $this->db->join('users as u', 'oid.dispatch_by = u.user_id');
         $this->db->join('units as un', 'oid.dispatch_unit = un.unit_id');
         $this->db->join('roles as r', 'u.role_id = r.role_id');
+        $this->db->join('delivery_option as do', 'oid.delivery_option_id = do.delivery_option_id');
         $this->db->where('oid.order_item_id', $oi);
 
         return $this->db->get()->result_array();
