@@ -50,6 +50,9 @@ class Product_m extends MY_Model {
         )
     );
 
+    public function get_product($id) {
+        return $this->db->get_where('products', array('product_id'=> $id))->row();
+    }
 
 	public function getProduct(){
 		$requestData = $_REQUEST;

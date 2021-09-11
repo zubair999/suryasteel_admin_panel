@@ -84,6 +84,10 @@ $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
 
 
 
+// PURCHASE
+$route['v1/addpurchase'] = 'api/app/Admin/purchase/addPurchase';
+$route['v1/editpurchase'] = 'api/app/Admin/purchase/editPurchase';
+$route['v1/getpurchase'] = 'api/app/Admin/purchase/getPurchase';
 
 
 

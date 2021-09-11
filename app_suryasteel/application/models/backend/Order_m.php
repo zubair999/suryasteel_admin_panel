@@ -160,7 +160,8 @@ class Order_m extends MY_Model {
                             '
                                 oi.order_item_id, 
                                 oi.order_id, 
-                                oi.product_id, 
+                                oi.product_id,
+                                oi.weight_per_piece,
                                 oi.order_qty,
                                 oi.dispatched_qty,
                                 oi.unit,
@@ -286,11 +287,14 @@ class Order_m extends MY_Model {
     }
 
     public function insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $u, $sold_price){
+        $product = $this->product_m->get_product($p);
+
         $orderItemData = array(
             'order_id' => $lastOrderId,
             'user_id' => $user_id,
             'item_added_by' => $created_by,
             'product_id' => $p,
+            'weight_per_piece' => $product->weight_per_piece,
             'order_qty' => $q,
             'dispatched_qty' => 0,
             'unit' => $u,

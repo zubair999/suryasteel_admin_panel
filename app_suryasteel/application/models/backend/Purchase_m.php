@@ -41,6 +41,9 @@ class Purchase_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function getPurchaseItems($purchaseId) {
+        return $this->db->get_where('purchase_item', array('purchase_id'=> $purchaseId))->result_array();
+    }
 
 	public function getPurchase(){
 		$requestData = $_REQUEST;
@@ -96,34 +99,169 @@ class Purchase_m extends MY_Model {
         // FUNCTION ENDS
     }
 
-    public function getProductById($id){
+    public function addPurchase($created_by){
+        $purchaseData = array(
+            'created_by' => $this->input->post('createdBy'),
+            'vendor' => $this->input->post('vendor'),
+            'invoice_weight' => $this->input->post('invoiceWeight'),
+            'actual_weight' => $this->input->post('actualWeight'),
+            'rate' => $this->input->post('rate'),
+            'freight_charge' => $this->input->post('freightCharge'),
+            'unloading_charge' => $this->input->post('unloadingCharge'),
+            'remarks' => $this->input->post('remarks'),
+            'created_on' => $this->today,
+            'created_by' => $created_by
+        );
+        $response = $this->db->insert('purchase', $purchaseData);
+        if($response){
+            return ['response'=>true, 'last_purchase_id'=>$this->db->insert_id()];
+        }
+        else{
+            return ['response'=>false];
+        }
+    }
+
+    public function addPurchaseItem($lastPurchaseId){
+        $size = $this->input->post('size');
+        $weight = $this->input->post('weight');
+
+        $i = 0;
+        foreach (array_combine($size, $weight) as $s => $w){
+            $this->insertPurchaseItem($lastPurchaseId, $s, $w);
+            $i++;
+        }
+    }
+
+    public function insertPurchaseItem($lastPurchaseId, $s, $w){
+        $orderItemData = array(
+            'purchase_id' => $lastPurchaseId,
+            'size' => $s,
+            'weight' => $w,
+            'created_on' => $this->today
+        );
+
+        $response = $this->db->insert('purchase_item', $orderItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
+
+
+
+    public function editPurchase($purchaseId){
+        $purchaseData = array(
+            'vendor' => $this->input->post('vendor'),
+            'invoice_weight' => $this->input->post('invoiceWeight'),
+            'actual_weight' => $this->input->post('actualWeight'),
+            'rate' => $this->input->post('rate'),
+            'freight_charge' => $this->input->post('freightCharge'),
+            'unloading_charge' => $this->input->post('unloadingCharge'),
+            'remarks' => $this->input->post('remarks'),
+            'updated_on' => $this->today
+        );
+
+        $this->db->where('purchase_id', $purchaseId);
+        $response = $this->db->update('purchase', $purchaseData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function editPurchaseItem(){
+        $size = $this->input->post('size');
+        $weight = $this->input->post('weight');
+        $purchaseItem = $this->input->post('purchaseItemId');
+
+        $i = 0;
+        foreach (array_combine($size, $weight) as $s => $w){
+            $purchaseItemId = $purchaseItem[$i];
+            $this->updatePurchaseItem($purchaseItemId, $s, $w);
+            $i++;
+        }
+    }
+
+    public function updatePurchaseItem($purchaseItemId, $s, $w){
+        $purchaseItemData = array(
+            'size' => $s,
+            'weight' => $w,
+            'updated_on' => $this->today
+        );
+        
+        $this->db->where('purchase_item_id', $purchaseItemId);
+        $response = $this->db->update('purchase_item', $purchaseItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+
+    public function get_purchase(){
         $this->db->select(
-                            'p.product_id,
-                             p.brand_id,
-                             p.category_id,
-                             p.sub_category,
-                             p.sub_category_type,
-                             p.gst_id,
-                             p.type, 
-                             p.type, 
-                             p.product_name,
-                             p.mrp,
-                             p.total,
-                             p.status,
-                             i.thumbnail
+                            'p.purchase_id,
+                             p.created_by,
+                             p.vendor,
+                             p.invoice_weight,
+                             p.actual_weight,
+                             p.rate,
+                             p.freight_charge,
+                             p.unloading_charge,
+                             p.remarks,
+                             DATE_FORMAT(p.created_on, "%d-%b-%Y") as created_on,
+                             DATE_FORMAT(p.updated_on, "%d-%b-%Y") as updated_on,
+                             u.firstname,
+                             u.lastname
                              '
                         );
-        $this->db->from('products as p');
-        $this->db->join('images as i', 'p.thumbnail = i.image_id');
-        $this->db->where('p.product_id', $id);
-        $data = $this->db->get()->row();
-        $data->thumbnail = BASEURL.'upload/'.$data->thumbnail;
-        return $data;
+        $this->db->from('purchase as p');
+        $this->db->join('users as u', 'p.created_by = u.user_id');
+        
+        if($this->input->post('since')){
+            $this->db->where('p.created_on >=', $this->input->post('since'));
+        }
+        if($this->input->post('until')){
+            $this->db->where('p.created_on <=', $this->input->post('until'));
+        }
+        
+        // $this->db->limit(1);
+        $this->db->order_by('p.created_on', 'desc');
+        $purchase = $this->db->get()->result_array();
+        
+        foreach ($purchase as $key => $p){
+            $purchaseDetail = $this->get_purchase_item_by_purchase_id($p['purchase_id']);
+            $purchase[$key]['purchase_detail'] = $purchaseDetail;
+        }
+
+        return $purchase;
         // FUNCTION ENDS
     }
 
-    
-
+    public function get_purchase_item_by_purchase_id($id){
+        $this->db->select(
+                            '
+                                purchase_item_id, 
+                                purchase_id, 
+                                size, 
+                                weight,
+                                DATE_FORMAT(created_on, "%d-%b-%Y") as created_on
+                            '
+                        );
+        $this->db->from('purchase_item');
+        $this->db->where('purchase_id', $id);
+        $order_item =  $this->db->get()->result_array();
+        return $order_item;
+    }
 
 //end class
 

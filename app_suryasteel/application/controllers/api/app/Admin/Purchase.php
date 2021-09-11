@@ -1,21 +1,94 @@
 <?php
+require APPPATH . '/libraries/REST_Controller.php';
+use Restserver\Libraries\REST_Controller;
 
-class Purchase extends MY_Controller{
+class Purchase extends REST_Controller
+{
 
-	public function __construct(){
+	public function __construct() {
 		parent::__construct();
 	}
 
-	public function add(){
-        $response = ['status'=> 200,'message'=>'okk'];
-        echo json_encode($response);
+	public function addPurchase_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules('createdBy', 'Created By', 'trim|required');
+            $this->form_validation->set_rules('invoiceWeight', 'Invoice Weight', 'trim|required');
+            $this->form_validation->set_rules('actualWeight', 'Actual Weight', 'trim|required');
+            $this->form_validation->set_rules('rate', 'Rate', 'trim|required');
+            $this->form_validation->set_rules('freightCharge', 'Freight Charge', 'trim|required');
+            $this->form_validation->set_rules('unloadingCharge', 'Unloading Charge', 'trim|required');
+            $this->form_validation->set_rules('vendor', 'Vendor', 'trim|required');
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>validation_errors()];
+            }
+            else{
+                $isPurchaseAdded = $this->purchase_m->addPurchase($this->input->post('createdBy'));
+                if($isPurchaseAdded['response']){
+                    $this->purchase_m->addPurchaseItem($isPurchaseAdded['last_purchase_id']);
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase created successfully."];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+	}
+
+
+    public function editPurchase_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $isPurchaseUpdated = $this->purchase_m->editPurchase($this->input->post('purchaseId'));
+            if($isPurchaseUpdated){
+                $this->purchase_m->editPurchaseItem();
+                $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase updated successfully."];
+            }
+            else{
+                $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+	}
+
+    public function getPurchase_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $data = $this->purchase_m->get_purchase();
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Order fetched successfully.', 'data'=>$data];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }        
+	}
+
+    public function deletePurchase_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $data = $this->purchase_m->delete_purchase();
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Order fetched successfully.', 'data'=>$data];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }  
     }
 
-
-
-
-
-
-
-//CLASS ENDS
+	//CLASS ENDS
 }
