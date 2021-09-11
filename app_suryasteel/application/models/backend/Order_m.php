@@ -187,6 +187,8 @@ class Order_m extends MY_Model {
             $order_item[$key]['order_item_dispatch_detail'] = $od;
             $order_item[$key]['roles_name'] = $role;
             $order_item[$key]['product_unit'] = $product->unit;
+            $unit = $this->unit_m->getUnitById($product->unit);
+            $order_item[$key]['product_unit_name'] = $unit->unit_value;
         }
 
         return $order_item;

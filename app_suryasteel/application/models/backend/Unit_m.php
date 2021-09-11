@@ -12,6 +12,10 @@ class Unit_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function getUnitById($id) {
+        return $this->db->get_where('units', array('unit_id'=> $id))->row();
+    }
+
     public function getUnit() {
         $this->db->select('unit_id, unit_value, default_unit');
         $this->db->from('units');
