@@ -390,6 +390,7 @@ class Order_m extends MY_Model {
         $dispatchData = array(
             'dispatch_by' => $this->input->post('dispatchBy'),
             'order_item_id' => $this->input->post('orderItemId'),
+            'delivery_option_id' => 1,
             'dispatch_quantity' => $this->input->post('dispatchQty'),
             'dispatch_unit' => $this->input->post('productUnit'),
             'created_on' => $this->today
