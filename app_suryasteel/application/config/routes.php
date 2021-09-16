@@ -90,8 +90,8 @@ $route['v1/addpurchase'] = 'api/app/Admin/purchase/addPurchase';
 $route['v1/editpurchase'] = 'api/app/Admin/purchase/editPurchase';
 $route['v1/getpurchase'] = 'api/app/Admin/purchase/getPurchase';
 
-
-
+// RAW MATERIAL OR PURCHASE ITEM
+$route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
 
 

@@ -263,6 +263,17 @@ class Purchase_m extends MY_Model {
         return $order_item;
     }
 
+    public function get_purchase_item(){
+        $this->db->select(
+                            '
+                                *
+                            '
+                        );
+        $this->db->from('purchase_item as pi');
+        $this->db->join('purchase as p', 'pi.purchase_id = p.purchase_id');
+        return $this->db->get()->result_array();
+    }
+
 //end class
 
 }

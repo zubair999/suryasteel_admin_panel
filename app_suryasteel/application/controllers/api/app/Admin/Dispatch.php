@@ -16,7 +16,7 @@ class Dispatch extends REST_Controller
             exit();
         }
         else{
-            $response = ['status' => 200, 'message' => 'success', 'description' =>'ok'];
+            $response = $this->dispatch_m->updateDeliveryForDispatchItem();
             // $response = $this->order_m->dispatchOrderItem();
             // if($response){
             //     $isQtyUpdated = $this->order_m->addDispatchQtyInOrderItem();
