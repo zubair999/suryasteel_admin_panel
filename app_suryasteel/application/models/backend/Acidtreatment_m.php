@@ -15,6 +15,7 @@ class Acidtreatment_m extends MY_Model {
     public function get_acid_treatment(){
         $this->db->select(
                             'at.acid_treatment_id,
+                             at.purchase_item_id,
                              at.process_status_catalog_id,
                              at.round_or_length_added,
                              at.round_or_length_completed,
