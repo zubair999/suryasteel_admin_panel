@@ -17,6 +17,7 @@ class Acidtreatment_m extends MY_Model {
                             'at.acid_treatment_id,
                              at.purchase_item_id,
                              at.process_status_catalog_id,
+                             at.size,
                              at.round_or_length_added,
                              at.round_or_length_completed,
                              at.remarks,
