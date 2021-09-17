@@ -26,7 +26,8 @@ class Acidtreatment_m extends MY_Model {
                              u.firstname,
                              u.lastname,
                              s.sink_name,
-                             ps.status_value
+                             ps.status_value,
+                             ps.status_color
                              '
                         );
         $this->db->from('acid_treatment as at');
