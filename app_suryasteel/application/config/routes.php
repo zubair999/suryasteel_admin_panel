@@ -94,6 +94,10 @@ $route['v1/getpurchase'] = 'api/app/Admin/purchase/getPurchase';
 $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
 
+// ACID TREATMENT ITEM
+$route['v1/getacidtreatmentitem'] = 'api/app/Admin/acidtreatment/getAcidTreatmentItem';
+
+
 
 
 
