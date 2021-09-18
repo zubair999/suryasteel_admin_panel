@@ -273,7 +273,8 @@ class Purchase_m extends MY_Model {
                                 DATE_FORMAT(pi.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(pi.updated_on, "%d-%b-%Y") as updated_on,
                                 p.vendor,
-                                ps.status_value
+                                ps.status_value,
+                                ps.status_color
                             '
                         );
         $this->db->from('purchase_item as pi');
