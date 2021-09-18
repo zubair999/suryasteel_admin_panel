@@ -266,11 +266,19 @@ class Purchase_m extends MY_Model {
     public function get_purchase_item(){
         $this->db->select(
                             '
-                                *
+                                pi.purchase_item_id,
+                                pi.purchase_id,
+                                pi.size,
+                                pi.weight,
+                                DATE_FORMAT(pi.created_on, "%d-%b-%Y") as created_on,
+                                DATE_FORMAT(pi.updated_on, "%d-%b-%Y") as updated_on,
+                                p.vendor,
+                                ps.status_value
                             '
                         );
         $this->db->from('purchase_item as pi');
         $this->db->join('purchase as p', 'pi.purchase_id = p.purchase_id');
+        $this->db->join('purchase_item_status_catalog as ps', 'pi.purchase_status_catalog_id = ps.purchase_item_status_catalog_id');
         return $this->db->get()->result_array();
     }
 
