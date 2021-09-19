@@ -96,6 +96,15 @@ $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
 // ACID TREATMENT ITEM
 $route['v1/getacidtreatmentitem'] = 'api/app/Admin/acidtreatment/getAcidTreatmentItem';
+$route['v1/addacidtreatment'] = 'api/app/Admin/acidtreatment/addAcidTreatment';
+$route['v1/editacidtreatment'] = 'api/app/Admin/acidtreatment/editAcidTreatment';
+$route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreatmentHistory';
+
+
+
+// DRAW PROCESS
+$route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
+
 
 
 

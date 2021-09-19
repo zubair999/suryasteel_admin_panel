@@ -12,6 +12,26 @@ class Acidtreatment_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public $acidTreatmentAddRules = array(
+        0 => array(
+            'field' => 'roundOrLengthAdded',
+            'label' => 'Round/Length',
+            'rules' => 'trim|required|is_natural'
+        ),
+    );
+
+    public $acidTreatmentAddHistoryRules = array(
+        0 => array(
+            'field' => 'roundLengthCompleted',
+            'label' => 'Round/Length',
+            'rules' => 'trim|required|is_natural'
+        ),
+    );
+
+    public function getAcidTreatmentId($id) {
+        return $this->db->get_where('acid_treatment', array('acid_treatment_id'=> $id))->row();
+    }
+
     public function get_acid_treatment(){
         $this->db->select(
                             'at.acid_treatment_id,
@@ -87,6 +107,58 @@ class Acidtreatment_m extends MY_Model {
     
 
         return $history_item;
+    }
+
+
+    public function addAcidTreatment($created_by){
+        $data = array(
+            'added_by' => $created_by,
+            'purchase_id' => $this->input->post('purchaseId'),
+            'purchase_item_id' => $this->input->post('purchaseItemId'),
+            'sink_id' => $this->input->post('sinkId'),
+            'size' => $this->input->post('size'),
+            'round_or_length_to_be_completed' => $this->input->post('roundOrLengthToBeCompleted'),
+            'created_on' => $this->today,
+        );
+        return $this->db->insert('acid_treatment', $data);
+    }
+
+    public function addAcidTreatmentHistory($completedBy){
+        $acidTreatment = $this->getAcidTreatmentId($this->input->post('acidTreatmentId'));
+        $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+        if($isAddedRoundGreaterThanCompletedRound){
+            $data1 = array(
+                'round_or_length_completed' => $roundLengthAlreadyCompleted,
+                'process_status_catalog_id' => get_process_status($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'updated_on' => $this->today
+            );
+
+            $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
+            $this->db->update('acid_treatment', $data1);
+
+            $drawProcessRowCount = check_row_count('draw_process', 'acid_treament_id', $this->input->post('acidTreatmentId'));
+            if($drawProcessRowCount > 0){
+                $this->draw_m->updateDrawProcess($roundLengthAlreadyCompleted);
+            }
+            else{
+                $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));
+            }
+
+            $data = array(
+                'completed_by' => $completedBy,
+                'acid_treatment_id' => $this->input->post('acidTreatmentId'),
+                'purchase_id' => $this->input->post('purchaseId'),
+                'purchase_item_id' => $this->input->post('purchaseItemId'),
+                'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'created_on' => $this->today,
+            );
+            $this->db->insert('acid_treatment_process_history', $data);
+            return ['status'=>'success', 'message'=>'Round completed'];
+        }
+        else{
+            return ['status'=>'error', 'message'=>'Completed cannot be more than round added in the acid treatment.'];
+        }
     }
 
 //end class

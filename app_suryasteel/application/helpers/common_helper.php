@@ -25,6 +25,42 @@ if (! function_exists('get_settings')) {
 }
 
 
+if (! function_exists('is_greater_than')) {
+    function is_greater_than($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number1 >= $number2){
+            return true;
+        }
+    }
+}
+
+if (! function_exists('get_process_status')) {
+    function get_process_status($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number1 == $number2){
+            return 3;
+        }
+        else if($number1 > $number2){
+            return 2;
+        }
+    }
+}
+
+
+if (! function_exists('check_row_count')) {
+    function check_row_count($table, $col, $value) {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        return $CI->db->get_where($table, array($col=> $value))->num_rows();
+    }
+}
+
+
 
 
 
