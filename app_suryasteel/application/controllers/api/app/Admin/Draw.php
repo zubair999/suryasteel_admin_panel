@@ -33,5 +33,19 @@ class Draw extends REST_Controller
         }
 	}
 
+    public function getDrawBatch_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $data = $this->draw_m->get_draw_batch();
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Draw Batch fetched successfully.', 'data'=>$data];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }        
+	}
+
 	//CLASS ENDS
 }

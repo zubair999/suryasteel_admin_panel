@@ -80,6 +80,56 @@ class Draw_m extends MY_Model {
     }
     
 
+    public function get_draw_batch(){
+        $this->db->select(
+                            'd.draw_process_id,
+                             d.purchase_id,
+                             d.purchase_item_id,
+                             d.acid_treatment_id,
+                             d.round_or_length_to_be_completed,
+                             d.round_or_length_completed,
+                             d.remarks,
+                             DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
+                             DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
+                             p.status_value,
+                             p.status_color
+                             '
+                        );
+        $this->db->from('draw_process as d');
+        $this->db->join('process_status_catalog as p', 'd.process_status_catalog_id = p.process_status_catalog_id');
+        
+        // if($this->input->post('orderStatus')){
+        //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
+        // }
+        // if($this->input->post('since')){
+        //     $this->db->where('o.created_on >=', $this->input->post('since'));
+        // }
+        // if($this->input->post('until')){
+        //     $this->db->where('o.created_on <=', $this->input->post('until'));
+        // }
+        // if($this->input->post('userId')){
+        //     $this->db->where('o.user_id', $this->input->post('userId'));
+        // }
+        // if($this->input->post('createdBy')){
+        //     $this->db->where('o.created_by', $this->input->post('createdBy'));
+        // }
+        
+        // $this->db->limit(1);
+        $this->db->order_by('d.process_status_catalog_id', 'asc');
+        $draw_process = $this->db->get()->result_array();
+        
+        // foreach ($order as $key => $o){
+        //     $od = $this->get_order_item_by_order_id($o['order_id']);
+        //     $createdBy = $this->auth_m->getUserById($o['created_by']);
+        //     $order[$key]['order_detail'] = $od;
+        //     $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
+
+        // }
+
+        return $draw_process;
+        // FUNCTION ENDS
+    }
+
 //end class
 
 }

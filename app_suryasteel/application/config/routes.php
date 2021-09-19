@@ -108,6 +108,7 @@ $route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreat
 
 // DRAW PROCESS
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
+$route['v1/getdrawbatch'] = 'api/app/Admin/draw/getDrawBatch';
 
 
 
