@@ -14,8 +14,8 @@ class Acidtreatment_m extends MY_Model {
 
     public $acidTreatmentAddRules = array(
         0 => array(
-            'field' => 'roundOrLengthAdded',
-            'label' => 'Round/Length',
+            'field' => 'roundOrLengthToBeCompleted',
+            'label' => 'Round or Length',
             'rules' => 'trim|required|is_natural'
         ),
     );
@@ -116,9 +116,11 @@ class Acidtreatment_m extends MY_Model {
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'sink_id' => $this->input->post('sinkId'),
+            'process_status_catalog_id' => 1,
             'size' => $this->input->post('size'),
             'round_or_length_to_be_completed' => $this->input->post('roundOrLengthToBeCompleted'),
-            'created_on' => $this->today,
+            'remarks' => $this->input->post('remarks'),
+            'created_on' => $this->today
         );
         return $this->db->insert('acid_treatment', $data);
     }
