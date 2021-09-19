@@ -36,6 +36,7 @@ class Acidtreatment_m extends MY_Model {
         $this->db->select(
                             'at.acid_treatment_id,
                              at.purchase_item_id,
+                             at.purchase_id,
                              at.process_status_catalog_id,
                              at.size,
                              at.round_or_length_to_be_completed,
