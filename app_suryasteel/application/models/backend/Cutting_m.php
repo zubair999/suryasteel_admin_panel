@@ -123,16 +123,34 @@ class Cutting_m extends MY_Model {
         $this->db->order_by('c.process_status_catalog_id', 'asc');
         $cutting_process = $this->db->get()->result_array();
         
-        // foreach ($order as $key => $o){
-        //     $od = $this->get_order_item_by_order_id($o['order_id']);
-        //     $createdBy = $this->auth_m->getUserById($o['created_by']);
-        //     $order[$key]['order_detail'] = $od;
-        //     $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
-
-        // }
+        foreach ($cutting_process as $key => $cp){
+            $cutting_item = $this->get_cutting_item_by_cutting_batch_id($cp['cutting_process_id']);
+            $cutting_process[$key]['cutting_item'] = $cutting_item;
+        }
 
         return $cutting_process;
         // FUNCTION ENDS
+    }
+
+
+    public function get_cutting_item_by_cutting_batch_id($id){
+        $this->db->select(
+                            '
+                                ch.cutting_process_history_id , 
+                                ch.purchase_item_id, 
+                                ch.cutting_process_id,
+                                ch.round_or_length_completed,
+                                ch.piece_generated,
+                                DATE_FORMAT(ch.created_on, "%d-%b-%Y") as created_on,
+                                DATE_FORMAT(ch.updated_on, "%d-%b-%Y") as updated_on,
+                                CONCAT(u.firstname ," ",  u.lastname) as cutting_completed_by
+                            '
+                        );
+        $this->db->from('cutting_process_history as ch');
+        $this->db->join('users as u', 'ch.cutting_completed_by = u.user_id');
+        $this->db->where('ch.cutting_process_id', $id);
+        $cutting_item =  $this->db->get()->result_array();
+        return $cutting_item;
     }
 
 //end class
