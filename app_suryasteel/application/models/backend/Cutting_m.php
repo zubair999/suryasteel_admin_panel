@@ -141,6 +141,7 @@ class Cutting_m extends MY_Model {
                                 ch.cutting_process_id,
                                 ch.round_or_length_completed,
                                 ch.piece_generated,
+                                ch.remarks,
                                 DATE_FORMAT(ch.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(ch.updated_on, "%d-%b-%Y") as updated_on,
                                 CONCAT(u.firstname ," ",  u.lastname) as cutting_completed_by,
