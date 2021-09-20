@@ -38,7 +38,9 @@ class MY_Controller extends CI_Controller {
             14=>'unit_m',
             15=>'dispatch_m',
             16=>'acidtreatment_m',
-            17=>'draw_m'
+            17=>'draw_m',
+            18=>'cutting_m'
+
         );
         
         foreach ($this->backend_models as $key => $model_name) {

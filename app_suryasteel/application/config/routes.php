@@ -110,6 +110,9 @@ $route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreat
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
 $route['v1/getdrawbatch'] = 'api/app/Admin/draw/getDrawBatch';
 
+// CUTTING PROCESS
+$route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';
+
 
 
 

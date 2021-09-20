@@ -1,10 +1,10 @@
 <?php 
 defined('BASEPATH') or exit('no dierct script access allowed');
 
-class Draw_m extends MY_Model {
+class Cutting_m extends MY_Model {
 
-	protected $tbl_name = 'draw_process';
-    protected $primary_col = 'draw_process_id';
+	protected $tbl_name = 'cutting_process';
+    protected $primary_col = 'cutting_process_id';
     protected $order_by = 'created_on';
 
     public function __construct()
@@ -12,7 +12,7 @@ class Draw_m extends MY_Model {
 		parent::__construct();   
 	}
 
-    public $drawHistoryRules = array(
+    public $cuttingHistoryRules = array(
         0 => array(
             'field' => 'roundLengthCompleted',
             'label' => 'Round/Length',
@@ -20,19 +20,20 @@ class Draw_m extends MY_Model {
         ),
     );
 
-    public function getDrawProcessById($id) {
-        return $this->db->get_where('draw_process', array('draw_process_id'=> $id))->row();
+    public function getCuttingBatchById($id) {
+        return $this->db->get_where('cutting_process', array('cutting_process_id'=> $id))->row();
     }
 
-    public function addDrawProcess($rl){
+    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
         $data = array(
-            'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
-            'acid_treament_id' => $this->input->post('acidTreatmentId'),
-            'round_or_length_to_be_completed' => $rl,
+            'draw_process_history_id' => $this->input->post('drawProcessHistoryId'),
+            'process_status_catalog_id' => 1,
+            'cutting_size_id' => $this->input->post('cuttingSizeId'),
+            'round_or_length_to_be_completed' => $roundLengthCompleted,
             'created_on' => $this->today
         );
-        return $this->db->insert('draw_process', $data);
+        return $this->db->insert('cutting_process', $data);
     }
 
     public function updateDrawProcess($roundLengthAlreadyCompleted){
@@ -59,9 +60,6 @@ class Draw_m extends MY_Model {
 
             $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
             $this->db->update('draw_process', $data1);
-
-
-            
             
 
             $data = array(
@@ -76,11 +74,6 @@ class Draw_m extends MY_Model {
                 'created_on' => $this->today,
             );
             $this->db->insert('draw_process_history', $data);
-            $drawProcessHistotryId = $this->db->insert_id();
-
-            $this->cutting_m->addCuttingBatch($drawProcessHistotryId, $this->input->post('roundLengthCompleted'));
-
-
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
@@ -89,23 +82,26 @@ class Draw_m extends MY_Model {
     }
     
 
-    public function get_draw_batch(){
+    public function get_cutting_batch(){
         $this->db->select(
-                            'd.draw_process_id,
-                             d.purchase_id,
-                             d.purchase_item_id,
-                             d.acid_treatment_id,
-                             d.round_or_length_to_be_completed,
-                             d.round_or_length_completed,
-                             d.remarks,
-                             DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
-                             DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
+                            'c.cutting_process_id,
+                             c.purchase_item_id,
+                             c.draw_process_history_id,
+                             c.round_or_length_to_be_completed,
+                             c.round_or_length_completed,
+                             c.round_or_length_completed,
+                             c.total_piece_generated,
+                             c.remarks,
+                             DATE_FORMAT(c.created_on, "%d-%b-%Y") as created_on,
+                             DATE_FORMAT(c.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
-                             p.status_color
+                             p.status_color,
+                             d.diameter_size
                              '
                         );
-        $this->db->from('draw_process as d');
-        $this->db->join('process_status_catalog as p', 'd.process_status_catalog_id = p.process_status_catalog_id');
+        $this->db->from('cutting_process as c');
+        $this->db->join('process_status_catalog as p', 'c.process_status_catalog_id = p.process_status_catalog_id');
+        $this->db->join('diameter_size as d', 'c.diameter_size_id  = d.diameter_size_id ');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
@@ -124,8 +120,8 @@ class Draw_m extends MY_Model {
         // }
         
         // $this->db->limit(1);
-        $this->db->order_by('d.process_status_catalog_id', 'asc');
-        $draw_process = $this->db->get()->result_array();
+        $this->db->order_by('c.process_status_catalog_id', 'asc');
+        $cutting_process = $this->db->get()->result_array();
         
         // foreach ($order as $key => $o){
         //     $od = $this->get_order_item_by_order_id($o['order_id']);
@@ -135,7 +131,7 @@ class Draw_m extends MY_Model {
 
         // }
 
-        return $draw_process;
+        return $cutting_process;
         // FUNCTION ENDS
     }
 
