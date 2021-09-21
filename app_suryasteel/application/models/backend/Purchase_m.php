@@ -275,12 +275,23 @@ class Purchase_m extends MY_Model {
                                 DATE_FORMAT(pi.updated_on, "%d-%b-%Y") as updated_on,
                                 p.vendor,
                                 ps.status_value,
-                                ps.status_color
+                                ps.status_color,
+                                psc.status_value as acid_treatment_status,
+                                sk.sink_name,
+                                at.round_or_length_to_be_completed as round_to_be_acid_treatment,
+                                at.round_or_length_completed as round_completed_acid_treatment,
                             '
                         );
         $this->db->from('purchase_item as pi');
         $this->db->join('purchase as p', 'pi.purchase_id = p.purchase_id');
         $this->db->join('purchase_item_status_catalog as ps', 'pi.purchase_status_catalog_id = ps.purchase_item_status_catalog_id');
+        $this->db->join('acid_treatment as at', 'at.purchase_item_id = pi.purchase_item_id');
+        $this->db->join('process_status_catalog as psc', 'psc.process_status_catalog_id = at.process_status_catalog_id');
+        $this->db->join('sink as sk', 'sk.sink_id = at.sink_id');
+
+
+        
+        
         return $this->db->get()->result_array();
     }
 
