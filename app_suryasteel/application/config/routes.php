@@ -126,6 +126,10 @@ $route['v1/getforgingbatch'] = 'api/app/Admin/forging/getForgingBatch';
 $route['v1/getheadbatch'] = 'api/app/Admin/head/getHeadBatch';
 
 
+// DRILL PROCESS
+$route['v1/getdrillbatch'] = 'api/app/Admin/drill/getDrillBatch';
+
+
 
 
 

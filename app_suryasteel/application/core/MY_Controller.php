@@ -42,7 +42,8 @@ class MY_Controller extends CI_Controller {
             18=>'cutting_m',
             19=>'grinding_m',
             20=>'forging_m',
-            21=>'head_m'
+            21=>'head_m',
+            22=>'drill_m'
 
         );
         
