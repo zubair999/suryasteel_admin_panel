@@ -138,7 +138,7 @@ class Galvanisation_m extends MY_Model {
                                 gh.purchase_item_id, 
                                 gh.cutting_process_id,
                                 gh.galvanising_process_id,
-                                gh.piece_grinded,
+                                gh.piece_galvanised,
                                 gh.remarks,
                                 DATE_FORMAT(gh.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(gh.updated_on, "%d-%b-%Y") as updated_on,
