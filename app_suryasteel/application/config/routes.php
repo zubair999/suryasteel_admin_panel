@@ -115,6 +115,18 @@ $route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';
 
 
 
+// GRINDING PROCESS
+$route['v1/getgrindingbatch'] = 'api/app/Admin/grinding/getGrindingBatch';
+
+// FORGING PROCESS
+$route['v1/getforgingbatch'] = 'api/app/Admin/forging/getForgingBatch';
+
+
+// HEAD PROCESS
+$route['v1/getheadbatch'] = 'api/app/Admin/head/getHeadBatch';
+
+
+
 
 
 

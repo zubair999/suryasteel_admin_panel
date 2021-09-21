@@ -39,7 +39,10 @@ class MY_Controller extends CI_Controller {
             15=>'dispatch_m',
             16=>'acidtreatment_m',
             17=>'draw_m',
-            18=>'cutting_m'
+            18=>'cutting_m',
+            19=>'grinding_m',
+            20=>'forging_m',
+            21=>'head_m'
 
         );
         
