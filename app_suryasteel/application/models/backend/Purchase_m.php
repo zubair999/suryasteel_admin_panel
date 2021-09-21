@@ -268,6 +268,7 @@ class Purchase_m extends MY_Model {
                             '
                                 pi.purchase_item_id,
                                 pi.purchase_id,
+                                pi.purchase_status_catalog_id,
                                 pi.size,
                                 pi.weight,
                                 DATE_FORMAT(pi.created_on, "%d-%b-%Y") as created_on,
