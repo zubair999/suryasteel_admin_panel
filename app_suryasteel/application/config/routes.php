@@ -132,6 +132,9 @@ $route['v1/getdrillbatch'] = 'api/app/Admin/drill/getDrillBatch';
 // WELDING PROCESS
 $route['v1/getweldingbatch'] = 'api/app/Admin/welding/getWeldingBatch';
 
+// GALVANISATION PROCESS
+$route['v1/getgalvanisationbatch'] = 'api/app/Admin/galvanisation/getGalvanisationBatch';
+
 
 
 
