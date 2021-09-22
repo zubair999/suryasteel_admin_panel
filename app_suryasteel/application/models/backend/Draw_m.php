@@ -24,12 +24,12 @@ class Draw_m extends MY_Model {
         return $this->db->get_where('draw_process', array('draw_process_id'=> $id))->row();
     }
 
-    public function addDrawProcess($rl){
+    public function addDrawProcess($roundLength){
         $data = array(
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
-            'acid_treament_id' => $this->input->post('acidTreatmentId'),
-            'round_or_length_to_be_completed' => $rl,
+            'acid_treatment_id' => $this->input->post('acidTreatmentId'),
+            'round_or_length_to_be_completed' => $roundLength,
             'created_on' => $this->today
         );
         return $this->db->insert('draw_process', $data);

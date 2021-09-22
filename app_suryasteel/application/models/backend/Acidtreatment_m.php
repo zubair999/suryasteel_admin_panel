@@ -140,7 +140,9 @@ class Acidtreatment_m extends MY_Model {
             $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
             $this->db->update('acid_treatment', $data1);
 
-            $drawProcessRowCount = check_row_count('draw_process', 'acid_treament_id', $this->input->post('acidTreatmentId'));
+            $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
+            
+            
             if($drawProcessRowCount > 0){
                 $this->draw_m->updateDrawProcess($roundLengthAlreadyCompleted);
             }
