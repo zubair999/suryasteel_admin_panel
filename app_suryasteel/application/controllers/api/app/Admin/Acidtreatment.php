@@ -20,13 +20,19 @@ class Acidtreatment extends REST_Controller
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-                $isAdded = $this->acidtreatment_m->addAcidTreatment($this->input->post('addedBy'));
-                if($isAdded){
-                    set_purchase_status_catalog($this->input->post('purchaseItemId'), 2);
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Batch added to the acid treatment.'];
+                $acidTreatmentRowCount = check_row_count('acid_treatment', 'purchase_item_id', $this->input->post('purchaseItemId'));
+                if($acidTreatmentRowCount > 0){
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Batch already added in the sink.'];
                 }
-                else{
-                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+                else{                    
+                    $isAdded = $this->acidtreatment_m->addAcidTreatment($this->input->post('addedBy'));
+                    if($isAdded){
+                        set_purchase_status_catalog($this->input->post('purchaseItemId'), 2);
+                        $response = ['status' => 200, 'message' => 'success', 'description' => 'Batch added to the acid treatment.'];
+                    }
+                    else{
+                        $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+                    }
                 }
 			}
             $this->response($response, REST_Controller::HTTP_OK);
