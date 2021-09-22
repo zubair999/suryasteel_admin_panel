@@ -22,7 +22,7 @@ class Acidtreatment extends REST_Controller
 			} else {
                 $isAdded = $this->acidtreatment_m->addAcidTreatment($this->input->post('addedBy'));
                 if($isAdded){
-                    set_purchase_status_catalog();
+                    set_purchase_status_catalog($this->input->post('purchaseId'), 2);
                     $response = ['status' => 200, 'message' => 'success', 'description' => 'Batch added to the acid treatment.'];
                 }
                 else{
