@@ -61,6 +61,19 @@ if (! function_exists('check_row_count')) {
 }
 
 
+if (! function_exists('set_purchase_status_catalog')) {
+    function set_purchase_status_catalog() {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        $CI->db->where("purchase_item_id", 2);
+        $CI->db->set('purchase_status_catalog_id', 2);        
+        return $CI->db->update('purchase_item');
+        
+    }
+}
+
+
 
 
 
