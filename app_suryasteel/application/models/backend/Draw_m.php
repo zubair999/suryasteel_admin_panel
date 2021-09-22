@@ -24,6 +24,10 @@ class Draw_m extends MY_Model {
         return $this->db->get_where('draw_process', array('draw_process_id'=> $id))->row();
     }
 
+    public function getDrawProcessByAcidTreatmentId($id) {
+        return $this->db->get_where('draw_process', array('acid_treatment_id'=> $id))->row();
+    }
+
     public function addDrawProcess($roundLength){
         $data = array(
             'purchase_id' => $this->input->post('purchaseId'),
@@ -35,10 +39,13 @@ class Draw_m extends MY_Model {
         return $this->db->insert('draw_process', $data);
     }
 
-    public function updateDrawProcess($roundLengthAlreadyCompleted){
+    public function updateDrawProcess(){
+        $drawProcess = $this->getDrawProcessByAcidTreatmentId($this->input->post('acidTreatmentId'));
+        $totalRoundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_to_be_completed + (int)$this->input->post('roundLengthCompleted');
+
         $data1 = array(
-            'process_status_catalog_id' => 2,
-            'round_or_length_to_be_completed' => $roundLengthAlreadyCompleted,
+            'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $drawProcess->round_or_length_completed),
+            'round_or_length_to_be_completed' => $totalRoundLengthAlreadyCompleted,
             'updated_on' => $this->today
         );
 

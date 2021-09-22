@@ -131,20 +131,26 @@ class Acidtreatment_m extends MY_Model {
         $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
         if($isAddedRoundGreaterThanCompletedRound){
+            $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
-                'process_status_catalog_id' => get_process_status($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'process_status_catalog_id' => $status_value,
                 'updated_on' => $this->today
             );
 
             $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
             $this->db->update('acid_treatment', $data1);
 
+            if($status_value == 3){
+                set_purchase_status_catalog($this->input->post('purchaseItemId'), 4);
+            }
+            if($status_value == 2){
+                set_purchase_status_catalog($this->input->post('purchaseItemId'), 3);
+            }
+
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
-            
-            
             if($drawProcessRowCount > 0){
-                $this->draw_m->updateDrawProcess($roundLengthAlreadyCompleted);
+                $this->draw_m->updateDrawProcess();
             }
             else{
                 $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));

@@ -41,7 +41,10 @@ if (! function_exists('get_process_status')) {
         $CI	=&	get_instance();
         $CI->load->database();
 
-        if($number1 == $number2){
+        if($number2 == 0){
+            return 1;
+        }
+        else if($number1 == $number2){
             return 3;
         }
         else if($number1 > $number2){
