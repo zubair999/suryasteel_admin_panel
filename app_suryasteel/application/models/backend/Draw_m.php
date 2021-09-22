@@ -77,7 +77,7 @@ class Draw_m extends MY_Model {
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
                 'draw_process_id' => $this->input->post('drawProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
-                'size_drawn' => $this->input->post('sizeDrawn'),
+                'size_id' => $this->input->post('sizeDrawn'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
