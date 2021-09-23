@@ -141,12 +141,12 @@ class Acidtreatment_m extends MY_Model {
             $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
             $this->db->update('acid_treatment', $data1);
 
-            if($status_value == 3){
-                set_purchase_status_catalog($this->input->post('purchaseItemId'), 4);
-            }
-            if($status_value == 2){
-                set_purchase_status_catalog($this->input->post('purchaseItemId'), 3);
-            }
+            // if($status_value == 3){
+            //     set_purchase_status_catalog($this->input->post('purchaseItemId'), 4);
+            // }
+            // if($status_value == 2){
+            //     set_purchase_status_catalog($this->input->post('purchaseItemId'), 3);
+            // }
 
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
             if($drawProcessRowCount > 0){

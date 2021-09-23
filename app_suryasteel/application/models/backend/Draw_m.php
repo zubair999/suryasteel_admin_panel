@@ -67,10 +67,6 @@ class Draw_m extends MY_Model {
             $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
             $this->db->update('draw_process', $data1);
 
-
-            
-            
-
             $data = array(
                 'completed_by' => $completedBy,
                 'purchase_id' => $this->input->post('purchaseId'),
@@ -78,6 +74,7 @@ class Draw_m extends MY_Model {
                 'draw_process_id' => $this->input->post('drawProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'size_id' => $this->input->post('sizeDrawn'),
+                'length_id' => $this->input->post('lengthToBeCut'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
