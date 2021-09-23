@@ -131,16 +131,38 @@ class Draw_m extends MY_Model {
         $this->db->order_by('d.process_status_catalog_id', 'asc');
         $draw_process = $this->db->get()->result_array();
         
-        // foreach ($order as $key => $o){
-        //     $od = $this->get_order_item_by_order_id($o['order_id']);
-        //     $createdBy = $this->auth_m->getUserById($o['created_by']);
-        //     $order[$key]['order_detail'] = $od;
-        //     $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
-
-        // }
+        foreach ($draw_process as $key => $dp){
+            $draw_process[$key]['draw_history'] = $this->get_draw_history_by_head_batch_id($dp['draw_process_id']);
+        }
 
         return $draw_process;
         // FUNCTION ENDS
+    }
+
+    public function get_draw_history_by_head_batch_id($id){
+        $this->db->select(
+                            '
+                                dh.draw_process_history_id,
+                                dh.purchase_id, 
+                                dh.purchase_item_id, 
+                                dh.draw_process_id,
+                                dh.round_or_length_completed as round_drawn,
+                                dh.remarks,
+                                DATE_FORMAT(dh.created_on, "%d-%b-%Y") as created_on,
+                                DATE_FORMAT(dh.updated_on, "%d-%b-%Y") as updated_on,
+                                CONCAT(u.firstname ," ",  u.lastname) as completed_by,
+                                m.machine_name,
+                                s.size_value as size_to_be_drawn,
+                                l.length_value as length_to_be_cut
+                            '
+                        );
+        $this->db->from('draw_process_history as dh');
+        $this->db->join('users as u', 'dh.completed_by = u.user_id');
+        $this->db->join('machine as m', 'dh.machine_id = m.machine_id');
+        $this->db->join('size as s', 'dh.size_id = s.size_id');
+        $this->db->join('length as l', 'dh.length_id = l.length_id');
+        $this->db->where('dh.draw_process_id', $id);
+        return $this->db->get()->result_array();
     }
 
 //end class
