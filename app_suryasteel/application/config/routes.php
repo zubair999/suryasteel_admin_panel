@@ -97,6 +97,9 @@ $route['v1/getsink'] = 'api/app/Admin/sink/getSink';
 // SIZE
 $route['v1/getsize'] = 'api/app/Admin/size/getSize';
 
+// LENGTH
+$route['v1/getlength'] = 'api/app/Admin/length/getLength';
+
 // RAW MATERIAL OR PURCHASE ITEM
 $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
