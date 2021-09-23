@@ -100,6 +100,9 @@ $route['v1/getsize'] = 'api/app/Admin/size/getSize';
 // LENGTH
 $route['v1/getlength'] = 'api/app/Admin/length/getLength';
 
+// MACHINE
+$route['v1/getmachine'] = 'api/app/Admin/machine/getMachine';
+
 // RAW MATERIAL OR PURCHASE ITEM
 $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
