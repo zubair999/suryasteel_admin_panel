@@ -38,7 +38,6 @@ class Acidtreatment_m extends MY_Model {
                              at.purchase_item_id,
                              at.purchase_id,
                              at.process_status_catalog_id,
-                             at.size,
                              at.round_or_length_to_be_completed,
                              at.round_or_length_completed,
                              at.remarks,
@@ -48,12 +47,14 @@ class Acidtreatment_m extends MY_Model {
                              u.lastname,
                              s.sink_name,
                              ps.status_value,
-                             ps.status_color
+                             ps.status_color,
+                             sz.size_value
                              '
                         );
         $this->db->from('acid_treatment as at');
         $this->db->join('users as u', 'at.added_by = u.user_id');
         $this->db->join('sink as s', 'at.sink_id = s.sink_id');
+        $this->db->join('size as sz', 'at.size_id = sz.size_id');
         $this->db->join('process_status_catalog as ps', 'at.process_status_catalog_id = ps.process_status_catalog_id');
         
         // if($this->input->post('orderStatus')){
@@ -79,7 +80,6 @@ class Acidtreatment_m extends MY_Model {
         foreach ($acidTreatmentItem as $key => $at){
             $history_item = $this->get_acid_treatment_item_by_id($at['acid_treatment_id']);
             $acidTreatmentItem[$key]['acid_treatment_history'] = $history_item;
-
         }
 
 
