@@ -269,23 +269,21 @@ class Purchase_m extends MY_Model {
                                 pi.purchase_item_id,
                                 pi.purchase_id,
                                 pi.purchase_status_catalog_id,
-                                pi.size,
                                 pi.weight,
+                                pi.round_or_length_availble,
+                                pi.round_or_length_added_to_process,
                                 DATE_FORMAT(pi.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(pi.updated_on, "%d-%b-%Y") as updated_on,
                                 p.vendor,
                                 ps.status_value,
-                                ps.status_color
+                                ps.status_color,
+                                s.size_value
                             '
                         );
         $this->db->from('purchase_item as pi');
         $this->db->join('purchase as p', 'pi.purchase_id = p.purchase_id');
         $this->db->join('purchase_item_status_catalog as ps', 'pi.purchase_status_catalog_id = ps.purchase_item_status_catalog_id');
-
-
-
-        
-        
+        $this->db->join('size as s', 'pi.size_id = s.size_id');
         return $this->db->get()->result_array();
     }
 
