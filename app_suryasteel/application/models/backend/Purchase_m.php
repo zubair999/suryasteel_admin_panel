@@ -45,6 +45,10 @@ class Purchase_m extends MY_Model {
         return $this->db->get_where('purchase_item', array('purchase_id'=> $purchaseId))->result_array();
     }
 
+    public function getPurchaseItem($purchaseItemId) {
+        return $this->db->get_where('purchase_item', array('purchase_item_id '=> $purchaseItemId))->row();
+    }
+
 	public function getPurchase(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
@@ -286,6 +290,26 @@ class Purchase_m extends MY_Model {
         $this->db->join('size as s', 'pi.size_id = s.size_id');
         return $this->db->get()->result_array();
     }
+
+    public function updateRoundLengthInPurchase(){
+        $purchaseItem = $this->getPurchaseItem($this->input->post('purchaseItemId'));
+        $totalRoundAdded = (int)$this->input->post('roundOrLengthToBeCompleted') + $purchaseItem->round_or_length_added_to_process;
+
+        $purchaseItemData = array(
+            'round_or_length_added_to_process' => $totalRoundAdded,
+            'updated_on' => $this->today
+        );
+        
+        $this->db->where('purchase_item_id', $this->input->post('purchaseItemId'));
+        $response = $this->db->update('purchase_item', $purchaseItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
 //end class
 

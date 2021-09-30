@@ -20,11 +20,9 @@ class Acidtreatment extends REST_Controller
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-                $acidTreatmentRowCount = check_row_count('acid_treatment', 'purchase_item_id', $this->input->post('purchaseItemId'));
-                if($acidTreatmentRowCount > 0){
-                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Batch already added in the sink.'];
-                }
-                else{                    
+                $purchaseItem = $this->purchase_m->getPurchaseItem($this->input->post('purchaseItemId'));
+                $isRoundLengthAvailable = is_greater_than($purchaseItem->round_or_length_availble, $purchaseItem->round_or_length_added_to_process + (int)$this->input->post('roundOrLengthToBeCompleted'));
+                if($isRoundLengthAvailable){
                     $isAdded = $this->acidtreatment_m->addAcidTreatment($this->input->post('addedBy'));
                     if($isAdded){
                         set_purchase_status_catalog($this->input->post('purchaseItemId'), 2);
@@ -32,7 +30,11 @@ class Acidtreatment extends REST_Controller
                     }
                     else{
                         $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
-                    }
+                    }                
+                }
+                else{                    
+                    $currentLengthAvailable = (int)$purchaseItem->round_or_length_availble - (int)$purchaseItem->round_or_length_added_to_process;
+                    $response = ['status' => 200, 'message' => 'error', 'description' => $currentLengthAvailable.' round is availble right now. You can not add more then that.'];
                 }
 			}
             $this->response($response, REST_Controller::HTTP_OK);

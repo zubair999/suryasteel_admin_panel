@@ -499,7 +499,7 @@
                                        <table class="table mb-0 thead-border-top-0 table-nowrap dataTable no-footer" id="stafflist" style="width: 100%;">
                                           <tbody class="list">
                                              
-                                          <tr class="odd">
+                                             <!-- <tr class="odd">
                                                 <td style="width: 135.266px;">Process</td>
                                                 <td>
                                                    <input type="checkbox" id="permission"   disabled>
@@ -520,7 +520,7 @@
                                                 <td>
                                                    <input type="checkbox" id="permission"   disabled>
                                                 </td>
-                                             </tr>
+                                             </tr> -->
 
                                           
                                              <tr class="odd">
@@ -550,7 +550,7 @@
                                              </tr>
 
 
-                                             <tr class="odd">
+                                             <!-- <tr class="odd">
                                                 <td style="width: 135.266px;">Acid Treatment</td>
                                                 <td>
                                                    <input type="checkbox" name="permission[]" id="permission" value="addAcidTreatment" <?php if($user_permission) {
@@ -790,7 +790,7 @@
                                                 <td>
                                                    <input type="checkbox" id="permission"   disabled>
                                                 </td>
-                                             </tr>
+                                             </tr> -->
 
                                              
                                               

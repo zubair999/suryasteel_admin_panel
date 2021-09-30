@@ -118,12 +118,19 @@ class Acidtreatment_m extends MY_Model {
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'sink_id' => $this->input->post('sinkId'),
             'process_status_catalog_id' => 1,
-            'size' => $this->input->post('size'),
+            'size_id' => $this->input->post('size'),
             'round_or_length_to_be_completed' => $this->input->post('roundOrLengthToBeCompleted'),
             'remarks' => $this->input->post('remarks'),
             'created_on' => $this->today
         );
-        return $this->db->insert('acid_treatment', $data);
+
+        $isAdded = $this->db->insert('acid_treatment', $data);
+        if($isAdded){
+            return $this->purchase_m->updateRoundLengthInPurchase();
+        }
+        else{
+            return false;
+        }
     }
 
     public function addAcidTreatmentHistory($completedBy){

@@ -33,6 +33,9 @@ if (! function_exists('is_greater_than')) {
         if($number1 >= $number2){
             return true;
         }
+        else{
+            return false;
+        }
     }
 }
 
