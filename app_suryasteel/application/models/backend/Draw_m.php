@@ -105,10 +105,13 @@ class Draw_m extends MY_Model {
                              DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
-                             p.status_color
+                             p.status_color,
+                             sz.size_value
                              '
                         );
         $this->db->from('draw_process as d');
+        $this->db->join('purchase_item as pi', 'd.purchase_item_id = pi.purchase_item_id');
+        $this->db->join('size as sz', 'pi.size_id = sz.size_id');
         $this->db->join('process_status_catalog as p', 'd.process_status_catalog_id = p.process_status_catalog_id');
         
         // if($this->input->post('orderStatus')){
