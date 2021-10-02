@@ -49,7 +49,7 @@ class Draw_m extends MY_Model {
             'updated_on' => $this->today
         );
 
-        $this->db->where('draw_process_id', $this->input->post('acidTreatmentId'));
+        $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
         $this->db->update('draw_process', $data1);
     }
 
