@@ -54,7 +54,8 @@ class Acidtreatment_m extends MY_Model {
         $this->db->from('acid_treatment as at');
         $this->db->join('users as u', 'at.added_by = u.user_id');
         $this->db->join('sink as s', 'at.sink_id = s.sink_id');
-        $this->db->join('size as sz', 'at.size_id = sz.size_id');
+        $this->db->join('purchase_item as pi', 'at.purchase_item_id = pi.purchase_item_id');
+        $this->db->join('size as sz', 'pi.size_id = sz.size_id');
         $this->db->join('process_status_catalog as ps', 'at.process_status_catalog_id = ps.process_status_catalog_id');
         
         // if($this->input->post('orderStatus')){
@@ -118,7 +119,6 @@ class Acidtreatment_m extends MY_Model {
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'sink_id' => $this->input->post('sinkId'),
             'process_status_catalog_id' => 1,
-            'size_id' => $this->input->post('size'),
             'round_or_length_to_be_completed' => $this->input->post('roundOrLengthToBeCompleted'),
             'remarks' => $this->input->post('remarks'),
             'created_on' => $this->today
