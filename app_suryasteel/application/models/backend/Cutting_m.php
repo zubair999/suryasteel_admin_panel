@@ -96,12 +96,14 @@ class Cutting_m extends MY_Model {
                              DATE_FORMAT(c.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             l.length_value
                              '
                         );
         $this->db->from('cutting_process as c');
         $this->db->join('process_status_catalog as p', 'c.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'c.size_id  = s.size_id ');
+        $this->db->join('length as l', 'c.length_id  = l.length_id');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
