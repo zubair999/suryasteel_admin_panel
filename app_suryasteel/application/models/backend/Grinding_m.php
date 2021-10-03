@@ -24,16 +24,16 @@ class Grinding_m extends MY_Model {
         return $this->db->get_where('grinding_process', array('grinding_process_id'=> $id))->row();
     }
 
-    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
+    public function addGrindingBatch($cuttingProcessHistotryId, $pieceToBeGrinded, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
-            'draw_process_history_id' => $this->input->post('drawProcessHistoryId'),
-            'process_status_catalog_id' => 1,
-            'cutting_size_id' => $this->input->post('cuttingSizeId'),
-            'round_or_length_to_be_completed' => $roundLengthCompleted,
+            'cutting_process_history_id' => $cuttingProcessHistotryId,
+            'size_id' => $size,
+            'length_id' => $length,
+            'piece_to_be_grinded' => $pieceToBeGrinded,
             'created_on' => $this->today
         );
-        return $this->db->insert('cutting_process', $data);
+        return $this->db->insert('grinding_process', $data);
     }
 
     public function updateDrawProcess($roundLengthAlreadyCompleted){

@@ -20,9 +20,9 @@ class Cutting extends REST_Controller
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-                $isAdded = $this->draw_m->addDrawHistory($this->input->post('completedBy'));
+                $isAdded = $this->cutting_m->addCuttingHistory($this->input->post('completedBy'));
                 if($isAdded['status'] == 'success'){
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Draw process history added for the current batch successfully.'];
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Cutting process history added for the current batch successfully.'];
                 }
                 else{
                     $response = ['status' => 200, 'message' => 'error', 'description' => $isAdded['message']];

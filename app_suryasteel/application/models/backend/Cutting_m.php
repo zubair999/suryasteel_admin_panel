@@ -48,37 +48,41 @@ class Cutting_m extends MY_Model {
         $this->db->update('draw_process', $data1);
     }
 
-    public function addDrawHistory($completedBy){
-        $drawProcess = $this->getDrawProcessById($this->input->post('drawProcessId'));
-        $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+    public function addCuttingHistory($completedBy){
+        $cuttingProcess = $this->getCuttingBatchById($this->input->post('cuttingProcessId'));
+        $roundLengthAlreadyCompleted = (int)$cuttingProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');
+        $totalPieceGenerated = (int)$cuttingProcess->total_piece_generated + (int)$this->input->post('totalPieceGenerated');       
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
-                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'total_piece_generated' => $totalPieceGenerated,
+                'process_status_catalog_id' => get_process_status($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
                 'updated_on' => $this->today
             );
 
-            $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
-            $this->db->update('draw_process', $data1);
+            $this->db->where('cutting_process_id', $this->input->post('cuttingProcessId'));
+            $this->db->update('cutting_process', $data1);
             
 
             $data = array(
-                'completed_by' => $completedBy,
-                'purchase_id' => $this->input->post('purchaseId'),
+                'cutting_completed_by' => $completedBy,
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
-                'draw_process_id' => $this->input->post('drawProcessId'),
+                'cutting_process_id' => $this->input->post('cuttingProcessId'),
+                'size_id' => $cuttingProcess->size_id,
+                'length_id' => $cuttingProcess->length_id,
                 'machine_id' => $this->input->post('machineId'),                
-                'size_drawn' => $this->input->post('sizeDrawn'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'piece_generated' => $this->input->post('totalPieceGenerated'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
-            $this->db->insert('draw_process_history', $data);
+            $last_id = $this->db->insert('cutting_process_history', $data);
+            $this->grinding_m->addGrindingBatch($last_id, $this->input->post('totalPieceGenerated'), $cuttingProcess->size_id, $cuttingProcess->length_id);
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
-            return ['status'=>'error', 'message'=>'Completed round cannot be more than round drawn earlier in the draw process.'];
+            return ['status'=>'error', 'message'=>'Completed round cannot be more than round cut earlier in the cutting process.'];
         }
     }
     
