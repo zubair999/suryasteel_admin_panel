@@ -63,8 +63,7 @@ class Grinding_m extends MY_Model {
             
 
             $data = array(
-                'completed_by' => $completedBy,
-                'purchase_id' => $this->input->post('purchaseId'),
+                'grinded_by' => $completedBy,
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
                 'draw_process_id' => $this->input->post('drawProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
@@ -73,7 +72,7 @@ class Grinding_m extends MY_Model {
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
-            $this->db->insert('draw_process_history', $data);
+            $this->db->insert('grinding_process_history', $data);
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
