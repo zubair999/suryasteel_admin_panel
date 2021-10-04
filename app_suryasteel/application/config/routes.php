@@ -127,11 +127,10 @@ $route['v1/getdrawbatch'] = 'api/app/Admin/draw/getDrawBatch';
 $route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';
 $route['v1/addcuttinghistory'] = 'api/app/Admin/cutting/addCuttingHistory';
 
-
-
-
 // GRINDING PROCESS
 $route['v1/getgrindingbatch'] = 'api/app/Admin/grinding/getGrindingBatch';
+$route['v1/addgrindinghistory'] = 'api/app/Admin/grinding/addGrindingHistory';
+
 
 // FORGING PROCESS
 $route['v1/getforgingbatch'] = 'api/app/Admin/forging/getForgingBatch';

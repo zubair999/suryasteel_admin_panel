@@ -12,7 +12,7 @@ class Grinding_m extends MY_Model {
 		parent::__construct();   
 	}
 
-    public $cuttingHistoryRules = array(
+    public $grindingHistoryRules = array(
         0 => array(
             'field' => 'roundLengthCompleted',
             'label' => 'Round/Length',
@@ -47,19 +47,19 @@ class Grinding_m extends MY_Model {
         $this->db->update('draw_process', $data1);
     }
 
-    public function addDrawHistory($completedBy){
-        $drawProcess = $this->getDrawProcessById($this->input->post('drawProcessId'));
-        $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
-        if($isAddedRoundGreaterThanCompletedRound){
+    public function addGrindingHistory($completedBy){
+        $grindingProcess = $this->getGrindingBatchById($this->input->post('grindingProcessId'));
+        $pieceGrinded = (int)$grindingProcess->piece_grinded + (int)$this->input->post('pieceGrinded');        
+        $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrinded);
+        if($isAddedPieceGreaterThanCompletedPiece){
             $data1 = array(
-                'round_or_length_completed' => $roundLengthAlreadyCompleted,
-                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'piece_grinded' => $pieceGrinded,
+                'process_status_catalog_id' => get_process_status($drawProcess->piece_to_be_grinded, $pieceGrinded),
                 'updated_on' => $this->today
             );
 
-            $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
-            $this->db->update('draw_process', $data1);
+            $this->db->where('grinding_process_id', $this->input->post('grindingProcessId'));
+            $this->db->update('grinding_process', $data1);
             
 
             $data = array(
@@ -94,12 +94,15 @@ class Grinding_m extends MY_Model {
                              DATE_FORMAT(g.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             l.length_value
                              '
                         );
         $this->db->from('grinding_process as g');
         $this->db->join('process_status_catalog as p', 'g.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'g.size_id  = s.size_id ');
+        $this->db->join('length as l', 'g.length_id  = l.length_id');
+
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
