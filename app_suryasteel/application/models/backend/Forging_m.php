@@ -12,10 +12,10 @@ class Forging_m extends MY_Model {
 		parent::__construct();   
 	}
 
-    public $cuttingHistoryRules = array(
+    public $forgingHistoryRules = array(
         0 => array(
-            'field' => 'roundLengthCompleted',
-            'label' => 'Round/Length',
+            'field' => 'pieceForged',
+            'label' => 'No. of piece forged',
             'rules' => 'trim|required|is_natural'
         ),
     );
@@ -24,16 +24,17 @@ class Forging_m extends MY_Model {
         return $this->db->get_where('forging_process', array('forging_process_id'=> $id))->row();
     }
 
-    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
+    public function addForgingBatch($size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
-            'draw_process_history_id' => $this->input->post('drawProcessHistoryId'),
+            'grinding_process_id' => $this->input->post('grindingProcessId'),
             'process_status_catalog_id' => 1,
-            'cutting_size_id' => $this->input->post('cuttingSizeId'),
-            'round_or_length_to_be_completed' => $roundLengthCompleted,
+            'size_id' => $size,
+            'length_id' => $length,
+            'piece_to_be_forged' => $this->input->post('pieceGrinded'),
             'created_on' => $this->today
         );
-        return $this->db->insert('cutting_process', $data);
+        return $this->db->insert('forging_process', $data);
     }
 
     public function updateDrawProcess($roundLengthAlreadyCompleted){
@@ -47,33 +48,32 @@ class Forging_m extends MY_Model {
         $this->db->update('draw_process', $data1);
     }
 
-    public function addDrawHistory($completedBy){
-        $drawProcess = $this->getDrawProcessById($this->input->post('drawProcessId'));
-        $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
-        if($isAddedRoundGreaterThanCompletedRound){
+    public function addForgingHistory($completedBy){
+        $forgingProcess = $this->getForgingBatchById($this->input->post('forgingProcessId'));
+        $pieceAlreadyForged = (int)$forgingProcess->piece_forged + (int)$this->input->post('pieceForged');        
+        $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceAlreadyForged);
+        if($isAddedPieceForgedGreaterThanCompletedPieceForged){
             $data1 = array(
-                'round_or_length_completed' => $roundLengthAlreadyCompleted,
-                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'piece_forged' => $pieceAlreadyForged,
+                'process_status_catalog_id' => get_process_status($forgingProcess->piece_to_be_forged, $pieceAlreadyForged),
                 'updated_on' => $this->today
             );
 
-            $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
-            $this->db->update('draw_process', $data1);
+            $this->db->where('forging_process_id', $this->input->post('forgingProcessId'));
+            $this->db->update('forging_process', $data1);
             
-
             $data = array(
-                'completed_by' => $completedBy,
-                'purchase_id' => $this->input->post('purchaseId'),
+                'forged_by' => $completedBy,
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
-                'draw_process_id' => $this->input->post('drawProcessId'),
+                'forging_process_id' => $this->input->post('forgingProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
-                'size_drawn' => $this->input->post('sizeDrawn'),
-                'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'piece_forged' => $this->input->post('pieceForged'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
-            $this->db->insert('draw_process_history', $data);
+            $this->db->insert('forging_process_history', $data);
+            $forgingProcessHistoryId = $this->db->insert_id();
+            $this->head_m->addHeadBatch($forgingProcessHistoryId, $forgingProcess->size_id, $forgingProcess->length_id);
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
@@ -86,7 +86,7 @@ class Forging_m extends MY_Model {
         $this->db->select(
                             'f.forging_process_id,
                              f.purchase_item_id,
-                             f.cutting_process_id,
+                             f.grinding_process_id,
                              f.piece_to_be_forged,
                              f.piece_forged,
                              f.remarks,
@@ -94,12 +94,14 @@ class Forging_m extends MY_Model {
                              DATE_FORMAT(f.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             l.length_value
                              '
                         );
         $this->db->from('forging_process as f');
         $this->db->join('process_status_catalog as p', 'f.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'f.size_id  = s.size_id ');
+        $this->db->join('length as l', 'f.length_id  = l.length_id ');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));

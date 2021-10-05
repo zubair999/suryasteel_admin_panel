@@ -131,23 +131,25 @@ $route['v1/addcuttinghistory'] = 'api/app/Admin/cutting/addCuttingHistory';
 $route['v1/getgrindingbatch'] = 'api/app/Admin/grinding/getGrindingBatch';
 $route['v1/addgrindinghistory'] = 'api/app/Admin/grinding/addGrindingHistory';
 
-
 // FORGING PROCESS
 $route['v1/getforgingbatch'] = 'api/app/Admin/forging/getForgingBatch';
-
+$route['v1/addforginghistory'] = 'api/app/Admin/forging/addForgingHistory';
 
 // HEAD PROCESS
 $route['v1/getheadbatch'] = 'api/app/Admin/head/getHeadBatch';
-
+$route['v1/addheadhistory'] = 'api/app/Admin/head/addHeadHistory';
 
 // DRILL PROCESS
 $route['v1/getdrillbatch'] = 'api/app/Admin/drill/getDrillBatch';
+$route['v1/adddrillhistory'] = 'api/app/Admin/drill/addDrillHistory';
 
 // WELDING PROCESS
 $route['v1/getweldingbatch'] = 'api/app/Admin/welding/getWeldingBatch';
+$route['v1/addweldingistory'] = 'api/app/Admin/welding/addWeldingHistory';
 
 // GALVANISATION PROCESS
 $route['v1/getgalvanisationbatch'] = 'api/app/Admin/galvanisation/getGalvanisationBatch';
+$route['v1/addgalvanisedhistory'] = 'api/app/Admin/galvanisation/addGalvanisationHistory';
 
 
 

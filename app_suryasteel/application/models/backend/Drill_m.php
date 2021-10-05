@@ -12,10 +12,10 @@ class Drill_m extends MY_Model {
 		parent::__construct();   
 	}
 
-    public $cuttingHistoryRules = array(
+    public $drillHistoryRules = array(
         0 => array(
-            'field' => 'roundLengthCompleted',
-            'label' => 'Round/Length',
+            'field' => 'pieceDrilled',
+            'label' => 'Piece drilled',
             'rules' => 'trim|required|is_natural'
         ),
     );
@@ -24,16 +24,16 @@ class Drill_m extends MY_Model {
         return $this->db->get_where('drill_process', array('drill_process_id'=> $id))->row();
     }
 
-    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
+    public function addDrillBatch($headProcessHistotryId, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
-            'draw_process_history_id' => $this->input->post('drawProcessHistoryId'),
-            'process_status_catalog_id' => 1,
-            'cutting_size_id' => $this->input->post('cuttingSizeId'),
-            'round_or_length_to_be_completed' => $roundLengthCompleted,
+            'head_process_history_id' => $headProcessHistotryId,
+            'size_id' => $size,
+            'length_id' => $length,
+            'piece_to_be_drill' => $this->input->post('pieceHeaded'),
             'created_on' => $this->today
         );
-        return $this->db->insert('cutting_process', $data);
+        return $this->db->insert('drill_process', $data);
     }
 
     public function updateDrawProcess($roundLengthAlreadyCompleted){
@@ -47,34 +47,34 @@ class Drill_m extends MY_Model {
         $this->db->update('draw_process', $data1);
     }
 
-    public function addDrawHistory($completedBy){
-        $drawProcess = $this->getDrawProcessById($this->input->post('drawProcessId'));
-        $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+    public function addDrillHistory($completedBy){
+        $drillProcess = $this->getDrillBatchById($this->input->post('drillProcessId'));
+        $peiceAlreadyDrilled = (int)$drillProcess->piece_drilled + (int)$this->input->post('pieceDrilled');        
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drillProcess->piece_to_be_drill, $peiceAlreadyDrilled);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
-                'round_or_length_completed' => $roundLengthAlreadyCompleted,
-                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'piece_drilled' => $peiceAlreadyDrilled,
+                'process_status_catalog_id' => get_process_status($drillProcess->piece_to_be_drill, $peiceAlreadyDrilled),
                 'updated_on' => $this->today
             );
 
-            $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
-            $this->db->update('draw_process', $data1);
+            $this->db->where('drill_process_id', $this->input->post('drillProcessId'));
+            $this->db->update('drill_process', $data1);
             
 
             $data = array(
-                'completed_by' => $completedBy,
-                'purchase_id' => $this->input->post('purchaseId'),
+                'drilled_by' => $completedBy,
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
-                'draw_process_id' => $this->input->post('drawProcessId'),
-                'machine_id' => $this->input->post('machineId'),                
-                'size_drawn' => $this->input->post('sizeDrawn'),
-                'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'drill_process_id' => $this->input->post('drillProcessId'),
+                'machine_id' => $this->input->post('machineId'),
+                'piece_drilled' => $this->input->post('pieceDrilled'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
-            $this->db->insert('draw_process_history', $data);
-            return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
+            $this->db->insert('drill_process_history', $data);
+            $drillProcessHistoryId = $this->db->insert_id();
+            $this->welding_m->addWeldingBatch($drillProcessHistoryId, $drillProcess->size_id, $drillProcess->length_id);
+            return ['status'=>'success', 'message'=>'The piece drilled successfully.'];
         }
         else{
             return ['status'=>'error', 'message'=>'Completed round cannot be more than round drawn earlier in the draw process.'];

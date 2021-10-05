@@ -14,8 +14,8 @@ class Grinding_m extends MY_Model {
 
     public $grindingHistoryRules = array(
         0 => array(
-            'field' => 'roundLengthCompleted',
-            'label' => 'Round/Length',
+            'field' => 'pieceGrinded',
+            'label' => 'No. of piece grinded',
             'rules' => 'trim|required|is_natural'
         ),
     );
@@ -54,7 +54,7 @@ class Grinding_m extends MY_Model {
         if($isAddedPieceGreaterThanCompletedPiece){
             $data1 = array(
                 'piece_grinded' => $pieceGrinded,
-                'process_status_catalog_id' => get_process_status($drawProcess->piece_to_be_grinded, $pieceGrinded),
+                'process_status_catalog_id' => get_process_status($grindingProcess->piece_to_be_grinded, $pieceGrinded),
                 'updated_on' => $this->today
             );
 
@@ -65,14 +65,17 @@ class Grinding_m extends MY_Model {
             $data = array(
                 'grinded_by' => $completedBy,
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
-                'draw_process_id' => $this->input->post('drawProcessId'),
+                'grinding_process_id' => $this->input->post('grindingProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
-                'size_drawn' => $this->input->post('sizeDrawn'),
-                'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'piece_grinded' => $this->input->post('pieceGrinded'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
             $this->db->insert('grinding_process_history', $data);
+
+            $this->forging_m->addForgingBatch($grindingProcess->size_id, $grindingProcess->length_id);
+
+
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
