@@ -93,12 +93,15 @@ class Welding_m extends MY_Model {
                              DATE_FORMAT(w.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             l.length_value
                              '
                         );
         $this->db->from('welding_process as w');
         $this->db->join('process_status_catalog as p', 'w.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'w.size_id  = s.size_id ');
+        $this->db->join('length as l', 'w.length_id  = l.length_id ');
+
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
