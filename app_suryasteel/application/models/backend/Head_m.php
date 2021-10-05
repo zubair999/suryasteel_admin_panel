@@ -87,7 +87,6 @@ class Head_m extends MY_Model {
         $this->db->select(
                             'h.head_process_id,
                              h.purchase_item_id,
-                             h.cutting_process_id,
                              h.piece_to_be_head,
                              h.piece_headed,
                              h.remarks,
@@ -137,7 +136,6 @@ class Head_m extends MY_Model {
                             '
                                 hh.head_process_history_id, 
                                 hh.purchase_item_id, 
-                                hh.cutting_process_id,
                                 hh.head_process_id,
                                 hh.piece_headed,
                                 hh.remarks,

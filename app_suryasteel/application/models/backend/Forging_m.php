@@ -137,8 +137,7 @@ class Forging_m extends MY_Model {
         $this->db->select(
                             '
                                 fh.forging_process_history_id , 
-                                fh.purchase_item_id, 
-                                fh.cutting_process_id,
+                                fh.purchase_item_id,
                                 fh.forging_process_id,
                                 fh.piece_forged,
                                 fh.remarks,

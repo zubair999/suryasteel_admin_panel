@@ -86,7 +86,6 @@ class Drill_m extends MY_Model {
         $this->db->select(
                             'd.drill_process_id,
                              d.purchase_item_id,
-                             d.cutting_process_id,
                              d.piece_to_be_drill,
                              d.piece_drilled,
                              d.remarks,
@@ -136,7 +135,6 @@ class Drill_m extends MY_Model {
                             '
                                 dh.drill_process_history_id, 
                                 dh.purchase_item_id, 
-                                dh.cutting_process_id,
                                 dh.drill_process_id,
                                 dh.piece_drilled,
                                 dh.remarks,

@@ -88,7 +88,7 @@ class Grinding_m extends MY_Model {
         $this->db->select(
                             'g.grinding_process_id,
                              g.purchase_item_id,
-                             g.cutting_process_id,
+                             g.cutting_process_history_id,
                              g.piece_to_be_grinded,
                              g.piece_grinded,
                              g.remarks,
@@ -142,7 +142,6 @@ class Grinding_m extends MY_Model {
                                 gh.grinding_process_history_id, 
                                 gh.purchase_item_id, 
                                 gh.grinding_process_id,
-                                gh.cutting_process_id,
                                 gh.piece_grinded,
                                 gh.remarks,
                                 DATE_FORMAT(gh.created_on, "%d-%b-%Y") as created_on,

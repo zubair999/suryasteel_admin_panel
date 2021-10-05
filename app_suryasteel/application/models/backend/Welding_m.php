@@ -86,7 +86,6 @@ class Welding_m extends MY_Model {
         $this->db->select(
                             'w.welding_process_id,
                              w.purchase_item_id,
-                             w.cutting_process_id,
                              w.piece_to_be_weld,
                              w.piece_welded,
                              w.remarks,
@@ -136,7 +135,6 @@ class Welding_m extends MY_Model {
                             '
                                 wh.welding_process_history_id, 
                                 wh.purchase_item_id, 
-                                wh.cutting_process_id,
                                 wh.welding_process_id,
                                 wh.piece_welded,
                                 wh.remarks,

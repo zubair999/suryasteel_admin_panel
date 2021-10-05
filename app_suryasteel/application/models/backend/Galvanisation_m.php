@@ -84,7 +84,6 @@ class Galvanisation_m extends MY_Model {
         $this->db->select(
                             'g.galvanising_process_id,
                              g.purchase_item_id,
-                             g.cutting_process_id,
                              g.piece_to_be_galvanised,
                              g.piece_galvanised,
                              g.remarks,
@@ -134,7 +133,6 @@ class Galvanisation_m extends MY_Model {
                             '
                                 gh.galvanising_process_history_id, 
                                 gh.purchase_item_id, 
-                                gh.cutting_process_id,
                                 gh.galvanising_process_id,
                                 gh.piece_galvanised,
                                 gh.remarks,
