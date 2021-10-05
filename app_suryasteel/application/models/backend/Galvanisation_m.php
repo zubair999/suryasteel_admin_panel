@@ -91,12 +91,14 @@ class Galvanisation_m extends MY_Model {
                              DATE_FORMAT(g.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             l.length_value
                              '
                         );
         $this->db->from('galvanising_process as g');
         $this->db->join('process_status_catalog as p', 'g.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'g.size_id  = s.size_id ');
+        $this->db->join('length as l', 'g.length_id  = l.length_id ');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
