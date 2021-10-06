@@ -44,7 +44,7 @@ class Draw_m extends MY_Model {
         $totalRoundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_to_be_completed + (int)$this->input->post('roundLengthCompleted');
 
         $data1 = array(
-            'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $drawProcess->round_or_length_completed),
+            'process_status_catalog_id' => get_process_status($totalRoundLengthAlreadyCompleted, $drawProcess->round_or_length_completed),
             'round_or_length_to_be_completed' => $totalRoundLengthAlreadyCompleted,
             'updated_on' => $this->today
         );
