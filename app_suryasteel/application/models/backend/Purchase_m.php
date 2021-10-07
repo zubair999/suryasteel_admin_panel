@@ -128,19 +128,22 @@ class Purchase_m extends MY_Model {
     public function addPurchaseItem($lastPurchaseId){
         $size = $this->input->post('size');
         $weight = $this->input->post('weight');
+        $round = $this->input->post('round');
 
         $i = 0;
         foreach (array_combine($size, $weight) as $s => $w){
-            $this->insertPurchaseItem($lastPurchaseId, $s, $w);
+            $round = $round[$i];
+            $this->insertPurchaseItem($lastPurchaseId, $s, $w, $round);
             $i++;
         }
     }
 
-    public function insertPurchaseItem($lastPurchaseId, $s, $w){
+    public function insertPurchaseItem($lastPurchaseId, $s, $w, $round){
         $orderItemData = array(
             'purchase_id' => $lastPurchaseId,
-            'size' => $s,
+            'size_id' => $s,
             'weight' => $w,
+            'round_or_length_availble' => $round,
             'created_on' => $this->today
         );
 
