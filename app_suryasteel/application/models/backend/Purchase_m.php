@@ -259,7 +259,7 @@ class Purchase_m extends MY_Model {
                             '
                                 purchase_item_id, 
                                 purchase_id, 
-                                size, 
+                                size_id, 
                                 weight,
                                 DATE_FORMAT(created_on, "%d-%b-%Y") as created_on
                             '

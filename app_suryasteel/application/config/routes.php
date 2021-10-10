@@ -20,8 +20,6 @@ $route['v1/stafflogin'] = 'api/app/Auth/auth/staffLogin';
 $route['v1/getrole'] = 'api/app/Admin/role/getRole';
 $route['v1/getuserpermission'] = 'api/app/Admin/role/getUserPermission';
 
-
-
 // PAYMENT MODE
 $route['v1/getpaymentmode'] = 'api/app/Admin/paymentmode/getPaymentMode';
 
@@ -87,13 +85,10 @@ $route['v1/getconfiguration'] = 'api/app/Admin/setting/getSetting';
 // $route['v1/getcustomer'] = 'api/app/Admin/customer/getCustomer';
 $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
 
-
-
 // PURCHASE
 $route['v1/addpurchase'] = 'api/app/Admin/purchase/addPurchase';
 $route['v1/editpurchase'] = 'api/app/Admin/purchase/editPurchase';
 $route['v1/getpurchase'] = 'api/app/Admin/purchase/getPurchase';
-
 
 // SINK
 $route['v1/getsink'] = 'api/app/Admin/sink/getSink';
@@ -110,14 +105,11 @@ $route['v1/getmachine'] = 'api/app/Admin/machine/getMachine';
 // RAW MATERIAL OR PURCHASE ITEM
 $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 
-
 // ACID TREATMENT ITEM
 $route['v1/getacidtreatmentitem'] = 'api/app/Admin/acidtreatment/getAcidTreatmentItem';
 $route['v1/addacidtreatment'] = 'api/app/Admin/acidtreatment/addAcidTreatment';
 $route['v1/editacidtreatment'] = 'api/app/Admin/acidtreatment/editAcidTreatment';
 $route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreatmentHistory';
-
-
 
 // DRAW PROCESS
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
@@ -151,6 +143,8 @@ $route['v1/addweldingistory'] = 'api/app/Admin/welding/addWeldingHistory';
 $route['v1/getgalvanisationbatch'] = 'api/app/Admin/galvanisation/getGalvanisationBatch';
 $route['v1/addgalvanisedhistory'] = 'api/app/Admin/galvanisation/addGalvanisationHistory';
 
+// REPORT PROCESS
+$route['v1/getreport'] = 'api/app/Admin/report/getReport';
 
 
 
