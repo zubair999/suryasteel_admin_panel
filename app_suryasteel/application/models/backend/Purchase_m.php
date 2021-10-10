@@ -257,14 +257,17 @@ class Purchase_m extends MY_Model {
     public function get_purchase_item_by_purchase_id($id){
         $this->db->select(
                             '
-                                purchase_item_id, 
-                                purchase_id, 
-                                size_id, 
-                                weight,
-                                DATE_FORMAT(created_on, "%d-%b-%Y") as created_on
+                                pi.purchase_item_id, 
+                                pi.purchase_id,  
+                                pi.weight,
+                                pi.round_or_length_availble,
+                                pi.round_or_length_added_to_process,
+                                DATE_FORMAT(pi.created_on, "%d-%b-%Y") as created_on,
+                                s.size_value
                             '
                         );
-        $this->db->from('purchase_item');
+        $this->db->from('purchase_item as pi');
+        $this->db->join('size as s', 'pi.size_id = s.size_id');
         $this->db->where('purchase_id', $id);
         $order_item =  $this->db->get()->result_array();
         return $order_item;
