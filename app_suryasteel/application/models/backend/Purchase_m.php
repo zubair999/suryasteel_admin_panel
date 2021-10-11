@@ -157,11 +157,6 @@ class Purchase_m extends MY_Model {
         }
     }
 
-
-
-
-
-
     public function editPurchase($purchaseId){
         $purchaseData = array(
             'vendor' => $this->input->post('vendor'),
@@ -317,7 +312,44 @@ class Purchase_m extends MY_Model {
         }
     }
 
+    public function delete_purchase_item_by_purchase_id($id){
+        $this->db->where('purchase_id', $id);
+        return $this->db->delete('purchase_item');
+    }
+
+    public function delete_purchase_item_by_purchase_item_id($id){
+        $this->db->where('purchase_item_id', $id);
+        return $this->db->delete('purchase_item');
+    }
+
+    public function delete_purchase_entry($id){
+        $this->db->where('purchase_id', $id);
+        return $this->db->delete('purchase');
+    }
+
+    public function delete_purchase($id) {
+        $isPurchaseItemDeleted = $this->delete_purchase_item_by_purchase_id($id);
+        if($isPurchaseItemDeleted){
+            return $this->delete_purchase_entry($id);
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function delete_purchase_item($id) {
+        $isPurchaseItemDeleted = $this->delete_purchase_item_by_purchase_item_id($id);
+        if($isPurchaseItemDeleted){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
+
 
 //end class
-
 }

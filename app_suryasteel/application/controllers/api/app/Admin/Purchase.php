@@ -83,8 +83,46 @@ class Purchase extends REST_Controller
             exit();
         }
         else{
-            $data = $this->purchase_m->delete_purchase();
-            $response = ['status' => 200, 'message' => 'success', 'description' => 'Order fetched successfully.', 'data'=>$data];
+            $purchaseCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseId($this->input->post('purchaseId'));
+            if($purchaseCount > 0){
+                $response = ['status' => 200, 'message' => 'error', 'description' => 'Acid treatment started on one or more of the purchase item. First delete acid treatment batch then try again.'];
+            }
+            else{
+                $isDeleted = $this->purchase_m->delete_purchase($this->input->post('purchaseId'));
+                if($isDeleted){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase deleted successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }  
+    }
+
+    public function deletePurchaseItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $purchaseCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseItemId($this->input->post('purchaseItemId'));
+            if($purchaseCount > 0){
+                $response = ['status' => 200, 'message' => 'error', 'description' => 'Acid treatment started on this purchase item. First delete acid treatment batch then try again.'];
+            }
+            else{
+                $isDeleted = $this->purchase_m->delete_purchase_item($this->input->post('purchaseItemId'));
+                if($isDeleted){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase item deleted successfully.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+
+                }
+            }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }  

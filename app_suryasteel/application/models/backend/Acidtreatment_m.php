@@ -32,6 +32,14 @@ class Acidtreatment_m extends MY_Model {
         return $this->db->get_where('acid_treatment', array('acid_treatment_id'=> $id))->row();
     }
 
+    public function getAcidTreatmentCountByPurchaseId($id) {
+        return $this->db->get_where('acid_treatment', array('purchase_id'=> $id))->num_rows();
+    }
+
+    public function getAcidTreatmentCountByPurchaseItemId($id) {
+        return $this->db->get_where('acid_treatment', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function get_acid_treatment(){
         $this->db->select(
                             'at.acid_treatment_id,
