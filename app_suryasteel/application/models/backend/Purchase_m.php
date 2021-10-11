@@ -133,8 +133,8 @@ class Purchase_m extends MY_Model {
 
         $i = 0;
         foreach (array_combine($size, $weight) as $s => $w){
-            $round = $round[$i];
-            $this->insertPurchaseItem($lastPurchaseId, $s, $w, $round);
+            $roundCount = $round[$i];
+            $this->insertPurchaseItem($lastPurchaseId, $s, $w, $roundCount);
             $i++;
         }
     }
