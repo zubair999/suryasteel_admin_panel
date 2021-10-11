@@ -107,6 +107,7 @@ class Purchase_m extends MY_Model {
         $purchaseData = array(
             'created_by' => $this->input->post('createdBy'),
             'vendor' => $this->input->post('vendor'),
+            'bill_no' => $this->input->post('billNo'),
             'invoice_weight' => $this->input->post('invoiceWeight'),
             'actual_weight' => $this->input->post('actualWeight'),
             'rate' => $this->input->post('rate'),
