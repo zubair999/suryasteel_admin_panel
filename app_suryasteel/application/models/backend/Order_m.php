@@ -208,14 +208,14 @@ class Order_m extends MY_Model {
                                 un.unit_value,
                                 r.role_id,
                                 r.roles_name,
-                                do.delivery_option_name
+                                dm.delivery_mode_name
                             '
                         );
         $this->db->from('order_item_dispatch as oid');
         $this->db->join('users as u', 'oid.dispatch_by = u.user_id');
         $this->db->join('units as un', 'oid.dispatch_unit = un.unit_id');
         $this->db->join('roles as r', 'u.role_id = r.role_id');
-        $this->db->join('delivery_option as do', 'oid.delivery_option_id = do.delivery_option_id');
+        $this->db->join('delivery_mode as dm', 'oid.delivery_mode_id = dm.delivery_mode_id');
         $this->db->where('oid.order_item_id', $oi);
 
         return $this->db->get()->result_array();
