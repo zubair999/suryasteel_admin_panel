@@ -62,6 +62,13 @@ $route['v1/dispatchitem'] = 'api/app/Admin/order/dispatchItem';
 $route['v1/deletedispatchitem'] = 'api/app/Admin/order/deleteDispatchItem';
 $route['v1/dispatchitemdelivery'] = 'api/app/Admin/dispatch/dispatchItemDelivery';
 
+// DISPATCH ITEM DELIVERY
+$route['v1/adddeliveryfordispatchitem'] = 'api/app/Admin/order/addDeliveryForDispatchedItem';
+
+// DECREAES STOCK
+$route['v1/decreasestock'] = 'api/app/Admin/product/decreaseStock';
+
+
 // STAFF
 $route['v1/addstaff'] = 'api/app/Admin/staff/addStaff';
 $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';

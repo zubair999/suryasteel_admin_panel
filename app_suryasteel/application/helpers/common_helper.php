@@ -39,6 +39,20 @@ if (! function_exists('is_greater_than')) {
     }
 }
 
+if (! function_exists('is_equal_to')) {
+    function is_equal_to($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number1 == $number2){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
 if (! function_exists('get_process_status')) {
     function get_process_status($number1 = '', $number2 = '') {
         $CI	=&	get_instance();

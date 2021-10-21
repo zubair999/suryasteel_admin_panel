@@ -171,12 +171,14 @@ class Order_m extends MY_Model {
                                 p.product_name,
                                 CONCAT(u.firstname ," ",  u.lastname) as added_by,
                                 un.unit_value,
+                                ois.item_dispatch_status
                             '
                         );
         $this->db->from('order_item as oi');
         $this->db->join('products as p', 'oi.product_id = p.product_id');
         $this->db->join('users as u', 'oi.item_added_by = u.user_id');
         $this->db->join('units as un', 'oi.unit = un.unit_id');
+        $this->db->join('order_item_dispatch_status as ois', 'oi.item_dispatch_status_id = ois.item_dispatch_status_id');
         $this->db->where('oi.order_id', $id);
         $order_item =  $this->db->get()->result_array();
     
@@ -407,11 +409,36 @@ class Order_m extends MY_Model {
 
     public function addDispatchQtyInOrderItem(){
         $orderItemId = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+        $orderItemstatus = $this->changeOrderItemDispatchStatus();
+
+
         $orderItemData = array(
             'dispatched_qty' => (float)$orderItemId->dispatched_qty + (float)$this->input->post('dispatchQty'),
+            'item_dispatch_status_id' => $orderItemstatus
         );
         $this->db->where('order_item_id', $this->input->post('orderItemId'));
         return $this->db->update('order_item', $orderItemData);
+    }
+
+    public function changeOrderItemDispatchStatus(){
+        $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+        $orderQty = $orderItem->order_qty;
+        $dispatchedQty = $orderItem->dispatched_qty;
+        $newDispatchingQty = (float)$dispatchedQty + (float)$this->input->post('dispatchQty');
+        $isEqual = is_equal_to($newDispatchingQty, $orderQty);
+        if($isEqual){
+            return 3;
+        }
+        else{
+            $dispatchedDifference = $orderQty - $dispatchedQty;
+            $differenceLimit = get_settings('dispatch_lower_limit');
+            if($newDispatchingQty > $orderQty){
+                return 4;
+            }
+            if($newDispatchingQty < $orderQty){
+                return 2;
+            }
+        }
     }
 
     public function changeOrderStatus($status){
@@ -477,6 +504,35 @@ class Order_m extends MY_Model {
             
         return $orderStatus;
     }
+
+    public function addDelivery(){
+        $dispatchItem = $this->input->post('orderItemDispatchId');
+        $delivery_addedBy = $this->input->post('delivery_added_by');
+        $delivery_mode = $this->input->post('delivery_mode_id');
+        $remarks = $this->input->post('remarks');
+
+        foreach ($dispatchItem as $key => $di){
+            $this->updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode, $remarks);
+        }
+    }
+
+    public function updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode_id, $remarks){
+        $dispatchItem = array(
+            'delivery_added_by' => $delivery_addedBy,
+            'delivery_mode_id' => $delivery_mode_id,
+            'delivery_date' =>  $this->today,
+            'delivery_remarks' => $remarks,
+            'delivery_status' => "Delivered",
+        );
+        $this->db->where('order_item_dispatch_id', $di);
+        return $this->db->update('order_item_dispatch', $dispatchItem);
+    }
+
+
+    
+
+
+
 
 //end class
 

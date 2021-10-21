@@ -101,21 +101,30 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            $response = $this->order_m->dispatchOrderItem();
-            if($response){
-                $isQtyUpdated = $this->order_m->addDispatchQtyInOrderItem();
-                $this->order_m->checkIfOrderIsFullyDispatched();
-                // $this->product_m->decreaseStock();
-                if($isQtyUpdated){
-                    $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
-                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.', 'data'=>$order_item];
+            $checkStock = $this->product_m->checkStock();
+            if($checkStock){
+                $response = $this->order_m->dispatchOrderItem();
+                if($response){
+                    $isQtyUpdated = $this->order_m->addDispatchQtyInOrderItem();
+                    $this->order_m->checkIfOrderIsFullyDispatched();
+                    if($isQtyUpdated){
+                        $this->product_m->decreaseStock();
+                        $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+                        $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.', 'data'=>$order_item];
+                    }
+                    else{
+                        $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+                    }
                 }
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
                 }
             }
             else{
-                $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+                $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+                $productId = $orderItem->product_id;
+                $product = $this->product_m->get_product($productId);
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Product stock is '.$product->stock.' Kg. You can not dispatched more than that.'];
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
@@ -177,6 +186,20 @@ class Order extends REST_Controller
             exit();
         }
 	}
+
+    public function addDeliveryForDispatchedItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->order_m->addDelivery();
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Delivery added for the dispatched item.'];
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
 
 
 	//CLASS ENDS

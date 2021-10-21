@@ -159,7 +159,12 @@ class Product extends REST_Controller {
         }
 	}
 
-
+    public function decreaseStock_post(){
+        $this->product_m->decreaseStock();
+        // $response = ['status' => 200, 'message' =>'success', 'description' =>'Stock decrease successfully.'];
+        // $this->response($response, REST_Controller::HTTP_OK);
+        // exit();
+    }
 
 
 
