@@ -49,6 +49,7 @@ $route['v1/deleteproduct'] = 'api/app/Admin/product/deleteProduct';
 
 // ORDER
 $route['v1/addorder'] = 'api/app/Admin/order/addOrder';
+$route['v1/deleteorder'] = 'api/app/Admin/order/deleteOrder';
 $route['v1/editorder'] = 'api/app/Admin/order/editOrder';
 $route['v1/getorder'] = 'api/app/Admin/order/getOrder';
 $route['v1/getorderbyproduct'] = 'api/app/Admin/order/getOrdersByProduct';

@@ -201,6 +201,37 @@ class Order extends REST_Controller
         }
     }
 
+    public function deleteOrder_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $dispatchedRowCount = $this->order_m->getDispatchedItemByOrderId($this->input->post('orderId'));
+            if($dispatchedRowCount){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Some item of this order is already dispatched, it cannot be deleted. First delete dispatched item.'];
+            }
+            else{
+                $isItemDeleted = $this->order_m->deleteOrderItemByOrderId($this->input->post('orderId'));
+                if($isItemDeleted){
+                    $isOrderDeleted = $this->order_m->deleteOrderByOrderId($this->input->post('orderId'));
+                    if($isOrderDeleted){
+                        $response = ['status' => 200, 'message' =>'success', 'description' =>'Order is deleted successfully.'];
+                    }
+                    else{
+                        $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong..'];
+                    }
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
+
 
 	//CLASS ENDS
 }

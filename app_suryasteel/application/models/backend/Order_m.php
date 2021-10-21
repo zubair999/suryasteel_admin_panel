@@ -16,8 +16,20 @@ class Order_m extends MY_Model {
         return $this->db->get_where('order_item', array('order_item_id'=> $orderItemId))->row();
     }
 
+    public function getOrderItemsByOrderId($orderId) {
+        return $this->db->get_where('order_item', array('order_id'=> $orderId))->result();
+    }
+
     public function getDispatchedItem($dispatchId) {
         return $this->db->get_where('order_item_dispatch', array('order_item_dispatch_id'=> $dispatchId))->row();
+    }
+
+    public function getDispatchedItemByOrderItemId($orderItemId) {
+        return $this->db->get_where('order_item_dispatch', array('order_item_id'=> $orderItemId))->num_rows();
+    }
+
+    public function getDispatchedItemByOrderId($orderId) {
+        return $this->db->get_where('order_item_dispatch', array('order_id'=> $orderId))->num_rows();
     }
 
 	public function getOrder(){
@@ -388,9 +400,20 @@ class Order_m extends MY_Model {
         return $this->db->delete('order_item');
     }
 
+    public function deleteOrderItemByOrderId($orderId){
+        $this->db->where('order_id', $orderId);
+        return $this->db->delete('order_item');
+    }
+
+    public function deleteOrderByOrderId($orderId){
+        $this->db->where('order_id', $orderId);
+        return $this->db->delete('orders');
+    }
+
     public function dispatchOrderItem(){
         $dispatchData = array(
             'dispatch_by' => $this->input->post('dispatchBy'),
+            'order_id' => $this->input->post('orderId'),
             'order_item_id' => $this->input->post('orderItemId'),
             'delivery_mode_id' => 1,
             'dispatch_quantity' => $this->input->post('dispatchQty'),
