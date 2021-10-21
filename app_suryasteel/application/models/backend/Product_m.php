@@ -190,21 +190,31 @@ class Product_m extends MY_Model {
         $product = $this->get_product($productId);
         $currentStock = $product->stock;
         $orderQty = $this->input->post('dispatchQty');
-
-
-
         $result = is_greater_than($currentStock, $orderQty);
         if($result){
             $newStock = $currentStock - $orderQty;
             $data = array(
                 'stock' => $newStock
             );
-            $this->db->where('product_id', 1);
+            $this->db->where('product_id', $productId);
             $this->db->update('products', $data);
         }
         else{
             return false;
         }
+    }
+
+    public function returnStock($orderItemId, $deletedDispatchedQty){
+        $orderItem = $this->order_m->getOrderItemByOrderItemId($orderItemId);
+        $productId = $orderItem->product_id;
+        $product = $this->get_product($productId);
+        $currentStock = $product->stock;
+        $newStock = $currentStock + $deletedDispatchedQty;
+        $data = array(
+            'stock' => $newStock
+        );
+        $this->db->where('product_id', $productId);
+        $this->db->update('products', $data);
     }
 
 

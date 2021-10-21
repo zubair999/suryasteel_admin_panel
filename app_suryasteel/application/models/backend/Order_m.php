@@ -482,6 +482,7 @@ class Order_m extends MY_Model {
         $this->db->where('order_item_id', $orderItemId);
         $this->db->update('order_item', $itemData);
         $this->deleteDispatchedItem($dispatchedId);
+        $this->product_m->returnStock($orderItemId, $dispatchedQty);
     }
 
     public function deleteDispatchedItem($dispatchedId){
