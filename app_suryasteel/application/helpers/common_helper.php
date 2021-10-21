@@ -93,6 +93,27 @@ if (! function_exists('set_purchase_status_catalog')) {
     }
 }
 
+if (! function_exists('get_order_item_status')) {
+    function get_order_item_status($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number2 == 0){
+            return 1;
+        }
+        else if($number1 == $number2){
+            return 3;
+        }
+        else if($number2 < $number1){
+            return 2;
+        }
+        else if($number2 > $number1){
+            return 4;
+        }
+        
+    }
+}
+
 
 
 

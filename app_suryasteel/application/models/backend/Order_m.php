@@ -408,38 +408,37 @@ class Order_m extends MY_Model {
     }
 
     public function addDispatchQtyInOrderItem(){
-        $orderItemId = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
-        $orderItemstatus = $this->changeOrderItemDispatchStatus();
-
-
+        $orderItem = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
+        $newDispatchingQty = (float)$orderItem->dispatched_qty + (float)$this->input->post('dispatchQty');
+        $orderItemstatus = get_order_item_status($orderItem->order_qty, $newDispatchingQty);
         $orderItemData = array(
-            'dispatched_qty' => (float)$orderItemId->dispatched_qty + (float)$this->input->post('dispatchQty'),
+            'dispatched_qty' => $newDispatchingQty,
             'item_dispatch_status_id' => $orderItemstatus
         );
         $this->db->where('order_item_id', $this->input->post('orderItemId'));
         return $this->db->update('order_item', $orderItemData);
     }
 
-    public function changeOrderItemDispatchStatus(){
-        $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
-        $orderQty = $orderItem->order_qty;
-        $dispatchedQty = $orderItem->dispatched_qty;
-        $newDispatchingQty = (float)$dispatchedQty + (float)$this->input->post('dispatchQty');
-        $isEqual = is_equal_to($newDispatchingQty, $orderQty);
-        if($isEqual){
-            return 3;
-        }
-        else{
-            $dispatchedDifference = $orderQty - $dispatchedQty;
-            $differenceLimit = get_settings('dispatch_lower_limit');
-            if($newDispatchingQty > $orderQty){
-                return 4;
-            }
-            if($newDispatchingQty < $orderQty){
-                return 2;
-            }
-        }
-    }
+    // public function changeOrderItemDispatchStatus($orderItemId, $dispatchingQty){
+    //     $orderItem = $this->order_m->getOrderItemByOrderItemId($orderItemId);
+    //     $orderQty = $orderItem->order_qty;
+    //     $dispatchedQty = $orderItem->dispatched_qty;
+    //     $newDispatchingQty = (float)$dispatchedQty + (float)$dispatchingQty;
+    //     $isEqual = is_equal_to($newDispatchingQty, $orderQty);
+    //     if($isEqual){
+    //         return 3;
+    //     }
+    //     else{
+    //         $dispatchedDifference = $orderQty - $dispatchedQty;
+    //         $differenceLimit = get_settings('dispatch_lower_limit');
+    //         if($newDispatchingQty > $orderQty){
+    //             return 4;
+    //         }
+    //         if($newDispatchingQty < $orderQty){
+    //             return 2;
+    //         }
+    //     }
+    // }
 
     public function changeOrderStatus($status){
         $orderData = array(
@@ -473,16 +472,20 @@ class Order_m extends MY_Model {
     public function decreaseDispatchedQtyInOrderItem($orderItemId, $dispatchedQty, $dispatchedId){
         $order_item = $this->getOrderItemByOrderItemId($orderItemId);
         $itemDispatchQty = $order_item->dispatched_qty;
-        $newQty = (float)$itemDispatchQty - (float)$dispatchedQty;
+        $newDispatchingQty = (float)$itemDispatchQty - (float)$dispatchedQty;
+
+        $orderItemstatus = get_order_item_status($order_item->order_qty, $newDispatchingQty);
         
-        $itemData = array(
-            'dispatched_qty' => $newQty
+        $orderItemData = array(
+            'dispatched_qty' => $newDispatchingQty,
+            'item_dispatch_status_id' => $orderItemstatus
         );
 
         $this->db->where('order_item_id', $orderItemId);
-        $this->db->update('order_item', $itemData);
+        $this->db->update('order_item', $orderItemData);
         $this->deleteDispatchedItem($dispatchedId);
         $this->product_m->returnStock($orderItemId, $dispatchedQty);
+        
     }
 
     public function deleteDispatchedItem($dispatchedId){
