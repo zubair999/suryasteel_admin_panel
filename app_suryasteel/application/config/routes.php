@@ -23,6 +23,9 @@ $route['v1/getuserpermission'] = 'api/app/Admin/role/getUserPermission';
 // PAYMENT MODE
 $route['v1/getpaymentmode'] = 'api/app/Admin/paymentmode/getPaymentMode';
 
+// DELIVERY MODE
+$route['v1/getdeliverymode'] = 'api/app/Admin/deliverymode/getDeliveryMode';
+
 // MEDIA
 $route['v1/getmedia'] = 'api/app/Admin/media/getAllImage';
 
