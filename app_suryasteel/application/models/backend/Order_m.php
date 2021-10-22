@@ -32,6 +32,10 @@ class Order_m extends MY_Model {
         return $this->db->get_where('order_item_dispatch', array('order_id'=> $orderId))->num_rows();
     }
 
+    public function getDispatchedItemByDispatchedId($dispatchId) {
+        return $this->db->get_where('order_item_dispatch', array('order_item_dispatch_id'=> $dispatchId))->row();
+    }
+
 	public function getOrder(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];

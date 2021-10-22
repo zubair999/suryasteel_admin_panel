@@ -45,11 +45,12 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            // $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
-            // if ($this->form_validation->run() == FALSE) {
-			// 	$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
-			// } else {
-				$data = $this->input->post();
+            $isOrderItemDispatched = $this->order_m->getDispatchedItemByOrderId($this->input->post('orderId'));
+            if($isOrderItemDispatched > 0){
+                $response = ['status' => 200, 'message' =>'success', 'description' =>"Order item dispatch. You can not edit this order."];
+            }
+            else{
+                $data = $this->input->post();
 
 
                 $isUpdatedAdded = $this->order_m->editOrder($this->input->post('orderId'));
@@ -60,8 +61,7 @@ class Order extends REST_Controller
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
                 }
-
-			// }
+            }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
@@ -138,14 +138,20 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            $dispatchedItem = $this->order_m->getDispatchedItem($this->input->post('dispatchId'));
-            $this->order_m->decreaseDispatchedQtyInOrderItem($dispatchedItem->order_item_id, $dispatchedItem->dispatch_quantity, $this->input->post('dispatchId'));
-            // $this->order_m->deleteDispatchedItem($this->input->post('dispatchId'));
-            $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
-            $response = ['status' => 200, 'message' => 'success', 'description' =>'ok', 'data'=>$order_item];
-            $this->response($response, REST_Controller::HTTP_OK);
-            exit();
+            $dispatchedItem = $this->order_m->getDispatchedItemByDispatchedId($this->input->post('dispatchId'));
+            if($dispatchedItem->delivery_status == 'Delivered'){
+                $response = ['status' => 200, 'message' => 'error', 'description' =>'Dispatched item is already delivered. You can not delete this item.'];
+            }
+            else{
+                $dispatchedItem = $this->order_m->getDispatchedItem($this->input->post('dispatchId'));
+                $this->order_m->decreaseDispatchedQtyInOrderItem($dispatchedItem->order_item_id, $dispatchedItem->dispatch_quantity, $this->input->post('dispatchId'));
+                // $this->order_m->deleteDispatchedItem($this->input->post('dispatchId'));
+                $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+                $response = ['status' => 200, 'message' => 'success', 'description' =>'ok', 'data'=>$order_item];
+            }
         }
+        $this->response($response, REST_Controller::HTTP_OK);
+        exit();
     }
 
     public function deleteOrderItem_post(){
@@ -157,7 +163,7 @@ class Order extends REST_Controller
         else{
             $isItemDispatched = $this->order_m->isOrderItemDispatched($this->input->post('order_item_id'));
             if($isItemDispatched){
-                $response = ['status' => 200, 'message' =>'error', 'description' =>'Order item already dispatch, it cannot be deleted.'];
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Order item already dispatch, it cannot be deleted. First delete dispatch item.'];
             }
             else{
                 $isItemDeleted = $this->order_m->deleteOrderItem($this->input->post('order_item_id'));
