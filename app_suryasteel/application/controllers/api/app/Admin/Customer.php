@@ -45,6 +45,9 @@ class Customer extends REST_Controller
                 return $this->db->insert_id();
 			}
 		}
+        else{
+            return get_settings('default_user_image');
+        }
 	}
 
 	public function addCustomer_post(){
