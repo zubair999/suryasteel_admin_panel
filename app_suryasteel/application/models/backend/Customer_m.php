@@ -191,13 +191,13 @@ class Customer_m extends MY_Model {
         // $this->db->limit(25);
         $this->db->order_by('firstname ASC');
         $customer = $this->db->get('users')->result_array();
-    
 
-        foreach($customer as $key => $c){
+        foreach ($customer as $key => $c){
             $image = $this->get_image($c['image_id']);
             $customer[$key]['actual'] = base_url('upload/'.$image->actual);
             $customer[$key]['thumbnail'] = base_url('upload/'.$image->thumbnail);
         }
+
         return $customer;
     }
 
