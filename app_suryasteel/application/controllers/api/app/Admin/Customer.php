@@ -119,7 +119,7 @@ class Customer extends REST_Controller
                 $this->log_m->Log($this->input->post('user_id'),'Customer','A customer edited successfully.');
                 if($isUpdated){
                     $customer = $this->customer_m->get_customer_list();
-                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Staff updated successfully.', 'data'=>$customer];
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Customer updated successfully.', 'data'=>$customer];
                 }
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong....', 'error'=>$isUpdated, 'image_id'=>$last_image_id ];
