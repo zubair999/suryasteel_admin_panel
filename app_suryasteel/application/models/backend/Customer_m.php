@@ -184,9 +184,9 @@ class Customer_m extends MY_Model {
         $this->db->select('*');
         $this->db->where('role_id = ', null);
 
-        if($this->input->post('firstname')){
-            $this->db->like('firstname', $this->input->post('firstname'), 'after');
-        }
+        // if($this->input->post('firstname')){
+        //     $this->db->like('firstname', $this->input->post('firstname'), 'after');
+        // }
 
         // $this->db->limit(25);
         $this->db->order_by('firstname ASC');
