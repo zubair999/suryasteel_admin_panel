@@ -171,14 +171,14 @@ class Customer_m extends MY_Model {
     	return $this->db->get()->num_rows();
 	}
 
-    public function get_customer_list_old(){
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('role_id = ', null);
-        $this->db->limit(25);
-        $this->db->order_by('firstname ASC');
-        return $this->db->get()->result_array();
-    }
+    // public function get_customer_list_old(){
+    //     $this->db->select('*');
+    //     $this->db->from('users');
+    //     $this->db->where('role_id = ', null);
+    //     $this->db->limit(25);
+    //     $this->db->order_by('firstname ASC');
+    //     return $this->db->get()->result_array();
+    // }
 
     public function get_customer_list(){
         $this->db->select('*');
@@ -190,10 +190,22 @@ class Customer_m extends MY_Model {
 
         // $this->db->limit(25);
         $this->db->order_by('firstname ASC');
-        return $this->db->get('users')->result_array();
+        $customer = $this->db->get('users')->result_array();
+    
+
+        foreach($customer as $key => $c){
+            $image = $this->get_image($c['image_id']);
+            $customer[$key]['actual'] = base_url('upload/'.$image->actual);
+            $customer[$key]['thumbnail'] = base_url('upload/'.$image->thumbnail);
+        }
+        return $customer;
     }
 
-    public function addCustomer($created_by){
+    public function get_image($id) {
+        return $this->db->get_where('images', array('image_id'=> $id))->row();
+    }
+
+    public function addCustomer($created_by, $imageId=null){
         $hashedPwd = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
         $customerData = array(
             'firstname' => $this->input->post('firstname'),
@@ -202,6 +214,7 @@ class Customer_m extends MY_Model {
             'password' => $hashedPwd,
             'mobile_no' => $this->input->post('mobileno'),
             'state_id' => $this->input->post('state'),
+            'image_id' => $imageId,
             'is_allowed_to_view_product' => $this->input->post('yesno'),
             'company_email' => $this->input->post('companyMail'),
             'customer_company' => $this->input->post('companyName'),

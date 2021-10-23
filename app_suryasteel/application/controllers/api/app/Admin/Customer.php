@@ -9,6 +9,44 @@ class Customer extends REST_Controller
 		parent::__construct();
 	}
 
+    // File upload
+	public function fileUpload(){
+		if(!empty($_FILES['file']['name'])){
+			$renmae = md5(date('Y-m-d H:i:s:u')) . time();
+			$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+			$_FILES['file']['name'] = md5(date('Y-m-d H:i:s:u')) . time() . '.' . $ext;
+
+			// Set preference
+			$config['upload_path'] = 'upload/';	
+			$config['allowed_types'] = 'jpg|jpeg|png|gif';
+			$config['max_size']    = '10024'; // max_size in kb
+			$config['file_name'] = $_FILES['file']['name'];
+					
+			//Load upload library
+			$this->load->library('upload');			
+			$this->upload->initialize($config);
+			// File upload
+			if($this->upload->do_upload('file')){
+				// Get data about the file
+				$uploadData = $this->upload->data();
+				$config2['image_library']    = 'gd2'; 
+				$config2['source_image']     = 'upload/' . $uploadData['file_name']; 
+				$config2['new_image']         = 'upload/' . 'thumb_' . $uploadData['file_name']; 
+				$config2['maintain_ratio']     = false; 
+				$config2['width']            = 150; 
+				$config2['height']           = 150;
+				$this->image_lib->initialize($config2);
+				$this->image_lib->resize();
+				$arr_data = [];
+				$arr_data['actual'] = $uploadData['file_name'];
+				$arr_data['thumbnail'] = 'thumb_' . $uploadData['file_name'];
+				$this->image_lib->clear();
+                $this->db->insert('images', $arr_data);
+                return $this->db->insert_id();
+			}
+		}
+	}
+
 	public function addCustomer_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {
@@ -36,7 +74,8 @@ class Customer extends REST_Controller
                             $response = ['status' => 200, 'message' => 'error', 'description' => 'Duplicate mobile no.'];
                         }
                         else{
-                            $isAdded = $this->customer_m->addCustomer($data['uid']);
+                            $last_image_id = $this->fileUpload();
+                            $isAdded = $this->customer_m->addCustomer($data['uid'], $last_image_id);
                             $this->customer_m->addLog($data['uid']);
                             if($isAdded){
                                 $customer = $this->customer_m->get_customer_list();
@@ -138,7 +177,7 @@ class Customer extends REST_Controller
     }
 	
 
-
+    
 
 
 
