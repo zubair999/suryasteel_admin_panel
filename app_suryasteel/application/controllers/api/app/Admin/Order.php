@@ -201,7 +201,8 @@ class Order extends REST_Controller
         }
         else{
             $this->order_m->addDelivery();
-            $response = ['status' => 200, 'message' => 'success', 'description' => 'Delivery added for the dispatched item.'];
+            $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Delivery added for the dispatched item.', 'data'=>$order_item];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
