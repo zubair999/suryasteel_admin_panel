@@ -122,7 +122,7 @@ class Customer extends REST_Controller
                     $response = ['status' => 200, 'message' =>'success', 'description' =>'Staff updated successfully.', 'data'=>$customer];
                 }
                 else{
-                    $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong....'];
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong....', 'error'=>$isUpdated, 'image_id'=>$last_image_id ];
                 }
             }
             $this->response($response, REST_Controller::HTTP_OK);
