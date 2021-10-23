@@ -241,9 +241,17 @@ class Purchase_m extends MY_Model {
         $this->db->order_by('p.created_on', 'desc');
         $purchase = $this->db->get()->result_array();
         
+        $allSize = array();
         foreach ($purchase as $key => $p){
             $purchaseDetail = $this->get_purchase_item_by_purchase_id($p['purchase_id']);
+
+            foreach ($purchaseDetail as $key1 => $pd){
+                array_push($allSize, $pd['size_value']);
+                // $allSize .= ' ,' .$pd['size_value'];
+            }
+
             $purchase[$key]['purchase_detail'] = $purchaseDetail;
+            $purchase[$key]['all_size'] = implode(", ", $allSize);
         }
 
         return $purchase;
@@ -266,6 +274,8 @@ class Purchase_m extends MY_Model {
         $this->db->join('size as s', 'pi.size_id = s.size_id');
         $this->db->where('purchase_id', $id);
         $order_item =  $this->db->get()->result_array();
+
+
         return $order_item;
     }
 
