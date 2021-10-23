@@ -241,13 +241,13 @@ class Purchase_m extends MY_Model {
         $this->db->order_by('p.created_on', 'desc');
         $purchase = $this->db->get()->result_array();
         
-        $allSize = array();
+        
         foreach ($purchase as $key => $p){
+            $allSize = array();
             $purchaseDetail = $this->get_purchase_item_by_purchase_id($p['purchase_id']);
 
             foreach ($purchaseDetail as $key1 => $pd){
                 array_push($allSize, $pd['size_value']);
-                // $allSize .= ' ,' .$pd['size_value'];
             }
 
             $purchase[$key]['purchase_detail'] = $purchaseDetail;
