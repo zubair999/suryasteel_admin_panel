@@ -49,13 +49,19 @@ class Purchase extends REST_Controller
             exit();
         }
         else{
-            $isPurchaseUpdated = $this->purchase_m->editPurchase($this->input->post('purchaseId'));
-            if($isPurchaseUpdated){
-                $this->purchase_m->editPurchaseItem();
-                $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase updated successfully."];
+            $purchaseRowCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseId($this->input->post('purchaseId'));
+            if($purchaseRowCount > 0){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>"Acid treatment is started on the purchase items. You can not updated it. Add new purchase."];
             }
             else{
-                $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                $isPurchaseUpdated = $this->purchase_m->editPurchase($this->input->post('purchaseId'));
+                if($isPurchaseUpdated){
+                    $this->purchase_m->editPurchaseItem();
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase updated successfully."];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                }
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
@@ -83,19 +89,24 @@ class Purchase extends REST_Controller
             exit();
         }
         else{
-            $purchaseCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseId($this->input->post('purchaseId'));
+            $purchaseCount = $this->purchase_m->getPurchaseCount($this->input->post('purchaseId'));
             if($purchaseCount > 0){
-                $response = ['status' => 200, 'message' => 'error', 'description' => 'Acid treatment started on one or more of the purchase item. First delete acid treatment batch then try again.'];
-            }
-            else{
-                $isDeleted = $this->purchase_m->delete_purchase($this->input->post('purchaseId'));
-                if($isDeleted){
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase deleted successfully.'];
+                $purchaseCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseId($this->input->post('purchaseId'));
+                if($purchaseCount > 0){
+                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Acid treatment started on one or more of the purchase item. First delete acid treatment batch then try again.'];
                 }
                 else{
-                    $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
-
+                    $isDeleted = $this->purchase_m->delete_purchase($this->input->post('purchaseId'));
+                    if($isDeleted){
+                        $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase deleted successfully.'];
+                    }
+                    else{
+                        $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+                    }
                 }
+            }
+            else{
+                $response = ['status' => 200, 'message' => 'error', 'description' => 'There is no purchase found for this id.'];
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();

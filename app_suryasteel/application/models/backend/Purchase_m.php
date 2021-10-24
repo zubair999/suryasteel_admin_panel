@@ -49,6 +49,10 @@ class Purchase_m extends MY_Model {
         return $this->db->get_where('purchase_item', array('purchase_item_id '=> $purchaseItemId))->row();
     }
 
+    public function getPurchaseCount($purchaseId) {
+        return $this->db->get_where('purchase', array('purchase_id '=> $purchaseId))->row();
+    }
+
 	public function getPurchase(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
@@ -182,20 +186,23 @@ class Purchase_m extends MY_Model {
     public function editPurchaseItem(){
         $size = $this->input->post('size');
         $weight = $this->input->post('weight');
+        $round = $this->input->post('round');
         $purchaseItem = $this->input->post('purchaseItemId');
 
         $i = 0;
         foreach (array_combine($size, $weight) as $s => $w){
             $purchaseItemId = $purchaseItem[$i];
-            $this->updatePurchaseItem($purchaseItemId, $s, $w);
+            $r = $round[$i];
+            $this->updatePurchaseItem($purchaseItemId, $s, $w, $r);
             $i++;
         }
     }
 
-    public function updatePurchaseItem($purchaseItemId, $s, $w){
+    public function updatePurchaseItem($purchaseItemId, $s, $w, $r){
         $purchaseItemData = array(
-            'size' => $s,
+            'size_id' => $s,
             'weight' => $w,
+            'round_or_length_availble' => $r,
             'updated_on' => $this->today
         );
         
