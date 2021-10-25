@@ -171,22 +171,14 @@ class Customer_m extends MY_Model {
     	return $this->db->get()->num_rows();
 	}
 
-    // public function get_customer_list_old(){
-    //     $this->db->select('*');
-    //     $this->db->from('users');
-    //     $this->db->where('role_id = ', null);
-    //     $this->db->limit(25);
-    //     $this->db->order_by('firstname ASC');
-    //     return $this->db->get()->result_array();
-    // }
-
     public function get_customer_list(){
         $this->db->select('*');
         $this->db->where('role_id = ', null);
 
-        // if($this->input->post('firstname')){
-        //     $this->db->like('firstname', $this->input->post('firstname'), 'after');
-        // }
+        if($this->input->post('searchterm')){
+            $this->db->like('firstname', $this->input->post('searchterm'), 'after');
+            $this->db->or_like('customer_company', $this->input->post('searchterm'), 'after');
+        }
 
         // $this->db->limit(25);
         $this->db->order_by('firstname ASC');
@@ -197,7 +189,6 @@ class Customer_m extends MY_Model {
             $customer[$key]['actual'] = base_url('upload/'.$image->actual);
             $customer[$key]['thumbnail'] = base_url('upload/'.$image->thumbnail);
         }
-
         return $customer;
     }
 
