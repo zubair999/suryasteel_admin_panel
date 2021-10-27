@@ -234,7 +234,84 @@ class Product_m extends MY_Model {
         }
     }
 
-    
+    public function productSectionList(){
+        $this->db->distinct();
+        $this->db->select('p.category_id, c.category_name');
+        $this->db->from('products as p');
+        $this->db->join('category as c', 'p.category_id = c.category_id');
+        if($this->input->post('categoryId')){
+            $this->db->where('p.category_id', $this->input->post('categoryId'));
+        }
+        
+        $category = $this->db->get()->result_array();
+
+        foreach ($category as $key => $c){
+            $products = $this->getProductByCategory($c['category_id']);
+            if($products){
+                $category[$key]['title'] = $c['category_name'];
+                $category[$key]['data'] = $products;
+                unset($category[$key]['category_id']);
+                unset($category[$key]['category_name']);
+            }
+            else{
+                unset($category[$key]);
+            }
+        }
+        return $category;
+    }
+
+    public function getProductByCategory($id){
+        $this->db->select(
+            'p.product_id,
+            p.category_id,
+            p.product_name,
+            p.thumbnail as image_id,
+            p.stock,
+            p.is_active,
+            p.weight_per_piece,
+            p.size,
+            p.unit,
+            p.length,
+            p.zinc_or_without_zinc,
+            p.having_kunda,
+            p.having_nut,
+            u.unit_value,
+            c.category_name,
+            i.thumbnail,
+            i.actual
+            '
+        );
+
+        $this->db->from('products as p');
+        $this->db->join('images as i', 'p.thumbnail = i.image_id');
+        $this->db->join('category as c', 'c.category_id = p.category_id');
+        $this->db->join('units as u', 'p.unit = u.unit_id');
+        $this->db->where('p.category_id', $id);
+        if($this->input->post('size')){
+            $this->db->where('p.size', $this->input->post('size'));
+        }
+        if($this->input->post('length')){
+            $this->db->where('p.length', $this->input->post('length'));
+        }
+
+        
+        $this->db->order_by('p.product_name','asc');
+        $products = $this->db->get()->result_array();
+
+        foreach($products as $key => $p){
+            $product_wise_order_count = $this->order_m->productWiseOrderCount($p['product_id']);
+            $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
+            $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
+            $products[$key]['isAddedToCart'] = false;
+            $products[$key]['productWiseOrderCount'] = $product_wise_order_count;
+        }
+
+        if(count($products) == 0){
+            return false;
+        }
+
+        return $products;
+    }
 
 
 //end class
