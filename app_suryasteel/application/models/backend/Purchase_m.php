@@ -312,6 +312,15 @@ class Purchase_m extends MY_Model {
         $this->db->join('purchase as p', 'pi.purchase_id = p.purchase_id');
         $this->db->join('purchase_item_status_catalog as ps', 'pi.purchase_status_catalog_id = ps.purchase_item_status_catalog_id');
         $this->db->join('size as s', 'pi.size_id = s.size_id');
+
+        if($this->input->post('searchterm')){
+            $this->db->where('pi.purchase_item_id', $this->input->post('searchterm'), 'after');
+            $this->db->or_where('s.size_value', $this->input->post('searchterm'), 'after');
+        }
+
+
+
+
         return $this->db->get()->result_array();
     }
 
