@@ -242,15 +242,22 @@ class Product_m extends MY_Model {
         if($this->input->post('categoryId')){
             $this->db->where('p.category_id', $this->input->post('categoryId'));
         }
+        if($this->input->post('size')){
+            $this->db->where('p.size', $this->input->post('size'));
+        }
+        if($this->input->post('length')){
+            $this->db->where('p.length', $this->input->post('length'));
+        }
         
         $category = $this->db->get()->result_array();
 
-        foreach ($category as $key => $c){
-            $products = $this->getProductByCategory($c['category_id']);
-            if(!$products){
-                array_splice($category, $key, $key);
-            }
-        }
+
+        // foreach ($category as $key => $c){
+        //     $products = $this->getProductByCategory($c['category_id']);
+        //     if(!$products){
+        //         array_splice($category, $key, $key);
+        //     }
+        // }
 
         foreach ($category as $key => $c){
             $products = $this->getProductByCategory($c['category_id']);            
