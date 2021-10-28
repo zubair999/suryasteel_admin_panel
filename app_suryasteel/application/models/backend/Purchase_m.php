@@ -243,7 +243,12 @@ class Purchase_m extends MY_Model {
         if($this->input->post('until')){
             $this->db->where('p.created_on <=', $this->input->post('until'));
         }
+        if($this->input->post('searchterm')){
+            $this->db->like('p.vendor', $this->input->post('searchterm'), 'after');
+            $this->db->or_like('p.bill_no', $this->input->post('searchterm'), 'after');
+        }
         
+
         // $this->db->limit(1);
         $this->db->order_by('p.created_on', 'desc');
         $purchase = $this->db->get()->result_array();

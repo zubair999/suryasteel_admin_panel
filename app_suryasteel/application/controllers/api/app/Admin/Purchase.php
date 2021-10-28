@@ -76,7 +76,7 @@ class Purchase extends REST_Controller
         }
         else{
             $data = $this->purchase_m->get_purchase();
-            $response = ['status' => 200, 'message' => 'success', 'description' => 'Order fetched successfully.', 'data'=>$data];
+            $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase fetched successfully.', 'data'=>$data];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }        
