@@ -178,6 +178,7 @@ class Staff_m extends MY_Model {
         $hashedPwd = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
         $staffData = array(
             'role_id' => $this->input->post('role'),
+            'image_id' => get_settings('default_user_image'),
             'firstname' => $this->input->post('firstname'),
             'lastname' => $this->input->post('lastname'),
             'email' => $this->input->post('username'),

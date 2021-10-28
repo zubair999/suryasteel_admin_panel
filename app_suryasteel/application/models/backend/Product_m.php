@@ -247,16 +247,19 @@ class Product_m extends MY_Model {
 
         foreach ($category as $key => $c){
             $products = $this->getProductByCategory($c['category_id']);
-            if($products){
-                $category[$key]['title'] = $c['category_name'];
-                $category[$key]['data'] = $products;
-                unset($category[$key]['category_id']);
-                unset($category[$key]['category_name']);
-            }
-            else{
-                unset($category[$key]);
+            if(!$products){
+                array_splice($category, $key, $key);
             }
         }
+
+        foreach ($category as $key => $c){
+            $products = $this->getProductByCategory($c['category_id']);            
+            $category[$key]['title'] = $c['category_name'];
+            $category[$key]['data'] = $products;
+            unset($category[$key]['category_id']);
+            unset($category[$key]['category_name']);
+        }
+
         return $category;
     }
 
