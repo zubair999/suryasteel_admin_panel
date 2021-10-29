@@ -43,6 +43,9 @@ class Auth extends REST_Controller
                                         $userPermission[$p] = $p;
                                         unset($userPermission[$key]);
                                     };
+
+                                    $user_image = $this->get_user_avatar($user->image_id);
+
                                     $userData = array(
                                         'uid' => $user->user_id,
                                         'role_id' => $user->role_id,
@@ -52,10 +55,10 @@ class Auth extends REST_Controller
                                         'lastname' => $user->lastname,
                                         'username' => $user->email,
                                         'is_logged_in' => true,
+                                        'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                         'permission' => $userPermission
                                     );
                                     $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
-                                
                                 }
                                 else{
                                     $response = ['status' => 200, 'message' => 'error', 'description' => 'Incorrect password.'];
@@ -117,6 +120,9 @@ class Auth extends REST_Controller
                                         $userPermission[$p] = $p;
                                         unset($userPermission[$key]);
                                     };
+
+                                    $user_image = $this->get_user_avatar($user->image_id);
+
                                     $userData = array(
                                         'uid' => $user->user_id,
                                         'role_id' => $user->role_id,
@@ -126,6 +132,7 @@ class Auth extends REST_Controller
                                         'lastname' => $user->lastname,
                                         'username' => $user->email,
                                         'is_logged_in' => true,
+                                        'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                         'permission' => $userPermission
                                     );
                                     $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
@@ -261,6 +268,13 @@ class Auth extends REST_Controller
         }
     }
 
+    public function get_user_avatar($image_id){
+        return $this->db->get_where('images', array('image_id'=> $image_id))->row();
+    }
+
+    // public function get_user_avatar($image_id){
+    //     $this->db->get_where('images', array('image_id', $image_id))->row();
+    // }
 
 	//CLASS ENDS
 }
