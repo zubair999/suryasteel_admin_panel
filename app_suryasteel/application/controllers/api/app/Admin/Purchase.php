@@ -127,7 +127,8 @@ class Purchase extends REST_Controller
             else{
                 $isDeleted = $this->purchase_m->delete_purchase_item($this->input->post('purchaseItemId'));
                 if($isDeleted){
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase item deleted successfully.'];
+                    $data = $this->purchase_m->getPurchaseItems($this->input->post('purchaseId'));
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Purchase item deleted successfully.', 'data'=> $data];
                 }
                 else{
                     $response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
