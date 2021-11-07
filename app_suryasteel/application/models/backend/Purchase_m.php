@@ -327,50 +327,15 @@ class Purchase_m extends MY_Model {
             'scrap_pieces' => 180
         ];
 
-        // $acid_treatment = [
-        //     'round_added' => 1112,
-        //     'round_completed' => 1000,
-        //     'scrap_round' => 10
-        // ];
-
-        // $process_overview = array(
-        //     'acid_treatment' => $acid_treatment,
-        //     'draw_process' => $acid_treatment
-        // );
-
         foreach($purchase_item as $key => $pi){
-            $acid_treatment = $this->get_total_round_added_to_acid_treatment_by_purchase_item_id($pi['purchase_item_id']);
-            // $purchase_item[$key]['batch_history'] = $acid_treatment;
-            $purchase_item[$key]['process_overview'] = $acid_treatment;
+            $acid_treatment_process_overview = $this->acidtreatment_m->get_acid_treatment_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $purchase_item[$key]['process_overview']['acid_treatment'] = $acid_treatment_process_overview;
         }
 
 
         return $purchase_item;
 
     }
-
-    private function get_total_round_added_to_acid_treatment_by_purchase_item_id($purchase_item_id){
-        $this->db->select('*');
-        $this->db->from('acid_treatment');
-        $this->db->where('purchase_item_id', $purchase_item_id);
-        $acid_treatment_history = $this->db->get()->result_array();        
-
-        $round_treated = '';
-        $scrap_round = '';
-
-        foreach ($acid_treatment_history as $key => $a){
-            $round_treated .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
-            $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
-        }
-
-        $acid_treatment = [
-            'round_treated' => $round_treated,
-            'scrap_round' => $scrap_round
-        ];
-
-        return $acid_treatment;
-    }
-
 
     public function updateRoundLengthInPurchase(){
         $purchaseItem = $this->getPurchaseItem($this->input->post('purchaseItemId'));
