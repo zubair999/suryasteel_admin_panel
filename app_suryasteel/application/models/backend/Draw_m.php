@@ -28,6 +28,10 @@ class Draw_m extends MY_Model {
         return $this->db->get_where('draw_process', array('acid_treatment_id'=> $id))->row();
     }
 
+    public function getDrawProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('draw_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addDrawProcess($roundLength){
         $data = array(
             'purchase_id' => $this->input->post('purchaseId'),
@@ -171,6 +175,39 @@ class Draw_m extends MY_Model {
         $this->db->join('length as l', 'dh.length_id = l.length_id');
         $this->db->where('dh.draw_process_id', $id);
         return $this->db->get()->result_array();
+    }
+
+    public function get_draw_process_overview_by_purchase_item_id($purchase_item_id){
+        $draw_process_count = $this->getDrawProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($draw_process_count == 0){
+            $draw_process_overview = [
+                'round_treated' => 'No data found!',
+                'scrap_round' => 'No data found!'
+            ];
+            return $draw_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('draw_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $draw_process = $this->db->get()->result_array();        
+
+            $round_drawn = '';
+            $scrap_round = '';
+
+            foreach ($draw_process as $key => $a){
+                $round_drawn .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
+                $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
+            }
+
+            $draw_process_overview = [
+                'round_drawn' => $round_drawn,
+                'scrap_round' => $scrap_round
+            ];
+
+            return $draw_process_overview;
+        }
     }
 
 //end class

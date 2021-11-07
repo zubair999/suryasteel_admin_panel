@@ -329,7 +329,9 @@ class Purchase_m extends MY_Model {
 
         foreach($purchase_item as $key => $pi){
             $acid_treatment_process_overview = $this->acidtreatment_m->get_acid_treatment_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $draw_process_overview = $this->draw_m->get_draw_process_overview_by_purchase_item_id($pi['purchase_item_id']);
             $purchase_item[$key]['process_overview']['acid_treatment'] = $acid_treatment_process_overview;
+            $purchase_item[$key]['process_overview']['draw_process'] = $draw_process_overview;
         }
 
 

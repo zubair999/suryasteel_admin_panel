@@ -193,25 +193,36 @@ class Acidtreatment_m extends MY_Model {
 
 
     public function get_acid_treatment_process_overview_by_purchase_item_id($purchase_item_id){
-        $this->db->select('*');
-        $this->db->from('acid_treatment');
-        $this->db->where('purchase_item_id', $purchase_item_id);
-        $acid_treatment_history = $this->db->get()->result_array();        
+        $acid_treatment_count = $this->getAcidTreatmentCountByPurchaseItemId($purchase_item_id);
 
-        $round_treated = '';
-        $scrap_round = '';
-
-        foreach ($acid_treatment_history as $key => $a){
-            $round_treated .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
-            $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
+        if($acid_treatment_count == 0){
+            $acid_treatment_overview = [
+                'round_treated' => 'No data found!',
+                'scrap_round' => 'No data found!'
+            ];
+            return $acid_treatment_overview;
         }
+        else{
+            $this->db->select('*');
+            $this->db->from('acid_treatment');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $acid_treatment_history = $this->db->get()->result_array();        
 
-        $acid_treatment = [
-            'round_treated' => $round_treated,
-            'scrap_round' => $scrap_round
-        ];
+            $round_treated = '';
+            $scrap_round = '';
 
-        return $acid_treatment;
+            foreach ($acid_treatment_history as $key => $a){
+                $round_treated .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
+                $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
+            }
+
+            $acid_treatment_overview = [
+                'round_treated' => $round_treated,
+                'scrap_round' => $scrap_round
+            ];
+
+            return $acid_treatment_overview;
+        }
     }
 
 //end class
