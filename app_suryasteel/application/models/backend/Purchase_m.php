@@ -328,13 +328,14 @@ class Purchase_m extends MY_Model {
         ];
 
         $cutting_process_overview = [
-            'round_cut' => '300 pieces for 30/40 round of size 20/10, 300 pieces for 30/40 round of size 20/10, ',
+            'round_cut' => '300 pieces generated for 30/40 round of size 20/10, 100 pieces generated for 30/40 round of size 20/10, ',
             'scrap_round' => "10/500, 0/500"
         ];
 
         foreach($purchase_item as $key => $pi){
             $acid_treatment_process_overview = $this->acidtreatment_m->get_acid_treatment_process_overview_by_purchase_item_id($pi['purchase_item_id']);
             $draw_process_overview = $this->draw_m->get_draw_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $cutting_process_overview = $this->cutting_m->get_cutting_process_overview_by_purchase_item_id($pi['purchase_item_id']);
             $purchase_item[$key]['process_overview']['acid_treatment'] = $acid_treatment_process_overview;
             $purchase_item[$key]['process_overview']['draw_process'] = $draw_process_overview;
             $purchase_item[$key]['process_overview']['cutting_process'] = $cutting_process_overview;

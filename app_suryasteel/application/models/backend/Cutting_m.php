@@ -24,6 +24,10 @@ class Cutting_m extends MY_Model {
         return $this->db->get_where('cutting_process', array('cutting_process_id'=> $id))->row();
     }
 
+    public function getCuttingProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('cutting_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -52,11 +56,17 @@ class Cutting_m extends MY_Model {
         $cuttingProcess = $this->getCuttingBatchById($this->input->post('cuttingProcessId'));
         $roundLengthAlreadyCompleted = (int)$cuttingProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');
         $totalPieceGenerated = (int)$cuttingProcess->total_piece_generated + (int)$this->input->post('totalPieceGenerated');       
+        $scrapRoundOrLength = (int)$cuttingProcess->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');
+        $scrapPieces = (int)$cuttingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');       
+        
+        
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'total_piece_generated' => $totalPieceGenerated,
+                'scrap_round_or_length' => $scrapRoundOrLength,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
                 'updated_on' => $this->today
             );
@@ -74,6 +84,8 @@ class Cutting_m extends MY_Model {
                 'machine_id' => $this->input->post('machineId'),                
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'piece_generated' => $this->input->post('totalPieceGenerated'),
+                'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
@@ -162,6 +174,38 @@ class Cutting_m extends MY_Model {
         $this->db->where('ch.cutting_process_id', $id);
         $cutting_item =  $this->db->get()->result_array();
         return $cutting_item;
+    }
+
+    public function get_cutting_process_overview_by_purchase_item_id($purchase_item_id){
+        $cutting_process_count = $this->getCuttingProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($cutting_process_count == 0){
+            $cutting_process_overview = [
+                'round_cut' => 'No data found!',
+                'scrap_round' => 'No data found!'
+            ];
+            return $cutting_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('cutting_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $cutting_process = $this->db->get()->result_array();        
+
+            $round_cut = '';
+            $scrap_round = '';
+
+            foreach ($cutting_process as $key => $a){
+                $round_cut .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
+                $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
+            }
+
+            $cutting_process_overview = [
+                'round_cut' => $round_cut,
+                'scrap_round' => $scrap_round
+            ];
+            return $cutting_process_overview;
+        }
     }
 
 //end class
