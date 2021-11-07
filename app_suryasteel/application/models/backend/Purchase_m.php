@@ -340,8 +340,8 @@ class Purchase_m extends MY_Model {
 
         foreach($purchase_item as $key => $pi){
             $acid_treatment = $this->get_total_round_added_to_acid_treatment_by_purchase_item_id($pi['purchase_item_id']);
-            $purchase_item[$key]['batch_history'] = $acid_treatment;
-            // $purchase_item[$key]['process_overview'] = $process_overview;
+            // $purchase_item[$key]['batch_history'] = $acid_treatment;
+            $purchase_item[$key]['process_overview'] = $$acid_treatment;
         }
 
 
