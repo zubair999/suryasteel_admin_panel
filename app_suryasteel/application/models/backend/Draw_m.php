@@ -62,13 +62,15 @@ class Draw_m extends MY_Model {
         $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
         $scrapRoundOrLength = (int)$drawProcess->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');        
         
+        $roundCompletedAndScrapRound = (float)$roundLengthAlreadyCompleted + (float)$scrapRoundOrLength;
+
         
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'scrap_round_or_length' => $scrapRoundOrLength,
-                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound),
                 'updated_on' => $this->today
             );
 
@@ -110,6 +112,7 @@ class Draw_m extends MY_Model {
                              d.acid_treatment_id,
                              d.round_or_length_to_be_completed,
                              d.round_or_length_completed,
+                             d.scrap_round_or_length,
                              d.remarks,
                              DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
@@ -159,6 +162,7 @@ class Draw_m extends MY_Model {
                                 dh.purchase_item_id, 
                                 dh.draw_process_id,
                                 dh.round_or_length_completed as round_drawn,
+                                dh.scrap_round_or_length,
                                 dh.remarks,
                                 DATE_FORMAT(dh.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(dh.updated_on, "%d-%b-%Y") as updated_on,
