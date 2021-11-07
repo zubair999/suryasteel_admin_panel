@@ -59,15 +59,17 @@ class Cutting_m extends MY_Model {
         $scrapRoundOrLength = (int)$cuttingProcess->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');
         $scrapPieces = (int)$cuttingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');       
         
+        $roundCompletedAndScrapRound = (float)$roundLengthAlreadyCompleted + (float)$scrapRoundOrLength;
+
         
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($cuttingProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'total_piece_generated' => $totalPieceGenerated,
                 'scrap_round_or_length' => $scrapRoundOrLength,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($cuttingProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
+                'process_status_catalog_id' => get_process_status($cuttingProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound),
                 'updated_on' => $this->today
             );
 
