@@ -48,6 +48,7 @@ class Acidtreatment_m extends MY_Model {
                              at.process_status_catalog_id,
                              at.round_or_length_to_be_completed,
                              at.round_or_length_completed,
+                             at.scrap_round_or_length,
                              at.remarks,
                              DATE_FORMAT(at.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(at.updated_on, "%d-%b-%Y") as updated_on,
