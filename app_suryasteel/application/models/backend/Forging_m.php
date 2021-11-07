@@ -24,6 +24,10 @@ class Forging_m extends MY_Model {
         return $this->db->get_where('forging_process', array('forging_process_id'=> $id))->row();
     }
 
+    public function getForgingProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('forging_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addForgingBatch($size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -50,11 +54,15 @@ class Forging_m extends MY_Model {
 
     public function addForgingHistory($completedBy){
         $forgingProcess = $this->getForgingBatchById($this->input->post('forgingProcessId'));
-        $pieceAlreadyForged = (int)$forgingProcess->piece_forged + (int)$this->input->post('pieceForged');        
+        $pieceAlreadyForged = (int)$forgingProcess->piece_forged + (int)$this->input->post('pieceForged');      
+        $scrapPieces = (int)$forgingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
+        
+        
         $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceAlreadyForged);
         if($isAddedPieceForgedGreaterThanCompletedPieceForged){
             $data1 = array(
                 'piece_forged' => $pieceAlreadyForged,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($forgingProcess->piece_to_be_forged, $pieceAlreadyForged),
                 'updated_on' => $this->today
             );
@@ -68,6 +76,7 @@ class Forging_m extends MY_Model {
                 'forging_process_id' => $this->input->post('forgingProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'piece_forged' => $this->input->post('pieceForged'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
@@ -153,6 +162,38 @@ class Forging_m extends MY_Model {
         $this->db->where('fh.forging_process_id', $id);
         $forging_history =  $this->db->get()->result_array();
         return $forging_history;
+    }
+
+    public function get_forging_process_overview_by_purchase_item_id($purchase_item_id){
+        $forging_process_count = $this->getForgingProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($forging_process_count == 0){
+            $forging_process_overview = [
+                'pieces_forged' => 'No data found!',
+                'scrap_piece' => 'No data found!'
+            ];
+            return $forging_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('forging_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $forging_process = $this->db->get()->result_array();        
+
+            $pieces_forged = '';
+            $scrap_pieces = '';
+
+            foreach ($forging_process as $key => $a){
+                $pieces_forged .= $a['piece_forged'].'/'.$a['piece_to_be_forged'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['piece_to_be_forged'].', ';
+            }
+
+            $forging_process_overview = [
+                'pieces_forged' => $pieces_forged,
+                'scrap_piece' => $scrap_pieces
+            ];
+            return $forging_process_overview;
+        }
     }
 
 //end class

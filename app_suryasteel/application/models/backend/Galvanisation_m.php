@@ -24,6 +24,10 @@ class Galvanisation_m extends MY_Model {
         return $this->db->get_where('galvanising_process', array('galvanising_process_id'=> $id))->row();
     }
 
+    public function getGalvanisationProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('galvanising_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addGalvanisationBatch($weldedProcessHistoryId, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -49,11 +53,15 @@ class Galvanisation_m extends MY_Model {
 
     public function addGalvanisationHistory($completedBy){
         $galvanisedProcess = $this->getGalvanisationBatchById($this->input->post('galvanisingProcessId'));
-        $pieceAlreadyGalvanised = (int)$galvanisedProcess->piece_galvanised + (int)$this->input->post('pieceGalvanised');        
+        $pieceAlreadyGalvanised = (int)$galvanisedProcess->piece_galvanised + (int)$this->input->post('pieceGalvanised');      
+        $scrapPieces = (int)$galvanisedProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
+        
+        
         $isAddedPieceGreaterThanCompletedGalvanisedPiece = is_greater_than($galvanisedProcess->piece_to_be_galvanised, $pieceAlreadyGalvanised);
         if($isAddedPieceGreaterThanCompletedGalvanisedPiece){
             $data1 = array(
                 'piece_galvanised' => $pieceAlreadyGalvanised,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($galvanisedProcess->piece_to_be_galvanised, $pieceAlreadyGalvanised),
                 'updated_on' => $this->today
             );
@@ -68,6 +76,7 @@ class Galvanisation_m extends MY_Model {
                 'galvanising_process_id' => $this->input->post('galvanisingProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'piece_galvanised' => $this->input->post('pieceGalvanised'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
@@ -149,6 +158,38 @@ class Galvanisation_m extends MY_Model {
         $this->db->join('machine as m', 'gh.machine_id = m.machine_id');
         $this->db->where('gh.galvanising_process_id', $id);
         return $this->db->get()->result_array();
+    }
+
+    public function get_galvanisation_process_overview_by_purchase_item_id($purchase_item_id){
+        $galvanising_process_count = $this->getGalvanisationProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($galvanising_process_count == 0){
+            $galvanising_process_overview = [
+                'pieces_galvanised' => 'No data found!',
+                'scrap_piece' => 'No data found!'
+            ];
+            return $galvanising_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('galvanising_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $galvanising_process = $this->db->get()->result_array();   
+
+            $pieces_galvanised = '';
+            $scrap_pieces = '';
+
+            foreach ($galvanising_process as $key => $a){
+                $pieces_galvanised .= $a['piece_galvanised'].'/'.$a['piece_to_be_galvanised'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['piece_to_be_galvanised'].', ';
+            }
+
+            $galvanising_process_overview = [
+                'pieces_galvanised' => $pieces_galvanised,
+                'scrap_piece' => $scrap_pieces
+            ];
+            return $galvanising_process_overview;
+        }
     }
 
 //end class

@@ -24,6 +24,10 @@ class Grinding_m extends MY_Model {
         return $this->db->get_where('grinding_process', array('grinding_process_id'=> $id))->row();
     }
 
+    public function getGrindingProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('grinding_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addGrindingBatch($cuttingProcessHistotryId, $pieceToBeGrinded, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -161,6 +165,39 @@ class Grinding_m extends MY_Model {
         $grinding_history =  $this->db->get()->result_array();
         return $grinding_history;
     }
+
+    public function get_grinding_process_overview_by_purchase_item_id($purchase_item_id){
+        $grinding_process_count = $this->getGrindingProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($grinding_process_count == 0){
+            $grinding_process_overview = [
+                'pieces_grinded' => 'No data found!',
+                'scrap_piece' => 'No data found!'
+            ];
+            return $grinding_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('grinding_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $grinding_process = $this->db->get()->result_array();        
+
+            $pieces_grinded = '';
+            $scrap_pieces = '';
+
+            foreach ($grinding_process as $key => $a){
+                $pieces_grinded .= $a['piece_grinded'].'/'.$a['piece_to_be_grinded'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['piece_to_be_grinded'].', ';
+            }
+
+            $grinding_process_overview = [
+                'pieces_grinded' => $pieces_grinded,
+                'scrap_piece' => $scrap_pieces
+            ];
+            return $grinding_process_overview;
+        }
+    }
+
 
 //end class
 

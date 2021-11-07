@@ -320,26 +320,27 @@ class Purchase_m extends MY_Model {
 
         $purchase_item = $this->db->get()->result_array();
 
-        $BATCH_HISTORY = [
-            'total_round' => 1112,
-            'round_rocesses' => 1000,
-            'scrap_round' => 10,
-            'scrap_pieces' => 180
-        ];
-
-        $grinding_process_overview = [
-            'round_grinded' => '290/300, ',
-            'scrap_pieces' => "10/300, "
-        ];
-
         foreach($purchase_item as $key => $pi){
             $acid_treatment_process_overview = $this->acidtreatment_m->get_acid_treatment_process_overview_by_purchase_item_id($pi['purchase_item_id']);
             $draw_process_overview = $this->draw_m->get_draw_process_overview_by_purchase_item_id($pi['purchase_item_id']);
             $cutting_process_overview = $this->cutting_m->get_cutting_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $grinding_process_overview = $this->grinding_m->get_grinding_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $forging_process_overview = $this->forging_m->get_forging_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $head_process_overview = $this->head_m->get_head_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $drill_process_overview = $this->drill_m->get_drill_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $welding_process_overview = $this->welding_m->get_welding_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+            $galvanisation_process_overview = $this->galvanisation_m->get_galvanisation_process_overview_by_purchase_item_id($pi['purchase_item_id']);
+
+
             $purchase_item[$key]['process_overview']['acid_treatment'] = $acid_treatment_process_overview;
             $purchase_item[$key]['process_overview']['draw_process'] = $draw_process_overview;
             $purchase_item[$key]['process_overview']['cutting_process'] = $cutting_process_overview;
             $purchase_item[$key]['process_overview']['grinding_process'] = $grinding_process_overview;
+            $purchase_item[$key]['process_overview']['forging_process'] = $forging_process_overview;
+            $purchase_item[$key]['process_overview']['head_process'] = $head_process_overview;
+            $purchase_item[$key]['process_overview']['drill_process'] = $drill_process_overview;
+            $purchase_item[$key]['process_overview']['welding_process'] = $welding_process_overview;
+            $purchase_item[$key]['process_overview']['galvanisation_process'] = $galvanisation_process_overview;
 
         }
 

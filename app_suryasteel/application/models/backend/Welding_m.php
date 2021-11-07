@@ -24,6 +24,10 @@ class Welding_m extends MY_Model {
         return $this->db->get_where('welding_process', array('welding_process_id'=> $id))->row();
     }
 
+    public function getWeldingProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('welding_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addWeldingBatch($drillProcessHistoryId, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -49,11 +53,15 @@ class Welding_m extends MY_Model {
 
     public function addWeldingHistory($completedBy){
         $weldingProcess = $this->getWeldingBatchById($this->input->post('weldingProcessId'));
-        $pieceAlreadyWelded = (int)$weldingProcess->piece_welded + (int)$this->input->post('pieceWelded');        
+        $pieceAlreadyWelded = (int)$weldingProcess->piece_welded + (int)$this->input->post('pieceWelded');    
+        $scrapPieces = (int)$weldingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
+        
+        
         $isAddedWeldedPieceGreaterThanCompletedWeldedPiece = is_greater_than($weldingProcess->piece_to_be_weld, $pieceAlreadyWelded);
         if($isAddedWeldedPieceGreaterThanCompletedWeldedPiece){
             $data1 = array(
                 'piece_welded' => $pieceAlreadyWelded,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($weldingProcess->piece_to_be_weld, $pieceAlreadyWelded),
                 'updated_on' => $this->today
             );
@@ -68,6 +76,7 @@ class Welding_m extends MY_Model {
                 'welding_process_id' => $this->input->post('weldingProcessId'),
                 'machine_id' => $this->input->post('machineId'),
                 'piece_welded' => $this->input->post('pieceWelded'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
@@ -153,6 +162,38 @@ class Welding_m extends MY_Model {
         $this->db->where('wh.welding_process_id', $id);
         $weld_history =  $this->db->get()->result_array();
         return $weld_history;
+    }
+
+    public function get_welding_process_overview_by_purchase_item_id($purchase_item_id){
+        $welding_process_count = $this->getWeldingProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($welding_process_count == 0){
+            $welding_process_overview = [
+                'pieces_welded' => 'No data found!',
+                'scrap_piece' => 'No data found!'
+            ];
+            return $welding_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('welding_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $weld_process = $this->db->get()->result_array();   
+
+            $pieces_welded = '';
+            $scrap_pieces = '';
+
+            foreach ($weld_process as $key => $a){
+                $pieces_welded .= $a['piece_welded'].'/'.$a['piece_to_be_weld'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['piece_to_be_weld'].', ';
+            }
+
+            $welding_process_overview = [
+                'pieces_welded' => $pieces_welded,
+                'scrap_piece' => $scrap_pieces
+            ];
+            return $welding_process_overview;
+        }
     }
 
 //end class

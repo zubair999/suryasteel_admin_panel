@@ -24,6 +24,10 @@ class Head_m extends MY_Model {
         return $this->db->get_where('head_process', array('head_process_id'=> $id))->row();
     }
 
+    public function getHeadProcessCountByPurchaseItemId($id) {
+        return $this->db->get_where('head_process', array('purchase_item_id'=> $id))->num_rows();
+    }
+
     public function addHeadBatch($forgingProcessHistoryId, $size, $length){
         $data = array(
             'purchase_item_id' => $this->input->post('purchaseItemId'),
@@ -50,10 +54,13 @@ class Head_m extends MY_Model {
     public function addHeadHistory($completedBy){
         $headProcess = $this->getHeadBatchById($this->input->post('headProcessId'));
         $pieceAlreadyHeaded = (int)$headProcess->piece_headed + (int)$this->input->post('pieceHeaded');        
+        $scrapPieces = (int)$headProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
+
         $isAddedPieceGreaterThanCompletedPieceHeaded = is_greater_than($headProcess->piece_to_be_head, $pieceAlreadyHeaded);
         if($isAddedPieceGreaterThanCompletedPieceHeaded){
             $data1 = array(
                 'piece_headed' => $pieceAlreadyHeaded,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($headProcess->piece_to_be_head, $pieceAlreadyHeaded),
                 'updated_on' => $this->today
             );
@@ -68,6 +75,7 @@ class Head_m extends MY_Model {
                 'head_process_id' => $this->input->post('headProcessId'),
                 'machine_id' => $this->input->post('machineId'),
                 'piece_headed' => $this->input->post('pieceHeaded'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
@@ -153,6 +161,38 @@ class Head_m extends MY_Model {
         $this->db->where('hh.head_process_id', $id);
         $head_history =  $this->db->get()->result_array();
         return $head_history;
+    }
+
+    public function get_head_process_overview_by_purchase_item_id($purchase_item_id){
+        $head_process_count = $this->getHeadProcessCountByPurchaseItemId($purchase_item_id);
+
+        if($head_process_count == 0){
+            $head_process_overview = [
+                'pieces_headed' => 'No data found!',
+                'scrap_piece' => 'No data found!'
+            ];
+            return $head_process_overview;
+        }
+        else{
+            $this->db->select('*');
+            $this->db->from('head_process');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $head_process = $this->db->get()->result_array();   
+
+            $pieces_headed = '';
+            $scrap_pieces = '';
+
+            foreach ($head_process as $key => $a){
+                $pieces_headed .= $a['piece_headed'].'/'.$a['piece_to_be_head'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['piece_to_be_head'].', ';
+            }
+
+            $head_process_overview = [
+                'pieces_headed' => $pieces_headed,
+                'scrap_piece' => $scrap_pieces
+            ];
+            return $head_process_overview;
+        }
     }
 
 //end class
