@@ -56,10 +56,14 @@ class Draw_m extends MY_Model {
     public function addDrawHistory($completedBy){
         $drawProcess = $this->getDrawProcessById($this->input->post('drawProcessId'));
         $roundLengthAlreadyCompleted = (int)$drawProcess->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
+        $scrapRoundOrLength = (int)$drawProcess->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');        
+        
+        
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
+                'scrap_round_or_length' => $scrapRoundOrLength,
                 'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundLengthAlreadyCompleted),
                 'updated_on' => $this->today
             );
@@ -76,6 +80,7 @@ class Draw_m extends MY_Model {
                 'size_id' => $this->input->post('sizeDrawn'),
                 'length_id' => $this->input->post('lengthToBeCut'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );

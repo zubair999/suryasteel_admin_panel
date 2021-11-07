@@ -318,9 +318,22 @@ class Purchase_m extends MY_Model {
         }
 
 
+        $purchase_item = $this->db->get()->result_array();
+
+        $BATCH_HISTORY = [
+            'total_round' => 1112,
+            'round_rocesses' => 1000,
+            'scrap_round' => 10,
+            'scrap_pieces' => 180
+        ];
+
+        foreach($purchase_item as $key => $pi){
+            $purchase_item[$key]['batch_history'] = $BATCH_HISTORY;
+        }
 
 
-        return $this->db->get()->result_array();
+        return $purchase_item;
+
     }
 
     public function updateRoundLengthInPurchase(){

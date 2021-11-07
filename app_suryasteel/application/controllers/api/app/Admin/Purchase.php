@@ -56,7 +56,7 @@ class Purchase extends REST_Controller
             else{
                 $isPurchaseUpdated = $this->purchase_m->editPurchase($this->input->post('purchaseId'));
                 if($isPurchaseUpdated){
-                    $this->purchase_m->editPurchaseItem();
+                    // $this->purchase_m->editPurchaseItem();
                     $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase updated successfully."];
                 }
                 else{

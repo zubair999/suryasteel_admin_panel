@@ -144,11 +144,14 @@ class Acidtreatment_m extends MY_Model {
     public function addAcidTreatmentHistory($completedBy){
         $acidTreatment = $this->getAcidTreatmentId($this->input->post('acidTreatmentId'));
         $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
+        $scrapRoundOrLength = (int)$acidTreatment->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');        
+        
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
         if($isAddedRoundGreaterThanCompletedRound){
             $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
+                'scrap_round_or_length' => $scrapRoundOrLength,
                 'process_status_catalog_id' => $status_value,
                 'updated_on' => $this->today
             );
@@ -177,6 +180,7 @@ class Acidtreatment_m extends MY_Model {
                 'purchase_id' => $this->input->post('purchaseId'),
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+                'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
                 'created_on' => $this->today,
             );
             $this->db->insert('acid_treatment_process_history', $data);
