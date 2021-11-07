@@ -146,11 +146,14 @@ class Acidtreatment_m extends MY_Model {
     public function addAcidTreatmentHistory($completedBy){
         $acidTreatment = $this->getAcidTreatmentId($this->input->post('acidTreatmentId'));
         $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
-        $scrapRoundOrLength = (int)$acidTreatment->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');        
+        $scrapRoundOrLength = (int)$acidTreatment->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');  
         
-        $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+        $roundCompletedAndScrapRound = (float)$roundLengthAlreadyCompleted + (float)$scrapRoundOrLength;
+
+        
+        $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         if($isAddedRoundGreaterThanCompletedRound){
-            $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundLengthAlreadyCompleted);
+            $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'scrap_round_or_length' => $scrapRoundOrLength,
