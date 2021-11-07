@@ -182,27 +182,33 @@ class Cutting_m extends MY_Model {
         if($cutting_process_count == 0){
             $cutting_process_overview = [
                 'round_cut' => 'No data found!',
-                'scrap_round' => 'No data found!'
+                'scrap_round' => 'No data found!',
+                'scrap_pieces' => 'No data found!'
             ];
             return $cutting_process_overview;
         }
         else{
             $this->db->select('*');
-            $this->db->from('cutting_process');
-            $this->db->where('purchase_item_id', $purchase_item_id);
+            $this->db->from('cutting_process as cp');
+            $this->db->join('size as s', 'cp.size_id = s.size_id');
+            $this->db->join('length as l', 'cp.length_id = l.length_id');
+            $this->db->where('cp.purchase_item_id', $purchase_item_id);
             $cutting_process = $this->db->get()->result_array();        
 
             $round_cut = '';
             $scrap_round = '';
+            $scrap_pieces = '';
 
             foreach ($cutting_process as $key => $a){
-                $round_cut .= $a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].', ';
+                $round_cut .= $a['total_piece_generated'].' pieces generated for '.$a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].' round of size '.$a['size_value'].'/'.$a['length_value'].', ';
                 $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
+                $scrap_pieces .= $a['scrap_pieces'].'/'.$a['round_or_length_completed'].', ';
             }
 
             $cutting_process_overview = [
                 'round_cut' => $round_cut,
-                'scrap_round' => $scrap_round
+                'scrap_round' => $scrap_round,
+                'scrap_pieces' => $scrap_pieces
             ];
             return $cutting_process_overview;
         }
