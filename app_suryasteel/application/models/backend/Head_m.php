@@ -168,8 +168,8 @@ class Head_m extends MY_Model {
 
         if($head_process_count == 0){
             $head_process_overview = [
-                'pieces_headed' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_headed' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $head_process_overview;
         }

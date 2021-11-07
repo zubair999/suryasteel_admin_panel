@@ -181,9 +181,9 @@ class Cutting_m extends MY_Model {
 
         if($cutting_process_count == 0){
             $cutting_process_overview = [
-                'round_cut' => 'No data found!',
-                'scrap_round' => 'No data found!',
-                'scrap_pieces' => 'No data found!'
+                'round_cut' => PROCESS_NOT_STARTED,
+                'scrap_round' => PROCESS_NOT_STARTED,
+                'scrap_pieces' => PROCESS_NOT_STARTED
             ];
             return $cutting_process_overview;
         }

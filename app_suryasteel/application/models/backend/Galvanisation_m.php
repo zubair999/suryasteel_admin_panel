@@ -165,8 +165,8 @@ class Galvanisation_m extends MY_Model {
 
         if($galvanising_process_count == 0){
             $galvanising_process_overview = [
-                'pieces_galvanised' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_galvanised' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $galvanising_process_overview;
         }

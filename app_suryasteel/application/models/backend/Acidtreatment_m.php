@@ -197,8 +197,8 @@ class Acidtreatment_m extends MY_Model {
 
         if($acid_treatment_count == 0){
             $acid_treatment_overview = [
-                'round_treated' => 'No data found!',
-                'scrap_round' => 'No data found!'
+                'round_treated' => PROCESS_NOT_STARTED,
+                'scrap_round' => PROCESS_NOT_STARTED
             ];
             return $acid_treatment_overview;
         }

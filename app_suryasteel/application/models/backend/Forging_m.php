@@ -169,8 +169,8 @@ class Forging_m extends MY_Model {
 
         if($forging_process_count == 0){
             $forging_process_overview = [
-                'pieces_forged' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_forged' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $forging_process_overview;
         }

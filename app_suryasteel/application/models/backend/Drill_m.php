@@ -168,8 +168,8 @@ class Drill_m extends MY_Model {
 
         if($drill_process_count == 0){
             $drill_process_overview = [
-                'pieces_drilled' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_drilled' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $drill_process_overview;
         }

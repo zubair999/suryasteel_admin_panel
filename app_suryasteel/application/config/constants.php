@@ -100,4 +100,7 @@ define('RAZOR_KEY_SECRET','u2sUChF4qekM9t1Qkcn12BUk'); // test
 
 define('API_BASEPATH', BASEURL.'v1');
 
+define('PROCESS_NOT_STARTED', "Process not started yet.  ");
+
+
 // EMAIL

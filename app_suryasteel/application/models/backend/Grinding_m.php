@@ -171,8 +171,8 @@ class Grinding_m extends MY_Model {
 
         if($grinding_process_count == 0){
             $grinding_process_overview = [
-                'pieces_grinded' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_grinded' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $grinding_process_overview;
         }

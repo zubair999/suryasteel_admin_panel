@@ -169,8 +169,8 @@ class Welding_m extends MY_Model {
 
         if($welding_process_count == 0){
             $welding_process_overview = [
-                'pieces_welded' => 'No data found!',
-                'scrap_piece' => 'No data found!'
+                'pieces_welded' => PROCESS_NOT_STARTED,
+                'scrap_piece' => PROCESS_NOT_STARTED
             ];
             return $welding_process_overview;
         }
