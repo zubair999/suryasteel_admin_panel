@@ -328,7 +328,7 @@ class Purchase_m extends MY_Model {
         ];
 
         $cutting_process_overview = [
-            'round_cut' => '300 pieces for 30/40 round of size 20/10, 300 pieces for 30/40 round of size 20/10',
+            'round_cut' => '300 pieces for 30/40 round of size 20/10, 300 pieces for 30/40 round of size 20/10, ',
             'scrap_round' => "10/500, 0/500"
         ];
 
