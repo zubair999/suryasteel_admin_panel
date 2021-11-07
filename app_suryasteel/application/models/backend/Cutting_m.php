@@ -200,7 +200,7 @@ class Cutting_m extends MY_Model {
             $scrap_pieces = '';
 
             foreach ($cutting_process as $key => $a){
-                $round_cut .= $a['total_piece_generated'].' pieces generated for '.$a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].' round of size '.$a['size_value'].'/'.$a['length_value'].' -- ';
+                $round_cut .= $a['total_piece_generated'].' pcs generated for '.$a['round_or_length_completed'].'/'.$a['round_or_length_to_be_completed'].' round of size '.$a['size_value'].'/'.$a['length_value'].' -- ';
                 $scrap_round .= $a['scrap_round_or_length'].'/'.$a['round_or_length_to_be_completed'].', ';
                 $scrap_pieces .= $a['scrap_pieces'].'/'.$a['round_or_length_completed'].', ';
             }

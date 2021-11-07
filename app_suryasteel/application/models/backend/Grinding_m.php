@@ -49,11 +49,14 @@ class Grinding_m extends MY_Model {
 
     public function addGrindingHistory($completedBy){
         $grindingProcess = $this->getGrindingBatchById($this->input->post('grindingProcessId'));
-        $pieceGrinded = (int)$grindingProcess->piece_grinded + (int)$this->input->post('pieceGrinded');        
+        $pieceGrinded = (int)$grindingProcess->piece_grinded + (int)$this->input->post('pieceGrinded');
+        $scrapPieces = (int)$grindingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
+
         $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrinded);
         if($isAddedPieceGreaterThanCompletedPiece){
             $data1 = array(
                 'piece_grinded' => $pieceGrinded,
+                'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($grindingProcess->piece_to_be_grinded, $pieceGrinded),
                 'updated_on' => $this->today
             );
@@ -68,6 +71,7 @@ class Grinding_m extends MY_Model {
                 'grinding_process_id' => $this->input->post('grindingProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'piece_grinded' => $this->input->post('pieceGrinded'),
+                'scrap_pieces' => $this->input->post('scrapPieces'),
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
