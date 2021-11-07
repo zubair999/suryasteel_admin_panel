@@ -182,7 +182,7 @@ class Draw_m extends MY_Model {
 
         if($draw_process_count == 0){
             $draw_process_overview = [
-                'round_treated' => 'No data found!',
+                'round_drawn' => 'No data found!',
                 'scrap_round' => 'No data found!'
             ];
             return $draw_process_overview;
