@@ -327,8 +327,20 @@ class Purchase_m extends MY_Model {
             'scrap_pieces' => 180
         ];
 
+        $acid_treatment = [
+            'round_added' => 1112,
+            'round_completed' => 1000,
+            'scrap_round' => 10
+        ];
+
+        $process_overview = array(
+            'acid_treatment' => $acid_treatment,
+            'draw_process' => $acid_treatment
+        );
+
         foreach($purchase_item as $key => $pi){
             $purchase_item[$key]['batch_history'] = $BATCH_HISTORY;
+            $purchase_item[$key]['process_overview'] = $process_overview;
         }
 
 
