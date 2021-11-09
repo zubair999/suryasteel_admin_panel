@@ -56,12 +56,15 @@ class Grinding_m extends MY_Model {
         $pieceGrinded = (int)$grindingProcess->piece_grinded + (int)$this->input->post('pieceGrinded');
         $scrapPieces = (int)$grindingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
 
-        $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrinded);
+        $pieceGrindedAndScrapPiece = (float)$pieceGrinded + (float)$scrapPieces;
+
+
+        $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
         if($isAddedPieceGreaterThanCompletedPiece){
             $data1 = array(
                 'piece_grinded' => $pieceGrinded,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($grindingProcess->piece_to_be_grinded, $pieceGrinded),
+                'process_status_catalog_id' => get_process_status($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece),
                 'updated_on' => $this->today
             );
 

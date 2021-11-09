@@ -56,12 +56,15 @@ class Head_m extends MY_Model {
         $pieceAlreadyHeaded = (int)$headProcess->piece_headed + (int)$this->input->post('pieceHeaded');        
         $scrapPieces = (int)$headProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
 
-        $isAddedPieceGreaterThanCompletedPieceHeaded = is_greater_than($headProcess->piece_to_be_head, $pieceAlreadyHeaded);
+        $pieceHeadedAndScrapPiece = (float)$pieceAlreadyHeaded + (float)$scrapPieces;
+
+
+        $isAddedPieceGreaterThanCompletedPieceHeaded = is_greater_than($headProcess->piece_to_be_head, $pieceHeadedAndScrapPiece);
         if($isAddedPieceGreaterThanCompletedPieceHeaded){
             $data1 = array(
                 'piece_headed' => $pieceAlreadyHeaded,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($headProcess->piece_to_be_head, $pieceAlreadyHeaded),
+                'process_status_catalog_id' => get_process_status($headProcess->piece_to_be_head, $pieceHeadedAndScrapPiece),
                 'updated_on' => $this->today
             );
 

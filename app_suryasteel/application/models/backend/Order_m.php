@@ -323,6 +323,8 @@ class Order_m extends MY_Model {
             'weight_per_piece' => $product->weight_per_piece,
             'order_qty' => $q,
             'dispatched_qty' => 0,
+            'weight_to_be_dispatched' => $this->getOrderItemWeight($p, $q, $u, $product->weight_per_piece),
+            'no_of_piece_to_be_dispatched' => $this->getOrderItemInPcs($p, $q, $u, $product->weight_per_piece),
             'unit' => $u,
             'sold_at' => $sold_price,
             'created_on' => $this->today
@@ -333,6 +335,30 @@ class Order_m extends MY_Model {
         }
         else{
             return false;
+        }
+    }
+
+    private function getOrderItemWeight($p, $q, $u, $weight_per_piece){
+        if($u == 1){
+            return $q;
+        }
+        if($u == 2){
+            return $q*$weight_per_piece;
+        }
+        if($u == 3){
+            return $q*50;
+        }
+    }
+
+    private function getOrderItemInPcs($p, $q, $u, $weight_per_piece){
+        if($u == 1){
+            return $q/$weight_per_piece;
+        }
+        if($u == 2){
+            return $q;
+        }
+        if($u == 3){
+            return ($q*50)/$weight_per_piece;
         }
     }
 
@@ -437,7 +463,7 @@ class Order_m extends MY_Model {
     public function addDispatchQtyInOrderItem(){
         $orderItem = $this->getOrderItemByOrderItemId($this->input->post('orderItemId'));
         $newDispatchingQty = (float)$orderItem->dispatched_qty + (float)$this->input->post('dispatchQty');
-        $orderItemstatus = get_order_item_status($orderItem->order_qty, $newDispatchingQty);
+        $orderItemstatus = get_order_item_status($orderItem->weight_to_be_dispatched, $newDispatchingQty);
         $orderItemData = array(
             'dispatched_qty' => $newDispatchingQty,
             'item_dispatch_status_id' => $orderItemstatus

@@ -56,13 +56,15 @@ class Galvanisation_m extends MY_Model {
         $pieceAlreadyGalvanised = (int)$galvanisedProcess->piece_galvanised + (int)$this->input->post('pieceGalvanised');      
         $scrapPieces = (int)$galvanisedProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
         
+        $pieceGalvanisedAndScrapPiece = (float)$pieceAlreadyGalvanised + (float)$scrapPieces;
+
         
-        $isAddedPieceGreaterThanCompletedGalvanisedPiece = is_greater_than($galvanisedProcess->piece_to_be_galvanised, $pieceAlreadyGalvanised);
+        $isAddedPieceGreaterThanCompletedGalvanisedPiece = is_greater_than($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece);
         if($isAddedPieceGreaterThanCompletedGalvanisedPiece){
             $data1 = array(
                 'piece_galvanised' => $pieceAlreadyGalvanised,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($galvanisedProcess->piece_to_be_galvanised, $pieceAlreadyGalvanised),
+                'process_status_catalog_id' => get_process_status($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece),
                 'updated_on' => $this->today
             );
 

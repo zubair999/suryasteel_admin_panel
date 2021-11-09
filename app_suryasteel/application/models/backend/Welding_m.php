@@ -56,13 +56,15 @@ class Welding_m extends MY_Model {
         $pieceAlreadyWelded = (int)$weldingProcess->piece_welded + (int)$this->input->post('pieceWelded');    
         $scrapPieces = (int)$weldingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
         
+        $pieceWeldedAndScrapPiece = (float)$pieceAlreadyWelded + (float)$scrapPieces;
+
         
-        $isAddedWeldedPieceGreaterThanCompletedWeldedPiece = is_greater_than($weldingProcess->piece_to_be_weld, $pieceAlreadyWelded);
+        $isAddedWeldedPieceGreaterThanCompletedWeldedPiece = is_greater_than($weldingProcess->piece_to_be_weld, $pieceWeldedAndScrapPiece);
         if($isAddedWeldedPieceGreaterThanCompletedWeldedPiece){
             $data1 = array(
                 'piece_welded' => $pieceAlreadyWelded,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($weldingProcess->piece_to_be_weld, $pieceAlreadyWelded),
+                'process_status_catalog_id' => get_process_status($weldingProcess->piece_to_be_weld, $pieceWeldedAndScrapPiece),
                 'updated_on' => $this->today
             );
 

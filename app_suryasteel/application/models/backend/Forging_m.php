@@ -57,13 +57,16 @@ class Forging_m extends MY_Model {
         $pieceAlreadyForged = (int)$forgingProcess->piece_forged + (int)$this->input->post('pieceForged');      
         $scrapPieces = (int)$forgingProcess->scrap_pieces + (int)$this->input->post('scrapPieces');
         
+
+        $pieceForgedAndScrapPiece = (float)$pieceAlreadyForged + (float)$scrapPieces;
+
         
-        $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceAlreadyForged);
+        $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece);
         if($isAddedPieceForgedGreaterThanCompletedPieceForged){
             $data1 = array(
                 'piece_forged' => $pieceAlreadyForged,
                 'scrap_pieces' => $scrapPieces,
-                'process_status_catalog_id' => get_process_status($forgingProcess->piece_to_be_forged, $pieceAlreadyForged),
+                'process_status_catalog_id' => get_process_status($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece),
                 'updated_on' => $this->today
             );
 
