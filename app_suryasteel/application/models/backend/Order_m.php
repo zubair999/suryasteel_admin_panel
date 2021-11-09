@@ -180,6 +180,8 @@ class Order_m extends MY_Model {
                                 oi.weight_per_piece,
                                 oi.order_qty,
                                 oi.dispatched_qty,
+                                oi.weight_to_be_dispatched,
+                                oi.no_of_piece_to_be_dispatched,
                                 oi.unit,
                                 oi.sold_at,
                                 oi.item_added_by,
