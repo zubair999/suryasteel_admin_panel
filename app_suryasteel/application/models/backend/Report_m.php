@@ -18,7 +18,15 @@ class Report_m extends MY_Model {
                     'total_stock' => 1600
                 ),
                 'chart_data' => [1800, 200, 1600]
-            )
+            ),
+            'stock' => array(
+                'data' => array(
+                    'pin' => 800,
+                    'rakab' => 300, 
+                    'jack rod' => 500
+                ),
+                'chart_data' => [800, 300, 500]
+            ),
         );
 
         return $stock_report;
