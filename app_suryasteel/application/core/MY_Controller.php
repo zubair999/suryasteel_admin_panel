@@ -45,7 +45,8 @@ class MY_Controller extends CI_Controller {
             21=>'head_m',
             22=>'drill_m',
             23=>'welding_m',
-            24=>'galvanisation_m'
+            24=>'galvanisation_m',
+            25=>'report_m'
 
         );
         
