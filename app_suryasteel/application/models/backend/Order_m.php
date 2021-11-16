@@ -131,6 +131,7 @@ class Order_m extends MY_Model {
                              o.remarks,
                              u.firstname,
                              u.lastname,
+                             u.customer_company,
                              st.status_value,
                              st.status_color,
                              '
