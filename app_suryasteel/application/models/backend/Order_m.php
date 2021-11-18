@@ -166,7 +166,7 @@ class Order_m extends MY_Model {
             $createdBy = $this->auth_m->getUserById($o['created_by']);
             $order[$key]['order_detail'] = $od;
             $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
-            $order[$key]['product_dispatch_pending_count'] = 1;
+            $order[$key]['product_dispatch_pending_count'] = $this->product_dispatch_pending_count($o['order_id']);
             $order[$key]['dispatched_item_count'] = 2;
             $order[$key]['delivered_item_count'] = 1;
         }
@@ -591,7 +591,15 @@ class Order_m extends MY_Model {
         return $this->db->update('order_item_dispatch', $dispatchItem);
     }
 
-
+    public function product_dispatch_pending_count($order_id){
+        if(!empty($order_id)){
+            return $this->db->where(['order_id'=>$order_id, 'dispatched_qty'=>0])->from("order_item")->count_all_results();
+            ;
+        }
+        else{
+            return ;
+        }
+    }
     
 
 
