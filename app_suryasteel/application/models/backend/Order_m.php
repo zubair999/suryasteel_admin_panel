@@ -167,8 +167,8 @@ class Order_m extends MY_Model {
             $order[$key]['order_detail'] = $od;
             $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
             $order[$key]['product_dispatch_pending_count'] = $this->product_dispatch_pending_count($o['order_id']);
-            $order[$key]['dispatched_item_count'] = 2;
-            $order[$key]['delivered_item_count'] = 1;
+            $order[$key]['dispatched_item_count'] = $this->dispatched_item_count($o['order_id']);
+            $order[$key]['delivered_item_count'] = $this->delivered_item_count($o['order_id']);
         }
 
         return $order;
@@ -601,9 +601,25 @@ class Order_m extends MY_Model {
         }
     }
     
-
-
-
+    public function dispatched_item_count($order_id){
+        if(!empty($order_id)){
+            return $this->db->where(['order_id'=>$order_id])->from("order_item_dispatch")->count_all_results();
+            ;
+        }
+        else{
+            return ;
+        }
+    }
+    
+    public function delivered_item_count($order_id){
+        if(!empty($order_id)){
+            return $this->db->where(['order_id'=>$order_id, 'delivery_status'=>'Delivered'])->from("order_item_dispatch")->count_all_results();
+            ;
+        }
+        else{
+            return ;
+        }
+    }
 
 //end class
 
