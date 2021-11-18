@@ -48,12 +48,7 @@ class Report_m extends MY_Model {
         return $this->db->get()->row()->stock;
     }
 
-    // private function get_total_manufacturing(){
-    //     $this->db->select_sum('stock');
-    //     $this->db->select('stock');
-    //     $this->db->from('products');
-    //     return $this->db->get()->row()->stock;
-    // }
+    
 
 //end class
 

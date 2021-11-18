@@ -166,7 +166,9 @@ class Order_m extends MY_Model {
             $createdBy = $this->auth_m->getUserById($o['created_by']);
             $order[$key]['order_detail'] = $od;
             $order[$key]['orderCreatedBy'] = $createdBy->firstname. ' ' .$createdBy->lastname;
-
+            $order[$key]['product_dispatch_pending_count'] = 1;
+            $order[$key]['dispatched_item_count'] = 2;
+            $order[$key]['delivered_item_count'] = 1;
         }
 
         return $order;
