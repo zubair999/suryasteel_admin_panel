@@ -55,8 +55,8 @@ class Order extends REST_Controller
 
                 $isUpdatedAdded = $this->order_m->editOrder($this->input->post('orderId'));
                 if($isUpdatedAdded){
-                    $this->order_m->editOrderItem();
-                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Order updated successfully."];
+                    // $this->order_m->editOrderItem();
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Order detail updated successfully."];
                 }
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
@@ -255,8 +255,8 @@ class Order extends REST_Controller
                 $response = ['status' => 200, 'message' =>'error', 'description' =>'Invalid details.'];
             }
             else{
-                $this->order_m->editSingleOrderItem();
-                $response = ['status' => 200, 'message' =>'success', 'description' =>'Item updated successfully.'];
+                $this->order_m->updateOrderItem();
+                $response = ['status' => 200, 'message' =>'success', 'description' =>'Order item updated successfully.'];
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();

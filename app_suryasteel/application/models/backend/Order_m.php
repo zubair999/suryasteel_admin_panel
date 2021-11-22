@@ -387,33 +387,42 @@ class Order_m extends MY_Model {
         }
     }
 
-    public function editOrderItem(){
-        $product = $this->input->post('product');
+    // public function editOrderItem(){
+    //     $product = $this->input->post('product');
+    //     $quantity = $this->input->post('quantity');
+    //     $unit = $this->input->post('unit');
+    //     $sold_at = $this->input->post('soldAt');
+    //     $orderId = $this->input->post('orderId');
+    //     $payment_mode = $this->input->post('paymentMode');
+
+    //     $i = 0;
+    //     foreach (array_combine($product, $quantity) as $p => $q){
+    //         $unit_id = $unit[$i];
+    //         $sold_price = $sold_at[$i];
+    //         $this->updateOrderItem($orderId, $p, $q, $unit_id, $sold_price);
+    //         $i++;
+    //     }
+    // }
+
+    public function updateOrderItem(){
         $quantity = $this->input->post('quantity');
         $unit = $this->input->post('unit');
-        $sold_at = $this->input->post('soldAt');
-        $orderId = $this->input->post('orderId');
-        $payment_mode = $this->input->post('paymentMode');
+        $sold_at = $this->input->post('rate');
+        $orderItemId = $this->input->post('orderItemId');
 
-        $i = 0;
-        foreach (array_combine($product, $quantity) as $p => $q){
-            $unit_id = $unit[$i];
-            $sold_price = $sold_at[$i];
-            $this->updateOrderItem($orderId, $p, $q, $unit_id, $sold_price);
-            $i++;
-        }
-    }
+        $orderItem = $this->getOrderItemByOrderItemId($orderItemId);
+        $product = $this->product_m->get_product($orderItem->product_id);
 
-    public function updateOrderItem($orderId, $p, $q, $u, $sold_price){
         $orderItemData = array(
-            'order_qty' => $q,
-            'unit' => $u,
-            'sold_at' => $sold_price,
+            'order_qty' => $quantity,
+            'unit' => $unit,
+            'sold_at' => $sold_at,
+            'weight_to_be_dispatched' => $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece),
+            'no_of_piece_to_be_dispatched' => $this->getOrderItemInPcs($orderItem->product_id, $quantity, $unit, $product->weight_per_piece),
             'updated_on' => $this->today
         );
         
-        $this->db->where('order_id', $orderId);
-        $this->db->where('product_id', $p);
+        $this->db->where('order_item_id', $orderItemId);
         $response = $this->db->update('order_item', $orderItemData);
         if($response){
             return true;
@@ -622,22 +631,22 @@ class Order_m extends MY_Model {
         }
     }
 
-    public function editSingleOrderItem(){
-        $data = array(
-            'order_qty' => $this->input->post('quantity'),
-            'sold_at' => $this->input->post('rate'),
-            'unit' => $this->input->post('unit')
-        );
+    // public function editSingleOrderItem(){
+    //     $data = array(
+    //         'order_qty' => $this->input->post('quantity'),
+    //         'sold_at' => $this->input->post('rate'),
+    //         'unit' => $this->input->post('unit')
+    //     );
 
-        $this->db->where('order_item_id', $this->input->post('orderItemId'));
-        $isUpdated = $this->db->update('order_item', $data);
-        if($isUpdated){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+    //     $this->db->where('order_item_id', $this->input->post('orderItemId'));
+    //     $isUpdated = $this->db->update('order_item', $data);
+    //     if($isUpdated){
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    // }
 
 //end class
 
