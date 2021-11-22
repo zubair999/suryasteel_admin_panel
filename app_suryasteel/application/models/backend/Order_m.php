@@ -225,6 +225,7 @@ class Order_m extends MY_Model {
                                 oid.order_item_id, 
                                 oid.dispatch_quantity,
                                 oid.delivery_status,
+                                oid.vehicle_no,
                                 DATE_FORMAT(oid.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(oid.delivery_date, "%d-%b-%Y") as delivery_date,
                                 u.firstname, 
