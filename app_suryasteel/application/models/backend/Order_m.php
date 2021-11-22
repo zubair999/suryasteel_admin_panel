@@ -159,6 +159,7 @@ class Order_m extends MY_Model {
         
         // $this->db->limit(1);
         $this->db->order_by('o.order_status_catalog_id', 'asc');
+        $this->db->order_by('o.order_id', 'desc');
         $order = $this->db->get()->result_array();
         
         foreach ($order as $key => $o){
