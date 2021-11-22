@@ -572,7 +572,7 @@ class Order_m extends MY_Model {
         $dispatchItem = $this->input->post('orderItemDispatchId');
         $delivery_addedBy = $this->input->post('delivery_added_by');
         $delivery_mode = $this->input->post('delivery_mode_id');
-        $vehicle_no = $this->input->post('vehicleNo');
+        $vehicle_no = $this->input->post('vehicle_no');
         $remarks = $this->input->post('remarks');
 
         foreach ($dispatchItem as $key => $di){
