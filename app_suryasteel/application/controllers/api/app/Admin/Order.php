@@ -120,7 +120,7 @@ class Order extends REST_Controller
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
                 }
             }
-            
+
             else{
                 $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
                 $productId = $orderItem->product_id;
@@ -234,6 +234,29 @@ class Order extends REST_Controller
                 else{
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
                 }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
+
+    public function editSingleOrderItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules('orderItemId', 'Order item id', 'trim|required');
+            $this->form_validation->set_rules('quantity', 'Quantity', 'trim|required');
+            $this->form_validation->set_rules('rate', 'Rate', 'trim|required');
+            $this->form_validation->set_rules('unit', 'Unit', 'trim|required');
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Invalid details.'];
+            }
+            else{
+                $this->order_m->editSingleOrderItem();
+                $response = ['status' => 200, 'message' =>'success', 'description' =>'Item updated successfully.'];
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();

@@ -572,17 +572,19 @@ class Order_m extends MY_Model {
         $dispatchItem = $this->input->post('orderItemDispatchId');
         $delivery_addedBy = $this->input->post('delivery_added_by');
         $delivery_mode = $this->input->post('delivery_mode_id');
+        $vehicle_no = $this->input->post('vehicleNo');
         $remarks = $this->input->post('remarks');
 
         foreach ($dispatchItem as $key => $di){
-            $this->updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode, $remarks);
+            $this->updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode, $vehicle_no, $remarks);
         }
     }
 
-    public function updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode_id, $remarks){
+    public function updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode_id, $vehicle_no, $remarks){
         $dispatchItem = array(
             'delivery_added_by' => $delivery_addedBy,
             'delivery_mode_id' => $delivery_mode_id,
+            'vehicle_no' => $vehicle_no,
             'delivery_date' =>  $this->today,
             'delivery_remarks' => $remarks,
             'delivery_status' => "Delivered",
@@ -594,7 +596,6 @@ class Order_m extends MY_Model {
     public function product_dispatch_pending_count($order_id){
         if(!empty($order_id)){
             return $this->db->where(['order_id'=>$order_id, 'dispatched_qty'=>0])->from("order_item")->count_all_results();
-            ;
         }
         else{
             return ;
@@ -604,7 +605,6 @@ class Order_m extends MY_Model {
     public function dispatched_item_count($order_id){
         if(!empty($order_id)){
             return $this->db->where(['order_id'=>$order_id])->from("order_item_dispatch")->count_all_results();
-            ;
         }
         else{
             return ;
@@ -614,10 +614,26 @@ class Order_m extends MY_Model {
     public function delivered_item_count($order_id){
         if(!empty($order_id)){
             return $this->db->where(['order_id'=>$order_id, 'delivery_status'=>'Delivered'])->from("order_item_dispatch")->count_all_results();
-            ;
         }
         else{
             return ;
+        }
+    }
+
+    public function editSingleOrderItem(){
+        $data = array(
+            'order_qty' => $this->input->post('quantity'),
+            'sold_at' => $this->input->post('rate'),
+            'unit' => $this->input->post('unit')
+        );
+
+        $this->db->where('order_item_id', $this->input->post('orderItemId'));
+        $isUpdated = $this->db->update('order_item', $data);
+        if($isUpdated){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
