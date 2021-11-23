@@ -373,7 +373,7 @@ class Order_m extends MY_Model {
     public function editOrder($orderId){
         $orderData = array(
             'payment_mode' => $this->input->post('paymentMode'),
-            'expected_delivery_date' => $this->input->post('expectedDeliveryData'),
+            // 'expected_delivery_date' => $this->input->post('expectedDeliveryData'),
             'remarks' => $this->input->post('remarks'),
             'updated_on' => $this->today
         );
