@@ -22,7 +22,7 @@ class Report_m extends MY_Model {
     private function get_sales_manufacturing_report(){
         return array(
             'data' => array(
-                'total_manufacturing' => $this->get_total_manufacturing(),
+                'total_manufacturing' => 100010000,
                 'total_sales' => 200, 
                 'total_stock' => 1600
             ),
