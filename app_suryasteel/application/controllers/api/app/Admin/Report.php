@@ -16,7 +16,7 @@ class Report extends REST_Controller
             exit();
         }
         else{
-            // $data = $this->report_m->get_report();
+            $data = $this->report_m->get_report();
             $response = ['status' => 200, 'message' => 'success', 'description' => 'Reports fetched successfully.'];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
