@@ -20,6 +20,7 @@ class Report extends REST_Controller
             $response = ['status' => 200, 'message' => 'success', 'description' => 'Reports fetched successfully.', 'data'=>$data];
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
+            
         }        
 	}
 
