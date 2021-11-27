@@ -156,6 +156,9 @@ class Order_m extends MY_Model {
         if($this->input->post('createdBy')){
             $this->db->where('o.created_by', $this->input->post('createdBy'));
         }
+        if($this->input->post('orderId')){
+            $this->db->where('o.order_id', $this->input->post('orderId'));
+        }
         
         // $this->db->limit(1);
         $this->db->order_by('o.order_status_catalog_id', 'asc');
