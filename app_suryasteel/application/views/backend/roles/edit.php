@@ -314,7 +314,8 @@
                                                       if(in_array('deleteOrder', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
-                                                   <input type="checkbox" id="permission"   disabled>
+                                                   <input type="checkbox" name="permission[]" id="permission" value="canViewOrderStatus" <?php if($user_permission) {
+                                                      if(in_array('canViewOrderStatus', $user_permission)) { echo "checked"; } } ?> >
                                                 </td>
                                                 <td>
                                                    <input type="checkbox" id="permission"   disabled>
