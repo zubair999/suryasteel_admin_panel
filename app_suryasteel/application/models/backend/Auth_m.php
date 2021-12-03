@@ -24,6 +24,13 @@ class Auth_m extends MY_Model {
         return $this->db->get()->row();
     }
 
+    // public function getUserByEmailWithouRole($email) {
+    //     $this->db->select('*');
+    //     $this->db->from('users as u');
+    //     $this->db->where('email', $email);
+    //     return $this->db->get()->row();
+    // }
+
     public function userCountByEmail($email) {
         return $this->db->get_where('users', array('email'=> $email))->num_rows();
     }

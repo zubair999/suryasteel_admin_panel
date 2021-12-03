@@ -15,6 +15,7 @@ $route['v1/delete-image'] = 'backend/media/deleteimage';
 // LOGIN
 $route['v1/userlogin'] = 'api/app/Auth/auth/userLogin';
 $route['v1/stafflogin'] = 'api/app/Auth/auth/staffLogin';
+$route['v1/customerlogin'] = 'api/app/Auth/auth/customerLogin';
 
 // ROLE & PERMISSION
 $route['v1/getrole'] = 'api/app/Admin/role/getRole';
