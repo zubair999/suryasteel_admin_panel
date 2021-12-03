@@ -181,7 +181,7 @@ class Auth extends REST_Controller
                         $userPermission = $this->roles_m->getUserPermission($user->role_id);
                         $userPermission = unserialize($userPermission);
 
-                        if (in_array("isCustomer", $userPermission)){
+                        if(in_array("isCustomer", $userPermission)){
                             if(password_verify($this->input->post('password'), $user->password)){
                                 foreach($userPermission as $key => $p){
                                     $userPermission[$p] = $p;
@@ -199,6 +199,7 @@ class Auth extends REST_Controller
                                     'lastname' => $user->lastname,
                                     'username' => $user->email,
                                     'is_logged_in' => true,
+                                    'is_allowed_to_view_product'=> $user->is_allowed_to_view_product,
                                     'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                     'permission' => $userPermission
                                 );
