@@ -75,6 +75,40 @@ class Customer_m extends MY_Model {
         )
     );
 
+    public $customerRegistrationRulesApp = array(
+        0 => array(
+            'field' => 'username',
+            'label' => 'Username/Email',
+            'rules' => 'trim|required|valid_email|is_unique[users.email]',
+            'errors' => array(
+                'is_unique' => "The Username/Email is already added."
+            ),
+        ),
+        1 => array(
+            'field' => 'password',
+            'label' => 'Password',
+            'rules' => 'trim|required|min_length[5]|max_length[10]'
+        ),
+        2 => array(
+            'field' => 'mobileno',
+            'label' => 'Mobile no',
+            'rules' => 'trim|required|exact_length[10]|is_natural|is_unique[users.mobile_no]',
+            'errors' => array(
+                'is_unique' => "This mobile no is already added."
+            ),
+        ),
+        3 => array(
+            'field' => 'state',
+            'label' => 'State',
+            'rules' => 'trim|required'
+        ),
+        4 => array(
+            'field' => 'gstRegType',
+            'label' => 'Gst Reg Type',
+            'rules' => 'trim|required'
+        )
+    );
+
     public function __construct()
 	{
 		parent::__construct();   
@@ -255,7 +289,31 @@ class Customer_m extends MY_Model {
     }
 
     
-
+    public function customerRegistration($created_by, $imageId){
+        $hashedPwd = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+        $customerData = array(
+            'firstname' => $this->input->post('firstname'),
+            'lastname' => $this->input->post('lastname'),
+            'email' => $this->input->post('username'),
+            'password' => $hashedPwd,
+            'mobile_no' => $this->input->post('mobileno'),
+            'state_id' => $this->input->post('state'),
+            'image_id' => $imageId,
+            'is_allowed_to_view_product' => "no",
+            'company_email' => $this->input->post('companyMail'),
+            'customer_company' => $this->input->post('companyName'),
+            'gst_reg_type' => $this->input->post('gstRegType'),
+            'gstn' => $this->input->post('gst_no'),
+            'plot_factory_no' => $this->input->post('plotFactoryNo'),
+            'complete_address' => $this->input->post('fullAddress'),
+            'landmark' => $this->input->post('landmark'),
+            'is_active' => 'inactive',
+            'role_id' => 12,
+            'created_on' => $this->today,
+            'created_by' => 'self'
+        );
+        return $this->db->insert('users', $customerData);
+    }
 
 
 
