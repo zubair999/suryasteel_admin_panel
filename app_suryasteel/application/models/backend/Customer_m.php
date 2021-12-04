@@ -206,7 +206,7 @@ class Customer_m extends MY_Model {
 
     public function get_customer_list(){
         $this->db->select('*');
-        $this->db->where('role_id = ', null);
+        $this->db->where('role_id = ', 12);
 
         if($this->input->post('searchterm')){
             $this->db->like('firstname', $this->input->post('searchterm'), 'after');
@@ -215,7 +215,7 @@ class Customer_m extends MY_Model {
         }
 
         // $this->db->limit(25);
-        $this->db->order_by('firstname ASC');
+        $this->db->order_by('customer_company ASC');
         $customer = $this->db->get('users')->result_array();
 
         foreach ($customer as $key => $c){
