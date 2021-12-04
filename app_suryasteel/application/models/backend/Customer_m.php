@@ -212,10 +212,12 @@ class Customer_m extends MY_Model {
             $this->db->like('firstname', $this->input->post('searchterm'), 'after');
             $this->db->or_like('customer_company', $this->input->post('searchterm'), 'after');
             $this->db->or_like('mobile_no', $this->input->post('searchterm'), 'after');
+            $this->db->or_like('is_active', $this->input->post('searchterm'), 'after');
         }
 
         // $this->db->limit(25);
-        $this->db->order_by('customer_company ASC');
+        // $this->db->order_by('customer_company ASC');
+        $this->db->order_by('is_active desc');
         $customer = $this->db->get('users')->result_array();
 
         foreach ($customer as $key => $c){
