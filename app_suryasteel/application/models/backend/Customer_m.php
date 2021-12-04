@@ -201,7 +201,6 @@ class Customer_m extends MY_Model {
     public function customer_count(){
 		$this->db->select('user_id');
         $this->db->from('users');
-        $this->db->where('role_id = ', null);
     	return $this->db->get()->num_rows();
 	}
 
