@@ -260,6 +260,7 @@ class Order extends REST_Controller
     public function send_push_notification(){
 		$content = "You have a new order from Ram";
 
+        
 
 		$content = array(
 			"en" => $content
@@ -283,7 +284,7 @@ class Order extends REST_Controller
 	
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-		// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8','Authorization: Basic ODE0YzcyZjUtZDcwYS00MDEzLTgxNWQtZGJhMTczZTNlZjkz'));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8','Authorization: Basic NjA1MjFhMTQtZTc0Mi00MzkzLWFkYjYtNjJkZDI2NDRmNDVi'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
