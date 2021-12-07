@@ -16,23 +16,16 @@ class Order extends REST_Controller
             exit();
         }
         else{
-            // $this->form_validation->set_rules($this->staff_m->staffAddRulesApp);
-            // if ($this->form_validation->run() == FALSE) {
-			// 	$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
-			// } else {
-				$data = $this->input->post();
-
-
-                $isOrderAdded = $this->order_m->addOrder($this->input->post('createdBy'));
-                if($isOrderAdded['response']){
-                    $this->order_m->addOrderItem($isOrderAdded['last_order_id']);
-                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Order created successfully."];
-                }
-                else{
-                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
-                }
-
-			// }
+            $data = $this->input->post();
+            $isOrderAdded = $this->order_m->addOrder($this->input->post('createdBy'));
+            if($isOrderAdded['response']){
+                $this->order_m->addOrderItem($isOrderAdded['last_order_id']);
+                $this->send_push_notification();
+                $response = ['status' => 200, 'message' =>'success', 'description' =>"Order created successfully."];
+            }
+            else{
+                $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+            }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
         }
@@ -263,6 +256,46 @@ class Order extends REST_Controller
         }
     }
 
+
+    public function send_push_notification(){
+		$content = "You have a new order from Ram";
+
+
+		$content = array(
+			"en" => $content
+		);
+		$headings = array(
+			"en" => 'New Order'
+		);
+	
+		$one_signal_app_id = get_settings('onesignal_app_id');
+
+		$fields = array(
+			'app_id' => $one_signal_app_id,
+			'headings' => $headings,
+			'contents' => $content,
+  			"included_segments" => ["Subscribed Users"]
+		);
+	
+		$fields = json_encode($fields);
+		// print("\nJSON sent:\n");
+		// print($fields);
+	
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+		// curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8','Authorization: Basic ODE0YzcyZjUtZDcwYS00MDEzLTgxNWQtZGJhMTczZTNlZjkz'));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+		curl_setopt($ch, CURLOPT_POST, TRUE);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);    
+	
+		$response = curl_exec($ch);
+		curl_close($ch);
+	
+		// print_r($response);
+		return $response;
+	}
 
 	//CLASS ENDS
 }
