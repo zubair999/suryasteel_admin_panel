@@ -114,7 +114,13 @@ class Auth_m extends MY_Model {
         return $this->db->update('users', $userData);
     }
 
-    
+    public function updatePlayerId(){
+        $updateData = array(
+            'onesignal_player_id' => $this->input->post('onesignalPlayerId')
+        );
+        $this->db->where('email', $this->input->post('username'));
+        $this->db->update('users', $updateData);
+    }
 
 //end class
 

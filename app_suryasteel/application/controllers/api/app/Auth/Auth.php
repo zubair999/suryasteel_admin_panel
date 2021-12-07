@@ -58,6 +58,8 @@ class Auth extends REST_Controller
                                         'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                         'permission' => $userPermission
                                     );
+
+                                    $this->auth_m->updatePlayerId();
                                     $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
                                 }
                                 else{
@@ -135,6 +137,7 @@ class Auth extends REST_Controller
                                         'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                         'permission' => $userPermission
                                     );
+                                    $this->auth_m->updatePlayerId();
                                     $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
                                 
                                 }
@@ -203,6 +206,7 @@ class Auth extends REST_Controller
                                     'user_avatar' => base_url('upload/'.$user_image->thumbnail),
                                     'permission' => $userPermission
                                 );
+                                $this->auth_m->updatePlayerId();
                                 $response = ['status' => 200, 'message' => 'success', 'description' => 'You are successfully login.', 'data'=>$userData];
                             
                             }
