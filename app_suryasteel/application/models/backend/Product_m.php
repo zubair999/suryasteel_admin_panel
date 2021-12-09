@@ -34,16 +34,11 @@ class Product_m extends MY_Model {
             'rules' => 'trim|required'
         ),
         4 => array(
-            'field' => 'unit',
-            'label' => 'Unit',
-            'rules' => 'trim|required'
-        ),
-        5 => array(
             'field' => 'size',
             'label' => 'Size',
             'rules' => 'trim|required'
         ),
-        6 => array(
+        5 => array(
             'field' => 'length',
             'label' => 'Length',
             'rules' => 'trim|required'
@@ -142,7 +137,7 @@ class Product_m extends MY_Model {
             'category_id' => $this->input->post('categoryId'),
             'thumbnail' => $this->input->post('imageId'),
             'product_name' => $this->input->post('productName'),
-            'unit' => $this->input->post('unit'),
+            'unit' => 1,
             'size' => $this->input->post('size'),
             'length' => $this->input->post('length'),
             'weight_per_piece' => $this->input->post('weightPerPiece'),
@@ -169,7 +164,7 @@ class Product_m extends MY_Model {
             'category_id' => $this->input->post('categoryId'),
             'thumbnail' => $this->input->post('imageId'),
             'product_name' => $this->input->post('productName'),
-            'unit' => $this->input->post('unit'),
+            'unit' => 1,
             'size' => $this->input->post('size'),
             'length' => $this->input->post('length'),
             'weight_per_piece' => $this->input->post('weightPerPiece'),
@@ -250,14 +245,6 @@ class Product_m extends MY_Model {
         }
         
         $category = $this->db->get()->result_array();
-
-
-        // foreach ($category as $key => $c){
-        //     $products = $this->getProductByCategory($c['category_id']);
-        //     if(!$products){
-        //         array_splice($category, $key, $key);
-        //     }
-        // }
 
         foreach ($category as $key => $c){
             $products = $this->getProductByCategory($c['category_id']);            
