@@ -171,7 +171,8 @@ class Data_table_factory_model extends MY_Model
     public function orderColumnFactory($row){
       return array(
                     1 => array(
-                      0 => $row->order_amount,
+                      0 => $row->firstname.' '.$row->lastname,
+                      1 => $row->is_active,
                 )
                     );
     }

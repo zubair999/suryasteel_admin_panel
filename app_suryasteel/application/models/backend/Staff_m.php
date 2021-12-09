@@ -77,7 +77,7 @@ class Staff_m extends MY_Model {
 
         $sql = "select * from users
             join roles on users.role_id = roles.role_id
-            where users.role_id != 8
+            where users.role_id != 1 and users.role_id !=12
         ";
 
         //echo $sql;
@@ -219,7 +219,8 @@ class Staff_m extends MY_Model {
 
         $this->db->from('users as u');
         $this->db->join('roles as r', 'u.role_id=r.role_id');
-        $this->db->where('r.role_id != ', null);
+        $this->db->where('r.role_id != ', 12);
+        $this->db->where('r.role_id != ', 1);
         $this->db->limit(25);
         $this->db->order_by('u.firstname ASC');
         return $this->db->get()->result_array();

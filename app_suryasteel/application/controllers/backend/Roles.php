@@ -77,7 +77,23 @@ class Roles extends Backend_Controller {
 		}
 	}
 
-    
+    public function delete($id){
+        if(!in_array('editRoles', $this->permission)) {
+			redirect('dashboard', 'refresh');
+		}
+        else{
+            $roleCount = $this->roles_m->roleCount($id);
+            if($roleCount > 0){
+                $this->session->set_flashdata('notification', "Roles cannot be deleted. This is already in use.");
+                redirect('view-roles');
+            }
+            else{
+                $this->roles_m->deleteRole($id);
+                $this->session->set_flashdata('notification', "Role deleted successfully.");
+                redirect('view-roles');
+            }
+        }
+    }
 
 
 

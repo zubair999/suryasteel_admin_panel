@@ -15,6 +15,43 @@
       <div class="page-separator__text"><a class="btn btn-primary" href="<?php echo base_url('add-category'); ?>">Add</a></div>
       <!-- <div class="page-separator__text"><a class="btn btn-primary" href="<?php echo base_url('add/category'); ?>">Sub Categories</a></div> -->
    </div>
+   <?php if($this->session->flashdata('success')){
+    ?>
+      <div class="alert bg-success text-white border-0" role="alert">
+      <div class="d-flex flex-wrap align-items-start">
+         <div class="mr-8pt">
+         <i class="material-icons">access_time</i>
+         </div>
+         <div class="flex" style="min-width: 180px">
+         <small>
+         <strong>Well done!</strong> <?php echo $this->session->flashdata('success') ?>
+         </small>
+         </div>
+      </div>
+      </div>
+      <?php
+      }
+   ?>
+
+   <?php if($this->session->flashdata('error')){
+    ?>
+      <div class="alert bg-danger text-white border-0" role="alert">
+      <div class="d-flex flex-wrap align-items-start">
+         <div class="mr-8pt">
+         <i class="material-icons">access_time</i>
+         </div>
+         <div class="flex" style="min-width: 180px">
+         <small>
+         <strong>Oops!</strong> <?php echo $this->session->flashdata('error') ?>
+         </small>
+         </div>
+      </div>
+      </div>
+      <?php
+      }
+   ?>
+
+
    <div class="row card-group-row" data-toggle="dragula">
       
       <?php

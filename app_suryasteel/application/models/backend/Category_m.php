@@ -12,6 +12,10 @@ class Category_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function categoryCountInProduct($category_id) {
+        return $this->db->get_where('products', array('category_id'=> $category_id))->num_rows();
+    }
+
     public function getAllCategory() {
         $this->db->select('category_id, category_name');
         $this->db->from('category');
@@ -102,6 +106,11 @@ class Category_m extends MY_Model {
 			$category[$key]['thumbnail'] = BASEURL.'upload/'.$c['thumbnail'];			
 		}
         return $category;
+    }
+
+    public function deleteCategory($id){
+        $this->db->where('category_id', $id);
+        $this->db->delete('category');
     }
 
 //end class

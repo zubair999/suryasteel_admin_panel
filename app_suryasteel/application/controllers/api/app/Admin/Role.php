@@ -30,7 +30,6 @@ class Role extends REST_Controller
         }
     }
 
-
     public function getUserPermission_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {

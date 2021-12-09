@@ -68,13 +68,13 @@
          
          <div class="sidebar-heading">Overview</div>
          <ul class="sidebar-menu">
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
                   href="<?php echo base_url('dashboard'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                <span class="sidebar-menu-text">Dashboard</span>
                </a>
-            </li>
+            </li> -->
 
             <?php if(in_array('media', $this->permission)): ?>
                <li class="sidebar-menu-item">
@@ -120,7 +120,7 @@
             
 
 
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#staff_menu" aria-expanded="true">
                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                   Purchase
@@ -145,10 +145,10 @@
                <?php endif; ?>
 
                </ul>
-            </li>
+            </li> -->
 
 
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button js-sidebar-collapse" data-toggle="collapse" href="#process_menu" aria-expanded="true">
                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                   Process
@@ -182,7 +182,7 @@
                <?php endif; ?>
 
                </ul>
-            </li>
+            </li> -->
 
             
 

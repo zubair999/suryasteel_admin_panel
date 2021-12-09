@@ -204,6 +204,7 @@ $route['view-staff'] = 'backend/staff/index';
 $route['get-staff'] = 'backend/staff/getStaff';
 
 $route['add-roles'] = 'backend/roles/add';
+$route['delete-role-(:any)'] = 'backend/roles/delete/$1';
 $route['edit-role-(:any)'] = 'backend/roles/edit/$1';
 $route['view-roles'] = 'backend/roles/index';
 $route['get-roles'] = 'backend/roles/getRoles';

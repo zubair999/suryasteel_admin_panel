@@ -176,6 +176,9 @@ class Order_m extends MY_Model {
             $order[$key]['product_dispatch_pending_count'] = $this->product_dispatch_pending_count($o['order_id']);
             $order[$key]['dispatched_item_count'] = $this->dispatched_item_count($o['order_id']);
             $order[$key]['delivered_item_count'] = $this->delivered_item_count($o['order_id']);
+            $order[$key]['total_weight_dispatched'] = $this->total_weight_dispatched($o['order_id']);
+            $order[$key]['total_weight_delivered'] = $this->total_weight_delivered($o['order_id']);
+            $order[$key]['total_weight_ordered'] = (float)$this->total_weight_ordered($o['order_id']);
         }
 
         return $order;
@@ -637,22 +640,49 @@ class Order_m extends MY_Model {
         }
     }
 
-    // public function editSingleOrderItem(){
-    //     $data = array(
-    //         'order_qty' => $this->input->post('quantity'),
-    //         'sold_at' => $this->input->post('rate'),
-    //         'unit' => $this->input->post('unit')
-    //     );
+    public function total_weight_dispatched($order_id){
+        if(!empty($order_id)){
+            $this->db->select_sum('dispatch_quantity');
+            $this->db->from('order_item_dispatch');
+            $this->db->where('order_id', $order_id);
+            $query = $this->db->get();
+            return $query->row()->dispatch_quantity;
+        }
+        else{
+            return ;
+        }
+    }
 
-    //     $this->db->where('order_item_id', $this->input->post('orderItemId'));
-    //     $isUpdated = $this->db->update('order_item', $data);
-    //     if($isUpdated){
-    //         return true;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-    // }
+    public function total_weight_delivered($order_id){
+        if(!empty($order_id)){
+            $this->db->select_sum('dispatch_quantity');
+            $this->db->from('order_item_dispatch');
+            $this->db->where('order_id', $order_id);
+            $this->db->where('delivery_status', 'Delivered');
+            $query = $this->db->get();
+            return $query->row()->dispatch_quantity;
+        }
+        else{
+            return ;
+        }
+    }
+
+    public function total_weight_ordered($order_id){
+        if(!empty($order_id)){
+            $this->db->select_sum('weight_to_be_dispatched');
+            $this->db->from('order_item');
+            $this->db->where('order_id', $order_id);
+            $query = $this->db->get();
+            return $query->row()->weight_to_be_dispatched;
+        }
+        else{
+            return ;
+        }
+    }
+
+    // $order[$key]['total_weight_dispatched'] = $this->total_weight_dispatched($o['order_id']);
+    // $order[$key]['total_weight_delivered'] = $this->total_weight_delivered($o['order_id']);
+    // $order[$key]['total_weight_pending'] = $this->total_weight_pending($o['order_id']);
 
 //end class
 

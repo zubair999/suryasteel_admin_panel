@@ -16,7 +16,6 @@ class Order extends Backend_Controller {
         $tableHead = array(
                   0 => 'sr. no.',
                   1 => 'customer',
-                  2 => 'total',
                   3 => 'status',
                   4 => 'action',
 

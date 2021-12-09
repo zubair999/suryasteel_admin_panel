@@ -12,6 +12,10 @@ class Roles_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function roleCount($role_id) {
+        return $this->db->get_where('users', array('role_id'=> $role_id))->num_rows();
+    }
+
     public function getRoles(){
 		$requestData = $_REQUEST;
         $start = (int)$requestData['start'];
@@ -100,6 +104,11 @@ class Roles_m extends MY_Model {
 
     public function getRoleByUserId(){
         
+    }
+
+    public function deleteRole($id){
+        $this->db->where('role_id', $id);
+        $this->db->delete('roles');
     }
 
 

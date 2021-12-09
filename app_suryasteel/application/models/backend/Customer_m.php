@@ -120,7 +120,7 @@ class Customer_m extends MY_Model {
         $start = (int)$requestData['start'];
 
         $sql = "select * from users 
-                where users.role_id IS NULL
+                where users.role_id = 12
         ";
 
         //echo $sql;

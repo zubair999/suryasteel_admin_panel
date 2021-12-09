@@ -12,8 +12,28 @@
    </ol>
 </div>
 
+<?php
+                  if($this->session->flashdata('notification')){
+    ?>
+<div class="alert bg-success text-white border-0" role="alert">
+<div class="d-flex flex-wrap align-items-start">
+    <div class="mr-8pt">
+    <i class="material-icons">access_time</i>
+    </div>
+    <div class="flex" style="min-width: 180px">
+    <small>
+    <strong>Well done!</strong> <?php echo $this->session->flashdata('notification') ?>
+    </small>
+    </div>
+</div>
+</div>
+<?php
+}
+?>
 
 <?php
+
+
 
 $component = '';
 
@@ -21,6 +41,8 @@ $component = '';
   $theadObj = new TableFactory();
   $theadObj->renderTableHead($drawTable, $page_title, $tableId, $pl, $component);
 ?>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

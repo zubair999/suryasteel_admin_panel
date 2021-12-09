@@ -82,11 +82,34 @@ class Category extends Backend_Controller {
 		}
 	}
 
-	public function delete($id) {
-        $this->db->where('category_id', $id);
-        $this->db->delete('category');
-        $this->session->set_flashdata('success', "Delete successfully.");
-		redirect('category','refresh');
+	// public function delete($id) {
+    //     $this->db->where('category_id', $id);
+    //     $this->db->delete('category');
+    //     $this->session->set_flashdata('success', "Delete successfully.");
+	// 	redirect('category','refresh');
+    // }
+
+	public function delete($id){
+        if(!in_array('editCategory', $this->permission)) {
+			$this->session->set_flashdata('notification', "Category deleted successfully.");
+			redirect('dashboard', 'refresh');
+		}
+        else{
+
+			
+            $categoryCount = $this->category_m->categoryCountInProduct($id);
+			
+
+            if($categoryCount > 0){
+                $this->session->set_flashdata('error', "Category cannot be deleted. This is already in use.");
+                redirect('category');
+            }
+            else{
+                $this->category_m->deleteCategory($id);
+                $this->session->set_flashdata('success', "Category deleted successfully.");
+                redirect('category');
+            }
+        }
     }
 
     public function getSubCategory(){
