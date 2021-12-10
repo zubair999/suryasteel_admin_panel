@@ -114,6 +114,9 @@ $route['v1/getsink'] = 'api/app/Admin/sink/getSink';
 $route['v1/getsize'] = 'api/app/Admin/size/getSize';
 
 // LENGTH
+$route['v1/addlength'] = 'api/app/Admin/length/addLength';
+$route['v1/editlength'] = 'api/app/Admin/length/editLength';
+$route['v1/deletelength'] = 'api/app/Admin/length/deleteLength';
 $route['v1/getlength'] = 'api/app/Admin/length/getLength';
 
 // MACHINE

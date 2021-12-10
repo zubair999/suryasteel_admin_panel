@@ -12,6 +12,10 @@ class Category_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function getCategoryById($id) {
+        return $this->db->get_where('category', array('category_id'=> $id))->row();
+    }
+
     public function categoryCountInProduct($category_id) {
         return $this->db->get_where('products', array('category_id'=> $category_id))->num_rows();
     }
