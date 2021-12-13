@@ -266,16 +266,18 @@ class Product_m extends MY_Model {
             p.stock,
             p.is_active,
             p.weight_per_piece,
-            p.size,
             p.unit,
-            p.length,
             p.zinc_or_without_zinc,
             p.having_kunda,
             p.having_nut,
             u.unit_value,
             c.category_name,
             i.thumbnail,
-            i.actual
+            i.actual,
+            si.size_id as size,
+            si.size_value,
+            le.length_id as length,
+            le.length_value
             '
         );
 
@@ -283,6 +285,9 @@ class Product_m extends MY_Model {
         $this->db->join('images as i', 'p.thumbnail = i.image_id');
         $this->db->join('category as c', 'c.category_id = p.category_id');
         $this->db->join('units as u', 'p.unit = u.unit_id');
+        $this->db->join('size as si', 'p.size = si.size_id');
+        $this->db->join('length as le', 'p.length = le.length_id');
+
         $this->db->where('p.category_id', $id);
         if($this->input->post('size')){
             $this->db->where('p.size', $this->input->post('size'));
@@ -291,7 +296,6 @@ class Product_m extends MY_Model {
             $this->db->where('p.length', $this->input->post('length'));
         }
 
-        
         $this->db->order_by('p.product_name','asc');
         $products = $this->db->get()->result_array();
 
