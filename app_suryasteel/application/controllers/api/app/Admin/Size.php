@@ -20,7 +20,7 @@ class Size extends REST_Controller
             $this->db->order_by('size_value','asc');
             $size = $this->db->get()->result_array();
             foreach ($size as $key => $value) {
-                $size[$key]['value'] = $value['size_id'];
+                $size[$key]['value'] = (int)$value['size_id'];
                 $size[$key]['label'] = ucwords($value['size_value']);
                 unset($size[$key]['size_id']);
                 unset($size[$key]['size_value']);
