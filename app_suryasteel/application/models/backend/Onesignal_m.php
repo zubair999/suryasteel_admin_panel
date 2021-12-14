@@ -48,7 +48,7 @@ class OneSignal_m extends MY_Model {
 
 
     public function send_push_notification_by_player_id($customer_company, $oneSignalPlayId){
-		$content = "You have a new order from ".$customer_company;
+		$content = $customer_company;
 
 		$headings = array(
 			"en" => 'New Order'

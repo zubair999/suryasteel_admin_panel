@@ -60,6 +60,7 @@ $route['v1/editsingleorderitem'] = 'api/app/Admin/order/editSingleOrderItem';
 $route['v1/getorder'] = 'api/app/Admin/order/getOrder';
 $route['v1/getorderbyproduct'] = 'api/app/Admin/order/getOrdersByProduct';
 $route['v1/getorderstatuscataglog'] = 'api/app/Admin/order/getOrderStatusCatalog';
+$route['v1/ordercountbyorderstatus'] = 'api/app/Admin/order/getOrderCountByOrderStatus';
 
 // ORDER ITEM
 $route['v1/deleteorderitem'] = 'api/app/Admin/order/deleteOrderItem';

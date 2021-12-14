@@ -524,7 +524,7 @@ class Order_m extends MY_Model {
             'order_status_catalog_id' => $status,
         );
         $this->db->where('order_id', $this->input->post('orderId'));
-        $this->db->update('orders', $orderData);
+        return $this->db->update('orders', $orderData);
     }
 
     public function checkIfOrderIsFullyDispatched(){
@@ -541,19 +541,24 @@ class Order_m extends MY_Model {
         $pending_item_count = $this->product_dispatch_pending_count($this->input->post('orderId'));
         $dispatched_item_count = $this->dispatched_item_count($this->input->post('orderId'));
         $delivery_item_count = $this->delivered_item_count($this->input->post('orderId'));
+        $customer_id = $this->db->get_where('orders', array('order_id'=> $this->input->post('orderId')))->row()->user_id;
 
 
         if($pending_item_count == 0 && (int)$dispatched_item_count - (int)$delivery_item_count == 0){
-            // ORDER IS FULLY DISPATCHED.
-            $this->changeOrderStatus(5);
+            // ORDER IS COMPLETED.
+            $isStatusUpdated = $this->changeOrderStatus(5);
+            if($isStatusUpdated){
+                $this->send_push_notification_by_player_id("Your order ".$this->input->post('orderId')." is ready. Waiting for delivery.", $customer_id);
+            }
         }
         else if($pending_item_count > 0){
-            // ORDER IS NOT FULLY DISPATCHED.
+            // ONE OR MORE ORDER ITEM PENDING FOR DISPATCH.
             $this->changeOrderStatus(3);
         }
         else if($pending_item_count == 0){
-            // ORDER IS NOT FULLY DISPATCHED.
+            // ALL ORDER ITEM FULLY DISPATCHED.
             $this->changeOrderStatus(4);
+            
         }
         
     }
@@ -696,9 +701,17 @@ class Order_m extends MY_Model {
         }
     }
 
-    // $order[$key]['total_weight_dispatched'] = $this->total_weight_dispatched($o['order_id']);
-    // $order[$key]['total_weight_delivered'] = $this->total_weight_delivered($o['order_id']);
-    // $order[$key]['total_weight_pending'] = $this->total_weight_pending($o['order_id']);
+    public function getOrderCountByOrderStatus(){
+        return array(
+            'order_count_by_order_status' => array(
+                                                'new_order' => 12,
+                                                'item_pending' => 8,
+                                                'delivery_pending' =>4,
+                                                'order_completed' => 7
+                                            )
+
+            );
+    }
 
 //end class
 
