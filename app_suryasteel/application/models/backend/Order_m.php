@@ -542,18 +542,20 @@ class Order_m extends MY_Model {
         $dispatched_item_count = $this->dispatched_item_count($this->input->post('orderId'));
         $delivery_item_count = $this->delivered_item_count($this->input->post('orderId'));
 
-        if($pending_item_count == 0){
-            // ORDER IS NOT FULLY DISPATCHED.
-            $this->changeOrderStatus(4);
+
+        if($pending_item_count == 0 && (int)$dispatched_item_count - (int)$delivery_item_count == 0){
+            // ORDER IS FULLY DISPATCHED.
+            $this->changeOrderStatus(5);
         }
         else if($pending_item_count > 0){
             // ORDER IS NOT FULLY DISPATCHED.
             $this->changeOrderStatus(3);
         }
-        else if($pending_item_count == 0 && ((int)$dispatched_item_count - (int)$delivery_item_count) == 0){
-            // ORDER IS FULLY DISPATCHED.
-            $this->changeOrderStatus(5);
+        else if($pending_item_count == 0){
+            // ORDER IS NOT FULLY DISPATCHED.
+            $this->changeOrderStatus(4);
         }
+        
     }
         
     public function decreaseDispatchedQtyInOrderItem($orderItemId, $dispatchedQty, $dispatchedId){
@@ -606,6 +608,8 @@ class Order_m extends MY_Model {
         foreach ($dispatchItem as $key => $di){
             $this->updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode, $vehicle_no, $remarks);
         }
+
+        $this->order_m->checkIfOrderIsFullyDispatched($this->input->post('orderId'));
     }
 
     public function updateDispatchDelivery($di, $delivery_addedBy, $delivery_mode_id, $vehicle_no, $remarks){
