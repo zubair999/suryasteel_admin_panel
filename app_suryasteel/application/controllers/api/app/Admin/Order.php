@@ -140,8 +140,9 @@ class Order extends REST_Controller
                 $dispatchedItem = $this->order_m->getDispatchedItem($this->input->post('dispatchId'));
                 $this->order_m->decreaseDispatchedQtyInOrderItem($dispatchedItem->order_item_id, $dispatchedItem->dispatch_quantity, $this->input->post('dispatchId'));
                 // $this->order_m->deleteDispatchedItem($this->input->post('dispatchId'));
+                $this->order_m->checkIfOrderIsFullyDispatched($this->input->post('orderId'));
                 $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
-                $response = ['status' => 200, 'message' => 'success', 'description' =>'ok', 'data'=>$order_item];
+                $response = ['status' => 200, 'message' => 'success', 'description' =>'Dispatch item deleted successfully.', 'data'=>$order_item];
             }
         }
         $this->response($response, REST_Controller::HTTP_OK);
