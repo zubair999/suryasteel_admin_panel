@@ -528,23 +528,29 @@ class Order_m extends MY_Model {
     }
 
     public function checkIfOrderIsFullyDispatched(){
-        $this->db->select('order_item_id, order_qty, dispatched_qty');
-        $this->db->from('order_item');
-        $this->db->where('order_id', $this->input->post('orderId'));
-        $order_item = $this->db->get()->result_array();
-        foreach ($order_item as $key => $oi){
-            if($oi['dispatched_qty'] >=  $oi['order_qty']){
-                unset($order_item[$key]);
-            }
-        }
+        // $this->db->select('order_item_id, order_qty, dispatched_qty');
+        // $this->db->from('order_item');
+        // $this->db->where('order_id', $this->input->post('orderId'));
+        // $order_item = $this->db->get()->result_array();
+        // foreach ($order_item as $key => $oi){
+        //     if($oi['dispatched_qty'] >=  $oi['order_qty']){
+        //         unset($order_item[$key]);
+        //     }
+        // }
 
-        if(count($order_item) > 0){
+        $pending_item_count = $this->product_dispatch_pending_count($this->input->post('orderId'));
+
+        if($pending_item_count == 0){
+            // ORDER IS NOT FULLY DISPATCHED.
+            $this->changeOrderStatus(4);
+        }
+        else if($pending_item_count > 0){
             // ORDER IS NOT FULLY DISPATCHED.
             $this->changeOrderStatus(3);
         }
         else{
             // ORDER IS FULLY DISPATCHED.
-            $this->changeOrderStatus(4);
+            $this->changeOrderStatus(5);
         }
     }
         
