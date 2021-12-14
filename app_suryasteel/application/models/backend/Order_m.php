@@ -614,8 +614,12 @@ class Order_m extends MY_Model {
     }
 
     public function product_dispatch_pending_count($order_id){
+        $weight = 1;
         if(!empty($order_id)){
-            return $this->db->where(['order_id'=>$order_id, 'dispatched_qty'=>0])->from("order_item")->count_all_results();
+            $this->db->select('count( order_item_id )');
+            $this->db->from('order_item');
+            $this->db->where('order_id', $order_id);     
+            return $this->db->where('((weight_to_be_dispatched - dispatched_qty) > '.$weight.')')->count_all_results();
         }
         else{
             return ;

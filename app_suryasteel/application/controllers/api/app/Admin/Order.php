@@ -114,7 +114,6 @@ class Order extends REST_Controller
                     $response = ['status' => 200, 'message' =>'error', 'description' =>'Something went wrong.'];
                 }
             }
-
             else{
                 $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
                 $productId = $orderItem->product_id;
