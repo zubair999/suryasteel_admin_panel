@@ -539,6 +539,8 @@ class Order_m extends MY_Model {
         // }
 
         $pending_item_count = $this->product_dispatch_pending_count($this->input->post('orderId'));
+        $dispatched_item_count = $this->dispatched_item_count($this->input->post('orderId'));
+        $delivery_item_count = $this->delivered_item_count($this->input->post('orderId'));
 
         if($pending_item_count == 0){
             // ORDER IS NOT FULLY DISPATCHED.
@@ -548,7 +550,7 @@ class Order_m extends MY_Model {
             // ORDER IS NOT FULLY DISPATCHED.
             $this->changeOrderStatus(3);
         }
-        else{
+        else if($pending_item_count == 0 && ((int)$dispatched_item_count - (int)$delivery_item_count) == 0){
             // ORDER IS FULLY DISPATCHED.
             $this->changeOrderStatus(5);
         }
