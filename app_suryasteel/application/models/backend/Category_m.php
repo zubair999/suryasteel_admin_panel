@@ -107,7 +107,8 @@ class Category_m extends MY_Model {
 
 		foreach($category as $key => $c){
             $category[$key]['actual'] = BASEURL.'upload/'.$c['actual'];
-			$category[$key]['thumbnail'] = BASEURL.'upload/'.$c['thumbnail'];			
+			$category[$key]['thumbnail'] = BASEURL.'upload/'.$c['thumbnail'];
+			$category[$key]['product_count'] = $this->categoryCountInProduct($c['category_id']);
 		}
         return $category;
     }

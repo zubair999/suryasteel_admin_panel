@@ -78,8 +78,8 @@ class Category extends REST_Controller {
 
 	public function getcategory_get(){
 		$category = $this->category_m->get_all_category_with_image();
-		$res = ['status'=>200,'message'=>'success','description'=>'Category fetched successfully.', 'data'=>$category];
-        echo json_encode($res);
+		$response = ['status'=>200,'message'=>'success','description'=>'Category fetched successful.', 'data'=>$category];
+        $this->response($response, REST_Controller::HTTP_OK);
         exit();
 	}
 
@@ -111,8 +111,6 @@ class Category extends REST_Controller {
 						$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
 					}
 				}
-
-				
 			}
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
