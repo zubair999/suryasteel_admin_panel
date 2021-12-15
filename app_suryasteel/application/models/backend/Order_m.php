@@ -12,6 +12,10 @@ class Order_m extends MY_Model {
 		parent::__construct();   
 	}
 
+    public function orderCount() {
+        return $this->db->get_where('orders')->num_rows();
+    }
+    
     public function getOrderItemByOrderItemId($orderItemId) {
         return $this->db->get_where('order_item', array('order_item_id'=> $orderItemId))->row();
     }

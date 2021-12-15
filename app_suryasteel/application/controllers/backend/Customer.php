@@ -23,9 +23,9 @@ class Customer extends Backend_Controller {
                   2 => 'username/email',
                   3 => 'contact no',
                   4 => 'company name',
-                  5 => 'gst_reg_type',
-                  6 => 'status',
-                  7 => 'action'
+                //   5 => 'gst_reg_type',
+                //   5 => 'status',
+                //   7 => 'action'
         );
         return $tableHead;
     }

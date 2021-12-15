@@ -7,6 +7,7 @@ class Dashboard extends Backend_Controller {
 
     public function index(){
         $this->data['page_title'] = 'Dashboard';
+        $this->data['order_count'] = $this->order_m->orderCount();
         $this->admin_view('backend/dashboard/index', $this->data);
     }
 
@@ -15,6 +16,7 @@ class Dashboard extends Backend_Controller {
       $today_order  = $this->db->get_obj('orders','oid',array('order_date_time'=>$this->today))->num_rows();
       return array('all order' => $all_order);
     }
+
     private function dispatch() {
         switch (1) {
             case 1:

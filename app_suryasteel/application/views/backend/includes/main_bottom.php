@@ -99,13 +99,13 @@
 
             
 
-            <li class="sidebar-menu-item">
+            <!-- <li class="sidebar-menu-item">
                <a class="sidebar-menu-button"
                   href="<?php echo base_url('orders'); ?>">
                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">donut_large</span>
                <span class="sidebar-menu-text">Orders</span>
                </a>
-            </li>
+            </li> -->
 
             
             

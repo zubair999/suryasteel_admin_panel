@@ -41,7 +41,7 @@ class Auth extends Backend_Controller{
 								);
 								$this->session->set_userdata($userData);
 								$this->session->set_flashdata('success', "You are successfully logged in.");
-								redirect('orders');
+								redirect('dashboard');
 							}
 							else{
 								$this->session->set_flashdata('error', "Wrong password.");

@@ -46,7 +46,11 @@ class Product_m extends MY_Model {
     );
 
     public function get_product($id) {
-        return $this->db->get_where('products', array('product_id'=> $id))->row();
+        $this->db->select('*');
+        $this->db->from('products as p');
+        $this->db->join('images as i', 'p.thumbnail = i.image_id');
+        $this->db->where('p.product_id', $id);
+        return $this->db->get('products')->row();
     }
 
 	public function getProduct(){
@@ -131,8 +135,6 @@ class Product_m extends MY_Model {
     }
 
     public function addProduct($created_by) {
-
-
         $data = array(
             'category_id' => $this->input->post('categoryId'),
             'thumbnail' => $this->input->post('imageId'),
@@ -314,6 +316,31 @@ class Product_m extends MY_Model {
         return $products;
     }
 
+    public function galvanisation () {
+        return  array (
+                    0 => array (
+                        "label" => "Zinc",
+                        "value" =>"zinc"
+                    ),
+                    1 => array(
+                        "label" => "Without Zinc",
+                        "value" => "without_zinc"
+                    )
+                );
+    }
+
+    public function yesno(){
+        return array (
+                    0 => array (
+                        "label" => "Yes",
+                        "value" => "yes"
+                    ),
+                    1 => array (
+                        "label" => "No",
+                        "value" => "no"
+                    )
+                );
+    }
 
 //end class
 

@@ -183,7 +183,6 @@ class Data_table_factory_model extends MY_Model
 
       $action =  '<div class="action-buttons">
                                 '.$edit.'
-                                '.$delete.'
                               </div>';
       return $action;
     }
@@ -231,7 +230,6 @@ class Data_table_factory_model extends MY_Model
 
       $action =  '<div class="action-buttons">
                                 '.$edit.'
-                                '.$delete.'
                               </div>';
       return $action;
     }

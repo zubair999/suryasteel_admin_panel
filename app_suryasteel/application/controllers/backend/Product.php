@@ -27,46 +27,37 @@ class Product extends Backend_Controller {
 
     public function add(){
 		if($this->input->post()){
-			$this->form_validation->set_rules('product_name', 'Product', 'trim|required');
+			$this->form_validation->set_rules($this->product_m->productAddRulesApp);
 			if($this->form_validation->run() == FALSE){
                 $this->data['status'] = $this->status();
                 $this->data['gst'] = $this->gst_m->getAllGst();
                 $this->data['category'] = $this->category_m->getAllCategory();
 				$this->data['page_title'] = 'add product';
-                $this->session->set_flashdata('notification', "Please fill the carefully!");
+                $this->session->set_flashdata('error', "Please fill the carefully!");
 				$this->admin_view('backend/product/add', $this->data);
 			}
 			else{
-				$product = array(
-					'product_name' => ucwords($this->input->post('product_name')),
-					'thumbnail' => $this->input->post('thumbnail_id'),
-					'brand_id' => $this->input->post('brand'),
-                    'category_id' => $this->input->post('category'),
-					'sub_category' => $this->input->post('subcategory'),
-                    'sub_category_type' => $this->input->post('subcategorytype'),
-					'gst_id' => $this->input->post('gst'),
-                    'type' => $this->input->post('type'),
-					'mrp' => $this->input->post('mrp'),
-                    'sell_price' => $this->input->post('sell_price'),
-                    'mrp' => $this->input->post('mrp'),
-                    'shipping' => 100,
-					'created_by' => $this->uid,
-					'created_on' => $this->current_time,
-				);
-                $isDataSave = $this->db->insert('products', $product);
-                $this->category_m->increaseProductCountInCategory($this->input->post('category'),$this->input->post('subcategory'),$this->input->post('subcategorytype'));
                 $this->data['status'] = $this->status();
                 $this->data['gst'] = $this->gst_m->getAllGst();
+                $this->data['length'] = $this->length_m->getAllLength();
+                $this->data['size'] = $this->size_m->getAllSize();
+                $this->data['galvanisation'] = $this->product_m->galvanisation();
+                $this->data['yesno'] = $this->product_m->yesno();
                 $this->data['category'] = $this->category_m->getAllCategory();
-				$this->session->set_flashdata('notification', "Product added successfully");
-				$this->data['page_title'] = 'add product';
-				$this->admin_view('backend/product/add', $this->data);
+                $this->data['page_title'] = 'add product';                
+                $this->session->set_flashdata('success', "New product added successfully.");
+                $this->product_m->addProduct($this->uid);
+                $this->admin_view('backend/product/add', $this->data);
 			}
 		}
 		else{
             $this->data['status'] = $this->status();
             $this->data['gst'] = $this->gst_m->getAllGst();
             $this->data['category'] = $this->category_m->getAllCategory();
+            $this->data['length'] = $this->length_m->getAllLength();
+            $this->data['size'] = $this->size_m->getAllSize();
+            $this->data['galvanisation'] = $this->product_m->galvanisation();
+            $this->data['yesno'] = $this->product_m->yesno();
 			$this->data['page_title'] = 'add product';;
 			$this->admin_view('backend/product/add', $this->data);
 		}
@@ -74,64 +65,39 @@ class Product extends Backend_Controller {
 
     public function edit($id){
 		if($this->input->post()){
-			$this->form_validation->set_rules('product_name', 'Product', 'trim|required');
+			$this->form_validation->set_rules($this->product_m->productAddRulesApp);
 			if($this->form_validation->run() == FALSE){
                 $this->data['product_id'] = $id;
-                $this->data['status'] = $this->status();
-                $this->data['product'] = $this->product_m->getProductById($id);
-				$this->data['brand'] = $this->brand_m->getAllBrand();
-                $this->data['type'] = $this->type_m->getAllType();
-                $this->data['gst'] = $this->gst_m->getAllGst();
+                $this->data['product'] = $this->product_m->get_product($id);
+                $this->data['length'] = $this->length_m->getAllLength();
+                $this->data['size'] = $this->size_m->getAllSize();
+                $this->data['galvanisation'] = $this->product_m->galvanisation();
+                $this->data['yesno'] = $this->product_m->yesno();
                 $this->data['category'] = $this->category_m->getAllCategory();
 				$this->data['page_title'] = 'edit product';
 				$this->admin_view('backend/product/edit', $this->data);
 			}
 			else{
-				// $this->category_m->updateProductCountInCategory($this->input->post('category'),$this->input->post('subcategory'),$this->input->post('subcategorytype'));
-
-
-                $product = array(
-					'product_name' => ucwords($this->input->post('product_name')),
-					'thumbnail' => $this->input->post('thumbnail_id'),
-					'brand_id' => $this->input->post('brand'),
-                    'category_id' => $this->input->post('category'),
-					'sub_category' => $this->input->post('subcategory'),
-                    'sub_category_type' => $this->input->post('subcategorytype'),
-					'gst_id' => $this->input->post('gst'),
-                    'type' => $this->input->post('type'),
-					'mrp' => $this->input->post('mrp'),
-                    'sell_price' => $this->input->post('sell_price'),
-                    'mrp' => $this->input->post('mrp'),
-                    'shipping' => 100,
-					'created_by' => $this->uid,
-                    'updated_on' => $this->current_time,
-				);
-
-
-                $this->db->where('product_id',$id);
-				$this->db->update('products', $product);
-                
-                $this->session->set_flashdata('notification', "You successfully read this important alert message.");
+                $this->product_m->editProduct($id);
                 $this->data['status'] = $this->status();
-				$this->data['brand'] = $this->brand_m->getAllBrand();
-                $this->data['type'] = $this->type_m->getAllType();
-                $this->data['gst'] = $this->gst_m->getAllGst();
+                $this->data['length'] = $this->length_m->getAllLength();
+                $this->data['size'] = $this->size_m->getAllSize();
+                $this->data['galvanisation'] = $this->product_m->galvanisation();
+                $this->data['yesno'] = $this->product_m->yesno();
                 $this->data['category'] = $this->category_m->getAllCategory();
+                $this->session->set_flashdata('success', "New product added successfully.");
 				$this->data['page_title'] = 'edit product';
 				redirect('edit-product-'.$id);
 			}
 		}
 		else{
             $this->data['product_id'] = $id;
-            $this->data['status'] = $this->status();
-            $this->data['product'] = $this->product_m->getProductById($id);
-			$this->data['brand'] = $this->brand_m->getAllBrand();
-            $this->data['type'] = $this->type_m->getAllType();
-            $this->data['gst'] = $this->gst_m->getAllGst();
+            $this->data['product'] = $this->product_m->get_product($id);
+            $this->data['length'] = $this->length_m->getAllLength();
+            $this->data['size'] = $this->size_m->getAllSize();
+            $this->data['galvanisation'] = $this->product_m->galvanisation();
+            $this->data['yesno'] = $this->product_m->yesno();
             $this->data['category'] = $this->category_m->getAllCategory();
-            $this->data['subcategory'] = $this->subcategory_m->getAllSubCategory();
-            $this->data['subcategorytype'] = $this->subcategorytype_m->getAllSubCategoryType();
-            $this->data['product_id'] = $id;
 			$this->data['page_title'] = 'edit product';;
 			$this->admin_view('backend/product/edit', $this->data);
 		}
