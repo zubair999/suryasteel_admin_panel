@@ -45,8 +45,6 @@ class Order extends REST_Controller
             }
             else{
                 $data = $this->input->post();
-
-
                 $isUpdatedAdded = $this->order_m->editOrder($this->input->post('orderId'));
                 if($isUpdatedAdded){
                     // $this->order_m->editOrderItem();

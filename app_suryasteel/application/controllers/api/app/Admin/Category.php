@@ -94,16 +94,25 @@ class Category extends REST_Controller {
             if ($this->form_validation->run() == FALSE) {
 				$response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
 			} else {
-				$this->db->where('category_id', $this->input->post('category_id'));
-				$isDeleted = $this->db->delete('category');
-				$this->log_m->Log($this->input->post('uid'), 'Category','A category is deleted successfully.');
-				if($isDeleted){
-					$category = $this->category_m->get_all_category_with_image();
-					$response = ['status' => 200, 'message' => 'success', 'description' => 'Category deleted successfully.', 'data'=>$category];
+				$is_category_having_product = $this->category_m->categoryCountInProduct($this->input->post('category_id'));
+				
+				if($is_category_having_product > 0){
+					$response = ['status' => 200, 'message' => 'success', 'description' => 'Category can not be deleted, as it\'s having products.'];
 				}
 				else{
-					$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+					$this->db->where('category_id', $this->input->post('category_id'));
+					$isDeleted = $this->db->delete('category');
+					$this->log_m->Log($this->input->post('uid'), 'Category','A category is deleted successfully.');
+					if($isDeleted){
+						$category = $this->category_m->get_all_category_with_image();
+						$response = ['status' => 200, 'message' => 'success', 'description' => 'Category deleted successfully.', 'data'=>$category];
+					}
+					else{
+						$response = ['status' => 200, 'message' => 'error', 'description' => 'Something went wrong.'];
+					}
 				}
+
+				
 			}
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
