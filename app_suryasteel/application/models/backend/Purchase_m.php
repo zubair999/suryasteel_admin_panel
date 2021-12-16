@@ -182,30 +182,30 @@ class Purchase_m extends MY_Model {
         }
     }
 
-    public function editPurchaseItem(){
-        $size = $this->input->post('size');
-        $weight = $this->input->post('weight');
-        $round = $this->input->post('round');
-        $purchaseItem = $this->input->post('purchaseItemId');
+    // public function editPurchaseItem(){
+    //     $size = $this->input->post('size');
+    //     $weight = $this->input->post('weight');
+    //     $round = $this->input->post('round');
+    //     $purchaseItem = $this->input->post('purchaseItemId');
 
-        $i = 0;
-        foreach (array_combine($size, $weight) as $s => $w){
-            $purchaseItemId = $purchaseItem[$i];
-            $r = $round[$i];
-            $this->updatePurchaseItem($purchaseItemId, $s, $w, $r);
-            $i++;
-        }
-    }
+    //     $i = 0;
+    //     foreach (array_combine($size, $weight) as $s => $w){
+    //         $purchaseItemId = $purchaseItem[$i];
+    //         $r = $round[$i];
+    //         $this->updatePurchaseItem($purchaseItemId, $s, $w, $r);
+    //         $i++;
+    //     }
+    // }
 
-    public function updatePurchaseItem($purchaseItemId, $s, $w, $r){
+    public function updatePurchaseItem(){
         $purchaseItemData = array(
-            'size_id' => $s,
-            'weight' => $w,
-            'round_or_length_availble' => $r,
+            'size_id' => $this->input->post('size'),
+            'weight' => $this->input->post('weight'),
+            'round_or_length_availble' => $this->input->post('round'),
             'updated_on' => $this->today
         );
         
-        $this->db->where('purchase_item_id', $purchaseItemId);
+        $this->db->where('purchase_item_id', $this->input->post('purchaseItemId'));
         $response = $this->db->update('purchase_item', $purchaseItemData);
         if($response){
             return true;

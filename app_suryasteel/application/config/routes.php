@@ -103,6 +103,7 @@ $route['v1/getallproduct'] = 'api/app/Admin/product/getAllProducts';
 // PURCHASE
 $route['v1/addpurchase'] = 'api/app/Admin/purchase/addPurchase';
 $route['v1/editpurchase'] = 'api/app/Admin/purchase/editPurchase';
+$route['v1/editpurchaseitem'] = 'api/app/Admin/purchase/editPurchaseItem';
 $route['v1/getpurchase'] = 'api/app/Admin/purchase/getPurchase';
 $route['v1/deletepurchase'] = 'api/app/Admin/purchase/deletePurchase';
 $route['v1/deletepurchaseitem'] = 'api/app/Admin/purchase/deletePurchaseItem';

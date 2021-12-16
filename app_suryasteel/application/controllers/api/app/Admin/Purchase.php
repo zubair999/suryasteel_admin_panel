@@ -68,6 +68,31 @@ class Purchase extends REST_Controller
         }
 	}
 
+    public function editPurchaseItem_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $purchaseRowCount = $this->acidtreatment_m->getAcidTreatmentCountByPurchaseId($this->input->post('purchaseId'));
+            if($purchaseRowCount > 0){
+                $response = ['status' => 200, 'message' =>'error', 'description' =>"Acid treatment is started on the purchase items. You can not updated it. Add new purchase."];
+            }
+            else{
+                $isPurchaseItemUpdated = $this->purchase_m->updatePurchaseItem();
+                if($isPurchaseItemUpdated){
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>"Purchase item updated successfully."];
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'error', 'description' =>"Something went wrong."];
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+	}
+
     public function getPurchase_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {
