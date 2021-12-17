@@ -210,7 +210,7 @@ class Customer_m extends MY_Model {
 
         if($this->input->post('searchterm')){
             $this->db->like('firstname', $this->input->post('searchterm'), 'after');
-            $this->db->or_like('customer_company', $this->input->post('searchterm'), 'after');
+            $this->db->or_like('customer_company', $this->input->post('searchterm'), 'both');
             $this->db->or_like('mobile_no', $this->input->post('searchterm'), 'after');
             $this->db->or_like('is_active', $this->input->post('searchterm'), 'after');
         }
