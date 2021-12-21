@@ -168,6 +168,9 @@ $route['v1/addgalvanisedhistory'] = 'api/app/Admin/galvanisation/addGalvanisatio
 // REPORT PROCESS
 $route['v1/getreport'] = 'api/app/Admin/report/getReport';
 
+// CHALLAN PROCESS
+$route['v1/createdeliverychallan'] = 'api/app/Admin/challan/createDeliveryChallan';
+
 
 
 
