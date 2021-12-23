@@ -117,11 +117,11 @@
 
 
    document.getElementById('select03').onchange = (e) => {
+      var text = e.target.options[e.target.selectedIndex].text;
+      console.log(text)
       getSubCategoryByParent(e.target.value)
-
-      console.log(e.target.value);
       if(getSubCategoryByParent(e.target.value)){
-
+         console.log(e.target)
       }
       else{
          var subCategoryOption = `<option value="">Select Sub Category</option>`;

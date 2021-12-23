@@ -112,7 +112,7 @@
                         <input type="text" name="productName" value="<?php $this->input->post('productName') ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
                         <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
-                           <?php echo form_error('productName');?>
+                        <?php echo form_error('productName');?>
                   </div>
                </div>
 
@@ -295,7 +295,9 @@
 
 
 <script>
-   
+   function myFunction(){
+      console.log("hello")
+   }
 </script>
 
 

@@ -139,11 +139,13 @@ class Order_m extends MY_Model {
                              u.company_email,
                              st.status_value,
                              st.status_color,
+                             pm.payment_mode as payment_mode_value
                              '
                         );
         $this->db->from('orders as o');
         $this->db->join('users as u', 'o.user_id = u.user_id', 'left');
         $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
+        $this->db->join('payment_mode as pm', 'o.payment_mode = pm.payment_mode_id');
         
         if($this->input->post('orderStatus')){
             $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));

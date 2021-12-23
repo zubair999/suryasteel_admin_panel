@@ -19,10 +19,10 @@ class Customer extends Backend_Controller {
     public function customerTableHead(){
         $tableHead = array(
                   0 => 'sr. no.',
-                  1 => 'customer name',
+                  1 => 'company name',
                   2 => 'username/email',
                   3 => 'contact no',
-                  4 => 'company name',
+                  4 => 'customer name'
                 //   5 => 'gst_reg_type',
                 //   5 => 'status',
                 //   7 => 'action'

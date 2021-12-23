@@ -192,10 +192,10 @@ class Data_table_factory_model extends MY_Model
     public function customerColumnFactory($row){
       return array(
                     1 => array(
-                      0 => ucwords($row->firstname. ' ' . $row->lastname),
+                      0 => $row->customer_company,
                       1 => $row->email,
                       2 => $row->mobile_no,
-                      3 => $row->customer_company,
+                      3 => ucwords($row->firstname. ' ' . $row->lastname),
                       4 => $row->gst_reg_type,
                       5 => $row->is_active,
                 )

@@ -45,6 +45,10 @@ class Product_m extends MY_Model {
         )
     );
 
+    public function getProductCountCategoryWise($category) {
+        return $this->db->get_where('products', array('category_id'=> $category))->num_rows();
+    }
+
     public function get_product($id) {
         $this->db->select('*');
         $this->db->from('products as p');
@@ -250,12 +254,11 @@ class Product_m extends MY_Model {
 
         foreach ($category as $key => $c){
             $products = $this->getProductByCategory($c['category_id']);            
-            $category[$key]['title'] = $c['category_name'];
+            $category[$key]['title'] = $c['category_name'].'('.$this->getProductCountCategoryWise($c['category_id']).')';
             $category[$key]['data'] = $products;
             unset($category[$key]['category_id']);
             unset($category[$key]['category_name']);
         }
-
         return $category;
     }
 
