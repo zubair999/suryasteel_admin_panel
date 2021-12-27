@@ -235,11 +235,12 @@ class Product_m extends MY_Model {
         }
     }
 
-    public function productSectionList(){
+    public function productSectionList($out_of_stock_threshold_limit, $short_stock_threshold_limit){
         $this->db->distinct();
         $this->db->select('p.category_id, c.category_name');
         $this->db->from('products as p');
         $this->db->join('category as c', 'p.category_id = c.category_id');
+        $this->db->join('size as sz', 'p.size = sz.size_id');
         if($this->input->post('categoryId')){
             $this->db->where('p.category_id', $this->input->post('categoryId'));
         }
@@ -249,11 +250,17 @@ class Product_m extends MY_Model {
         if($this->input->post('length')){
             $this->db->where('p.length', $this->input->post('length'));
         }
-        
+        if($this->input->post('outOfStock')){
+            $this->db->where('p.stock', $out_of_stock_threshold_limit);
+        }
+        if($this->input->post('shortStock')){
+            $this->db->where('p.stock < ', $short_stock_threshold_limit);
+        }
+
         $category = $this->db->get()->result_array();
 
         foreach ($category as $key => $c){
-            $products = $this->getProductByCategory($c['category_id']);            
+            $products = $this->getProductByCategory($c['category_id'], $out_of_stock_threshold_limit, $short_stock_threshold_limit);            
             $category[$key]['title'] = $c['category_name'].'('.$this->getProductCountCategoryWise($c['category_id']).')';
             $category[$key]['data'] = $products;
             unset($category[$key]['category_id']);
@@ -262,7 +269,7 @@ class Product_m extends MY_Model {
         return $category;
     }
 
-    public function getProductByCategory($id){
+    public function getProductByCategory($id, $out_of_stock_threshold_limit, $short_stock_threshold_limit){
         $this->db->select(
             'p.product_id,
             p.category_id,
@@ -300,6 +307,13 @@ class Product_m extends MY_Model {
         if($this->input->post('length')){
             $this->db->where('p.length', $this->input->post('length'));
         }
+        if($this->input->post('outOfStock')){
+            $this->db->where('p.stock', $out_of_stock_threshold_limit);
+        }
+        if($this->input->post('shortStock')){
+            $this->db->where('p.stock < ', $short_stock_threshold_limit);
+        }
+
 
         $this->db->order_by('p.product_name','asc');
         $products = $this->db->get()->result_array();

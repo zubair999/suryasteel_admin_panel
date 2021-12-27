@@ -67,7 +67,10 @@ class Product extends REST_Controller {
             exit();
         }
         else{
-            $products = $this->product_m->productSectionList();
+            $out_of_stock_threshold_limit = get_settings("out_of_stock_threshold_limit");
+            $short_stock_threshold_limit = get_settings("short_stock_threshold_limit");
+
+            $products = $this->product_m->productSectionList($out_of_stock_threshold_limit, $short_stock_threshold_limit);
             $res = ['status'=>200,'message'=>'success','description'=>'Products fetched successfully.', 'data'=>$products];
             $this->response($res, REST_Controller::HTTP_OK);
             exit();
