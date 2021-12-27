@@ -290,7 +290,7 @@ class Order_m extends MY_Model {
             $this->db->where('order_id', $o['order_id']);
             $this->db->where('item_dispatch_status_id <',  3);
             $i = $this->db->get()->row();
-            $order[$key]['sum'] = $i->weight_to_be_dispatched;
+            $order[$key]['weight_to_be_dispatched'] = $i->weight_to_be_dispatched;
         }
 
         return $order;
