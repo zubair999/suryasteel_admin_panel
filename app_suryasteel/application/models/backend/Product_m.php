@@ -324,6 +324,8 @@ class Product_m extends MY_Model {
             $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
             $products[$key]['isAddedToCart'] = false;
             $products[$key]['productWiseOrderCount'] = $product_wise_order_count;
+            $products[$key]['productWiseOrders'] = $this->productWiseOrder();
+
         }
 
         if(count($products) == 0){
@@ -344,6 +346,23 @@ class Product_m extends MY_Model {
                         "value" => "without_zinc"
                     )
                 );
+    }
+
+    public function productWiseOrder (){
+        return array(
+            0 => array(
+                "order_id" => 1,
+                "cusomter_company" => "company 1",
+                "order_qty" => 100,
+                "date" => "2021-12-27"
+            ),
+            1 => array(
+                "order_id" => 2,
+                "cusomter_company" => "company 2",
+                "order_qty" => 120,
+                "date" => "2021-12-28"
+            )
+        );
     }
 
     public function yesno(){
