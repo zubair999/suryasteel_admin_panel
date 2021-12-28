@@ -292,7 +292,7 @@ class Order_m extends MY_Model {
         foreach ($order as $key => $o){
             // $order[$key]['weight_to_be_dispatched'] = (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
             // $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
-            $total_order = $this->product_dispatch_pending_count($o['order_id']);
+            $total_order += $this->product_dispatch_pending_count($o['order_id']);
             // $total_weight = (float)$this->total_weight_ordered($o['order_id']) - (float)$this->total_weight_dispatched($o['order_id']);
             $order[$key]['weight_to_be_dispatched'] = $this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
             $total_weight += (float)$this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
@@ -412,6 +412,9 @@ class Order_m extends MY_Model {
     }
 
     private function getOrderItemWeight($p, $q, $u, $weight_per_piece){
+
+        
+
         if($u == 1){
             return $q;
         }
@@ -478,17 +481,26 @@ class Order_m extends MY_Model {
         $orderItem = $this->getOrderItemByOrderItemId($orderItemId);
         $product = $this->product_m->get_product($orderItem->product_id);
 
+        $weight_to_be_dispatched = $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece);
+
         $orderItemData = array(
             'order_qty' => $quantity,
             'unit' => $unit,
             'sold_at' => $sold_at,
-            'weight_to_be_dispatched' => $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece),
+            'weight_to_be_dispatched' => 5000,
             'no_of_piece_to_be_dispatched' => $this->getOrderItemInPcs($orderItem->product_id, $quantity, $unit, $product->weight_per_piece),
             'updated_on' => $this->today
         );
         
+        // print_r($orderItemId);
+        // die;
+
         $this->db->where('order_item_id', $orderItemId);
         $response = $this->db->update('order_item', $orderItemData);
+
+            // $u = $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece);
+            // echo $u;
+            // die;
         if($response){
             return true;
         }
