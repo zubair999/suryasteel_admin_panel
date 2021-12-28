@@ -325,6 +325,7 @@ class Product_m extends MY_Model {
             $products[$key]['isAddedToCart'] = false;
             $products[$key]['productWiseOrderCount'] = $this->order_m->productWiseOrder($p['product_id'])['total_count'];
             $products[$key]['productWiseOrders'] = $this->order_m->productWiseOrder($p['product_id'])['order'];
+            $products[$key]['totalPendingWeight'] = $this->order_m->productWiseOrder($p['product_id'])['total_pending_weight'];
 
         }
 

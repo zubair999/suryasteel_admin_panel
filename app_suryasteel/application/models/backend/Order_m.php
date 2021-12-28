@@ -288,19 +288,15 @@ class Order_m extends MY_Model {
         $order = $this->db->get()->result_array();
 
         $total_order = 0;
+        $total_weight = 0;
         foreach ($order as $key => $o){
-            $this->db->select_sum('weight_to_be_dispatched');
-            $this->db->from('order_item');
-            $this->db->where('order_id', $o['order_id']);
-            // $this->db->where('item_dispatch_status_id <',  3);
-            $i = $this->db->get()->row();
-            $order[$key]['weight_to_be_dispatched'] = $i->weight_to_be_dispatched;
+            $order[$key]['weight_to_be_dispatched'] = (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
             $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
             $total_order += $this->product_dispatch_pending_count($o['order_id']);
-
+            $total_weight += (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
         }
 
-        return ['order' => $order, 'total_count'=> $total_order];
+        return ['order' => $order, 'total_count'=> $total_order, 'total_pending_weight'=>$total_weight];
     }
 
 
