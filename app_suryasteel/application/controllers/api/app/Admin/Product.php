@@ -22,7 +22,10 @@ class Product extends REST_Controller {
                 $isAdded = $this->product_m->addProduct($this->input->post('createdBy'));
 				$this->log_m->Log($this->input->post('createdBy'), 'Product','A product is added successfully.');
 				if($isAdded){
-                    $products = $this->product_m->productSectionList();
+                    $out_of_stock_threshold_limit = get_settings("out_of_stock_threshold_limit");
+                    $short_stock_threshold_limit = get_settings("short_stock_threshold_limit");
+
+                    $products = $this->product_m->productSectionList($out_of_stock_threshold_limit, $short_stock_threshold_limit);
 					$response = ['status' => 200, 'message' => 'success', 'description' => 'New product added successfully.', 'data'=>$products];
 				}
 				else{
@@ -94,7 +97,10 @@ class Product extends REST_Controller {
 				$isDeleted = $this->db->delete('products');
 				$this->log_m->Log($this->input->post('deletedBy'), 'Product','A product is deleted successfully.');
 				if($isDeleted){
-					$products = $this->productSectionList();
+					$out_of_stock_threshold_limit = get_settings("out_of_stock_threshold_limit");
+                    $short_stock_threshold_limit = get_settings("short_stock_threshold_limit");
+
+                    $products = $this->product_m->productSectionList($out_of_stock_threshold_limit, $short_stock_threshold_limit);
 					$response = ['status' => 200, 'message' => 'success', 'description' => 'Product deleted successfully.', 'data'=>$products];
 				}
 				else{
