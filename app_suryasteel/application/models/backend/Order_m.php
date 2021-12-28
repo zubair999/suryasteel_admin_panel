@@ -266,9 +266,9 @@ class Order_m extends MY_Model {
         return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
     }
 
-    public function productWiseOrderItemPendingCount($product_id){
-        return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
-    }
+    // public function productWiseOrderItemPendingCount($product_id){
+    //     return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
+    // }
 
     public function productWiseOrder ($product_id){
         $this->db->select(
@@ -278,22 +278,29 @@ class Order_m extends MY_Model {
                 u.customer_company
             '
         );
+
+        
+
         $this->db->from('order_item as oi');
         $this->db->join('users as u', 'oi.user_id = u.user_id');
         $this->db->where('oi.product_id', $product_id);
         $this->db->where('oi.item_dispatch_status_id <',  3);
         $order = $this->db->get()->result_array();
 
+        $total_order = 0;
         foreach ($order as $key => $o){
             $this->db->select_sum('weight_to_be_dispatched');
             $this->db->from('order_item');
             $this->db->where('order_id', $o['order_id']);
-            $this->db->where('item_dispatch_status_id <',  3);
+            // $this->db->where('item_dispatch_status_id <',  3);
             $i = $this->db->get()->row();
             $order[$key]['weight_to_be_dispatched'] = $i->weight_to_be_dispatched;
+            $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
+            $total_order += $this->product_dispatch_pending_count($o['order_id']);
+
         }
 
-        return $order;
+        return ['order' => $order, 'total_count'=> $total_order];
     }
 
 

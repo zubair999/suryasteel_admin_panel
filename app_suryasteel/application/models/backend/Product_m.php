@@ -319,12 +319,12 @@ class Product_m extends MY_Model {
         $products = $this->db->get()->result_array();
 
         foreach($products as $key => $p){
-            $product_wise_order_count = $this->order_m->productWiseOrderCount($p['product_id']);
+            // $product_wise_order_count = $this->order_m->productWiseOrderCount($p['product_id']);
             $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
             $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
             $products[$key]['isAddedToCart'] = false;
-            $products[$key]['productWiseOrderCount'] = $product_wise_order_count;
-            $products[$key]['productWiseOrders'] = $this->order_m->productWiseOrder($p['product_id']);
+            $products[$key]['productWiseOrderCount'] = $this->order_m->productWiseOrder($p['product_id'])['total_count'];
+            $products[$key]['productWiseOrders'] = $this->order_m->productWiseOrder($p['product_id'])['order'];
 
         }
 
