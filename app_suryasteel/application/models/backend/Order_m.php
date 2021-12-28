@@ -290,15 +290,32 @@ class Order_m extends MY_Model {
         $total_order = 0;
         $total_weight = 0;
         foreach ($order as $key => $o){
-            $order[$key]['weight_to_be_dispatched'] = (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
-            $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
-            $total_order += $this->product_dispatch_pending_count($o['order_id']);
-            $total_weight += (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
+            // $order[$key]['weight_to_be_dispatched'] = (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
+            // $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
+            $total_order = $this->product_dispatch_pending_count($o['order_id']);
+            // $total_weight = (float)$this->total_weight_ordered($o['order_id']) - (float)$this->total_weight_dispatched($o['order_id']);
+            $order[$key]['weight_to_be_dispatched'] = $this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
+            $total_weight += (float)$this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
+        
         }
 
         return ['order' => $order, 'total_count'=> $total_order, 'total_pending_weight'=>$total_weight];
     }
 
+    public function product_wise_dispatch_weight_pending($order_id, $product_id){
+        if(!empty($order_id)){
+            $this->db->select('dispatched_qty, weight_to_be_dispatched');
+            $this->db->from('order_item');
+            $this->db->where('order_id', $order_id);
+            $this->db->where('product_id', $product_id);
+            $query = $this->db->get();
+            $o = $query->row();
+            return (float)$o->weight_to_be_dispatched - (float)$o->dispatched_qty;
+        }
+        else{
+            return ;
+        }
+    }
 
     public function get_order_by_product_id(){
         $this->db->select(
