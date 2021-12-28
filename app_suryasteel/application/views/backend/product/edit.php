@@ -94,6 +94,7 @@
                   <div class="col-12 col-md-6 mb-3">
                      <label class="form-label" for="validationSample03">Category</label>
                      <select 
+                        id="category03"
                         name="categoryId"
                         class="form-control"
                      >
@@ -101,7 +102,7 @@
                         <?php
                            foreach($category as $value => $c){
                               $selected = ($c['category_id'] == $product->category_id) ? ' selected="selected"' : "";
-                              echo '<option value="'.$c['category_id'].'" '.$selected.'>'.ucwords($c['category_name']).'</option>';
+                              echo '<option value="'.$c['category_id'].'" '.$selected.' data-name="'.$c['category_name'].'">'.ucwords($c['category_name']).'</option>';
                            }
                         ?>
                     </select>
@@ -114,7 +115,7 @@
                <div class="form-row">
                   <div class="col-12 col-md-6 mb-3">
                         <label class="form-label" for="validationSample01">Product Name</label>
-                        <input type="text" name="productName" value="<?php echo ($product ? $product->product_name : $this->input->post('productName')) ?>" class="form-control" id="validationSample01" placeholder="Enter product name" required>
+                        <input type="text" name="productName" value="<?php echo ($product ? $product->product_name : $this->input->post('productName')) ?>" class="form-control" id="product01" placeholder="Enter product name" required>
                         <div class="invalid-feedback">Please provide a product name.</div>
                         <div class="valid-feedback">Looks good!</div>
                            <?php echo form_error('productName');?>
@@ -125,6 +126,7 @@
                   <div class="col-12 col-md-6 mb-3">
                      <label class="form-label" for="validationSample01">Length(in INCHES)</label>
                      <select
+                        id="length01"
                         name="length"
                         class="form-control">
                         <?php
@@ -144,6 +146,7 @@
                   <div class="col-12 col-md-6 mb-3">
                      <label class="form-label" for="validationSample01">size(in MM)</label>
                      <select
+                        id="size01"
                         name="size"
                         class="form-control">
                         <?php

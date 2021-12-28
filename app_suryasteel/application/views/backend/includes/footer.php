@@ -116,19 +116,25 @@
 
 
 
-   document.getElementById('select03').onchange = (e) => {
-      var text = e.target.options[e.target.selectedIndex].text;
-      console.log(text)
-      getSubCategoryByParent(e.target.value)
-      if(getSubCategoryByParent(e.target.value)){
-         console.log(e.target)
-      }
-      else{
-         var subCategoryOption = `<option value="">Select Sub Category</option>`;
-         document.getElementById('select04').innerHTML = subCategoryOption;
-         var subCategoryTypeOption = `<option value="">Select Sub Category Type</option>`;;
-         document.getElementById('select05').innerHTML = subCategoryTypeOption;
-      }
+   document.getElementById('category03').onchange = (e) => {
+      var category = e.target.options[e.target.selectedIndex].text;
+      const length = document.getElementById('length01').value;
+      const size = document.getElementById('size01').value;
+      document.getElementById('product01').value = category +' '+  size + 'MM' +' X ' + length+'MM'
+   }
+
+   document.getElementById('length01').onchange = (e) => {
+      var length = e.target.options[e.target.selectedIndex].text;
+      const category = document.querySelector('[data-name]');
+      const size = document.getElementById('size01').value;
+      document.getElementById('product01').value = category.text +' '+  size + 'MM' +' X ' + length+'MM'
+   }
+
+   document.getElementById('size01').onchange = (e) => {
+      var size = e.target.options[e.target.selectedIndex].text;
+      const length = document.getElementById('length01').value;
+      const category = document.querySelector('[data-name]');
+      document.getElementById('product01').value = category.text +' '+  size + 'MM' +' X ' + length+'MM'
    }
 
    document.getElementById('select04').onchange = (e) => {
