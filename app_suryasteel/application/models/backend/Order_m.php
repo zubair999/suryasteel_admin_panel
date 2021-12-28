@@ -412,9 +412,6 @@ class Order_m extends MY_Model {
     }
 
     private function getOrderItemWeight($p, $q, $u, $weight_per_piece){
-
-        
-
         if($u == 1){
             return $q;
         }
