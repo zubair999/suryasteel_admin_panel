@@ -314,6 +314,10 @@ class Product_m extends MY_Model {
             $this->db->where('p.stock < ', $short_stock_threshold_limit);
         }
 
+        if($this->input->post('searchterm')){
+            $this->db->like('p.product_name', $this->input->post('searchterm'), 'both');
+        }
+
 
 
         // $this->db->order_by('p.product_name','asc');
