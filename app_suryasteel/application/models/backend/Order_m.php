@@ -484,7 +484,7 @@ class Order_m extends MY_Model {
             'order_qty' => $quantity,
             'unit' => $unit,
             'sold_at' => $sold_at,
-            'weight_to_be_dispatched' => 5000,
+            'weight_to_be_dispatched' => $weight_to_be_dispatched,
             'no_of_piece_to_be_dispatched' => $this->getOrderItemInPcs($orderItem->product_id, $quantity, $unit, $product->weight_per_piece),
             'updated_on' => $this->today
         );

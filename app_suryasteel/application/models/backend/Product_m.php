@@ -315,7 +315,11 @@ class Product_m extends MY_Model {
         }
 
 
-        $this->db->order_by('p.product_name','asc');
+
+        // $this->db->order_by('p.product_name','asc');
+        $this->db->order_by('p.size','asc');
+        $this->db->order_by('p.length','asc');
+
         $products = $this->db->get()->result_array();
 
         foreach($products as $key => $p){
