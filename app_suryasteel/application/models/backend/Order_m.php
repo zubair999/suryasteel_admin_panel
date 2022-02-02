@@ -476,7 +476,7 @@ class Order_m extends MY_Model {
         $orderItemId = $this->input->post('orderItemId');
 
         $orderItem = $this->getOrderItemByOrderItemId($orderItemId);
-        $product = $this->product_m->get_product($orderItem->product_id);
+        $product = $this->product_m->get_product_by_id($orderItem->product_id);
 
         $weight_to_be_dispatched = $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece);
 
@@ -489,15 +489,9 @@ class Order_m extends MY_Model {
             'updated_on' => $this->today
         );
         
-        // print_r($orderItemId);
-        // die;
-
         $this->db->where('order_item_id', $orderItemId);
         $response = $this->db->update('order_item', $orderItemData);
 
-            // $u = $this->getOrderItemWeight($orderItem->product_id, $quantity, $unit, $product->weight_per_piece);
-            // echo $u;
-            // die;
         if($response){
             return true;
         }
