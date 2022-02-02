@@ -49,6 +49,13 @@ class Product_m extends MY_Model {
         return $this->db->get_where('products', array('category_id'=> $category))->num_rows();
     }
 
+    public function get_product_by_id($id) {
+        $this->db->select('*');
+        $this->db->from('products');
+        $this->db->where('product_id', $id);
+        return $this->db->get()->row();
+    }
+    
     public function get_product($id) {
         $this->db->select('*');
         $this->db->from('products as p');
@@ -313,7 +320,6 @@ class Product_m extends MY_Model {
         if($this->input->post('shortStock')){
             $this->db->where('p.stock < ', $short_stock_threshold_limit);
         }
-
         if($this->input->post('searchterm')){
             $this->db->like('p.product_name', $this->input->post('searchterm'), 'both');
         }
@@ -327,14 +333,12 @@ class Product_m extends MY_Model {
         $products = $this->db->get()->result_array();
 
         foreach($products as $key => $p){
-            // $product_wise_order_count = $this->order_m->productWiseOrderCount($p['product_id']);
             $products[$key]['actual'] = BASEURL.'upload/'.$p['actual'];
             $products[$key]['thumbnail'] = BASEURL.'upload/'.$p['thumbnail'];
             $products[$key]['isAddedToCart'] = false;
             $products[$key]['productWiseOrderCount'] = $this->order_m->productWiseOrder($p['product_id'])['total_count'];
             $products[$key]['productWiseOrders'] = $this->order_m->productWiseOrder($p['product_id'])['order'];
             $products[$key]['totalPendingWeight'] = $this->order_m->productWiseOrder($p['product_id'])['total_pending_weight'];
-
         }
 
         if(count($products) == 0){

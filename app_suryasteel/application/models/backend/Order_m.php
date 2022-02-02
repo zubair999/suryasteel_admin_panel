@@ -386,7 +386,7 @@ class Order_m extends MY_Model {
     }
 
     public function insertOrderItem($lastOrderId, $user_id, $created_by, $p, $q, $u, $sold_price){
-        $product = $this->product_m->get_product($p);
+        $product = $this->product_m->get_product_by_id($p);
 
         $orderItemData = array(
             'order_id' => $lastOrderId,
