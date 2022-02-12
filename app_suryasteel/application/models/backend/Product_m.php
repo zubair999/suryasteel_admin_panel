@@ -198,18 +198,18 @@ class Product_m extends MY_Model {
         $product = $this->get_product($productId);
         $currentStock = $product->stock;
         $orderQty = $this->input->post('dispatchQty');
-        $result = is_greater_than($currentStock, $orderQty);
-        if($result){
-            $newStock = $currentStock - $orderQty;
-            $data = array(
-                'stock' => $newStock
-            );
-            $this->db->where('product_id', $productId);
-            $this->db->update('products', $data);
-        }
-        else{
-            return false;
-        }
+        // $result = is_greater_than($currentStock, $orderQty);
+        // if($result){
+        $newStock = $currentStock - $orderQty;
+        $data = array(
+            'stock' => $newStock
+        );
+        $this->db->where('product_id', $productId);
+        $this->db->update('products', $data);
+        // }
+        // else{
+        //     return false;
+        // }
     }
 
     public function returnStock($orderItemId, $deletedDispatchedQty){
@@ -233,7 +233,7 @@ class Product_m extends MY_Model {
         $currentStock = $product->stock;
         $orderQty = $this->input->post('dispatchQty');
 
-        $result = is_greater_than($currentStock, $orderQty);
+        $result = is_greater_than_equal_to($currentStock, $orderQty);
         if($result){
             return true;
         }

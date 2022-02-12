@@ -270,7 +270,7 @@ class Order_m extends MY_Model {
     //     return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
     // }
 
-    public function productWiseOrder ($product_id){
+    public function productWiseOrder($product_id){
         $this->db->select(
             '
                 oi.order_id, 
@@ -278,7 +278,6 @@ class Order_m extends MY_Model {
                 u.customer_company
             '
         );
-
         
 
         $this->db->from('order_item as oi');
