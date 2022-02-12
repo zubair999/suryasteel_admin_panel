@@ -195,7 +195,7 @@ class Product_m extends MY_Model {
     public function decreaseStock(){
         $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
         $productId = $orderItem->product_id;
-        $product = $this->get_product($productId);
+        $product = $this->get_product_by_id($productId);
         $currentStock = $product->stock;
         $orderQty = $this->input->post('dispatchQty');
         // $result = is_greater_than($currentStock, $orderQty);
@@ -204,6 +204,14 @@ class Product_m extends MY_Model {
         $data = array(
             'stock' => $newStock
         );
+
+        // echo $orderItem->product_id;
+        // echo "-";
+        // echo $product->stock;
+        // echo "-";
+        // echo $orderQty;
+        // die;
+
         $this->db->where('product_id', $productId);
         $this->db->update('products', $data);
         // }
