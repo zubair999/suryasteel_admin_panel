@@ -200,7 +200,7 @@ class Product_m extends MY_Model {
         $orderQty = $this->input->post('dispatchQty');
         // $result = is_greater_than($currentStock, $orderQty);
         // if($result){
-        $newStock = $currentStock - $orderQty;
+        $newStock = (float)$currentStock - (float)$orderQty;
         $data = array(
             'stock' => $newStock
         );

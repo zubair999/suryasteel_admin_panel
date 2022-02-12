@@ -531,7 +531,7 @@ class Order_m extends MY_Model {
             'order_item_id' => $this->input->post('orderItemId'),
             'delivery_mode_id' => 1,
             'dispatch_quantity' => $this->input->post('dispatchQty'),
-            'dispatch_unit' => $this->input->post('productUnit'),
+            // 'dispatch_unit' => $this->input->post('productUnit'), // DISPATCH ALWAYS IN KG
             'created_on' => $this->today
         );
 
