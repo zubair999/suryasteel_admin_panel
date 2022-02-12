@@ -223,7 +223,7 @@ class Product_m extends MY_Model {
     public function returnStock($orderItemId, $deletedDispatchedQty){
         $orderItem = $this->order_m->getOrderItemByOrderItemId($orderItemId);
         $productId = $orderItem->product_id;
-        $product = $this->get_product($productId);
+        $product = $this->get_product_by_id($productId);
         $currentStock = $product->stock;
         $newStock = $currentStock + $deletedDispatchedQty;
         $data = array(
@@ -237,9 +237,15 @@ class Product_m extends MY_Model {
     public function checkStock(){
         $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
         $productId = $orderItem->product_id;
-        $product = $this->get_product($productId);
+        $product = $this->get_product_by_id($productId);
         $currentStock = $product->stock;
-        $orderQty = $this->input->post('dispatchQty');
+        $orderQty = (float)$this->input->post('dispatchQty');
+
+        echo $currentStock;
+        echo "-";
+        echo $orderQty;
+
+        die;
 
         $result = is_greater_than_equal_to($currentStock, $orderQty);
         if($result){
