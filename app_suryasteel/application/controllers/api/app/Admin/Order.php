@@ -116,7 +116,7 @@ class Order extends REST_Controller
                 $orderItem = $this->order_m->getOrderItemByOrderItemId($this->input->post('orderItemId'));
                 $productId = $orderItem->product_id;
                 $product = $this->product_m->get_product_by_id($productId);
-                $response = ['status' => 200, 'message' =>'error', 'description' =>'Product stock is '.$product->stock.' Kg. You can not dispatched more than that.'];
+                $response = ['status' => 200, 'message' =>'error', 'description' =>'Product stock is '.round($product->stock,2).' Kg. You can not dispatched more than that.'];
             }
             $this->response($response, REST_Controller::HTTP_OK);
             exit();
