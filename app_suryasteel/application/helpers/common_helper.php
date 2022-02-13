@@ -39,6 +39,20 @@ if (! function_exists('is_greater_than')) {
     }
 }
 
+if (! function_exists('is_less_than')) {
+    function is_less_than($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if((float)$number1 < (float)$number2){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+}
+
 if (! function_exists('is_greater_than_equal_to')) {
     function is_greater_than_equal_to($number1 = '', $number2 = '') {
         $CI	=&	get_instance();
