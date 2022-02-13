@@ -207,6 +207,7 @@ class Order_m extends MY_Model {
                                 oi.item_added_by,
                                 DATE_FORMAT(oi.created_on, "%d-%b-%Y") as created_on,
                                 p.product_name,
+                                p.stock,
                                 CONCAT(u.firstname ," ",  u.lastname) as added_by,
                                 un.unit_value,
                                 ois.item_dispatch_status
