@@ -241,18 +241,18 @@ class Product_m extends MY_Model {
         $currentStock = $product->stock;
         $orderQty = (float)$this->input->post('dispatchQty');
 
-        echo $currentStock;
-        echo "-";
-        echo $orderQty;
+        // echo $currentStock;
+        // echo "-";
+        // echo $orderQty;
 
-        die;
+        // die;
 
-        $result = is_greater_than_equal_to($currentStock, $orderQty);
-        if($result){
-            return true;
+        // $result = is_greater_than_equal_to($currentStock, $orderQty);
+        if((float)$currentStock <= 0){
+            return false;
         }
         else{
-            return false;
+            return true;
         }
     }
 
