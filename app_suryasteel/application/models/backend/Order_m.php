@@ -48,7 +48,6 @@ class Order_m extends MY_Model {
             join users on users.user_id = orders.user_id
         ";
 
-        //echo $sql;
         $query = $this->db->query($sql);
         $queryqResults = $query->result();
         $totalData = $query->num_rows(); // rules datatable
@@ -267,10 +266,6 @@ class Order_m extends MY_Model {
         return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
     }
 
-    // public function productWiseOrderItemPendingCount($product_id){
-    //     return $this->db->where(['product_id'=>$product_id])->from("order_item")->count_all_results();
-    // }
-
     public function productWiseOrder($product_id){
         $this->db->select(
             '
@@ -280,7 +275,6 @@ class Order_m extends MY_Model {
             '
         );
         
-
         $this->db->from('order_item as oi');
         $this->db->join('users as u', 'oi.user_id = u.user_id');
         $this->db->where('oi.product_id', $product_id);
@@ -290,18 +284,10 @@ class Order_m extends MY_Model {
         $total_order = 0;
         $total_weight = 0;
         foreach ($order as $key => $o){
-            // $order[$key]['weight_to_be_dispatched'] = (float)$this->total_weight_ordered($o['order_id']) - $this->total_weight_dispatched($o['order_id']);
-            // $order[$key]['order_count'] = $this->product_dispatch_pending_count($o['order_id']);
-            // $total_order += $this->product_dispatch_pending_count($o['order_id']);
-            // $total_weight = (float)$this->total_weight_ordered($o['order_id']) - (float)$this->total_weight_dispatched($o['order_id']);
             $order[$key]['weight_to_be_dispatched'] = $this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
             $total_weight += (float)$this->product_wise_dispatch_weight_pending($o['order_id'], $product_id);
-        
         }
-
         $total_order = count($order);
-
-
         return ['order' => $order, 'total_count'=> $total_order, 'total_pending_weight'=>$total_weight];
     }
 
@@ -455,23 +441,6 @@ class Order_m extends MY_Model {
         }
     }
 
-    // public function editOrderItem(){
-    //     $product = $this->input->post('product');
-    //     $quantity = $this->input->post('quantity');
-    //     $unit = $this->input->post('unit');
-    //     $sold_at = $this->input->post('soldAt');
-    //     $orderId = $this->input->post('orderId');
-    //     $payment_mode = $this->input->post('paymentMode');
-
-    //     $i = 0;
-    //     foreach (array_combine($product, $quantity) as $p => $q){
-    //         $unit_id = $unit[$i];
-    //         $sold_price = $sold_at[$i];
-    //         $this->updateOrderItem($orderId, $p, $q, $unit_id, $sold_price);
-    //         $i++;
-    //     }
-    // }
-
     public function updateOrderItem(){
         $quantity = $this->input->post('quantity');
         $unit = $this->input->post('unit');
@@ -560,27 +529,6 @@ class Order_m extends MY_Model {
         return $this->db->update('order_item', $orderItemData);
     }
 
-    // public function changeOrderItemDispatchStatus($orderItemId, $dispatchingQty){
-    //     $orderItem = $this->order_m->getOrderItemByOrderItemId($orderItemId);
-    //     $orderQty = $orderItem->order_qty;
-    //     $dispatchedQty = $orderItem->dispatched_qty;
-    //     $newDispatchingQty = (float)$dispatchedQty + (float)$dispatchingQty;
-    //     $isEqual = is_equal_to($newDispatchingQty, $orderQty);
-    //     if($isEqual){
-    //         return 3;
-    //     }
-    //     else{
-    //         $dispatchedDifference = $orderQty - $dispatchedQty;
-    //         $differenceLimit = get_settings('dispatch_lower_limit');
-    //         if($newDispatchingQty > $orderQty){
-    //             return 4;
-    //         }
-    //         if($newDispatchingQty < $orderQty){
-    //             return 2;
-    //         }
-    //     }
-    // }
-
     public function changeOrderStatus($status){
         $orderData = array(
             'order_status_catalog_id' => $status,
@@ -590,16 +538,6 @@ class Order_m extends MY_Model {
     }
 
     public function checkIfOrderIsFullyDispatched(){
-        // $this->db->select('order_item_id, order_qty, dispatched_qty');
-        // $this->db->from('order_item');
-        // $this->db->where('order_id', $this->input->post('orderId'));
-        // $order_item = $this->db->get()->result_array();
-        // foreach ($order_item as $key => $oi){
-        //     if($oi['dispatched_qty'] >=  $oi['order_qty']){
-        //         unset($order_item[$key]);
-        //     }
-        // }
-
         $pending_item_count = $this->product_dispatch_pending_count($this->input->post('orderId'));
         $dispatched_item_count = $this->dispatched_item_count($this->input->post('orderId'));
         $delivery_item_count = $this->delivered_item_count($this->input->post('orderId'));
@@ -692,19 +630,6 @@ class Order_m extends MY_Model {
         return $this->db->update('order_item_dispatch', $dispatchItem);
     }
 
-    // public function product_dispatch_pending_count($order_id){
-    //     $weight = 1;
-    //     if(!empty($order_id)){
-    //         $this->db->select('count( order_item_id )');
-    //         $this->db->from('order_item');
-    //         $this->db->where('order_id', $order_id);     
-    //         return $this->db->where('((weight_to_be_dispatched - dispatched_qty) > '.$weight.')')->count_all_results();
-    //     }
-    //     else{
-    //         return ;
-    //     }
-    // }
-
     public function product_dispatch_pending_count($order_id){
         $weight = 1;
         if(!empty($order_id)){
@@ -788,6 +713,14 @@ class Order_m extends MY_Model {
             );
     }
 
-//end class
 
+
+
+
+
+
+
+
+
+//end class
 }

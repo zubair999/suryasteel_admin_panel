@@ -8,6 +8,13 @@ class OneSignal_m extends MY_Model {
 		parent::__construct();   
 	}
 
+
+	// new order create notification
+	// dispatch item notification
+	// order completed notification
+	// low stock notification
+	// 
+
     public function send_push_notification($customer_company){
 		$content = "You have a new order from ".$customer_company;
 		$content = array(
