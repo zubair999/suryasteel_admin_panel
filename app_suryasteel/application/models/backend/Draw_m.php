@@ -114,6 +114,7 @@ class Draw_m extends MY_Model {
                              d.round_or_length_completed,
                              d.scrap_round_or_length,
                              d.is_task_assigned,
+                             d.size_and_qty,
                              d.remarks,
                              DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
