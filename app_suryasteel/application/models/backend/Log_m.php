@@ -104,10 +104,18 @@ class Log_m extends MY_Model {
     }
 
     public function getAllLog(){
-        $this->db->select('*');
+        $this->db->select(
+            '
+                log_id, 
+                user_id, 
+                title,
+                description,
+                DATE_FORMAT(created_on, "%d-%b-%Y") as created_on,
+            '
+        );
+
         $this->db->from('logs');
         $this->db->order_by('log_id','desc');
-
 
         $this->db->limit(50);
         return $this->db->get()->result_array();
