@@ -317,6 +317,7 @@ class Purchase_m extends MY_Model {
             $this->db->or_where('s.size_value', $this->input->post('searchterm'), 'after');
         }
 
+        $this->db->order_by('purchase_status_catalog_id', 'asc');
 
         $purchase_item = $this->db->get()->result_array();
 
