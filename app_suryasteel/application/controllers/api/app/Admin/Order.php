@@ -22,6 +22,7 @@ class Order extends REST_Controller
                 $this->order_m->addOrderItem($isOrderAdded['last_order_id']);
                 $user = $this->auth_m->getUserById($data['userId']);
                 // $this->onesignal_m->send_push_notification($user->customer_company);
+				$this->log_m->Log($this->input->post('createdBy'), 'Order','A order is created successfully.');
                 $response = ['status' => 200, 'message' =>'success', 'description' =>"Order created successfully."];
             }
             else{
