@@ -171,7 +171,8 @@ $route['v1/getreport'] = 'api/app/Admin/report/getReport';
 // CHALLAN PROCESS
 $route['v1/createdeliverychallan'] = 'api/app/Admin/challan/createDeliveryChallan';
 
-
+// LOG
+$route['v1/getlog'] = 'api/app/Admin/log/getLog';
 
 
 

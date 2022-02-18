@@ -103,6 +103,17 @@ class Log_m extends MY_Model {
         $this->db->insert('logs', $logData);
     }
 
+    public function getAllLog(){
+        $this->db->select('*');
+        $this->db->from('logs');
+        $this->db->order_by('log_id','desc');
+
+
+        $this->db->limit(50);
+        return $this->db->get()->result_array();
+
+    }
+
 
 //end class
 
