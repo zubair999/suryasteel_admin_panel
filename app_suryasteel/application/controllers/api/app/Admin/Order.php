@@ -103,6 +103,7 @@ class Order extends REST_Controller
                     if($isQtyUpdated){
                         $this->product_m->decreaseStock();
                         $order_item = $this->order_m->get_order_item_by_order_id($this->input->post('orderId'));
+        				$this->log_m->Log($this->input->post('dispatchBy'), 'Dispatch','An item is dispatched successfully.');
                         $response = ['status' => 200, 'message' =>'success', 'description' =>'Item is dispatch successfully.', 'data'=>$order_item];
                     }
                     else{
