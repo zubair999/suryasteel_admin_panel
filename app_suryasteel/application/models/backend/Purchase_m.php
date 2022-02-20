@@ -404,7 +404,27 @@ class Purchase_m extends MY_Model {
         }
     }
 
+    public function updatePurchaseItemWhenAcidBatchDelete($purchase_id, $round_or_length_added_to_acid_batch){
+        $purchaseItem = $this->getPurchaseItem($purchase_id);
+        $newRoundOrLengthToBeAdded = (int)$purchaseItem->round_or_length_added_to_process - (int)$round_or_length_added_to_acid_batch;        
 
+        $purchaseStatus = get_purchase_status($purchaseItem->round_or_length_availble, $newRoundOrLengthToBeAdded);
+
+        $purchaseItemData = array(
+            'purchase_status_catalog_id' => $purchaseStatus,
+            'round_or_length_added_to_process' => $newRoundOrLengthToBeAdded,
+            'updated_on' => $this->today
+        );
+        
+        $this->db->where('purchase_item_id', $purchase_id);
+        $response = $this->db->update('purchase_item', $purchaseItemData);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
 

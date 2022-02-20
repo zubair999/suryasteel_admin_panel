@@ -98,6 +98,40 @@ if (! function_exists('get_process_status')) {
     }
 }
 
+if (! function_exists('get_purchase_status')) {
+    function get_purchase_status($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number2 == 0){
+            return 1;
+        }
+        else if($number1 == $number2){
+            return 3;
+        }
+        else if($number1 > $number2){
+            return 2;
+        }
+    }
+}
+
+if (! function_exists('is_task_completed')) {
+    function is_task_completed($number1 = '', $number2 = '') {
+        $CI	=&	get_instance();
+        $CI->load->database();
+
+        if($number2 == 0){
+            return false;
+        }
+        else if($number1 == $number2){
+            return true;
+        }
+        else if($number1 > $number2){
+            return false;
+        }
+    }
+}
+
 
 if (! function_exists('check_row_count')) {
     function check_row_count($table, $col, $value) {

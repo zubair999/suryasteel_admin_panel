@@ -132,6 +132,7 @@ $route['v1/getacidtreatmentitem'] = 'api/app/Admin/acidtreatment/getAcidTreatmen
 $route['v1/addacidtreatment'] = 'api/app/Admin/acidtreatment/addAcidTreatment';
 $route['v1/editacidtreatment'] = 'api/app/Admin/acidtreatment/editAcidTreatment';
 $route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreatmentHistory';
+$route['v1/deleteacidtreatmentbatch'] = 'api/app/Admin/acidtreatment/deleteAcidTreatmentBatch';
 
 // DRAW PROCESS
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';

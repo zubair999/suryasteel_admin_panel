@@ -26,6 +26,11 @@ class Acidtreatment_m extends MY_Model {
             'label' => 'Round/Length',
             'rules' => 'trim|required|is_natural'
         ),
+        1 => array(
+            'field' => 'scrapRoundOrLength',
+            'label' => 'Scrap Round/Length',
+            'rules' => 'trim|required|is_natural'
+        ),
     );
 
     public function getAcidTreatmentId($id) {
@@ -159,24 +164,22 @@ class Acidtreatment_m extends MY_Model {
 
         
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+        $isTaskCompleted = is_task_completed($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+ 
+        
         if($isAddedRoundGreaterThanCompletedRound){
             $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'scrap_round_or_length' => $scrapRoundOrLength,
                 'process_status_catalog_id' => $status_value,
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
             $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
             $this->db->update('acid_treatment', $data1);
-
-            // if($status_value == 3){
-            //     set_purchase_status_catalog($this->input->post('purchaseItemId'), 4);
-            // }
-            // if($status_value == 2){
-            //     set_purchase_status_catalog($this->input->post('purchaseItemId'), 3);
-            // }
 
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
             if($drawProcessRowCount > 0){
@@ -199,7 +202,7 @@ class Acidtreatment_m extends MY_Model {
             return ['status'=>'success', 'message'=>'Round completed'];
         }
         else{
-            return ['status'=>'error', 'message'=>'Completed cannot be more than round added in the acid treatment.'];
+            return ['status'=>'error', 'message'=>'Completed round cannot be more than round added in the acid treatment.'];
         }
     }
 
@@ -234,6 +237,17 @@ class Acidtreatment_m extends MY_Model {
             ];
 
             return $acid_treatment_overview;
+        }
+    }
+
+    public function deleteAcidTreatmentBatch($acidTreatmentId){
+        $this->db->where('acid_treatment_id', $acidTreatmentId);
+        $response = $this->db->delete('acid_treatment');
+        if($response){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
