@@ -249,6 +249,7 @@ class Acidtreatment_m extends MY_Model {
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
+                'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
             $this->db->insert('acid_treatment_process_history', $data);
