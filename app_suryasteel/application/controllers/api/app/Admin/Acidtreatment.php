@@ -66,7 +66,7 @@ class Acidtreatment extends REST_Controller
         }
 	}
 
-	public function getAcidTreatmentItem_get(){
+	public function getAcidTreatmentItem_post(){
         $method = $this->_detect_method();
         if (!$method == 'POST') {
             $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
