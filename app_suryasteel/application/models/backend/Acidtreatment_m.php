@@ -74,7 +74,7 @@ class Acidtreatment_m extends MY_Model {
         $this->db->join('process_status_catalog as ps', 'at.process_status_catalog_id = ps.process_status_catalog_id');
         
         if($this->input->post('searchterm')){
-            $this->db->where('at.purchase_item_id', $this->input->post('searchterm'));
+            $this->db->where('at.purchase_item_id =', $this->input->post('searchterm'));
         }
         
         // $this->db->limit(1);
