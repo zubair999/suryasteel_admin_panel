@@ -13,7 +13,7 @@ class OneSignal_m extends MY_Model {
 	// dispatch item notification
 	// order completed notification
 	// low stock notification
-	// 
+	// process completed notification
 
     public function send_push_notification($customer_company){
 		$content = "You have a new order from ".$customer_company;

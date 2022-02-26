@@ -83,6 +83,12 @@ if(ENVIRONMENT !== 'production') {
             'database' => 'suryasteel_local',
             'hostname' => '127.0.0.1'
     ];
+	// $db = [
+	// 	'username' => 'adminsur_public',
+	// 	'password' => 'Vpy~gGci@c+!',
+	// 	'database' => 'adminsur_public',
+	// 	'hostname' => '162.241.69.43'
+	// ];
 } else {
     $db = [
             'username' => 'adminsur_public',
@@ -94,7 +100,7 @@ if(ENVIRONMENT !== 'production') {
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => $db['hostname'],
 	'username' => $db['username'],
 	'password' => $db['password'],
 	'database' => $db['database'],

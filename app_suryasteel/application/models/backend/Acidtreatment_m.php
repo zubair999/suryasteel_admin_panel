@@ -155,6 +155,59 @@ class Acidtreatment_m extends MY_Model {
         }
     }
 
+    // public function addAcidTreatmentHistory($completedBy){
+    //     $acidTreatment = $this->getAcidTreatmentId($this->input->post('acidTreatmentId'));
+    //     $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
+    //     $scrapRoundOrLength = (int)$acidTreatment->scrap_round_or_length + (int)$this->input->post('scrapRoundOrLength');  
+        
+    //     $roundCompletedAndScrapRound = (float)$roundLengthAlreadyCompleted + (float)$scrapRoundOrLength;
+
+        
+    //     $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+    //     $isTaskCompleted = is_task_completed($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+ 
+        
+    //     if($isAddedRoundGreaterThanCompletedRound){
+    //         $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+    //         $data1 = array(
+    //             'round_or_length_completed' => $roundLengthAlreadyCompleted,
+    //             'scrap_round_or_length' => $scrapRoundOrLength,
+    //             'process_status_catalog_id' => $status_value,
+    //             'is_completed' => $isTaskCompleted,
+    //             'updated_on' => $this->today
+    //         );
+
+    //         $this->db->where('acid_treatment_id', $this->input->post('acidTreatmentId'));
+    //         $this->db->update('acid_treatment', $data1);
+
+    //         $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
+    //         if($drawProcessRowCount > 0){
+    //             $this->draw_m->updateDrawProcess();
+    //         }
+    //         else{
+    //             $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));
+    //         }
+
+    //         $data = array(
+    //             'completed_by' => $completedBy,
+    //             'acid_treatment_id' => $this->input->post('acidTreatmentId'),
+    //             'purchase_id' => $this->input->post('purchaseId'),
+    //             'purchase_item_id' => $this->input->post('purchaseItemId'),
+    //             'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
+    //             'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
+    //             'created_on' => $this->today,
+    //         );
+    //         $this->db->insert('acid_treatment_process_history', $data);
+    //         return ['status'=>'success', 'message'=>'Round completed'];
+    //     }
+    //     else{
+    //         return ['status'=>'error', 'message'=>'Completed round cannot be more than round added in the acid treatment.'];
+    //     }
+    // }
+
+
+    // NEW ACID TREATMENT HISTORY FUNCTION 26/02/2022
     public function addAcidTreatmentHistory($completedBy){
         $acidTreatment = $this->getAcidTreatmentId($this->input->post('acidTreatmentId'));
         $roundLengthAlreadyCompleted = (int)$acidTreatment->round_or_length_completed + (int)$this->input->post('roundLengthCompleted');        
@@ -182,12 +235,12 @@ class Acidtreatment_m extends MY_Model {
             $this->db->update('acid_treatment', $data1);
 
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
-            if($drawProcessRowCount > 0){
-                $this->draw_m->updateDrawProcess();
-            }
-            else{
-                $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));
-            }
+            // if($drawProcessRowCount > 0){
+            //     $this->draw_m->updateDrawProcess();
+            // }
+            // else{
+            $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));
+            // }
 
             $data = array(
                 'completed_by' => $completedBy,
