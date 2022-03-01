@@ -98,7 +98,7 @@ class Draw_m extends MY_Model {
                 'draw_process_id' => $this->input->post('drawProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'size_id' => $this->input->post('sizeDrawn'),
-                'length_id' => $this->input->post('lengthToBeCut'),
+                // 'length_id' => $this->input->post('lengthToBeCut'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
                 'remarks' => $this->input->post('remarks'),
