@@ -137,6 +137,7 @@ $route['v1/deleteacidtreatmentbatch'] = 'api/app/Admin/acidtreatment/deleteAcidT
 // DRAW PROCESS
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
 $route['v1/getdrawbatch'] = 'api/app/Admin/draw/getDrawBatch';
+$route['v1/deletedrawbatch'] = 'api/app/Admin/draw/deleteDrawBatch';
 
 // CUTTING PROCESS
 $route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';

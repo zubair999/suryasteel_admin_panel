@@ -32,12 +32,13 @@ class Draw_m extends MY_Model {
         return $this->db->get_where('draw_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addDrawProcess($roundLength){
+    public function addDrawProcess($roundLength, $lastAcidTreatmentHistoryId){
         $data = array(
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'acid_treatment_id' => $this->input->post('acidTreatmentId'),
             'round_or_length_to_be_completed' => $roundLength,
+            'acid_treament_process_history_id' => $lastAcidTreatmentHistoryId,
             'created_on' => $this->today
         );
         return $this->db->insert('draw_process', $data);
@@ -213,6 +214,17 @@ class Draw_m extends MY_Model {
             ];
 
             return $draw_process_overview;
+        }
+    }
+
+    public function deleteDrawBatch($drawBatchId){
+        $this->db->where('draw_process_id', $drawBatchId);
+        $response = $this->db->delete('draw_process');
+        if($response){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

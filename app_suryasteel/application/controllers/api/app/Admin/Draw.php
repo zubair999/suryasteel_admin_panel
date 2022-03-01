@@ -47,5 +47,43 @@ class Draw extends REST_Controller
         }        
 	}
 
+    public function deleteDrawBatch_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $drawBatch = $this->draw_m->getDrawProcessById($this->input->post('drawBatchId'));
+            if($drawBatch->round_or_length_completed > 0){
+                $response = ['status' => 200, 'message' =>'success', 'description' =>'This batch is in the process, it cannot be deleted.'];
+            }
+            else{
+                $isItemDeleted = $this->draw_m->deleteDrawBatch($this->input->post('drawBatchId'));
+                if($isItemDeleted){
+                    
+
+                    // DEDUCT COMPLETED ROUND IN THE ACID TREATMENT BATCH AND CHANGE STATUS
+                    $acidTreatmentHistory = $this->acidtreatment_m->getAcidTreatmentHistory($drawBatch->acid_treament_process_history_id);
+
+                    $isHistoryItemDeleted = $this->acidtreatment_m->deleteAcidTreatmentHistory($drawBatch->acid_treament_process_history_id);
+                    if($isHistoryItemDeleted){
+
+                        $this->acidtreatment_m->deleteRoundLengthCompletedInAcidTreatment($acidTreatmentHistory);
+                        $response = ['status' => 200, 'message' =>'success', 'description' =>'Draw batch deleted successfully.'];
+                    }
+                    else{
+                        $response = ['status' => 200, 'message' =>'success', 'description' =>'Something went wrong.'];
+                    }
+                }
+                else{
+                    $response = ['status' => 200, 'message' =>'success', 'description' =>'Something went wrong.'];
+                }
+            }
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
+
 	//CLASS ENDS
 }

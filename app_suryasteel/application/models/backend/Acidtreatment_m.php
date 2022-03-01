@@ -45,6 +45,10 @@ class Acidtreatment_m extends MY_Model {
         return $this->db->get_where('acid_treatment', array('purchase_item_id'=> $id))->num_rows();
     }
 
+    public function getAcidTreatmentHistory($id) {
+        return $this->db->get_where('acid_treatment_process_history', array('acid_treament_process_history_id'=> $id))->row();
+    }
+
     public function get_acid_treatment(){
         $this->db->select(
                             'at.acid_treatment_id,
@@ -74,7 +78,7 @@ class Acidtreatment_m extends MY_Model {
         $this->db->join('process_status_catalog as ps', 'at.process_status_catalog_id = ps.process_status_catalog_id');
         
         if($this->input->post('searchterm')){
-            $this->db->where('at.purchase_item_id =', $this->input->post('searchterm'));
+            $this->db->where('at.purchase_item_id', $this->input->post('searchterm'));
         }
         
         // $this->db->limit(1);
@@ -110,8 +114,6 @@ class Acidtreatment_m extends MY_Model {
         $this->db->join('users as u', 'ath.completed_by = u.user_id');
         $this->db->where('ath.acid_treatment_id', $id);
         $history_item =  $this->db->get()->result_array();
-    
-
         return $history_item;
     }
 
@@ -165,12 +167,7 @@ class Acidtreatment_m extends MY_Model {
             $this->db->update('acid_treatment', $data1);
 
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
-            // if($drawProcessRowCount > 0){
-            //     $this->draw_m->updateDrawProcess();
-            // }
-            // else{
-            $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'));
-            // }
+            
 
             $data = array(
                 'completed_by' => $completedBy,
@@ -183,6 +180,10 @@ class Acidtreatment_m extends MY_Model {
                 'created_on' => $this->today,
             );
             $this->db->insert('acid_treatment_process_history', $data);
+
+            $lastAcidTreatmentHistoryId = $this->db->insert_id();
+            $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'), $lastAcidTreatmentHistoryId);
+
             return ['status'=>'success', 'message'=>'Round completed'];
         }
         else{
@@ -227,6 +228,56 @@ class Acidtreatment_m extends MY_Model {
     public function deleteAcidTreatmentBatch($acidTreatmentId){
         $this->db->where('acid_treatment_id', $acidTreatmentId);
         $response = $this->db->delete('acid_treatment');
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function deleteAcidTreatmentHistory($acidTreatmentHistoryId){
+        $this->db->where('acid_treament_process_history_id', $acidTreatmentHistoryId);
+        $response = $this->db->delete('acid_treatment_process_history');
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function deleteRoundLengthCompletedInAcidTreatment($acidTreatmentHistory){
+        $acid_treatment = $this->getAcidTreatmentId($acidTreatmentHistory->acid_treatment_id);
+        $acid_treatment_history = $this->getAcidTreatmentHistory($acidTreatmentHistory->acid_treament_process_history_id);
+
+        $round_or_length_completed_in_acid_treatment = $acid_treatment->round_or_length_completed;
+        $scrap_round_or_length_in_acid_treatment = $acid_treatment->scrap_round_or_length;
+
+        // print_r()
+
+        $round_or_length_completed_in_acid_treatment_history = $acidTreatmentHistory->round_or_length_completed;
+        $scrap_round_or_length_in_acid_treatment_history = $acidTreatmentHistory->scrap_round_or_length;
+
+        $new_round_or_length_completed_in_acid_treatment = (int)$round_or_length_completed_in_acid_treatment - (int)$round_or_length_completed_in_acid_treatment_history;
+        $new_scrap_round_or_length_in_acid_treatment = (int)$scrap_round_or_length_in_acid_treatment - (int)$scrap_round_or_length_in_acid_treatment_history;
+
+
+        $roundCompletedAndScrapRound = (int)$new_round_or_length_completed_in_acid_treatment + (int)$new_scrap_round_or_length_in_acid_treatment;
+
+        $status_value = get_process_status($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        $isTaskCompleted = is_task_completed($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+
+        $data1 = array(
+            'round_or_length_completed' => $new_round_or_length_completed_in_acid_treatment,
+            'scrap_round_or_length' => $new_scrap_round_or_length_in_acid_treatment,
+            'process_status_catalog_id' => $status_value,
+            'is_completed' => $isTaskCompleted,
+            'updated_on' => $this->today
+        );
+
+        $this->db->where('acid_treatment_id', $acid_treatment->acid_treatment_id);
+        $response = $this->db->update('acid_treatment', $data1);
         if($response){
             return true;
         }
