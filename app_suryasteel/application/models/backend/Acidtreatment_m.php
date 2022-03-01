@@ -149,12 +149,10 @@ class Acidtreatment_m extends MY_Model {
         
         $roundCompletedAndScrapRound = (float)$roundLengthAlreadyCompleted + (float)$scrapRoundOrLength;
 
-        
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         
         $isTaskCompleted = is_task_completed($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
- 
-        
+         
         if($isAddedRoundGreaterThanCompletedRound){
             $status_value = get_process_status($acidTreatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
             $data1 = array(
@@ -170,7 +168,6 @@ class Acidtreatment_m extends MY_Model {
 
             $drawProcessRowCount = check_row_count('draw_process', 'acid_treatment_id', $this->input->post('acidTreatmentId'));
             
-
             $data = array(
                 'completed_by' => $completedBy,
                 'acid_treatment_id' => $this->input->post('acidTreatmentId'),

@@ -80,11 +80,17 @@ class Draw_m extends MY_Model {
 
         
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($drawProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+        $isTaskCompleted = is_task_completed($drawProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+        
+        
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
                 'scrap_round_or_length' => $scrapRoundOrLength,
                 'process_status_catalog_id' => get_process_status($drawProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
