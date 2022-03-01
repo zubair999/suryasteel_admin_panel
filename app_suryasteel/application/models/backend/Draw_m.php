@@ -191,15 +191,14 @@ class Draw_m extends MY_Model {
                                 DATE_FORMAT(dh.updated_on, "%d-%b-%Y") as updated_on,
                                 CONCAT(u.firstname ," ",  u.lastname) as completed_by,
                                 m.machine_name,
-                                s.size_value as size_to_be_drawn,
-                                l.length_value as length_to_be_cut
+                                s.size_value as size_to_be_drawn
                             '
                         );
         $this->db->from('draw_process_history as dh');
         $this->db->join('users as u', 'dh.completed_by = u.user_id');
         $this->db->join('machine as m', 'dh.machine_id = m.machine_id');
         $this->db->join('size as s', 'dh.size_id = s.size_id');
-        $this->db->join('length as l', 'dh.length_id = l.length_id');
+        // $this->db->join('length as l', 'dh.length_id = l.length_id');
         $this->db->where('dh.draw_process_id', $id);
         return $this->db->get()->result_array();
     }
