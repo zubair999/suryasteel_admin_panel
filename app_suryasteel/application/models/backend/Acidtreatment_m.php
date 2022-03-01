@@ -259,8 +259,14 @@ class Acidtreatment_m extends MY_Model {
         $round_or_length_completed_in_acid_treatment_history = $acidTreatmentHistory->round_or_length_completed;
         $scrap_round_or_length_in_acid_treatment_history = $acidTreatmentHistory->scrap_round_or_length;
 
-        $new_round_or_length_completed_in_acid_treatment = (int)$round_or_length_completed_in_acid_treatment - (int)$round_or_length_completed_in_acid_treatment_history;
-        $new_scrap_round_or_length_in_acid_treatment = (int)$scrap_round_or_length_in_acid_treatment - (int)$scrap_round_or_length_in_acid_treatment_history;
+        // $new_round_or_length_completed_in_acid_treatment = (int)$round_or_length_completed_in_acid_treatment - (int)$round_or_length_completed_in_acid_treatment_history;
+        // $new_scrap_round_or_length_in_acid_treatment = (int)$scrap_round_or_length_in_acid_treatment - (int)$scrap_round_or_length_in_acid_treatment_history;
+
+
+        $new_round_or_length_completed_in_acid_treatment = (int)$acid_treatment->round_or_length_completed - (int)$acidTreatmentHistory->round_or_length_completed;
+        $new_scrap_round_or_length_in_acid_treatment = (int)$acid_treatment->scrap_round_or_length - (int)$acidTreatmentHistory->scrap_round_or_length;
+        
+
 
         $status_value = get_process_status($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         $isTaskCompleted = is_task_completed($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
