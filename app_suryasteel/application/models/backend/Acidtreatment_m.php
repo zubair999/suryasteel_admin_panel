@@ -33,6 +33,8 @@ class Acidtreatment_m extends MY_Model {
         ),
     );
 
+    
+
     public function getAcidTreatmentId($id) {
         return $this->db->get_where('acid_treatment', array('acid_treatment_id'=> $id))->row();
     }

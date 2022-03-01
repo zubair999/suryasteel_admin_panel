@@ -130,7 +130,7 @@ $route['v1/getrawmaterial'] = 'api/app/Admin/purchase/getPurchaseItem';
 // ACID TREATMENT ITEM
 $route['v1/getacidtreatmentitem'] = 'api/app/Admin/acidtreatment/getAcidTreatmentItem';
 $route['v1/addacidtreatment'] = 'api/app/Admin/acidtreatment/addAcidTreatment';
-$route['v1/editacidtreatment'] = 'api/app/Admin/acidtreatment/editAcidTreatment';
+// $route['v1/editacidtreatment'] = 'api/app/Admin/acidtreatment/editAcidTreatment';
 $route['v1/addacidtreatmenthistory'] = 'api/app/Admin/acidtreatment/addAcidTreatmentHistory';
 $route['v1/deleteacidtreatmentbatch'] = 'api/app/Admin/acidtreatment/deleteAcidTreatmentBatch';
 
@@ -138,6 +138,7 @@ $route['v1/deleteacidtreatmentbatch'] = 'api/app/Admin/acidtreatment/deleteAcidT
 $route['v1/adddrawhistory'] = 'api/app/Admin/draw/addDrawHistory';
 $route['v1/getdrawbatch'] = 'api/app/Admin/draw/getDrawBatch';
 $route['v1/deletedrawbatch'] = 'api/app/Admin/draw/deleteDrawBatch';
+$route['v1/updatetask'] = 'api/app/Admin/draw/updateTask';
 
 // CUTTING PROCESS
 $route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';

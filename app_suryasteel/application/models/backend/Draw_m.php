@@ -20,6 +20,19 @@ class Draw_m extends MY_Model {
         ),
     );
 
+    public $taskRule = array(
+        0 => array(
+            'field' => 'taskAssignedBy',
+            'label' => 'Task assigned by',
+            'rules' => 'trim|required|is_natural'
+        ),
+        1 => array(
+            'field' => 'task',
+            'label' => 'Task',
+            'rules' => 'trim|required'
+        ),
+    );
+
     public function getDrawProcessById($id) {
         return $this->db->get_where('draw_process', array('draw_process_id'=> $id))->row();
     }
@@ -220,6 +233,23 @@ class Draw_m extends MY_Model {
     public function deleteDrawBatch($drawBatchId){
         $this->db->where('draw_process_id', $drawBatchId);
         $response = $this->db->delete('draw_process');
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function updateTask($task_assigned_by){
+        $data = array(
+            'assigned_task' => $this->input->post('task'),
+            'task_assigned_by' => $this->input->post('taskAssignedBy'),
+            'is_task_assigned' => true
+        );
+
+        $this->db->where('draw_process_id', $this->input->post('drawProcessId'));
+        $response = $this->db->update('draw_process', $data);
         if($response){
             return true;
         }
