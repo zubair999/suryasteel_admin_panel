@@ -262,9 +262,6 @@ class Acidtreatment_m extends MY_Model {
         $new_round_or_length_completed_in_acid_treatment = (int)$round_or_length_completed_in_acid_treatment - (int)$round_or_length_completed_in_acid_treatment_history;
         $new_scrap_round_or_length_in_acid_treatment = (int)$scrap_round_or_length_in_acid_treatment - (int)$scrap_round_or_length_in_acid_treatment_history;
 
-
-        $roundCompletedAndScrapRound = (int)$new_round_or_length_completed_in_acid_treatment + (int)$new_scrap_round_or_length_in_acid_treatment;
-
         $status_value = get_process_status($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
         $isTaskCompleted = is_task_completed($acid_treatment->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
 
