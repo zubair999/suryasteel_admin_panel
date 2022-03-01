@@ -55,8 +55,6 @@ class Acidtreatment extends REST_Controller
 			} else {
                 $isAdded = $this->acidtreatment_m->addAcidTreatmentHistory($this->input->post('completedBy'));
                 if($isAdded['status'] == 'success'){
-                    $lastAcidTreatmentHistoryId = $this->db->insert_id();
-                    $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted') , $lastAcidTreatmentHistoryId);
                     $response = ['status' => 200, 'message' => 'success', 'description' => 'Acid treatment completed for the batch successfully.'];
                 }
                 else{
