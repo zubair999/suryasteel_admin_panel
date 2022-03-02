@@ -45,9 +45,9 @@ class Draw_m extends MY_Model {
         return $this->db->get_where('draw_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addDrawProcess($roundLength, $lastAcidTreatmentHistoryId){
+    public function addDrawProcess($roundLength, $lastAcidTreatmentHistoryId, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'acid_treatment_id' => $this->input->post('acidTreatmentId'),

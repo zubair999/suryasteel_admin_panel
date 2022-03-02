@@ -184,7 +184,7 @@ class Acidtreatment_m extends MY_Model {
             $this->db->insert('acid_treatment_process_history', $data);
 
             $lastAcidTreatmentHistoryId = $this->db->insert_id();
-            $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'), $lastAcidTreatmentHistoryId);
+            $this->draw_m->addDrawProcess($this->input->post('roundLengthCompleted'), $lastAcidTreatmentHistoryId, $acidTreatment->category_id);
 
             return ['status'=>'success', 'message'=>'Round completed'];
         }
