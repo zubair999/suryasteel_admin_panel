@@ -98,6 +98,8 @@ class Galvanisation_m extends MY_Model {
                              g.purchase_item_id,
                              g.piece_to_be_galvanised,
                              g.piece_galvanised,
+                             g.scrap_pieces,
+                             g.piece_added_to_stock,
                              g.is_process_skipped,
                              g.is_completed,
                              g.remarks,
