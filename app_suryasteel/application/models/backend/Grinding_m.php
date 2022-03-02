@@ -85,7 +85,7 @@ class Grinding_m extends MY_Model {
             );
             $this->db->insert('grinding_process_history', $data);
 
-            $this->forging_m->addForgingBatch($grindingProcess->size_id, $grindingProcess->length_id);
+            $this->forging_m->addForgingBatch($grindingProcess->size_id, $grindingProcess->length_id, $grindingProcess->category_id);
 
 
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];

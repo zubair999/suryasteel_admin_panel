@@ -28,9 +28,9 @@ class Forging_m extends MY_Model {
         return $this->db->get_where('forging_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addForgingBatch($size, $length){
+    public function addForgingBatch($size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'grinding_process_id' => $this->input->post('grindingProcessId'),
             'process_status_catalog_id' => 1,
