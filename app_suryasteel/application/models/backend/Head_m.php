@@ -106,13 +106,15 @@ class Head_m extends MY_Model {
                              p.status_value,
                              p.status_color,
                              s.size_value,
-                             l.length_value
+                             l.length_value,
+                             ct.category_name
                              '
                         );
         $this->db->from('head_process as h');
         $this->db->join('process_status_catalog as p', 'h.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'h.size_id  = s.size_id ');
         $this->db->join('length as l', 'h.length_id  = l.length_id ');
+        $this->db->join('category as ct', 'ct.category_id = h.category_id');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));

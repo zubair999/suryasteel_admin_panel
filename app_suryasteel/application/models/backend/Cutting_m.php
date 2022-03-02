@@ -121,12 +121,14 @@ class Cutting_m extends MY_Model {
                              DATE_FORMAT(c.updated_on, "%d-%b-%Y") as updated_on,
                              p.status_value,
                              p.status_color,
-                             s.size_value
+                             s.size_value,
+                             ct.category_name
                              '
                         );
         $this->db->from('cutting_process as c');
         $this->db->join('process_status_catalog as p', 'c.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'c.size_id  = s.size_id ');
+        $this->db->join('category as ct', 'ct.category_id = c.category_id');
         // $this->db->join('length as l', 'c.length_id  = l.length_id');
         
         // if($this->input->post('orderStatus')){
@@ -154,6 +156,8 @@ class Cutting_m extends MY_Model {
             $cutting_process[$key]['cutting_item'] = $cutting_item;
         }
 
+        // echo "hi";
+        // die;
         return $cutting_process;
         // FUNCTION ENDS
     }
@@ -182,7 +186,7 @@ class Cutting_m extends MY_Model {
         $this->db->join('users as u', 'ch.cutting_completed_by = u.user_id');
         $this->db->join('machine as m', 'ch.machine_id = m.machine_id');
         $this->db->join('size as sz', 'sz.size_id = ch.size_id');
-        $this->db->join('lenth as ln', 'ln.length_id = ch.length_id');
+        $this->db->join('length as ln', 'ln.length_id = ch.length_id');
 
         $this->db->where('ch.cutting_process_id', $id);
         $cutting_item =  $this->db->get()->result_array();

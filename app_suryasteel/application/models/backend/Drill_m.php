@@ -105,13 +105,15 @@ class Drill_m extends MY_Model {
                              p.status_value,
                              p.status_color,
                              s.size_value,
-                             l.length_value
+                             l.length_value,
+                             ct.category_name
                              '
                         );
         $this->db->from('drill_process as d');
         $this->db->join('process_status_catalog as p', 'd.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'd.size_id  = s.size_id ');
         $this->db->join('length as l', 'd.length_id  = l.length_id ');
+        $this->db->join('category as ct', 'ct.category_id = d.category_id');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));

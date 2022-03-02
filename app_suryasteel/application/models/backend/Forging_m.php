@@ -107,13 +107,15 @@ class Forging_m extends MY_Model {
                              p.status_value,
                              p.status_color,
                              s.size_value,
-                             l.length_value
+                             l.length_value,
+                             ct.category_name
                              '
                         );
         $this->db->from('forging_process as f');
         $this->db->join('process_status_catalog as p', 'f.process_status_catalog_id = p.process_status_catalog_id');
         $this->db->join('size as s', 'f.size_id  = s.size_id ');
         $this->db->join('length as l', 'f.length_id  = l.length_id ');
+        $this->db->join('category as ct', 'ct.category_id = f.category_id');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
