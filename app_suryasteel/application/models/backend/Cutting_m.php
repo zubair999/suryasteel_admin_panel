@@ -28,9 +28,9 @@ class Cutting_m extends MY_Model {
         return $this->db->get_where('cutting_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
+    public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'draw_process_history_id' => $drawProcessHistotryId,
             'process_status_catalog_id' => 1,

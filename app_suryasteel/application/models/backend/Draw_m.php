@@ -105,7 +105,6 @@ class Draw_m extends MY_Model {
                 'draw_process_id' => $this->input->post('drawProcessId'),
                 'machine_id' => $this->input->post('machineId'),                
                 'size_id' => $this->input->post('sizeDrawn'),
-                // 'length_id' => $this->input->post('lengthToBeCut'),
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'scrap_round_or_length' => $this->input->post('scrapRoundOrLength'),
                 'remarks' => $this->input->post('remarks'),
@@ -114,7 +113,7 @@ class Draw_m extends MY_Model {
             $this->db->insert('draw_process_history', $data);
             $drawProcessHistotryId = $this->db->insert_id();
 
-            $this->cutting_m->addCuttingBatch($drawProcessHistotryId, $this->input->post('roundLengthCompleted'));
+            $this->cutting_m->addCuttingBatch($drawProcessHistotryId, $this->input->post('roundLengthCompleted'), $drawProcess->category_id);
 
 
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
