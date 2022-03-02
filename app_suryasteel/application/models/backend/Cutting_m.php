@@ -82,7 +82,7 @@ class Cutting_m extends MY_Model {
                 'purchase_item_id' => $this->input->post('purchaseItemId'),
                 'cutting_process_id' => $this->input->post('cuttingProcessId'),
                 'size_id' => $cuttingProcess->size_id,
-                'length_id' => $cuttingProcess->length_id,
+                'length_id' => $this->input->post('length'),
                 'machine_id' => $this->input->post('machineId'),                
                 'round_or_length_completed' => $this->input->post('roundLengthCompleted'),
                 'piece_generated' => $this->input->post('totalPieceGenerated'),
@@ -93,7 +93,7 @@ class Cutting_m extends MY_Model {
             );
             $this->db->insert('cutting_process_history', $data);
             $cuttingProcessHistoryId = $this->db->insert_id();
-            $this->grinding_m->addGrindingBatch($cuttingProcessHistoryId, $this->input->post('totalPieceGenerated'), $cuttingProcess->size_id, $cuttingProcess->length_id);
+            $this->grinding_m->addGrindingBatch($cuttingProcessHistoryId, $this->input->post('totalPieceGenerated'), $cuttingProcess->size_id, $this->input->post('length'));
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{
