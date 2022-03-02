@@ -111,6 +111,7 @@ class Cutting_m extends MY_Model {
                              c.round_or_length_completed,
                              c.scrap_round_or_length,
                              c.total_piece_generated,
+                             c.scrap_pieces,
                              c.is_task_assigned,
                              c.is_completed,
                              c.assigned_task,
