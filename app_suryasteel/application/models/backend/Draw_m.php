@@ -149,7 +149,7 @@ class Draw_m extends MY_Model {
         $this->db->join('purchase_item as pi', 'd.purchase_item_id = pi.purchase_item_id');
         $this->db->join('size as sz', 'pi.size_id = sz.size_id');
         $this->db->join('process_status_catalog as p', 'd.process_status_catalog_id = p.process_status_catalog_id');
-        $this->db->join('category as ct', 'ct.category_id = at.category_id');
+        $this->db->join('category as ct', 'ct.category_id = d.category_id');
         
         // if($this->input->post('orderStatus')){
         //     $this->db->where('o.order_status_catalog_id', $this->input->post('orderStatus'));
