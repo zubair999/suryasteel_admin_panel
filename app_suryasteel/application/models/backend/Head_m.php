@@ -28,9 +28,9 @@ class Head_m extends MY_Model {
         return $this->db->get_where('head_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addHeadBatch($forgingProcessHistoryId, $size, $length){
+    public function addHeadBatch($forgingProcessHistoryId, $size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'forging_process_history_id' => $forgingProcessHistoryId,
             'size_id' => $size,
