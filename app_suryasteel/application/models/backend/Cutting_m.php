@@ -109,7 +109,7 @@ class Cutting_m extends MY_Model {
                              c.draw_process_history_id,
                              c.round_or_length_to_be_completed,
                              c.round_or_length_completed,
-                             c.round_or_length_completed,
+                             c.scrap_round_or_length,
                              c.total_piece_generated,
                              c.is_task_assigned,
                              c.is_completed,
