@@ -86,7 +86,7 @@ class Forging_m extends MY_Model {
             );
             $this->db->insert('forging_process_history', $data);
             $forgingProcessHistoryId = $this->db->insert_id();
-            $this->head_m->addHeadBatch($forgingProcessHistoryId, $forgingProcess->size_id, $forgingProcess->length_id);
+            $this->head_m->addHeadBatch($forgingProcessHistoryId, $forgingProcess->size_id, $forgingProcess->length_id, $forgingProcess->category_id);
             return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
         }
         else{

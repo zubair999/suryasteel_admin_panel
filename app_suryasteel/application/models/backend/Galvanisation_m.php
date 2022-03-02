@@ -28,9 +28,9 @@ class Galvanisation_m extends MY_Model {
         return $this->db->get_where('galvanising_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addGalvanisationBatch($weldedProcessHistoryId, $size, $length){
+    public function addGalvanisationBatch($weldedProcessHistoryId, $size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'welding_process_history_id' => $weldedProcessHistoryId,
             'size_id' => $size,

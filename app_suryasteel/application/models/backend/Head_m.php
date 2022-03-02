@@ -85,7 +85,7 @@ class Head_m extends MY_Model {
             );
             $this->db->insert('head_process_history', $data);
             $headProcessHistoryId = $this->db->insert_id();
-            $this->drill_m->addDrillBatch($headProcessHistoryId, $headProcess->size_id, $headProcess->length_id);
+            $this->drill_m->addDrillBatch($headProcessHistoryId, $headProcess->size_id, $headProcess->length_id, $headProcess->category_id);
 
             return ['status'=>'success', 'message'=>'The piece heading work added successfully.'];
         }

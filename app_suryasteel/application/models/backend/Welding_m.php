@@ -28,9 +28,9 @@ class Welding_m extends MY_Model {
         return $this->db->get_where('welding_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addWeldingBatch($drillProcessHistoryId, $size, $length){
+    public function addWeldingBatch($drillProcessHistoryId, $size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'drill_process_history_id' => $drillProcessHistoryId,
             'size_id' => $size,
@@ -85,7 +85,7 @@ class Welding_m extends MY_Model {
             );
             $this->db->insert('welding_process_history', $data);
             $weldedProcessHistoryId = $this->db->insert_id();
-            $this->galvanisation_m->addGalvanisationBatch($weldedProcessHistoryId, $weldingProcess->size_id, $weldingProcess->length_id);
+            $this->galvanisation_m->addGalvanisationBatch($weldedProcessHistoryId, $weldingProcess->size_id, $weldingProcess->length_id, $weldingProcess->category_id);
             return ['status'=>'success', 'message'=>'These Pieces are welded successfully.'];
         }
         else{

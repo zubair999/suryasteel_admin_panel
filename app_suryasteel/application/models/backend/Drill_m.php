@@ -28,9 +28,9 @@ class Drill_m extends MY_Model {
         return $this->db->get_where('drill_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addDrillBatch($headProcessHistotryId, $size, $length){
+    public function addDrillBatch($headProcessHistotryId, $size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'head_process_history_id' => $headProcessHistotryId,
             'size_id' => $size,
@@ -83,9 +83,10 @@ class Drill_m extends MY_Model {
                 'remarks' => $this->input->post('remarks'),
                 'created_on' => $this->today,
             );
+            
             $this->db->insert('drill_process_history', $data);
             $drillProcessHistoryId = $this->db->insert_id();
-            $this->welding_m->addWeldingBatch($drillProcessHistoryId, $drillProcess->size_id, $drillProcess->length_id);
+            $this->welding_m->addWeldingBatch($drillProcessHistoryId, $drillProcess->size_id, $drillProcess->length_id, $drillProcess->category_id);
             return ['status'=>'success', 'message'=>'The piece drilled successfully.'];
         }
         else{

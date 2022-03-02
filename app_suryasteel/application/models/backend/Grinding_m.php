@@ -28,9 +28,9 @@ class Grinding_m extends MY_Model {
         return $this->db->get_where('grinding_process', array('purchase_item_id'=> $id))->num_rows();
     }
 
-    public function addGrindingBatch($cuttingProcessHistotryId, $pieceToBeGrinded, $size, $length){
+    public function addGrindingBatch($cuttingProcessHistotryId, $pieceToBeGrinded, $size, $length, $category_id){
         $data = array(
-            'category_id' => $this->input->post('category'),
+            'category_id' => $category_id,
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'cutting_process_history_id' => $cuttingProcessHistotryId,
             'size_id' => $size,
