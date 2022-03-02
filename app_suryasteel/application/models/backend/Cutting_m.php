@@ -173,12 +173,17 @@ class Cutting_m extends MY_Model {
                                 DATE_FORMAT(ch.created_on, "%d-%b-%Y") as created_on,
                                 DATE_FORMAT(ch.updated_on, "%d-%b-%Y") as updated_on,
                                 CONCAT(u.firstname ," ",  u.lastname) as cutting_completed_by,
-                                m.machine_name
+                                m.machine_name,
+                                sz.size_value,
+                                ln.length_value
                             '
                         );
         $this->db->from('cutting_process_history as ch');
         $this->db->join('users as u', 'ch.cutting_completed_by = u.user_id');
         $this->db->join('machine as m', 'ch.machine_id = m.machine_id');
+        $this->db->join('size as sz', 'sz.size_id = ch.size_id');
+        $this->db->join('lenth as ln', 'ln.length_id = ch.length_id');
+
         $this->db->where('ch.cutting_process_id', $id);
         $cutting_item =  $this->db->get()->result_array();
         return $cutting_item;
