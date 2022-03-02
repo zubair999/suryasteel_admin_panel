@@ -125,6 +125,7 @@ class Acidtreatment_m extends MY_Model {
     public function addAcidTreatment($created_by){
         $data = array(
             'added_by' => $created_by,
+            'category_id' => $this->input->post('category'),
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'sink_id' => $this->input->post('sinkId'),

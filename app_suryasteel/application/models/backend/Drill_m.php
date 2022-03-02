@@ -30,6 +30,7 @@ class Drill_m extends MY_Model {
 
     public function addDrillBatch($headProcessHistotryId, $size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'head_process_history_id' => $headProcessHistotryId,
             'size_id' => $size,

@@ -30,6 +30,7 @@ class Head_m extends MY_Model {
 
     public function addHeadBatch($forgingProcessHistoryId, $size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'forging_process_history_id' => $forgingProcessHistoryId,
             'size_id' => $size,

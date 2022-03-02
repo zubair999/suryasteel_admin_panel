@@ -47,6 +47,7 @@ class Draw_m extends MY_Model {
 
     public function addDrawProcess($roundLength, $lastAcidTreatmentHistoryId){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_id' => $this->input->post('purchaseId'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'acid_treatment_id' => $this->input->post('acidTreatmentId'),

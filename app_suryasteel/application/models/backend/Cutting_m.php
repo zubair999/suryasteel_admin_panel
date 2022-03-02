@@ -30,11 +30,11 @@ class Cutting_m extends MY_Model {
 
     public function addCuttingBatch($drawProcessHistotryId, $roundLengthCompleted){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'draw_process_history_id' => $drawProcessHistotryId,
             'process_status_catalog_id' => 1,
             'size_id' => $this->input->post('sizeDrawn'),
-            // 'length_id' => $this->input->post('lengthToBeCut'),
             'round_or_length_to_be_completed' => $roundLengthCompleted,
             'created_on' => $this->today
         );

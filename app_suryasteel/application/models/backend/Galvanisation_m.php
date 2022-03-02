@@ -30,6 +30,7 @@ class Galvanisation_m extends MY_Model {
 
     public function addGalvanisationBatch($weldedProcessHistoryId, $size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'welding_process_history_id' => $weldedProcessHistoryId,
             'size_id' => $size,

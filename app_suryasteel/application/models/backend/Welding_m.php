@@ -30,6 +30,7 @@ class Welding_m extends MY_Model {
 
     public function addWeldingBatch($drillProcessHistoryId, $size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'drill_process_history_id' => $drillProcessHistoryId,
             'size_id' => $size,

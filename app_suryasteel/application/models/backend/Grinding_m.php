@@ -30,6 +30,7 @@ class Grinding_m extends MY_Model {
 
     public function addGrindingBatch($cuttingProcessHistotryId, $pieceToBeGrinded, $size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'cutting_process_history_id' => $cuttingProcessHistotryId,
             'size_id' => $size,

@@ -30,6 +30,7 @@ class Forging_m extends MY_Model {
 
     public function addForgingBatch($size, $length){
         $data = array(
+            'category_id' => $this->input->post('category'),
             'purchase_item_id' => $this->input->post('purchaseItemId'),
             'grinding_process_id' => $this->input->post('grindingProcessId'),
             'process_status_catalog_id' => 1,
