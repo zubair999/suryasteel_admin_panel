@@ -69,7 +69,8 @@ class Acidtreatment_m extends MY_Model {
                              s.sink_name,
                              ps.status_value,
                              ps.status_color,
-                             sz.size_value
+                             sz.size_value,
+                             ct.category_name
                              '
                         );
         $this->db->from('acid_treatment as at');
@@ -78,6 +79,7 @@ class Acidtreatment_m extends MY_Model {
         $this->db->join('purchase_item as pi', 'at.purchase_item_id = pi.purchase_item_id');
         $this->db->join('size as sz', 'pi.size_id = sz.size_id');
         $this->db->join('process_status_catalog as ps', 'at.process_status_catalog_id = ps.process_status_catalog_id');
+        $this->db->join('category as ct', 'ct.category_id = at.category_id');
         
         if($this->input->post('searchterm')){
             $this->db->where('at.purchase_item_id', $this->input->post('searchterm'));
