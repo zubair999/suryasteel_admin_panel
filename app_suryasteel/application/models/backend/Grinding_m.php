@@ -61,11 +61,16 @@ class Grinding_m extends MY_Model {
 
 
         $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($cuttingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
+
+        
         if($isAddedPieceGreaterThanCompletedPiece){
             $data1 = array(
                 'piece_grinded' => $pieceGrinded,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
