@@ -76,6 +76,11 @@ class Cutting_m extends MY_Model {
 
         
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($cuttingProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+        $isTaskCompleted = is_task_completed($cuttingProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound);
+        
+        
+        
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'round_or_length_completed' => $roundLengthAlreadyCompleted,
@@ -83,6 +88,7 @@ class Cutting_m extends MY_Model {
                 'scrap_round_or_length' => $scrapRoundOrLength,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($cuttingProcess->round_or_length_to_be_completed, $roundCompletedAndScrapRound),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
