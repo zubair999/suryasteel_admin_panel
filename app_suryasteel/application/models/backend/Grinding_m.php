@@ -62,7 +62,7 @@ class Grinding_m extends MY_Model {
 
         $isAddedPieceGreaterThanCompletedPiece = is_greater_than($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
         
-        $isTaskCompleted = is_task_completed($cuttingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
+        $isTaskCompleted = is_task_completed($grindingProcess->piece_to_be_grinded, $pieceGrindedAndScrapPiece);
 
         
         if($isAddedPieceGreaterThanCompletedPiece){
