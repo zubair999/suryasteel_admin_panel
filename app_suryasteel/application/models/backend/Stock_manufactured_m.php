@@ -17,7 +17,6 @@ class Stock_manufactured_m extends MY_Model {
 
     public function stock_manufactured($purchase_item_id){
         $stock_manufactured_count = $this->getStockManufacturedCountByPurchaseItemId($purchase_item_id);
-        
         if($stock_manufactured_count > 0){
             $this->db->select(
                 '
@@ -42,6 +41,35 @@ class Stock_manufactured_m extends MY_Model {
         }
         else{
             return [];
+        }
+    }
+
+    public function total_manufactured_weight($purchase_item_id){
+        $stock_manufactured_count = $this->getStockManufacturedCountByPurchaseItemId($purchase_item_id);
+        if($stock_manufactured_count > 0){
+            $this->db->select_sum('stock_in_kg');
+            $this->db->from('stock_manufactured');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $sum = $this->db->get()->result();
+            return $sum[0]->stock_in_kg;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public function total_manufactured_piece($purchase_item_id){
+        $stock_manufactured_count = $this->getStockManufacturedCountByPurchaseItemId($purchase_item_id);
+
+        if($stock_manufactured_count > 0){
+            $this->db->select_sum('stock_in_pcs');
+            $this->db->from('stock_manufactured');
+            $this->db->where('purchase_item_id', $purchase_item_id);
+            $sum = $this->db->get()->result();
+            return $sum[0]->stock_in_pcs;
+        }
+        else{
+            return 0;
         }
     }
 
