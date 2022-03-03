@@ -47,5 +47,31 @@ class Cutting extends REST_Controller
         }        
 	}
 
+    public function updateCuttingTask_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 400, 'messsage'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+            exit();
+        }
+        else{
+            $this->form_validation->set_rules($this->cutting_m->cuttingTaskRule);
+            if($this->form_validation->run() == FALSE){
+                $response = ['status' => 200, 'message' => 'error', 'description' => 'Task cannot be empty.'];
+            }
+            else{
+                $isTaskUpdated = $this->cutting_m->updateCuttingTask($this->input->post('taskAssignedBy'));
+                if($isTaskUpdated){
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Task assigned.'];
+                }
+                else{
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Something went wrong.'];
+                }
+            }
+
+            $this->response($response, REST_Controller::HTTP_OK);
+            exit();
+        }
+    }
+
 	//CLASS ENDS
 }

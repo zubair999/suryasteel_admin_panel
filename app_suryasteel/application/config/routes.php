@@ -143,6 +143,7 @@ $route['v1/updatetask'] = 'api/app/Admin/draw/updateTask';
 // CUTTING PROCESS
 $route['v1/getcuttingbatch'] = 'api/app/Admin/cutting/getCuttingBatch';
 $route['v1/addcuttinghistory'] = 'api/app/Admin/cutting/addCuttingHistory';
+$route['v1/updatecuttingtask'] = 'api/app/Admin/cutting/updateCuttingTask';
 
 // GRINDING PROCESS
 $route['v1/getgrindingbatch'] = 'api/app/Admin/grinding/getGrindingBatch';

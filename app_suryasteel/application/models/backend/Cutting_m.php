@@ -20,6 +20,19 @@ class Cutting_m extends MY_Model {
         ),
     );
 
+    public $cuttingTaskRule = array(
+        0 => array(
+            'field' => 'taskAssignedBy',
+            'label' => 'Task assigned by',
+            'rules' => 'trim|required|is_natural'
+        ),
+        1 => array(
+            'field' => 'task',
+            'label' => 'Task',
+            'rules' => 'trim|required'
+        ),
+    );
+
     public function getCuttingBatchById($id) {
         return $this->db->get_where('cutting_process', array('cutting_process_id'=> $id))->row();
     }
@@ -228,6 +241,23 @@ class Cutting_m extends MY_Model {
                 'scrap_pieces' => $scrap_pieces
             ];
             return $cutting_process_overview;
+        }
+    }
+
+    public function updateCuttingTask($task_assigned_by){
+        $data = array(
+            'assigned_task' => $this->input->post('task'),
+            'task_assigned_by' => $this->input->post('taskAssignedBy'),
+            'is_task_assigned' => true
+        );
+
+        $this->db->where('cutting_process_id', $this->input->post('cuttingProcessId'));
+        $response = $this->db->update('cutting_process', $data);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

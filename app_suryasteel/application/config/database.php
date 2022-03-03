@@ -90,12 +90,18 @@ if(ENVIRONMENT !== 'production') {
 	// 	'hostname' => '162.241.69.43'
 	// ];
 } else {
-    $db = [
-            'username' => 'adminsur_public',
-            'password' => 'Vpy~gGci@c+!',
-            'database' => 'adminsur_public',
-            'hostname' => 'localhost'
-    ];
+    // $db = [
+    //         'username' => 'adminsur_public',
+    //         'password' => 'Vpy~gGci@c+!',
+    //         'database' => 'adminsur_public',
+    //         'hostname' => 'localhost'
+    // ];
+	$db = [
+		'username' => 'adminsur_public',
+		'password' => 'Vpy~gGci@c+!',
+		'database' => 'adminsur_public',
+		'hostname' => '162.241.69.43'
+	];
 }
 
 $db['default'] = array(
