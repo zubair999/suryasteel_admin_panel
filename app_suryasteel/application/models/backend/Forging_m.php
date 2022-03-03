@@ -63,11 +63,15 @@ class Forging_m extends MY_Model {
 
         
         $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($forgingProcess->piece_to_be_grinded, $pieceForgedAndScrapPiece);
+        
         if($isAddedPieceForgedGreaterThanCompletedPieceForged){
             $data1 = array(
                 'piece_forged' => $pieceAlreadyForged,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
@@ -102,6 +106,8 @@ class Forging_m extends MY_Model {
                              f.grinding_process_id,
                              f.piece_to_be_forged,
                              f.piece_forged,
+                             f.scrap_pieces,
+                             f.is_completed,
                              f.remarks,
                              DATE_FORMAT(f.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(f.updated_on, "%d-%b-%Y") as updated_on,
