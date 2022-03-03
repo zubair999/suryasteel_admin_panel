@@ -61,11 +61,15 @@ class Drill_m extends MY_Model {
         
 
         $isAddedRoundGreaterThanCompletedRound = is_greater_than($drillProcess->piece_to_be_drill, $pieceDrilledAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($drillProcess->piece_to_be_drill, $pieceDrilledAndScrapPiece);
+        
         if($isAddedRoundGreaterThanCompletedRound){
             $data1 = array(
                 'piece_drilled' => $peiceAlreadyDrilled,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($drillProcess->piece_to_be_drill, $pieceDrilledAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
@@ -101,6 +105,8 @@ class Drill_m extends MY_Model {
                              d.purchase_item_id,
                              d.piece_to_be_drill,
                              d.piece_drilled,
+                             d.scrap_pieces,
+                             d.is_completed,
                              d.remarks,
                              DATE_FORMAT(d.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(d.updated_on, "%d-%b-%Y") as updated_on,
