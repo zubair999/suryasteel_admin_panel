@@ -108,6 +108,7 @@ class Grinding_m extends MY_Model {
                              g.cutting_process_history_id,
                              g.piece_to_be_grinded,
                              g.piece_grinded,
+                             g.is_completed,
                              g.remarks,
                              DATE_FORMAT(g.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(g.updated_on, "%d-%b-%Y") as updated_on,
