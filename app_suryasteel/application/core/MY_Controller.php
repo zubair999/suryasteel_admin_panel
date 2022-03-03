@@ -49,7 +49,8 @@ class MY_Controller extends CI_Controller {
             25=>'report_m',
             26=>'onesignal_m',
             27=>'length_m',
-            28=>'size_m'
+            28=>'size_m',
+            29=>'stock_manufactured_m'
 
         );
         

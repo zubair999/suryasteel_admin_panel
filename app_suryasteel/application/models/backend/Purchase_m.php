@@ -343,35 +343,13 @@ class Purchase_m extends MY_Model {
             $purchase_item[$key]['process_overview']['welding_process'] = $welding_process_overview;
             $purchase_item[$key]['process_overview']['galvanisation_process'] = $galvanisation_process_overview;
             $purchase_item[$key]['process_overview']['galvanisation_process'] = $galvanisation_process_overview;
-            $purchase_item[$key]['stock_manufactured'] = $this->stock_manufactured();
+            $purchase_item[$key]['stock_manufactured'] = $this->stock_manufactured_m->stock_manufactured($pi['purchase_item_id']);
 
         }
-
-
         return $purchase_item;
-
     }
 
-    public function stock_manufactured(){
-        return array(
-                0 => array (
-                    "stock_manufactured_id" => 1,
-                    "category_name" => "Pin",
-                    "size" => 18, 
-                    "length" => 10, 
-                    "stock_in_kg" => 101,
-                    "stock_in_pcs" => 1011, 
-                ),
-                1 => array(
-                    "stock_manufactured_id" => 1,
-                    "category_name" => "Rakab",
-                    "size" => 18, 
-                    "length" => 10, 
-                    "stock_in_kg" => 101,
-                    "stock_in_pcs" => 1011, 
-                )
-            );
-    }
+    
 
     public function updateRoundLengthInPurchase(){
         $purchaseItem = $this->getPurchaseItem($this->input->post('purchaseItemId'));
