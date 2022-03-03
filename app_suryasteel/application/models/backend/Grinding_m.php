@@ -93,10 +93,10 @@ class Grinding_m extends MY_Model {
             $this->forging_m->addForgingBatch($grindingProcess->size_id, $grindingProcess->length_id, $grindingProcess->category_id);
 
 
-            return ['status'=>'success', 'message'=>'These Round are drawn successfully.'];
+            return ['status'=>'success', 'message'=>'Piece grinded successfully.'];
         }
         else{
-            return ['status'=>'error', 'message'=>'Completed round cannot be more than round drawn earlier in the draw process.'];
+            return ['status'=>'error', 'message'=>'Completed piece cannot be more than piece grinded earlier in the grinding process.'];
         }
     }
     

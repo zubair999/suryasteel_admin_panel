@@ -22,7 +22,7 @@ class Grinding extends REST_Controller
 			} else {
                 $isAdded = $this->grinding_m->addGrindingHistory($this->input->post('completedBy'));
                 if($isAdded['status'] == 'success'){
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Draw process history added for the current batch successfully.'];
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Grinding process history added for the current batch successfully.'];
                 }
                 else{
                     $response = ['status' => 200, 'message' => 'error', 'description' => $isAdded['message']];
