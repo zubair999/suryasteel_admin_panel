@@ -64,7 +64,7 @@ class Forging_m extends MY_Model {
         
         $isAddedPieceForgedGreaterThanCompletedPieceForged = is_greater_than($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece);
         
-        $isTaskCompleted = is_task_completed($forgingProcess->piece_to_be_grinded, $pieceForgedAndScrapPiece);
+        $isTaskCompleted = is_task_completed($forgingProcess->piece_to_be_forged, $pieceForgedAndScrapPiece);
         
         if($isAddedPieceForgedGreaterThanCompletedPieceForged){
             $data1 = array(
