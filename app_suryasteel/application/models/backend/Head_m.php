@@ -61,11 +61,16 @@ class Head_m extends MY_Model {
 
 
         $isAddedPieceGreaterThanCompletedPieceHeaded = is_greater_than($headProcess->piece_to_be_head, $pieceHeadedAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($headProcess->piece_to_be_head, $pieceHeadedAndScrapPiece);
+
+        
         if($isAddedPieceGreaterThanCompletedPieceHeaded){
             $data1 = array(
                 'piece_headed' => $pieceAlreadyHeaded,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($headProcess->piece_to_be_head, $pieceHeadedAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
@@ -101,6 +106,8 @@ class Head_m extends MY_Model {
                              h.purchase_item_id,
                              h.piece_to_be_head,
                              h.piece_headed,
+                             h.scrap_pieces,
+                             h.is_completed,
                              h.remarks,
                              DATE_FORMAT(h.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(h.updated_on, "%d-%b-%Y") as updated_on,
