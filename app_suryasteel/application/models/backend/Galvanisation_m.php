@@ -61,11 +61,16 @@ class Galvanisation_m extends MY_Model {
 
         
         $isAddedPieceGreaterThanCompletedGalvanisedPiece = is_greater_than($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece);
+        
+        
         if($isAddedPieceGreaterThanCompletedGalvanisedPiece){
             $data1 = array(
                 'piece_galvanised' => $pieceAlreadyGalvanised,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
