@@ -90,6 +90,25 @@ class Stock_manufactured_m extends MY_Model {
         }
     }
 
+    public function addManufacturedStock($addedBy, $galvanisedProcess, $pieceGalvanised){
+        $product = $this->product_m->getProductByCategorySizelength($galvanisedProcess->category_id, $galvanisedProcess->size_id, $galvanisedProcess->length_id);
+
+
+
+        $data = array(
+            'added_by' => $addedBy,
+            'category_id' => $galvanisedProcess->category_id,
+            'size_id' => $galvanisedProcess->size_id,
+            'length_id' => $galvanisedProcess->length_id,
+            'purchase_item_id' => $galvanisedProcess->category_id,
+            'product_id' => $product->product_id,
+            'stock_in_kg' => $pieceGalvanised,
+            'stock_in_pcs' => $pieceGalvanised,
+            'created_on' => $this->today
+        );
+        $this->db->insert('stock_manufactured', $data);
+    }
+
 
 //end class
 }

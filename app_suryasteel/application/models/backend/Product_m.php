@@ -49,6 +49,10 @@ class Product_m extends MY_Model {
         return $this->db->get_where('products', array('category_id'=> $category))->num_rows();
     }
 
+    public function getProductByCategorySizelength($category, $size, $length) {
+        return $this->db->get_where('products', array('category_id'=> $category, 'size'=> $size, 'length'=> $length))->row();
+    }
+
     public function get_product_by_id($id) {
         $this->db->select('*');
         $this->db->from('products');

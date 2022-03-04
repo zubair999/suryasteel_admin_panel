@@ -59,12 +59,10 @@ class Galvanisation_m extends MY_Model {
         
         $pieceGalvanisedAndScrapPiece = (float)$pieceAlreadyGalvanised + (float)$scrapPieces;
 
-        
         $isAddedPieceGreaterThanCompletedGalvanisedPiece = is_greater_than($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece);
         
         $isTaskCompleted = is_task_completed($galvanisedProcess->piece_to_be_galvanised, $pieceGalvanisedAndScrapPiece);
-        
-        
+                
         if($isAddedPieceGreaterThanCompletedGalvanisedPiece){
             $data1 = array(
                 'piece_galvanised' => $pieceAlreadyGalvanised,
@@ -89,6 +87,9 @@ class Galvanisation_m extends MY_Model {
                 'created_on' => $this->today,
             );
             $this->db->insert('galvanising_process_history', $data);
+
+            $this->stock_manufactured_m->addManufacturedStock($completedBy, $galvanisedProcess, $this->input->post('pieceGalvanised'));
+
             return ['status'=>'success', 'message'=>'The galvanised pieces are added succesfully.'];
         }
         else{
