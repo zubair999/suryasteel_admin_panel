@@ -61,11 +61,16 @@ class Welding_m extends MY_Model {
 
         
         $isAddedWeldedPieceGreaterThanCompletedWeldedPiece = is_greater_than($weldingProcess->piece_to_be_weld, $pieceWeldedAndScrapPiece);
+        
+        $isTaskCompleted = is_task_completed($weldingProcess->piece_to_be_weld, $pieceWeldedAndScrapPiece);
+        
+        
         if($isAddedWeldedPieceGreaterThanCompletedWeldedPiece){
             $data1 = array(
                 'piece_welded' => $pieceAlreadyWelded,
                 'scrap_pieces' => $scrapPieces,
                 'process_status_catalog_id' => get_process_status($weldingProcess->piece_to_be_weld, $pieceWeldedAndScrapPiece),
+                'is_completed' => $isTaskCompleted,
                 'updated_on' => $this->today
             );
 
