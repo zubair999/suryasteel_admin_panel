@@ -169,6 +169,9 @@ $route['v1/addweldingistory'] = 'api/app/Admin/welding/addWeldingHistory';
 $route['v1/getgalvanisationbatch'] = 'api/app/Admin/galvanisation/getGalvanisationBatch';
 $route['v1/addgalvanisedhistory'] = 'api/app/Admin/galvanisation/addGalvanisationHistory';
 
+// STOCK MANUFACTURED
+$route['v1/addmanufacturedstock'] = 'api/app/Admin/stockmanufactured/addManufacturedStock';
+
 // REPORT PROCESS
 $route['v1/getreport'] = 'api/app/Admin/report/getReport';
 

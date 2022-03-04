@@ -7,6 +7,19 @@ class Stock_manufactured_m extends MY_Model {
     protected $primary_col = 'stock_manufactured_id';
     protected $order_by = 'created_on';
 
+    public $addManufacturedStockRule = array(
+        0 => array(
+            'field' => 'categoryId',
+            'label' => 'category',
+            'rules' => 'trim|required'
+        ),
+        1 => array(
+            'field' => 'imageId',
+            'label' => 'Image',
+            'rules' => 'trim|required'
+        )
+    );
+
     public function __construct(){
 		parent::__construct();
 	}
@@ -23,6 +36,7 @@ class Stock_manufactured_m extends MY_Model {
                     sm.stock_manufactured_id,
                     sm.stock_in_kg,
                     sm.stock_in_pcs,
+                    sm.is_added_to_stock,
                     DATE_FORMAT(sm.created_on, "%d-%b-%Y") as created_on,
                     ct.category_name,
                     sz.size_value,
