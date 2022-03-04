@@ -105,6 +105,8 @@ class Welding_m extends MY_Model {
                              w.purchase_item_id,
                              w.piece_to_be_weld,
                              w.piece_welded,
+                             w.scrap_pieces,
+                             w.is_completed,
                              w.remarks,
                              DATE_FORMAT(w.created_on, "%d-%b-%Y") as created_on,
                              DATE_FORMAT(w.updated_on, "%d-%b-%Y") as updated_on,
