@@ -102,7 +102,7 @@ class Stock_manufactured_m extends MY_Model {
             'length_id' => $galvanisedProcess->length_id,
             'purchase_item_id' => $galvanisedProcess->purchase_item_id,
             'product_id' => $product->product_id,
-            'stock_in_kg' => $pieceGalvanised,
+            'stock_in_kg' => (float)$product->weight_per_piece*(float)$pieceGalvanised,
             'stock_in_pcs' => $pieceGalvanised,
             'created_on' => $this->today
         );
