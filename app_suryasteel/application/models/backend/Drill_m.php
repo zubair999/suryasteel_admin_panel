@@ -75,7 +75,6 @@ class Drill_m extends MY_Model {
 
             $this->db->where('drill_process_id', $this->input->post('drillProcessId'));
             $this->db->update('drill_process', $data1);
-            
 
             $data = array(
                 'drilled_by' => $completedBy,
