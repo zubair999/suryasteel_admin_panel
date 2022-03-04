@@ -49,6 +49,9 @@ class Stock_manufactured_m extends MY_Model {
             $this->db->join('size as sz', 'sz.size_id = sm.size_id');
             $this->db->join('length as ln', 'ln.length_id = sm.length_id');
             $this->db->where('sm.purchase_item_id', $purchase_item_id);
+
+            $this->db->order_by('sm.is_added_to_stock', 'asc');
+
             $stock_manufactured = $this->db->get()->result_array();
     
             return $stock_manufactured;
