@@ -22,7 +22,7 @@ class Galvanisation extends REST_Controller
 			} else {
                 $isAdded = $this->galvanisation_m->addGalvanisationHistory($this->input->post('completedBy'));
                 if($isAdded['status'] == 'success'){
-                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Draw process history added for the current batch successfully.'];
+                    $response = ['status' => 200, 'message' => 'success', 'description' => 'Galvanisation process history added for the current batch successfully.'];
                 }
                 else{
                     $response = ['status' => 200, 'message' => 'error', 'description' => $isAdded['message']];
