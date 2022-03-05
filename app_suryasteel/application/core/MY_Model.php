@@ -5,6 +5,7 @@ class MY_Model extends Components
     public $tbl_class = 'classes';
     public $tbl_subjects = 'subjects';
     public $tbl_quiz_type = 'quiz_type';
+
     public function __construct(){
         parent::__construct();
     }

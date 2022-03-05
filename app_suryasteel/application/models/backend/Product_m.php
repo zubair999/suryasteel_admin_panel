@@ -6,6 +6,12 @@ class Product_m extends MY_Model {
 	protected $tbl_name = 'products';
     protected $primary_col = 'product_id';
     protected $order_by = 'created_on';
+    public $product;
+    public $product_id;
+    public $stock;
+    public $stock_in_pcs;
+    public $weight_per_piece;
+    public $stock_manufactured;
 
     public function __construct()
 	{
@@ -202,26 +208,31 @@ class Product_m extends MY_Model {
         $product = $this->get_product_by_id($productId);
         $currentStock = $product->stock;
         $orderQty = $this->input->post('dispatchQty');
-        // $result = is_greater_than($currentStock, $orderQty);
-        // if($result){
         $newStock = (float)$currentStock - (float)$orderQty;
         $data = array(
             'stock' => $newStock
         );
 
-        // echo $orderItem->product_id;
-        // echo "-";
-        // echo $product->stock;
-        // echo "-";
-        // echo $orderQty;
-        // die;
-
         $this->db->where('product_id', $productId);
         $this->db->update('products', $data);
-        // }
-        // else{
-        //     return false;
-        // }
+    }
+
+    public function increase_stock(){
+        $this->product = $this->get_product_by_id($this->product_id);    
+        $currentStock = $this->product->stock;        
+        $new_stock = (float)$currentStock + (float)$this->stock_manufactured;
+        $data = array(
+            'stock' => $new_stock
+        );
+
+        $this->db->where('product_id', $this->product_id);
+        $response = $this->db->update('products', $data);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function returnStock($orderItemId, $deletedDispatchedQty){
@@ -387,6 +398,23 @@ class Product_m extends MY_Model {
                     )
                 );
     }
+
+    // public function addStockToProduct(){
+    //     $data = array(
+    //         'is_added_to_stock' => true,
+    //         'stock_added_by' => $this->input->post('addedBy'),
+    //         'stock_added_on' => $this->today
+    //     );
+        
+    //     $this->db->where('product_id', $this->input->post('stockManufacturedId'));
+    //     $response = $this->db->update('stock_manufactured', $data);
+    //     if($response){
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    // }
 
 //end class
 

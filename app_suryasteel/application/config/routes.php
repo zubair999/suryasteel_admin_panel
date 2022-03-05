@@ -170,7 +170,7 @@ $route['v1/getgalvanisationbatch'] = 'api/app/Admin/galvanisation/getGalvanisati
 $route['v1/addgalvanisedhistory'] = 'api/app/Admin/galvanisation/addGalvanisationHistory';
 
 // STOCK MANUFACTURED
-$route['v1/addmanufacturedstock'] = 'api/app/Admin/stockmanufactured/addManufacturedStock';
+$route['v1/addmanufacturedstocktostockhistory'] = 'api/app/Admin/stockmanufactured/addManufacturedStockToProductStockHistory';
 
 // REPORT PROCESS
 $route['v1/getreport'] = 'api/app/Admin/report/getReport';

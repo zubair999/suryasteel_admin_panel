@@ -6,6 +6,7 @@ use Razorpay\Api\Api;
 require_once FCPATH . '/vendor/autoload.php'; // change path as needed
 
 
+
 class MY_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
@@ -50,7 +51,8 @@ class MY_Controller extends CI_Controller {
             26=>'onesignal_m',
             27=>'length_m',
             28=>'size_m',
-            29=>'stock_manufactured_m'
+            29=>'stockmanufactured_m',
+            30=>'stockhistory_m'
 
         );
         

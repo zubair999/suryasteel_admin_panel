@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') or exit('no dierct script access allowed');
 
-class Stock_manufactured_m extends MY_Model {
+class Stockmanufactured_m extends MY_Model {
 
 	protected $tbl_name = 'stock_manufactured';
     protected $primary_col = 'stock_manufactured_id';
@@ -20,10 +20,22 @@ class Stock_manufactured_m extends MY_Model {
         )
     );
 
+    public $productStockHistory = array(
+        0 => array(
+            'field' => 'stockManufacturedId',
+            'label' => 'Stock Manufactured Id',
+            'rules' => 'trim|required|is_natural'
+        )
+    );
+
     public function __construct(){
 		parent::__construct();
 	}
 
+    public function getStockManufacturedByStockManufacturedId($stock_manufactured_id) {
+        return $this->db->get_where('stock_manufactured', array('stock_manufactured_id'=> $stock_manufactured_id))->row();
+    }
+    
     public function getStockManufacturedCountByPurchaseItemId($purchaseItemId) {
         return $this->db->get_where('stock_manufactured', array('stock_manufactured_id'=> $purchaseItemId))->num_rows();
     }
@@ -92,9 +104,6 @@ class Stock_manufactured_m extends MY_Model {
 
     public function addManufacturedStock($addedBy, $galvanisedProcess, $pieceGalvanised){
         $product = $this->product_m->getProductByCategorySizelength($galvanisedProcess->category_id, $galvanisedProcess->size_id, $galvanisedProcess->length_id);
-
-
-
         $data = array(
             'added_by' => $addedBy,
             'category_id' => $galvanisedProcess->category_id,
@@ -109,6 +118,22 @@ class Stock_manufactured_m extends MY_Model {
         $this->db->insert('stock_manufactured', $data);
     }
 
+    public function updateStockAddedStatus(){
+        $data = array(
+            'is_added_to_stock' => true,
+            'stock_added_by' => $this->input->post('addedBy'),
+            'stock_added_on' => $this->today
+        );
+        
+        $this->db->where('stock_manufactured_id', $this->input->post('stockManufacturedId'));
+        $response = $this->db->update('stock_manufactured', $data);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 //end class
 }
