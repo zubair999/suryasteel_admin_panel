@@ -343,9 +343,9 @@ class Purchase_m extends MY_Model {
             $purchase_item[$key]['process_overview']['welding_process'] = $welding_process_overview;
             $purchase_item[$key]['process_overview']['galvanisation_process'] = $galvanisation_process_overview;
             $purchase_item[$key]['process_overview']['galvanisation_process'] = $galvanisation_process_overview;
-            $purchase_item[$key]['stock_manufactured'] = $this->stock_manufactured_m->stock_manufactured($pi['purchase_item_id']);
-            $purchase_item[$key]['total_manufactured_weight'] = $this->stock_manufactured_m->total_manufactured_weight($pi['purchase_item_id']);
-            $purchase_item[$key]['total_manufactured_piece'] = $this->stock_manufactured_m->total_manufactured_piece($pi['purchase_item_id']);
+            $purchase_item[$key]['stock_manufactured'] = $this->stockmanufactured_m->stock_manufactured($pi['purchase_item_id']);
+            $purchase_item[$key]['total_manufactured_weight'] = $this->stockmanufactured_m->total_manufactured_weight($pi['purchase_item_id']);
+            $purchase_item[$key]['total_manufactured_piece'] = $this->stockmanufactured_m->total_manufactured_piece($pi['purchase_item_id']);
 
 
         }
