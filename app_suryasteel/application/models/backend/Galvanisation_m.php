@@ -88,9 +88,16 @@ class Galvanisation_m extends MY_Model {
             );
             $this->db->insert('galvanising_process_history', $data);
 
-            $this->stock_manufactured_m->addManufacturedStock($completedBy, $galvanisedProcess, $this->input->post('pieceGalvanised'));
+            
 
-            return ['status'=>'success', 'message'=>'The galvanised pieces are added succesfully.'];
+            $response = $this->stockmanufactured_m->addManufacturedStock($completedBy, $galvanisedProcess, $this->input->post('pieceGalvanised'));
+            if($response){
+                return ['status'=>'success', 'message'=>'Galvanisation history is added successfully.'];
+            }
+            else{
+                return ['status'=>'error', 'message'=>'Stock is not updated in manufacturing.'];
+            }
+
         }
         else{
             return ['status'=>'error', 'message'=>'Completed round cannot be more than round drawn earlier in the draw process.'];

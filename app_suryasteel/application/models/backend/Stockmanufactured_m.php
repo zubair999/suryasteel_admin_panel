@@ -115,7 +115,14 @@ class Stockmanufactured_m extends MY_Model {
             'stock_in_pcs' => $pieceGalvanised,
             'created_on' => $this->today
         );
-        $this->db->insert('stock_manufactured', $data);
+        $response = $this->db->insert('stock_manufactured', $data);
+        if($response){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public function updateStockAddedStatus(){
