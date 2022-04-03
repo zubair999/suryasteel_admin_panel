@@ -217,7 +217,7 @@ class Customer_m extends MY_Model {
 
         // $this->db->limit(25);
         // $this->db->order_by('customer_company ASC');
-        $this->db->order_by('is_active desc');
+        // $this->db->order_by('is_active desc');
         $customer = $this->db->get('users')->result_array();
 
         foreach ($customer as $key => $c){

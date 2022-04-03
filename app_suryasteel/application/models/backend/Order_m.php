@@ -168,7 +168,7 @@ class Order_m extends MY_Model {
             $this->db->where('o.user_id', $this->input->post('userId'));
         }
         
-        $this->db->limit(50);
+        $this->db->limit($this->input->post('limit'), $this->input->post('page'));
         $this->db->order_by('o.order_status_catalog_id', 'asc');
         $this->db->order_by('o.order_id', 'desc');
         $order = $this->db->get()->result_array();
