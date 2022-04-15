@@ -40,28 +40,23 @@ class Stockmanufactured_m extends MY_Model {
 
     public $addStockRules = array(
         0 => array(
-            'field' => 'category',
+            'field' => 'categoryId',
             'label' => 'Category',
             'rules' => 'trim|required|is_natural'
         ),
         1 => array(
-            'field' => 'size',
+            'field' => 'sizeId',
             'label' => 'Size',
             'rules' => 'trim|required|is_natural'
         ),
         2 => array(
-            'field' => 'length',
+            'field' => 'lengthId',
             'label' => 'Category',
             'rules' => 'trim|required|is_natural'
         ),
         3 => array(
-            'field' => 'stock_in_kg',
+            'field' => 'stockInKg',
             'label' => 'Stock in kg',
-            'rules' => 'trim|required'
-        ),
-        4 => array(
-            'field' => 'stock_in_pcs',
-            'label' => 'Stock in pcs',
             'rules' => 'trim|required'
         )
     );
