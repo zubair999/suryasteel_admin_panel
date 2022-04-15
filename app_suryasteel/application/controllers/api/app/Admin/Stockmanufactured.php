@@ -85,6 +85,50 @@ class Stockmanufactured extends REST_Controller
         }
     }
 
+    public function addStock_post(){
+        $method = $this->_detect_method();
+        if (!$method == 'POST') {
+            $this->response(['status' => 200, 'message'=>'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
+        }
+        else{
+            $this->form_validation->set_rules($this->stockmanufactured_m->addStockRules);
+            if ($this->form_validation->run() == FALSE) {
+                $res = ['status'=>200, 'message'=>'error', 'description'=>'Invalid details'];
+            }
+            else{
+
+                $product = $this->product_m->getProductByCategorySizelength($this->input->post('category'), $this->input->post('size'), $this->input->post('length'));
+                $data = $this->input->post();
+
+                $this->stockhistory_m->product_id = $product->product_id;
+                $this->stockhistory_m->stock_type = 'Direct Entry';
+                $this->stockhistory_m->stock_in_kg = $data['stock_in_kg'];
+                $this->stockhistory_m->stock_in_pcs = $data['stock_in_pcs'];
+                $this->stockhistory_m->added_by = $data['addedBy'];
+                $isProductHistoryAdded = $this->stockhistory_m->addProductStockHistory();
+
+                if($isProductHistoryAdded){
+                    $this->product_m->product_id = $product->product_id;
+                    $this->product_m->stock_manufactured = $data['stock_in_kg'];
+
+                    $isProductStockUpdated = $this->product_m->increase_stock();
+                        if($isProductStockUpdated){
+                            $product_new_stock = $this->product_m->get_product_by_id($product->product_id)->stock;;
+                            $stockIncreated = ['product_new_stock' => $product_new_stock];
+                            $res = ['status' => 200, 'message' => 'success', 'description' => 'Product Stock updated.', 'data' => $stockIncreated];
+                        }
+                        else{
+                            $res = ['status' => 200, 'message' => 'error', 'description' => 'Stock history added but product stock is not increased.'];
+                        }
+                }
+                else{
+                    $res = ['status'=>200,'message'=>'success','description'=>'Something went wrong.'];
+                }
+            }
+            $this->response($res, REST_Controller::HTTP_OK);
+        }
+    }
+
 
 	
 

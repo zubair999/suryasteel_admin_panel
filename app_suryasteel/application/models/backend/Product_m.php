@@ -347,8 +347,6 @@ class Product_m extends MY_Model {
             $this->db->like('p.product_name', $this->input->post('searchterm'), 'both');
         }
 
-
-
         // $this->db->order_by('p.product_name','asc');
         $this->db->order_by('p.size','asc');
         $this->db->order_by('p.length','asc');

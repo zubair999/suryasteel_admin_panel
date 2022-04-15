@@ -181,6 +181,12 @@ $route['v1/createdeliverychallan'] = 'api/app/Admin/challan/createDeliveryChalla
 // LOG
 $route['v1/getlog'] = 'api/app/Admin/log/getLog';
 
+// STOCK
+$route['v1/addstock'] = 'api/app/Admin/stockmanufactured/addStock';
+// $route['v1/editstaff'] = 'api/app/Admin/staff/editStaff';
+// $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
+// $route['v1/deleteuser'] = 'api/app/Auth/auth/deleteUser';
+
 
 
 

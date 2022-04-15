@@ -6,6 +6,16 @@ class Stockmanufactured_m extends MY_Model {
 	protected $tbl_name = 'stock_manufactured';
     protected $primary_col = 'stock_manufactured_id';
     protected $order_by = 'created_on';
+    public $category_id;
+    public $size_id;
+    public $length_id;
+    public $product_id;
+    public $stock_in_kg;
+    public $stock_in_pcs;
+    public $stock_added_by;
+    public $stock_added_on;
+
+
 
     public $addManufacturedStockRule = array(
         0 => array(
@@ -25,6 +35,34 @@ class Stockmanufactured_m extends MY_Model {
             'field' => 'stockManufacturedId',
             'label' => 'Stock Manufactured Id',
             'rules' => 'trim|required|is_natural'
+        )
+    );
+
+    public $addStockRules = array(
+        0 => array(
+            'field' => 'category',
+            'label' => 'Category',
+            'rules' => 'trim|required|is_natural'
+        ),
+        1 => array(
+            'field' => 'size',
+            'label' => 'Size',
+            'rules' => 'trim|required|is_natural'
+        ),
+        2 => array(
+            'field' => 'length',
+            'label' => 'Category',
+            'rules' => 'trim|required|is_natural'
+        ),
+        3 => array(
+            'field' => 'stock_in_kg',
+            'label' => 'Stock in kg',
+            'rules' => 'trim|required'
+        ),
+        4 => array(
+            'field' => 'stock_in_pcs',
+            'label' => 'Stock in pcs',
+            'rules' => 'trim|required'
         )
     );
 
@@ -138,6 +176,26 @@ class Stockmanufactured_m extends MY_Model {
             return true;
         }
         else{
+            return false;
+        }
+    }
+
+    public function addStock(){
+        $product = $this->product_m->getProductByCategorySizelength($this->input->post('category'), $this->input->post('size'), $this->input->post('length'));
+
+        if(is_object($product)){
+            $stockData = array(
+                'category_id' => $this->category_id,
+                'size_id' => $this->size_id,
+                'length_id' => $this->length_id,
+                'product_id' => $this->product_id,
+                'stock_in_kg' => $this->stock_in_kg,
+                'stock_in_pcs' => $this->stock_in_pcs,
+                'stock_added_by' => $this->stock_added_by,
+                'stock_added_on' => $this->stock_added_on
+            );
+            return $this->db->insert('stock_manufactured', $stockData);
+        } else {
             return false;
         }
     }

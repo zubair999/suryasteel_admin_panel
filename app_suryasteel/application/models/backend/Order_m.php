@@ -141,6 +141,8 @@ class Order_m extends MY_Model {
                              pm.payment_mode as payment_mode_value
                              '
                         );
+
+        
         $this->db->from('orders as o');
         $this->db->join('users as u', 'o.user_id = u.user_id', 'left');
         $this->db->join('order_status_catalog as st', 'o.order_status_catalog_id = st.order_status_catalog_id');
