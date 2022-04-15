@@ -97,29 +97,29 @@ class Stockmanufactured extends REST_Controller
             }
             else{
 
-                $product = $this->product_m->getProductByCategorySizelength($this->input->post('category'), $this->input->post('size'), $this->input->post('length'));
+                $product = $this->product_m->getProductByCategorySizelength($this->input->post('categoryId'), $this->input->post('sizeId'), $this->input->post('lengthId'));
                 $data = $this->input->post();
 
                 $this->stockhistory_m->product_id = $product->product_id;
                 $this->stockhistory_m->stock_type = 'Direct Entry';
-                $this->stockhistory_m->stock_in_kg = $data['stock_in_kg'];
-                $this->stockhistory_m->stock_in_pcs = $data['stock_in_pcs'];
+                $this->stockhistory_m->stock_in_kg = $data['stockInKg'];
+                $this->stockhistory_m->stock_in_pcs = $data['stockInPcs'];
                 $this->stockhistory_m->added_by = $data['addedBy'];
                 $isProductHistoryAdded = $this->stockhistory_m->addProductStockHistory();
 
                 if($isProductHistoryAdded){
                     $this->product_m->product_id = $product->product_id;
-                    $this->product_m->stock_manufactured = $data['stock_in_kg'];
+                    $this->product_m->stock_manufactured = $data['stockInKg'];
 
                     $isProductStockUpdated = $this->product_m->increase_stock();
-                        if($isProductStockUpdated){
-                            $product_new_stock = $this->product_m->get_product_by_id($product->product_id)->stock;;
-                            $stockIncreated = ['product_new_stock' => $product_new_stock];
-                            $res = ['status' => 200, 'message' => 'success', 'description' => 'Product Stock updated.', 'data' => $stockIncreated];
-                        }
-                        else{
-                            $res = ['status' => 200, 'message' => 'error', 'description' => 'Stock history added but product stock is not increased.'];
-                        }
+                    if($isProductStockUpdated){
+                        $product_new_stock = $this->product_m->get_product_by_id($product->product_id)->stock;;
+                        $stockIncreated = ['product_new_stock' => $product_new_stock];
+                        $res = ['status' => 200, 'message' => 'success', 'description' => 'Product Stock updated.', 'data' => $stockIncreated];
+                    }
+                    else{
+                        $res = ['status' => 200, 'message' => 'error', 'description' => 'Stock history added but product stock is not increased.'];
+                    }
                 }
                 else{
                     $res = ['status'=>200,'message'=>'success','description'=>'Something went wrong.'];
