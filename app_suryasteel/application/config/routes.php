@@ -189,6 +189,11 @@ $route['v1/addstock'] = 'api/app/Admin/stockmanufactured/addStock';
 
 
 
+// KIAASA TEST
+$route['v1/addmyorder1'] = 'api/app/Admin/order/createMyOrder1';
+$route['v1/addmyorder'] = 'api/app/Admin/order/createMyOrder';
+
+
 
 
 /************************************************************/
