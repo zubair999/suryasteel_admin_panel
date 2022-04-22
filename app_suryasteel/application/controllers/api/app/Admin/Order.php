@@ -293,7 +293,7 @@ class Order extends REST_Controller
 
 
     public function createMyOrder1_post(){
-        $response = ['status' => 200, 'message' =>'success', 'description' =>'Order fetched successfully.'];
+        $response = ['status' => 200, 'message' =>'success', 'description' =>'Order fetched successfully.', 'data'=>$this->input->post()];
         $this->response($response, REST_Controller::HTTP_OK);
         exit();
     }
