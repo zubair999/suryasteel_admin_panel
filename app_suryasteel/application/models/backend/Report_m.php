@@ -186,6 +186,15 @@ class Report_m extends MY_Model {
         }
     }
 
+    public function get_stock1_report($since, $until){
+        $this->db->select("psh.product_stock_history_id, p.product_name, psh.stock_in_kg");
+        $this->db->from('product_stock_history as psh');
+        $this->db->join('products as p', "psh.product_id = p.product_id");
+        $this->db->where('psh.created_on >=', $since);
+        $this->db->where('psh.created_on <=', $until);
+        $this->db->order_by("psh.created_on");
+        return $this->db->get()->result_array();
+    }
     
 
 

@@ -292,55 +292,7 @@ class Order extends REST_Controller
 
 
 
-    public function createMyOrder1_post(){
-        $response = ['status' => 200, 'message' =>'success', 'description' =>'Order fetched successfully.', 'data'=>$this->input->post()];
-        $this->response($response, REST_Controller::HTTP_OK);
-        exit();
-    }
-
-
-
-    public function createMyOrder_post()
-    {
-        $method = $this->_detect_method();
-        if (!$method == 'POST') {
-            $this->response(['status' => 400, 'messsage' => 'error', 'description' => 'Bad request.'], REST_Controller::HTTP_BAD_REQUEST);
-            exit();
-        } else {
-            $this->form_validation->set_rules('customer_id', 'customer_id', 'trim|required');
-      
-
-            if ($this->form_validation->run() == FALSE) {
-                $response = ['status' => 200, 'message' => 'error', 'description' => validation_errors()];
-            } else {
-
-                $this->order_m->customer_id = $this->input->post('customer_id');
-                $this->order_m->address_id = $this->input->post('address_id');
-                $this->order_m->net_price = $this->input->post('net_price');
-                $this->order_m->products = $this->input->post('product');
-                $this->order_m->colors = $this->input->post('color');
-                $this->order_m->size = $this->input->post('size');
-                $this->order_m->quantity = $this->input->post('quantity');
-                $this->order_m->store_id = $this->input->post('store_id');
-
-                $isInserted = $this->order_m->create_order();
-                if($isInserted) {
-                    $isItemsInserted = $this->order_m->create_order_item();
-                    if($isItemsInserted){
-                        // $response = ['status' => 200, 'message' => 'success', 'description' => "Order created successfully"];
-                        $this->response(['status' => 200, 'messsage' => 'success', 'description' => 'Order created successfully'], REST_Controller::HTTP_OK);   
-                        // echo '$response';                     
-                    } else {
-                        $this->response(['status' => 200, 'messsage' => 'error', 'description' => 'Something went wrong1'], REST_Controller::HTTP_BAD_REQUEST);                        
-                    }
-                } else {
-                    $this->response(['status' => 200, 'messsage' => 'error', 'description' => 'Something went wrong'], REST_Controller::HTTP_BAD_REQUEST);
-                }
-
-
-            }
-        }
-    }
+   
     
 
 	//CLASS ENDS

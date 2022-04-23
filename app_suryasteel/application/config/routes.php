@@ -175,6 +175,9 @@ $route['v1/addmanufacturedstocktostockhistory'] = 'api/app/Admin/stockmanufactur
 // REPORT PROCESS
 $route['v1/getreport'] = 'api/app/Admin/report/getReport';
 
+// STOCK REPORT
+$route['v1/getstockreport'] = 'api/app/Admin/report/getStockReport';
+
 // CHALLAN PROCESS
 $route['v1/createdeliverychallan'] = 'api/app/Admin/challan/createDeliveryChallan';
 
@@ -187,11 +190,6 @@ $route['v1/addstock'] = 'api/app/Admin/stockmanufactured/addStock';
 // $route['v1/getstaff'] = 'api/app/Admin/staff/getStaff';
 // $route['v1/deleteuser'] = 'api/app/Auth/auth/deleteUser';
 
-
-
-// KIAASA TEST
-$route['v1/addmyorder1'] = 'api/app/Admin/order/createMyOrder1';
-$route['v1/addmyorder'] = 'api/app/Admin/order/createMyOrder';
 
 
 
